@@ -5,3 +5,8 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+#Formas de pago
+Formapago.create(nombre: 'Efectivo')
+Formapago.create(nombre: 'Transferencia')
+Formapago.create(nombre: 'Cheque')

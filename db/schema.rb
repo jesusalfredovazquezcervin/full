@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20150911191156) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "captures", force: true do |t|
     t.boolean  "ticket"
     t.boolean  "fecha"
@@ -128,10 +131,10 @@ ActiveRecord::Schema.define(version: 20150911191156) do
   end
 
   create_table "sucursals", force: true do |t|
-    t.string   "cliente_id"
+    t.integer  "cliente_id"
     t.string   "nombre"
     t.string   "telefono"
-    t.string   "contacto_id"
+    t.integer  "contacto_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "recepcionista_id"

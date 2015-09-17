@@ -2,7 +2,7 @@
 lock '3.4.0'
 
 set :application, 'full'
-set :repo_url, 'git@github.com:jesusalfredovazquezcervin/full.git'
+set :repo_url, 'https://github.com/jesusalfredovazquezcervin/full.git'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
@@ -17,7 +17,7 @@ set :deploy_to, '/home/deploy/full'
 # set :format, :pretty
 
 # Default value for :log_level is :debug
-# set :log_level, :debug
+# set :log_level, :debug  
 
 # Default value for :pty is false
 # set :pty, true
