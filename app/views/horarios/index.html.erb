@@ -1,0 +1,162 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+
+    <h2>Listado de Horarios</h2>
+    <ol class="breadcrumb">
+      <li>
+        <a href="<%= url_for :controller => 'home', :action => 'index' %>">Inicio</a>
+      </li>
+      <li>
+        <a>Catalogos</a>
+      </li>
+      <li class="active">
+        <strong>Horarios</strong>
+      </li>
+    </ol>
+  </div>
+  <div class="col-lg-2">
+
+  </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          &nbsp;<a href="<%= url_for :controller => 'horarios', :action => 'new' %>">
+          <button class="btn btn-outline btn-warning btn-rounded" type="button"><i class="fa fa-plus"></i>&nbsp;Nuevo</button>
+        </a>
+          <div class="ibox-tools">
+            Total records: <%= @horarios.count %>
+            <a >
+              <i class="fa fa-bars"></i>
+            </a>
+          </div>
+        </div>
+        <div class="ibox-content">
+
+          <table class="table table-striped table-bordered table-hover dataTables-example">
+            <thead>
+            <tr>
+              <th>Cliente</th>
+              <th>Nombre</th>
+              <th>Nombre</th>
+              <th>Lunes</th>
+              <th>Martes</th>
+              <th>Miercoles</th>
+              <th>Jueves</th>
+              <th>Viernes</th>
+              <th>Sabado</th>
+              <th>Domingo</th>
+              <th>&nbsp;&nbsp;Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @horarios.each do |horario| %>
+                <tr>
+                  <td><%= Cliente.find(horario.cliente_id).nombre %></td>
+                  <td><% if (horario.sucursal_id.nil? == false) %>
+                        <%= Sucursal.find(horario.sucursal_id).nombre%>
+                    <%end%>
+                  </td>
+                  <td><%= horario.nombre %></td>
+                  <td><%if(horario.lunhini.nil? || horario.lunhfin.nil? )%>
+                        <%= "No laboral" %>
+                    <%else%>
+                        <%= horario.lunhini.to_s(:time)%>&nbsp;-&nbsp;<%=horario.lunhfin.to_s(:time)%>
+                    <%end%></td>
+                  <td><%if(horario.marhini.nil? || horario.marhfin.nil? )%>
+                        <%= "No laboral" %>
+                    <%else%>
+                        <%= horario.marhini.to_s(:time)%>&nbsp;-&nbsp;<%=horario.marhfin.to_s(:time)%>
+                    <%end%></td>
+                  <td><%if(horario.miehini.nil? || horario.miehfin.nil? )%>
+                        <%= "No laboral" %>
+                    <%else%>
+                        <%= horario.miehini.to_s(:time)%>&nbsp;-&nbsp;<%=horario.miehfin.to_s(:time)%>
+                    <%end%></td>
+
+                  <td><%if(horario.juehini.nil? || horario.juehfin.nil? )%>
+                        <%= "No laboral" %>
+                    <%else%>
+                      <%= horario.juehini.to_s(:time)%>&nbsp;-&nbsp;<%=horario.juehfin.to_s(:time)%>
+                    <%end%></td>
+
+                  <td><%if(horario.viehini.nil? || horario.viehfin.nil? )%>
+                        <%= "No laboral" %>
+                    <%else%>
+                        <%= horario.viehini.to_s(:time)%>&nbsp;-&nbsp;<%=horario.viehfin.to_s(:time)%>
+                    <%end%></td>
+                  <td><%if(horario.sabhini.nil? || horario.sabhfin.nil? )%>
+                        <%= "No laboral" %>
+                    <%else%>
+                        <%= horario.sabhini.to_s(:time)%>&nbsp;-&nbsp;<%=horario.sabhfin.to_s(:time)%>
+                    <%end%></td>
+                  <td><%if(horario.domhini.nil? || horario.domhfin.nil? )%>
+                        <%= "No laboral" %>
+                    <%else%>
+                        <%= horario.domhini.to_s(:time)%>&nbsp;-&nbsp;<%=horario.domhfin.to_s(:time)%>
+                    <%end%></td>
+
+                  <td>
+                    <%= link_to 'V', horario,class: "btn btn-primary btn-circle", title:"Ver" %>
+                    <%= link_to 'M', edit_horario_path(horario), class: "btn btn-warning btn-circle", title:"Modificar" %>
+                    <%= link_to 'E', horario, method: :delete, class: "btn btn-danger btn-circle", title:"Eliminar" ,data: { confirm: '¿Está seguro?'} %>
+                  </td>
+                </tr>
+            <% end %>
+
+
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+<% content_for :javascript do %>
+
+    <script type="text/javascript">
+
+
+        $(function() {
+
+            $('.dataTables-example').dataTable({
+                "dom": 'T<"clear">lfrtip',
+                "tableTools": {
+                    "sSwfPath": "../assets/dataTables/swf/copy_csv_xls_pdf.swf"
+                }
+            });
+
+            /* Init DataTables */
+            var oTable = $('#editable').dataTable();
+
+            /* Apply the jEditable handlers to the table */
+            oTable.$('td').editable( '../example_ajax.php', {
+                "callback": function( sValue, y ) {
+                    var aPos = oTable.fnGetPosition( this );
+                    oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+                },
+                "submitdata": function ( value, settings ) {
+                    return {
+                        "row_id": this.parentNode.getAttribute('id'),
+                        "column": oTable.fnGetPosition( this )[2]
+                    };
+                },
+
+                "width": "90%",
+                "height": "100%"
+            } );
+
+
+        });
+
+    </script>
+
+
+
+<% end %>

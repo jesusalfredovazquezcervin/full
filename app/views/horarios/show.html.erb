@@ -1,0 +1,155 @@
+
+<div class="col-lg-10">
+  <h2>Mostrar horario</h2>
+</div>
+<p id="notice"><%= notice %></p>
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+
+    <ol class="breadcrumb">
+      <li>
+        <a href="<%= url_for :controller => 'home', :action => 'index' %>">Inicio</a>
+      </li>
+      <li>
+        <a>Catalogos</a>
+      </li>
+      <li>
+        <a href="<%= url_for :controller => 'horarios', :action => 'index' %>">Horario</a>
+
+      </li>
+      <li class="active">
+        <strong>Mostrar</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Formulario<small> que muestra los datos de un horario.</small></h5>
+
+        </div>
+        <div class="ibox-content">
+
+          <div class="form-group">
+            <div class="form-group">
+              <h4>Cliente:</h4>
+              <div class="col-sm-5">
+                <%= Cliente.find(@horario.cliente_id).nombre %>
+              </div><br>
+              <h4>Sucursal:</h4>
+              <div class="col-sm-5">
+                <% if (@horario.sucursal_id.nil? == false) %>
+                    <%= Sucursal.find(@horario.sucursal_id).nombre%>
+                <%end%>
+              </div><br>
+              <h4>Nombre:</h4>
+              <div class="col-sm-5">
+                <%= @horario.nombre %>
+              </div><br>
+
+              <h4>Lunes:</h4>
+              <div class="col-sm-5">
+                <%if(@horario.lunhini.nil? || @horario.lunhfin.nil? )%>
+                    <%= "No laboral" %>
+                <%else%>
+                    <%=@horario.lunhini.to_s(:time)%>&nbsp;-&nbsp;<%=@horario.lunhfin.to_s(:time)%>
+                <%end%>
+              </div><br>
+
+              <h4>Martes:</h4>
+              <div class="col-sm-5">
+                <%if(@horario.marhini.nil? || @horario.marhfin.nil? )%>
+                    <%= "No laboral" %>
+                <%else%>
+                    <%=@horario.marhini.to_s(:time)%>&nbsp;-&nbsp;<%=@horario.marhfin.to_s(:time)%>
+                <%end%>
+              </div><br>
+
+              <h4>Miercoles:</h4>
+              <div class="col-sm-5">
+                <%if(@horario.miehini.nil? || @horario.miehfin.nil? )%>
+                    <%= "No laboral" %>
+                <%else%>
+                    <%=@horario.miehini.to_s(:time)%>&nbsp;-&nbsp;<%=@horario.miehfin.to_s(:time)%>
+                <%end%>
+              </div><br>
+
+              <h4>Jueves:</h4>
+              <div class="col-sm-5">
+                <%if(@horario.juehini.nil? || @horario.juehfin.nil? )%>
+                    <%= "No laboral" %>
+                <%else%>
+                    <%=@horario.juehini.to_s(:time)%>&nbsp;-&nbsp;<%=@horario.juehfin.to_s(:time)%>
+                <%end%>
+              </div><br>
+
+              <h4>Viernes:</h4>
+              <div class="col-sm-5">
+                <%if(@horario.viehini.nil? || @horario.viehfin.nil? )%>
+                    <%= "No laboral" %>
+                <%else%>
+                    <%=@horario.viehini.to_s(:time)%>&nbsp;-&nbsp;<%=@horario.viehfin.to_s(:time)%>
+                <%end%>
+              </div><br>
+              <h4>Sabado:</h4>
+              <div class="col-sm-5">
+                <%if(@horario.sabhini.nil? || @horario.sabhfin.nil? )%>
+                    <%= "No laboral" %>
+                <%else%>
+                    <%=@horario.sabhini.to_s(:time)%>&nbsp;-&nbsp;<%=@horario.sabhfin.to_s(:time)%>
+                <%end%>
+              </div><br>
+              <h4>Domingo:</h4>
+              <div class="col-sm-5">
+                <%if(@horario.domhini.nil? || @horario.domhfin.nil? )%>
+                    <%= "No laboral" %>
+                <%else%>
+                    <%=@horario.domhini.to_s(:time)%>&nbsp;-&nbsp;<%=@horario.domhfin.to_s(:time)%>
+                <%end%>
+              </div><br>
+
+            </div>
+            <br>
+            <div class="hr-line-dashed"></div>
+
+
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-4 col-sm-offset-2">
+              <a href="<%= url_for :controller => 'horarios', :action => 'index' %>">
+                <button class="btn btn-outline btn-danger btn-rounded" type="button"><i class="fa fa-list-ol"></i>&nbsp;Listado</button>
+              </a>
+
+              <a href="<%= url_for :controller => 'horarios', :action => 'edit', :id => @horario.id %>">
+                <button class="btn btn-outline btn-success btn-rounded" type="button"><i class="fa fa-pencil"></i>&nbsp;Editar</button>
+              </a>
+
+              <a href="<%= url_for :controller => 'horarios', :action => 'new' %>">
+                <button class="btn btn-outline btn-warning btn-rounded" type="button"><i class="fa fa-plus"></i>&nbsp;Nuevo</button>
+              </a>
+            </div>
+
+
+
+          </div>
+          <br><br>
+
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+

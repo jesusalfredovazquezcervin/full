@@ -1,0 +1,100 @@
+<div class="row border-bottom white-bg">
+   <!-- <nav class="navbar navbar-static-top" role="navigation"> -->
+       <nav class="navbar navbar-fixed-top" role="navigation">
+
+    <div class="navbar-header">
+        <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+            <i class="fa fa-reorder"></i>
+        </button>
+        <a href="<%= url_for :controller => 'layoutsoptions', :action => 'index'%> " class="navbar-brand">CALL</a>
+
+    </div>
+    <div class="navbar-collapse collapse" id="navbar">
+        <ul class="nav navbar-nav">
+
+            <li class="active">
+                <a aria-expanded="false" role="button" href="<%= url_for :controller => 'layoutsoptions', :action => 'index' %>"> Centro de administracion de llamadas</a>
+            </li>
+
+        <li class="dropdown">
+            <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Catalogos <span class="caret"></span></a>
+            <ul role="menu" class="dropdown-menu">
+              <li><a href="<%= url_for :controller => 'clientes', :action => 'index'%> ">Clientes</a></li>
+              <li><a href="<%= url_for :controller => 'sucursals', :action => 'index'%> ">Sucursales</a></li>
+              <li><a href="<%= url_for :controller => 'contactos', :action => 'index'%>">Contactos</a></li>
+              <li><a href="<%= url_for :controller => 'direccions', :action => 'index'%>">Direcciones</a></li>
+              <li><a href="<%= url_for :controller => 'horarios', :action => 'index'%>">Horarios</a></li>
+              <li><a href="<%= url_for :controller => 'datosgenerales', :action => 'index'%>">Datos generales</a></li>
+
+              <li><a href="<%= url_for :controller => 'users', :action => 'index'%>">Usuarios</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Menu item <span class="caret"></span></a>
+            <ul role="menu" class="dropdown-menu">
+                <li><a href="">Menu item</a></li>
+                <li><a href="">Menu item</a></li>
+                <li><a href="">Menu item</a></li>
+                <li><a href="">Menu item</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Menu item <span class="caret"></span></a>
+            <ul role="menu" class="dropdown-menu">
+                <li><a href="">Menu item</a></li>
+                <li><a href="">Menu item</a></li>
+                <li><a href="">Menu item</a></li>
+                <li><a href="">Menu item</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Menu item <span class="caret"></span></a>
+            <ul role="menu" class="dropdown-menu">
+                <li><a href="">Menu item</a></li>
+                <li><a href="">Menu item</a></li>
+                <li><a href="">Menu item</a></li>
+                <li><a href="">Menu item</a></li>
+            </ul>
+        </li>
+
+
+
+    </ul>
+
+    <ul class="nav navbar-top-links navbar-right">
+        <li>
+            <a href="#">
+                <i class="fa fa-sign-out"></i> Log out
+            </a>
+        </li>
+    </ul>
+      <%= select("post", "cliente_id", Cliente.all.collect {|p| [ p.nombre, p.id ] },
+                 {include_blank: true}, {class: 'chosen-select', multiple: true, style: "width:180px;", data: {placeholder: "Seleciona cliente"} })%>
+
+
+
+</div>
+        </nav>
+        </div>
+<br><br><br>
+
+
+<% content_for :javascript do %>
+
+    <script type="text/javascript">
+
+
+        var config = {
+        '.chosen-select'           : {},
+        '.chosen-select-deselect'  : {allow_single_deselect:true},
+        '.chosen-select-no-single' : {disable_search_threshold:10},
+        '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+        '.chosen-select-width'     : {width:"95%"}
+        }
+        for (var selector in config) {
+        $(selector).chosen(config[selector]);
+        }
+
+
+    </script>
+<% end %>

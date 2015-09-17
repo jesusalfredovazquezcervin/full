@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sucursal_id: 1
+  calle: MyString
+  numero: MyString
+  colonia: MyString
+  delegacion: MyString
+  cp: MyString
+  telefono: MyString
+  referencia: MyString
+  mapsgoogle: MyString
+  matriz: false
+
+two:
+  sucursal_id: 1
+  calle: MyString
+  numero: MyString
+  colonia: MyString
+  delegacion: MyString
+  cp: MyString
+  telefono: MyString
+  referencia: MyString
+  mapsgoogle: MyString
+  matriz: false

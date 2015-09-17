@@ -1,0 +1,37 @@
+<%= form_for(@capture) do |f| %>
+  <% if @capture.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@capture.errors.count, "error") %> prohibited this capture from being saved:</h2>
+
+      <ul>
+      <% @capture.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :ticket %><br>
+    <%= f.check_box :ticket %>
+  </div>
+  <div class="field">
+    <%= f.label :fecha %><br>
+    <%= f.check_box :fecha %>
+  </div>
+  <div class="field">
+    <%= f.label :fecha %><br>
+    <%= f.check_box :fecha %>
+  </div>
+  <div class="field">
+    <%= f.label :hora %><br>
+    <%= f.check_box :hora %>
+  </div>
+  <div class="field">
+    <%= f.label :para %><br>
+    <%= f.check_box :para %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

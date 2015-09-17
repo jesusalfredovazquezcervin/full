@@ -1,0 +1,124 @@
+
+<div class="col-lg-10">
+  <h2>Mostrar contacto</h2>
+</div>
+<p id="notice"><%= notice %></p>
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+
+    <ol class="breadcrumb">
+      <li>
+        <a href="<%= url_for :controller => 'home', :action => 'index' %>">Inicio</a>
+      </li>
+      <li>
+        <a>Catalogos</a>
+      </li>
+      <li>
+        <a href="<%= url_for :controller => 'contactos', :action => 'index' %>">Contactos</a>
+
+      </li>
+      <li class="active">
+        <strong>Mostrar</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Formulario<small> que muestra los datos de un contacto.</small></h5>
+
+        </div>
+        <div class="ibox-content">
+
+          <div class="form-group">
+            <div class="form-group">
+              <h4>Cliente:</h4>
+              <div class="col-sm-5">
+                <%= Cliente.find(@contacto.cliente_id).nombre %>
+              </div><br>
+              <h4>Sucursal:</h4>
+              <div class="col-sm-5">
+                <% if (@contacto.sucursal_id.nil? == false) %>
+                    <%= Sucursal.find(@contacto.sucursal_id).nombre%>
+                <%end%>
+              </div><br>
+              <h4>Nombre:</h4>
+              <div class="col-sm-5">
+                <%= @contacto.nombre %>
+              </div><br>
+
+              <h4>Telefono:</h4>
+              <div class="col-sm-5">
+                <%= @contacto.telefono%>
+              </div><br>
+
+              <h4>Email:</h4>
+              <div class="col-sm-5">
+                <%= @contacto.email%>
+              </div><br>
+
+              <h4>Ext:</h4>
+              <div class="col-sm-5">
+                <%= @contacto.ext%>
+              </div><br>
+
+              <h4>Cel:</h4>
+              <div class="col-sm-5">
+                <%= @contacto.cel %>
+              </div><br>
+
+              <h4>Skype:</h4>
+              <div class="col-sm-5">
+                <%= @contacto.skype %>
+              </div><br>
+
+              <h4>Puesto:</h4>
+              <div class="col-sm-5">
+                <%= @contacto.puesto%>
+              </div><br>
+
+            </div>
+            <br>
+            <div class="hr-line-dashed"></div>
+
+
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-4 col-sm-offset-2">
+              <a href="<%= url_for :controller => 'contactos', :action => 'index' %>">
+                <button class="btn btn-outline btn-danger btn-rounded" type="button"><i class="fa fa-list-ol"></i>&nbsp;Listado</button>
+              </a>
+
+              <a href="<%= url_for :controller => 'contactos', :action => 'edit', :id => @contacto.id %>">
+                <button class="btn btn-outline btn-success btn-rounded" type="button"><i class="fa fa-pencil"></i>&nbsp;Editar</button>
+              </a>
+
+              <a href="<%= url_for :controller => 'contactos', :action => 'new' %>">
+                <button class="btn btn-outline btn-warning btn-rounded" type="button"><i class="fa fa-plus"></i>&nbsp;Nuevo</button>
+              </a>
+            </div>
+
+
+
+          </div>
+          <br><br>
+
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+

@@ -1,0 +1,335 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+
+    <ol class="breadcrumb">
+      <li>
+        <a href="<%= url_for :controller => 'home', :action => 'index' %>">Inicio</a>
+      </li>
+      <li>
+        <a>Catalogos</a>
+      </li>
+      <li>
+        <a href="<%= url_for :controller => 'horarios', :action => 'index' %>">Horarios</a>
+
+      </li>
+      <li class="active">
+        <strong>Agregar / Modificar horario</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Formulario<small> para  agregar o modificar a un horario.</small></h5>
+
+        </div>
+        <div class="ibox-content">
+
+          <%= form_for(@horario, controller: "horarios", action: "create", class: 'form-horizontal') do |f| %>
+              <% if @horario.errors.any? %>
+                  <div id="error_explanation">
+                    <h2><%= @horario.errors.count %> error(es) no permitieron guardar el registro:</h2>
+
+                    <ul>
+                      <% @horario.errors.full_messages.each do |msg| %>
+                          <li><%= msg %></li>
+                      <% end %>
+                    </ul>
+                  </div>
+              <% end %>
+
+              <div class="form-group">
+                <div class="form-group">
+                  <%= f.label :cliente, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= select("post", "cliente_id", Cliente.all.collect {|p| [ p.nombre, p.id ] },
+                               {prompt: 'Seleccione cliente',selected: @horario.cliente_id, required: true}, { class: 'chosen-select', style: "width:350px;"}) %>
+
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label :sucursal, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= select("post", "sucursal_id", Sucursal.all.collect {|p| [ p.nombre, p.id ] },
+                               {prompt: 'Seleccione sucursal',selected: @horario.sucursal_id , required: true}, { class: 'chosen-select', style: "width:350px;"}) %>
+
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label :nombre, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.text_field :nombre, class: 'form-control' %>
+                  </div>
+                </div><br>
+                <div class="hr-line-dashed"></div>
+
+                <div class="form-group" >
+                  <%= f.label :lunes, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5" style="width: 200px">
+                    <div class="input-group clockpicker" data-autoclose="true" >
+                      <%if @horario.lunhini.nil?%>
+                          <%= f.text_field :lunhini, class: 'form-control'%>
+                      <%else%>
+                          <%= f.text_field :lunhini, class: 'form-control', value: @horario.lunhini.to_s(:time),  :required => true%>
+                      <%end%>
+                      <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-time"></span>
+                    </span>
+                    </div>
+                  </div>
+                  <%= f.label " a ", class: 'col-sm-1 control-label', style: "width: 50px"%>
+                  <div class="col-sm-5" style="width: 200px">
+                    <div class="input-group clockpicker" data-autoclose="true" >
+                      <%if @horario.lunhfin.nil?%>
+                          <%= f.text_field :lunhfin, class: 'form-control'%>
+                      <%else%>
+                          <%= f.text_field :lunhfin, class: 'form-control',value: @horario.lunhfin.to_s(:time)%>
+                      <%end%>
+                      <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-time"></span>
+                    </span>
+                    </div>
+                  </div>
+                </div><br>
+                <div class="hr-line-dashed"></div>
+
+
+
+                <div class="form-group">
+                  <%= f.label :martes, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5" style="width: 200px">
+                    <div class="input-group clockpicker" data-autoclose="true" >
+                      <%if @horario.marhini.nil?%>
+                          <%= f.text_field :marhini, class: 'form-control'%>
+                      <%else%>
+                          <%= f.text_field :marhini, class: 'form-control',value: @horario.marhini.to_s(:time)%>
+                      <%end%>
+                      <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-time"></span>
+                    </span>
+                    </div>
+                  </div>
+                  <%= f.label " a ", class: 'col-sm-1 control-label', style: "width: 50px"%>
+                  <div class="col-sm-5" style="width: 200px">
+                    <div class="input-group clockpicker" data-autoclose="true" >
+                      <%if @horario.marhfin.nil?%>
+                          <%= f.text_field :marhfin, class: 'form-control'%>
+                      <%else%>
+                          <%= f.text_field :marhfin, class: 'form-control',value: @horario.marhfin.to_s(:time)%>
+                      <%end%>
+                      <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-time"></span>
+                    </span>
+                    </div>
+                  </div>
+                </div><br>
+                <div class="hr-line-dashed"></div>
+
+
+
+                <div class="form-group">
+                  <%= f.label :miercoles, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5" style="width: 200px">
+                    <div class="input-group clockpicker" data-autoclose="true" >
+                      <%if @horario.miehini.nil?%>
+                          <%= f.text_field :miehini, class: 'form-control'%>
+                      <%else%>
+                          <%= f.text_field :miehini, class: 'form-control',value: @horario.miehini.to_s(:time)%>
+                      <%end%>
+                      <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-time"></span>
+                    </span>
+                    </div>
+                  </div>
+                  <%= f.label " a ", class: 'col-sm-1 control-label', style: "width: 50px"%>
+                  <div class="col-sm-5" style="width: 200px">
+                    <div class="input-group clockpicker" data-autoclose="true" >
+                      <%if @horario.miehfin.nil?%>
+                          <%= f.text_field :miehfin, class: 'form-control'%>
+                      <%else%>
+                          <%= f.text_field :miehfin, class: 'form-control',value: @horario.miehfin.to_s(:time)%>
+                      <%end%>
+                      <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-time"></span>
+                    </span>
+                    </div>
+                  </div>
+                </div><br>
+                <div class="hr-line-dashed"></div>
+
+
+
+                <div class="form-group">
+                  <%= f.label :jueves, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5" style="width: 200px">
+                    <div class="input-group clockpicker" data-autoclose="true" >
+                      <%if @horario.juehini.nil?%>
+                          <%= f.text_field :juehini, class: 'form-control'%>
+                      <%else%>
+                          <%= f.text_field :juehini, class: 'form-control', value:  @horario.juehini.to_s(:time)%>
+                      <%end%>
+                      <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-time"></span>
+                    </span>
+                    </div>
+                  </div>
+                  <%= f.label " a ", class: 'col-sm-1 control-label', style: "width: 50px"%>
+                  <div class="col-sm-5" style="width: 200px">
+                    <div class="input-group clockpicker" data-autoclose="true" >
+                      <%if @horario.juehfin.nil?%>
+                          <%= f.text_field :juehfin, class: 'form-control'%>
+                      <%else%>
+                          <%= f.text_field :juehfin, class: 'form-control', value: @horario.juehfin.to_s(:time),:required => true%>
+                      <%end%>
+                      <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-time"></span>
+                    </span>
+                    </div>
+                  </div>
+                </div><br>
+                <div class="hr-line-dashed"></div>
+
+
+
+                <div class="form-group">
+                  <%= f.label :viernes, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5" style="width: 200px">
+                    <div class="input-group clockpicker" data-autoclose="true" >
+                      <%if @horario.viehini.nil?%>
+                          <%= f.text_field :viehini, class: 'form-control'%>
+                      <%else%>
+                          <%= f.text_field :viehini, class: 'form-control', value: @horario.viehini.to_s(:time)%>
+                      <%end%>
+                      <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-time"></span>
+                    </span>
+                    </div>
+                  </div>
+                  <%= f.label " a ", class: 'col-sm-1 control-label', style: "width: 50px"%>
+                  <div class="col-sm-5" style="width: 200px">
+                    <div class="input-group clockpicker" data-autoclose="true" >
+                      <%if @horario.viehfin.nil?%>
+                          <%= f.text_field :viehfin, class: 'form-control'%>
+                      <%else%>
+                          <%= f.text_field :viehfin, class: 'form-control', value: @horario.sabhfin.to_s(:time)%>
+                      <%end%>
+                      <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-time"></span>
+                    </span>
+                    </div>
+                  </div>
+                </div><br>
+                <div class="hr-line-dashed"></div>
+
+
+
+                <div class="form-group">
+                  <%= f.label :sabado, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5" style="width: 200px">
+                    <div class="input-group clockpicker" data-autoclose="true" >
+                      <%if @horario.sabhini.nil?%>
+                          <%= f.text_field :sabhini, class: 'form-control'%>
+                      <%else%>
+                          <%= f.text_field :sabhini, class: 'form-control', value: @horario.sabhini.to_s(:time)%>
+                      <%end%>
+                      <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-time"></span>
+                    </span>
+                    </div>
+                  </div>
+                  <%= f.label " a ", class: 'col-sm-1 control-label', style: "width: 50px"%>
+                  <div class="col-sm-5" style="width: 200px">
+                    <div class="input-group clockpicker" data-autoclose="true" >
+                      <%if @horario.sabhfin.nil?%>
+                          <%= f.text_field :sabhfin, class: 'form-control'%>
+                      <%else%>
+                          <%= f.text_field :sabhfin, class: 'form-control', value: @horario.sabhfin.to_s(:time)%>
+                      <%end%>
+                      <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-time"></span>
+                    </span>
+                    </div>
+                  </div>
+                </div><br>
+                <div class="hr-line-dashed"></div>
+
+
+
+                <div class="form-group">
+                  <%= f.label :domingo, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5" style="width: 200px">
+                    <div class="input-group clockpicker" data-autoclose="true" >
+                      <%if @horario.domhini.nil?%>
+                          <%= f.text_field :domhini, class: 'form-control'%>
+                      <%else%>
+                          <%= f.text_field :domhini, class: 'form-control', value: @horario.domhini.to_s(:time)%>
+                      <%end%>
+                      <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-time"></span>
+                    </span>
+                    </div>
+                  </div>
+                  <%= f.label " a ", class: 'col-sm-1 control-label', style: "width: 50px"%>
+                  <div class="col-sm-5" style="width: 200px">
+                    <div class="input-group clockpicker" data-autoclose="true" >
+                      <%if @horario.domhfin.nil?%>
+                          <%= f.text_field :domhfin, class: 'form-control'%>
+                      <%else%>
+                          <%= f.text_field :domhfin, class: 'form-control', value: @horario.domhfin.to_s(:time)%>
+                      <%end%>
+                      <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-time"></span>
+                    </span>
+                    </div>
+                  </div>
+                </div><br>
+                <div class="hr-line-dashed"></div>
+                <br>
+
+              </div>
+
+              <div class="hr-line-dashed"></div>
+              <div class="form-group">
+                <div class="col-sm-4 col-sm-offset-2">
+                  <a href="<%= url_for :controller => 'horarios', :action => 'index' %>">
+                    <button class="btn btn-outline btn-danger btn-rounded" type="button"><i class="fa fa-list-ol"></i>&nbsp;Cancelar</button>
+                  </a>
+
+                  <%= button_tag(type: 'submit', class: "btn btn-outline btn-success btn-rounded") do %>
+                      <i class="fa fa-database"></i> Guardar
+                  <% end %>
+                </div>
+
+
+
+              </div>
+              <br><br>
+          <% end %>
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :javascript do %>
+
+    <script type="text/javascript">
+        $('.clockpicker').clockpicker();
+    </script>
+
+
+
+
+<% end %>

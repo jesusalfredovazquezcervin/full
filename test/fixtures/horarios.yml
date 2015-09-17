@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nombre: MyString
+  lunhini: 2015-09-04 22:23:24
+  lunhfin: 2015-09-04 22:23:24
+  marhini: 2015-09-04 22:23:24
+  marhfin: 2015-09-04 22:23:24
+  miehini: 2015-09-04 22:23:24
+  miehfin: 2015-09-04 22:23:24
+  juehini: 2015-09-04 22:23:24
+  juehfin: 2015-09-04 22:23:24
+  viehini: 2015-09-04 22:23:24
+  viehfin: 2015-09-04 22:23:24
+  sabhini: 2015-09-04 22:23:24
+  sabhfin: 2015-09-04 22:23:24
+  domhini: 2015-09-04 22:23:24
+  domhfin: 2015-09-04 22:23:24
+
+two:
+  nombre: MyString
+  lunhini: 2015-09-04 22:23:24
+  lunhfin: 2015-09-04 22:23:24
+  marhini: 2015-09-04 22:23:24
+  marhfin: 2015-09-04 22:23:24
+  miehini: 2015-09-04 22:23:24
+  miehfin: 2015-09-04 22:23:24
+  juehini: 2015-09-04 22:23:24
+  juehfin: 2015-09-04 22:23:24
+  viehini: 2015-09-04 22:23:24
+  viehfin: 2015-09-04 22:23:24
+  sabhini: 2015-09-04 22:23:24
+  sabhfin: 2015-09-04 22:23:24
+  domhini: 2015-09-04 22:23:24
+  domhfin: 2015-09-04 22:23:24

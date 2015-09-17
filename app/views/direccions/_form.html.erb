@@ -1,0 +1,199 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+
+    <ol class="breadcrumb">
+      <li>
+        <a href="<%= url_for :controller => 'home', :action => 'index' %>">Inicio</a>
+      </li>
+      <li>
+        <a>Catalogos</a>
+      </li>
+      <li>
+        <a href="<%= url_for :controller => 'direccions', :action => 'index' %>">Direcciones</a>
+
+      </li>
+      <li class="active">
+        <strong>Agregar / Modificar direccion</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Formulario<small> para  agregar o modificar a una direccion.</small></h5>
+
+        </div>
+        <div class="ibox-content">
+
+          <%= form_for @direccion, html: { multipart: true } do |f| %>
+              <% if @direccion.errors.any? %>
+                  <div id="error_explanation">
+                    <h2><%= @direccion.errors.count %> error(es) no permitieron guardar el registro:</h2>
+
+                    <ul>
+                      <% @direccion.errors.full_messages.each do |msg| %>
+                          <li><%= msg %></li>
+                      <% end %>
+                    </ul>
+                  </div>
+              <% end %>
+
+              <div class="form-group">
+                <div class="form-group">
+                  <%= f.label :cliente, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= select("post", "cliente_id", Cliente.all.collect {|p| [ p.nombre, p.id ] },
+                               {prompt: 'Seleccione cliente',selected: @direccion.cliente_id , required: true}, { class: 'chosen-select', style: "width:350px;"}) %>
+
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label :sucursal, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= select("post", "sucursal_id", Sucursal.all.collect {|p| [ p.nombre, p.id ] },
+                               {prompt: 'Seleccione sucursal',selected: @direccion.sucursal_id , required: true}, { class: 'chosen-select', style: "width:350px;"}) %>
+
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label :calle, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.text_field :calle, class: 'form-control', :required => true %>
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label :numero, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.text_field :numero, class: 'form-control', :required => true%>
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label :colonia, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.text_field :colonia, class: 'form-control' %>
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label "Delegacion o Municipio", class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.text_field :delegacion, class: 'form-control', :required => true %>
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label :cp, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.text_field :cp, class: 'form-control', maxlength: 5, :required => true %>
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label :telefono, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.text_field :telefono, class: 'form-control' %>
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label :referencia, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.text_area :referencia, class: 'form-control', :required => true %>
+                  </div>
+                </div>
+                <br><br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label :mapsgoogle, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.text_field :mapsgoogle, class: 'form-control', placeholder: "Latitud, Longitud" %>
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label :matriz, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.check_box :matriz, class: 'form-control' %>
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label :croquis, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.text_field :photo_file_name , class: 'form-control', readonly: true %>
+                  </div>
+
+                </div>
+                <br><br>
+                <div class="form-group">
+                  <%= f.label " ", class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.file_field :photo, class: 'form-control' %>
+                  </div>
+                  </div>
+              </div>
+
+              <div class="hr-line-dashed"></div>
+              <div class="form-group">
+                <div class="col-sm-4 col-sm-offset-2">
+                  <a href="<%= url_for :controller => 'direccions', :action => 'index' %>">
+                    <button class="btn btn-outline btn-danger btn-rounded" type="button"><i class="fa fa-list-ol"></i>&nbsp;Cancelar</button>
+                  </a>
+
+                  <%= button_tag(type: 'submit', class: "btn btn-outline btn-success btn-rounded") do %>
+                      <i class="fa fa-database"></i> Guardar
+                  <% end %>
+                </div>
+
+
+
+              </div>
+              <br><br>
+          <% end %>
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :javascript do %>
+
+    <script type="text/javascript">
+
+
+        var config = {
+            '.chosen-select'           : {},
+            '.chosen-select-deselect'  : {allow_single_deselect:true},
+            '.chosen-select-no-single' : {disable_search_threshold:10},
+            '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+            '.chosen-select-width'     : {width:"95%"}
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+
+
+    </script>
+<% end %>

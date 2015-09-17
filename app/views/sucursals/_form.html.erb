@@ -1,0 +1,158 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+
+    <ol class="breadcrumb">
+      <li>
+        <a href="<%= url_for :controller => 'home', :action => 'index' %>">Inicio</a>
+      </li>
+      <li>
+        <a>Catalogos</a>
+      </li>
+      <li>
+        <a href="<%= url_for :controller => 'sucursals', :action => 'index' %>">Sucursales</a>
+
+      </li>
+      <li class="active">
+        <strong>Agregar / Modificar sucursal</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Formulario<small> para  agregar o modificar a una sucursal.</small></h5>
+
+        </div>
+        <div class="ibox-content">
+
+          <%= form_for(@sucursal, controller: "sucursals", action: "create", class: 'form-horizontal') do |f| %>
+              <% if @sucursal.errors.any? %>
+                  <div id="error_explanation">
+                    <h2><%= @sucursal.errors.count %> error(es) no permitieron guardar el registro:</h2>
+
+                    <ul>
+                      <% @sucursal.errors.full_messages.each do |msg| %>
+                          <li><%= msg %></li>
+                      <% end %>
+                    </ul>
+                  </div>
+              <% end %>
+
+              <div class="form-group">
+                <div class="form-group">
+                  <%= f.label :cliente, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= select("post", "cliente_id", Cliente.all.collect {|p| [ p.nombre, p.id ] },
+                               {selected: @sucursal.cliente_id, prompt: "Seleccione cliente", required: true}, { class: 'chosen-select', style: "width:350px;"}) %>
+
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label "Nombre sucursal", class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.text_field :nombre, class: 'form-control', :required => true %>
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label :telefono, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.text_field :telefono, class: 'form-control' %>
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label :Gerente, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= select("post", "contacto_id", Contacto.all.collect{|c| [Sucursal.find(c.sucursal_id).nombre.to_s << '-' << C.id.to_s, c.id]  },
+                               {prompt: 'Seleccione contacto',selected: @sucursal.contacto_id, required: true}, { class: 'chosen-select', style: "width:350px;"}) %>
+
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label :recepcionista, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= select("post", "recepcionista_id", Contacto.all.collect {|p| [ p.nombre, p.id ] },
+                               {prompt: 'Seleccione contacto',selected: @sucursal.recepcionista_id}, { class: 'chosen-select', style: "width:350px;"}) %>
+
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label :contacto_Principal, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= select("post", "contactoprincipal_id", Contacto.all.collect {|p| [ p.nombre, p.id ] },
+                               {prompt: 'Seleccione contacto',selected: @sucursal.contactoprincipal_id, required: true}, { class: 'chosen-select', style: "width:350px;"}) %>
+
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label :contacto_Secundario, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= select("post", "contactosecundario_id", Contacto.all.collect {|p| [ p.nombre, p.id ] },
+                               {prompt: 'Seleccione contacto',selected: @sucursal.contactosecundario_id, required: true}, { class: 'chosen-select', style: "width:350px;"}) %>
+
+                  </div>
+                </div>
+                <br>
+              </div>
+
+              <div class="hr-line-dashed"></div>
+              <div class="form-group">
+                <div class="col-sm-4 col-sm-offset-2">
+                  <a href="<%= url_for :controller => 'sucursals', :action => 'index' %>">
+                    <button class="btn btn-outline btn-danger btn-rounded" type="button"><i class="fa fa-list-ol"></i>&nbsp;Cancelar</button>
+                  </a>
+
+                  <%= button_tag(type: 'submit', class: "btn btn-outline btn-success btn-rounded") do %>
+                      <i class="fa fa-database"></i> Guardar
+                  <% end %>
+                </div>
+
+
+
+              </div>
+              <br><br>
+          <% end %>
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :javascript do %>
+
+    <script type="text/javascript">
+
+
+        var config = {
+            '.chosen-select'           : {},
+            '.chosen-select-deselect'  : {allow_single_deselect:true},
+            '.chosen-select-no-single' : {disable_search_threshold:10},
+            '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+            '.chosen-select-width'     : {width:"95%"}
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+
+
+    </script>
+<% end %>

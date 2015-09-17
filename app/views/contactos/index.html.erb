@@ -1,0 +1,137 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+
+    <h2>Listado de contactos</h2>
+    <ol class="breadcrumb">
+      <li>
+        <a href="<%= url_for :controller => 'home', :action => 'index' %>">Inicio</a>
+      </li>
+      <li>
+        <a>Catalogos</a>
+      </li>
+      <li class="active">
+        <strong>Contactos</strong>
+      </li>
+    </ol>
+  </div>
+  <div class="col-lg-2">
+
+  </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          &nbsp;<a href="<%= url_for :controller => 'contactos', :action => 'new' %>">
+          <button class="btn btn-outline btn-warning btn-rounded" type="button"><i class="fa fa-plus"></i>&nbsp;Nuevo</button>
+        </a>
+
+          <div class="ibox-tools">
+            Total records: <%= @contactos.count %>
+            <a >
+              <i class="fa fa-bars"></i>
+            </a>
+          </div>
+
+        </div>
+        <div class="ibox-content">
+
+          <table class="table table-striped table-bordered table-hover dataTables-example">
+            <thead>
+            <tr>
+              <th>Cliente</th>
+              <th>Sucursal</th>
+              <th>Nombre</th>
+              <th>Telefono</th>
+              <th>Cel</th>
+              <th>Email</th>
+              <th>Puesto</th>
+
+              <th>&nbsp;&nbsp;Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @contactos.each do |contacto| %>
+                <tr>
+                  <td><%= Cliente.find(contacto.cliente_id).nombre %></td>
+                  <td><% if (contacto.sucursal_id.nil? == false) %>
+                        <%= Sucursal.find(contacto.sucursal_id).nombre%>
+                    <%end%>
+                  </td>
+                  <td><%= contacto.nombre%></td>
+                  <td>
+                    <% if contacto.ext.nil? %>
+                        <%= contacto.telefono %>
+                    <% else %>
+                        <%= contacto.telefono << " ext " << contacto.ext %>
+                    <% end%>
+
+                  </td>
+
+                  <td><%= contacto.cel %></td>
+                  <td><%= contacto.email %></td>
+                  <td><%= contacto.puesto %></td>
+
+                  <td>
+                    <%= link_to 'V', contacto,class: "btn btn-primary btn-circle", title:"Ver" %>
+                    <%= link_to 'M', edit_contacto_path(contacto), class: "btn btn-warning btn-circle", title:"Modificar" %>
+                    <%= link_to 'E', contacto, method: :delete, class: "btn btn-danger btn-circle", title:"Eliminar" ,data: { confirm: '¿Está seguro?'} %>
+                  </td>
+                </tr>
+            <% end %>
+
+
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+<% content_for :javascript do %>
+
+    <script type="text/javascript">
+
+
+        $(function() {
+
+            $('.dataTables-example').dataTable({
+                "dom": 'T<"clear">lfrtip',
+                "tableTools": {
+                    "sSwfPath": "../assets/dataTables/swf/copy_csv_xls_pdf.swf"
+                }
+            });
+
+            /* Init DataTables */
+            var oTable = $('#editable').dataTable();
+
+            /* Apply the jEditable handlers to the table */
+            oTable.$('td').editable( '../example_ajax.php', {
+                "callback": function( sValue, y ) {
+                    var aPos = oTable.fnGetPosition( this );
+                    oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+                },
+                "submitdata": function ( value, settings ) {
+                    return {
+                        "row_id": this.parentNode.getAttribute('id'),
+                        "column": oTable.fnGetPosition( this )[2]
+                    };
+                },
+
+                "width": "90%",
+                "height": "100%"
+            } );
+
+
+        });
+
+    </script>
+
+
+
+<% end %>

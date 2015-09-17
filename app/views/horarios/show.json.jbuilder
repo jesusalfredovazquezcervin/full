@@ -1,0 +1,1 @@
+json.extract! @horario, :id, :nombre, :lunhini, :lunhfin, :marhini, :marhfin, :miehini, :miehfin, :juehini, :juehfin, :viehini, :viehfin, :sabhini, :sabhfin, :domhini, :domhfin, :created_at, :updated_at

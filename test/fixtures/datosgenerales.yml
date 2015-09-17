@@ -1,0 +1,45 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  alta: 2015-09-04
+  actualizacion: 2015-09-04
+  clavesalida: MyString
+  locacion: MyString
+  did: MyString
+  telenrutados: MyString
+  contacto1_id: 1
+  contacto2_id: 1
+  contacto3_id: 1
+  contacto4_id: 1
+  contacto5_id: 1
+  telefono1: MyString
+  telefono2: MyString
+  telefono3: MyString
+  telefono4: MyString
+  telefono5: MyString
+  fax: MyString
+  giro: MyString
+  procedimiento: MyString
+  paginaweb: MyString
+
+two:
+  alta: 2015-09-04
+  actualizacion: 2015-09-04
+  clavesalida: MyString
+  locacion: MyString
+  did: MyString
+  telenrutados: MyString
+  contacto1_id: 1
+  contacto2_id: 1
+  contacto3_id: 1
+  contacto4_id: 1
+  contacto5_id: 1
+  telefono1: MyString
+  telefono2: MyString
+  telefono3: MyString
+  telefono4: MyString
+  telefono5: MyString
+  fax: MyString
+  giro: MyString
+  procedimiento: MyString
+  paginaweb: MyString
