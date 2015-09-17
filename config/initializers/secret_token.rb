@@ -1,3 +1,1 @@
-
-class 
-end
+Myapp::Application.config.secret_key_base = 'b39851043e6a12c55f68edd6d15d566b2bb3630b1a39fc1ccec8f7142aef28a471cb02c81d8befcba77831b5474c7c653e7dccc2863ce3775dcb4918e517a5bf'
