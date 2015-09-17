@@ -51,3 +51,10 @@ gem "paperclip", git: "git://github.com/thoughtbot/paperclip.git"
 gem 'imagemagick-identify', '~> 0.0.1'
 gem "gon"
 gem 'jquery-rails'
+
+group :development do
+  gem 'capistrano', '~> 3.4.0'
+  gem 'capistrano-rails', '~> 1.1.3'
+  gem 'capistrano-rbenv', '~> 2.0.3'
+  #gem 'capistrano-passenger'
+end
