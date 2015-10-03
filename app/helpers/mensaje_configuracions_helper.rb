@@ -1,0 +1,2 @@
+module MensajeConfiguracionsHelper
+end
