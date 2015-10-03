@@ -47,8 +47,8 @@
                 <div class="form-group">
                   <%= f.label :cliente, class: 'col-sm-2 control-label'%>
                   <div class="col-sm-5">
-                    <%= select("post", "cliente_id", Cliente.all.collect {|p| [ p.nombre, p.id ] },
-                               {selected: @sucursal.cliente_id, prompt: "Seleccione cliente", required: true}, { class: 'chosen-select', style: "width:350px;"}) %>
+                    <%= f.select :cliente_id, options_for_select(@clientes.collect { |cliente|
+                                                                   [cliente.nombre, cliente.id] }, @sucursal.cliente_id), {}, { id: 'clientes_select', class:"form-control m-b", style: "width:350px;" } %>
 
                   </div>
                 </div>
@@ -73,8 +73,8 @@
                 <div class="form-group">
                   <%= f.label :Gerente, class: 'col-sm-2 control-label'%>
                   <div class="col-sm-5">
-                    <%= select("post", "contacto_id", Contacto.all.collect{|c| [Sucursal.find(c.sucursal_id).nombre.to_s << '-' << C.id.to_s, c.id]  },
-                               {prompt: 'Seleccione contacto',selected: @sucursal.contacto_id, required: true}, { class: 'chosen-select', style: "width:350px;"}) %>
+                    <%= f.select :contacto_id, options_for_select(@contactos.collect { |contacto|
+                                                                   [contacto.nombre, contacto.id] }, @sucursal.contacto_id), {include_blank: true}, { id: 'contactos_select', class:"form-control m-b", style: "width:350px;" } %>
 
                   </div>
                 </div>
@@ -83,8 +83,8 @@
                 <div class="form-group">
                   <%= f.label :recepcionista, class: 'col-sm-2 control-label'%>
                   <div class="col-sm-5">
-                    <%= select("post", "recepcionista_id", Contacto.all.collect {|p| [ p.nombre, p.id ] },
-                               {prompt: 'Seleccione contacto',selected: @sucursal.recepcionista_id}, { class: 'chosen-select', style: "width:350px;"}) %>
+                    <%= f.select :recepcionista_id, options_for_select(@contactos.collect { |contacto|
+                                                                    [contacto.nombre, contacto.id] }, @sucursal.contacto_id), {include_blank: true}, { id: 'contactos2_select', class:"form-control m-b", style: "width:350px;" } %>
 
                   </div>
                 </div>
@@ -93,8 +93,8 @@
                 <div class="form-group">
                   <%= f.label :contacto_Principal, class: 'col-sm-2 control-label'%>
                   <div class="col-sm-5">
-                    <%= select("post", "contactoprincipal_id", Contacto.all.collect {|p| [ p.nombre, p.id ] },
-                               {prompt: 'Seleccione contacto',selected: @sucursal.contactoprincipal_id, required: true}, { class: 'chosen-select', style: "width:350px;"}) %>
+                    <%= f.select :contactoprincipal_id, options_for_select(@contactos.collect { |contacto|
+                                                                         [contacto.nombre, contacto.id] }, @sucursal.contacto_id), {include_blank: true}, { id: 'contactos3_select', class:"form-control m-b", style: "width:350px;" } %>
 
                   </div>
                 </div>
@@ -103,9 +103,8 @@
                 <div class="form-group">
                   <%= f.label :contacto_Secundario, class: 'col-sm-2 control-label'%>
                   <div class="col-sm-5">
-                    <%= select("post", "contactosecundario_id", Contacto.all.collect {|p| [ p.nombre, p.id ] },
-                               {prompt: 'Seleccione contacto',selected: @sucursal.contactosecundario_id, required: true}, { class: 'chosen-select', style: "width:350px;"}) %>
-
+                    <%= f.select :contactosecundario_id, options_for_select(@contactos.collect { |contacto|
+                                                                             [contacto.nombre, contacto.id] }, @sucursal.contacto_id), {include_blank: true}, { id: 'contactos4_select', class:"form-control m-b", style: "width:350px;" } %>
                   </div>
                 </div>
                 <br>
@@ -153,6 +152,22 @@
             $(selector).chosen(config[selector]);
         }
 
-
+        $(function() {
+            return $(document).on('change', '#clientes_select', function(evt) {
+                return $.ajax('update_contactos', {
+                    type: 'GET',
+                    dataType: 'script',
+                    data: {
+                        cliente_id: $("#clientes_select option:selected").val()
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        return console.log("AJAX Error: " + textStatus);
+                    },
+                    success: function(data, textStatus, jqXHR) {
+                        return console.log("Dynamic country select OK!");
+                    }
+                });
+            });
+        });
     </script>
 <% end %>

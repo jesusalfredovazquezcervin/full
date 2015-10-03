@@ -1,0 +1,173 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+
+    <ol class="breadcrumb">
+      <li>
+        <a href="<%= url_for :controller => 'home', :action => 'index' %>">Inicio</a>
+      </li>
+      <li>
+        <a>Catalogos</a>
+      </li>
+      <li>
+        <a href="<%= url_for :controller => 'sucursals', :action => 'index' %>">Sucursales</a>
+
+      </li>
+      <li class="active">
+        <strong>Agregar / Modificar sucursal</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Formulario<small> para  agregar o modificar a una sucursal.</small></h5>
+
+        </div>
+        <div class="ibox-content">
+
+          <%= form_for(@sucursal, controller: "sucursals", action: "create", class: 'form-horizontal') do |f| %>
+              <% if @sucursal.errors.any? %>
+                  <div id="error_explanation">
+                    <h2><%= @sucursal.errors.count %> error(es) no permitieron guardar el registro:</h2>
+
+                    <ul>
+                      <% @sucursal.errors.full_messages.each do |msg| %>
+                          <li><%= msg %></li>
+                      <% end %>
+                    </ul>
+                  </div>
+              <% end %>
+
+              <div class="form-group">
+                <div class="form-group">
+                  <%= f.label :cliente, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.select :cliente_id, options_for_select(@clientes.collect { |cliente|
+                                                                   [cliente.nombre, cliente.id] }, @sucursal.cliente_id), {}, { id: 'clientes_select', class:"form-control m-b", style: "width:350px;" } %>
+
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label "Nombre sucursal", class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.text_field :nombre, class: 'form-control', :required => true %>
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label :telefono, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.text_field :telefono, class: 'form-control' %>
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label :Gerente, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.select :contacto_id, options_for_select(@contactos.collect { |contacto|
+                                                                    [contacto.nombre, contacto.id] }, @sucursal.contacto_id), {include_blank: true}, { id: 'contactos_select', class:"form-control m-b", style: "width:350px;" } %>
+
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label :recepcionista, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.select :recepcionista_id, options_for_select(@contactos.collect { |contacto|
+                                                                         [contacto.nombre, contacto.id] }, @sucursal.recepcionista_id), {include_blank: true}, { id: 'contactos2_select', class:"form-control m-b", style: "width:350px;" } %>
+
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label :contacto_Principal, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.select :contactoprincipal_id, options_for_select(@contactos.collect { |contacto|
+                                                                             [contacto.nombre, contacto.id] }, @sucursal.contactoprincipal_id), {include_blank: true}, { id: 'contactos3_select', class:"form-control m-b", style: "width:350px;" } %>
+
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label :contacto_Secundario, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.select :contactosecundario_id, options_for_select(@contactos.collect { |contacto|
+                                                                              [contacto.nombre, contacto.id] }, @sucursal.contactosecundario_id), {include_blank: true}, { id: 'contactos4_select', class:"form-control m-b", style: "width:350px;" } %>
+                  </div>
+                </div>
+                <br>
+              </div>
+
+              <div class="hr-line-dashed"></div>
+              <div class="form-group">
+                <div class="col-sm-4 col-sm-offset-2">
+                  <a href="<%= url_for :controller => 'sucursals', :action => 'index' %>">
+                    <button class="btn btn-outline btn-danger btn-rounded" type="button"><i class="fa fa-list-ol"></i>&nbsp;Cancelar</button>
+                  </a>
+
+                  <%= button_tag(type: 'submit', class: "btn btn-outline btn-success btn-rounded") do %>
+                      <i class="fa fa-database"></i> Guardar
+                  <% end %>
+                </div>
+
+
+
+              </div>
+              <br><br>
+          <% end %>
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :javascript do %>
+
+    <script type="text/javascript">
+
+
+        var config = {
+            '.chosen-select'           : {},
+            '.chosen-select-deselect'  : {allow_single_deselect:true},
+            '.chosen-select-no-single' : {disable_search_threshold:10},
+            '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+            '.chosen-select-width'     : {width:"95%"}
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+
+        $(function() {
+            return $(document).on('change', '#clientes_select', function(evt) {
+                return $.ajax('../update_contactos', {
+                    type: 'GET',
+                    dataType: 'script',
+                    data: {
+                        cliente_id: $("#clientes_select option:selected").val()
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        return console.log("AJAX Error: " + textStatus);
+                    },
+                    success: function(data, textStatus, jqXHR) {
+                        return console.log("Dynamic country select OK!");
+                    }
+                });
+            });
+        });
+    </script>
+<% end %>
