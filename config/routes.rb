@@ -1,4 +1,23 @@
 Myapp::Application.routes.draw do
+
+  get 'countries/update_cities', as: 'update_cities'
+  get 'countries/show'
+
+
+
+  get 'contactos/update_sucursales', as: 'update_sucursales'
+  get 'contactos/show'
+
+  get 'sucursals/update_contactos', as: 'update_contactos'
+  get 'sucursals/show'
+
+
+  resources :cities
+
+  resources :countries
+
+  resources :mensaje_configuracions
+
   resources :captures
 
   resources :pruebas
