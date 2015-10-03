@@ -1,3 +1,4 @@
+
 class SucursalsController < ApplicationController
   before_action :set_sucursal, only: [:show, :edit, :update, :destroy]
 
@@ -11,17 +12,33 @@ class SucursalsController < ApplicationController
   # GET /sucursals/1
   # GET /sucursals/1.json
   def show
+
     dashboard_4
   end
 
   # GET /sucursals/new
   def new
+    @clientes = Cliente.all
+    @contactos = Contacto.where("cliente_id = ?", Cliente.first.id)
     @sucursal = Sucursal.new
     dashboard_4
   end
 
+  def update_contactos
+    @contactos= Contacto.where("cliente_id = ?", params[:cliente_id])
+    d=Contacto.new()
+    @contactos.push(d)
+    @contactos.reverse!
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
   # GET /sucursals/1/edit
   def edit
+    @clientes = Cliente.all
+    @contactos = Contacto.where(:cliente_id => @sucursal.cliente_id)
     dashboard_4
   end
 
@@ -29,21 +46,6 @@ class SucursalsController < ApplicationController
   # POST /sucursals.json
   def create
     @sucursal = Sucursal.new(sucursal_params)
-    if(params[:post][:cliente_id] != "")
-      @sucursal.cliente_id = params[:post][:cliente_id]
-    end
-    if(params[:post][:contacto_id] != "")
-      @sucursal.contacto_id = params[:post][:contacto_id]
-    end
-    if (params[:post][:recepcionista_id] != "")
-      @sucursal.recepcionista_id = params[:post][:recepcionista_id]
-    end
-    if(params[:post][:contactoprincipal_id] != "")
-      @sucursal.contactoprincipal_id = params[:post][:contactoprincipal_id]
-    end
-    if (params[:post][:contactosecundario_id] != "")
-      @sucursal.contactosecundario_id = params[:post][:contactosecundario_id]
-    end
     respond_to do |format|
       if @sucursal.save
         format.html { redirect_to @sucursal, notice: 'Sucursal was successfully created.' }
@@ -60,22 +62,6 @@ class SucursalsController < ApplicationController
   def update
     respond_to do |format|
       if @sucursal.update(sucursal_params)
-        if(params[:post][:cliente_id] != "")
-          @sucursal.cliente_id = params[:post][:cliente_id]
-        end
-        if(params[:post][:contacto_id] != "")
-          @sucursal.contacto_id = params[:post][:contacto_id]
-        end
-        if (params[:post][:recepcionista_id] != "")
-          @sucursal.recepcionista_id = params[:post][:recepcionista_id]
-        end
-        if(params[:post][:contactoprincipal_id] != "")
-          @sucursal.contactoprincipal_id = params[:post][:contactoprincipal_id]
-        end
-        if (params[:post][:contactosecundario_id] != "")
-          @sucursal.contactosecundario_id = params[:post][:contactosecundario_id]
-        end
-
         @sucursal.save!
 
         format.html { redirect_to @sucursal, notice: 'Sucursal was successfully updated.' }

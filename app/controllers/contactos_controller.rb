@@ -19,11 +19,27 @@ class ContactosController < ApplicationController
     # GET /contactos/new
     def new
       @contacto = Contacto.new
+      @clientes = Cliente.all
+      @sucursales = Sucursal.where("cliente_id = ?", Cliente.first.id)
+
       dashboard_4
+    end
+
+    def update_sucursales
+      logger.debug params[:cliente_id]
+      @damn = Sucursal.where("cliente_id = ?", params[:cliente_id])
+      logger.debug @damn.count
+
+      @sucursales = Sucursal.where("cliente_id = ?", params[:cliente_id])
+      respond_to do |format|
+        format.js
+      end
     end
 
     # GET /contactos/1/edit
     def edit
+      @clientes = Cliente.all
+      @sucursales = Sucursal.where("cliente_id = ?", Cliente.first.id)
       dashboard_4
     end
 
@@ -31,8 +47,8 @@ class ContactosController < ApplicationController
     # POST /contactos.json
     def create
       @contacto = Contacto.new(contacto_params)
-      @contacto.cliente_id = params[:post][:cliente_id]
-      @contacto.sucursal_id = params[:post][:sucursal_id]
+      @contacto.cliente_id = params[:contacto][:cliente_id]
+      @contacto.sucursal_id = params[:contacto][:sucursal_id]
       if(params[:email] != "")
         @contacto.email=params[:email]
       else
@@ -53,8 +69,8 @@ class ContactosController < ApplicationController
     def update
       respond_to do |format|
         if @contacto.update(contacto_params)
-          @contacto.cliente_id = params[:post][:cliente_id]
-          @contacto.sucursal_id= params[:post][:sucursal_id]
+          @contacto.cliente_id = params[:contacto][:cliente_id]
+          @contacto.sucursal_id = params[:contacto][:sucursal_id]
           if(params[:email] != "")
             @contacto.email=params[:email]
           else
@@ -83,7 +99,6 @@ class ContactosController < ApplicationController
       end
 
     end
-
 
 
     private
