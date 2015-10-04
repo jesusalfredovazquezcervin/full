@@ -11,6 +11,7 @@ Myapp::Application.routes.draw do
   get 'sucursals/update_contactos', as: 'update_contactos'
   get 'sucursals/show'
 
+  get 'direccions/update_sucursales', as: 'update_sucursales2'
 
   resources :cities
 

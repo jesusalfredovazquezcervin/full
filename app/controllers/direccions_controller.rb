@@ -24,20 +24,35 @@ class DireccionsController < ApplicationController
   # GET /direccions/new
   def new
     @direccion = Direccion.new
+    @clientes = Cliente.all
+    @sucursales = Sucursal.where("cliente_id = ?", Cliente.first.id)
     dashboard_4
   end
 
+
+  def update_sucursales
+    @sucursales = Sucursal.where("cliente_id = ?", params[:cliente_id])
+    respond_to do |format|
+      format.js
+    end
+  end
+
+
   # GET /direccions/1/edit
   def edit
+    @clientes = Cliente.all
+    @sucursales = Sucursal.where("cliente_id = ?", Cliente.first.id)
     dashboard_4
   end
+
+
 
   # POST /direccions
   # POST /direccions.json
   def create
     @direccion = Direccion.new(direccion_params)
-    @direccion.sucursal_id =params[:post][:sucursal_id]
-    @direccion.cliente_id =params[:post][:cliente_id]
+    @direccion.sucursal_id =params[:direccion][:sucursal_id]
+    @direccion.cliente_id =params[:direccion][:cliente_id]
     respond_to do |format|
       if @direccion.save
         format.html { redirect_to @direccion, notice: 'Direccion was successfully created.' }
@@ -54,8 +69,8 @@ class DireccionsController < ApplicationController
   def update
     respond_to do |format|
       if @direccion.update(direccion_params)
-        @direccion.cliente_id =params[:post][:cliente_id]
-        @direccion.sucursal_id =params[:post][:sucursal_id]
+        @direccion.cliente_id =params[:direccion][:cliente_id]
+        @direccion.sucursal_id =params[:direccion][:sucursal_id]
         @direccion.save!
         format.html { redirect_to @direccion, notice: 'Direccion was successfully updated.' }
         format.json { head :no_content }

@@ -47,8 +47,8 @@
                 <div class="form-group">
                   <%= f.label :cliente, class: 'col-sm-2 control-label'%>
                   <div class="col-sm-5">
-                    <%= select("post", "cliente_id", Cliente.all.collect {|p| [ p.nombre, p.id ] },
-                               {prompt: 'Seleccione cliente',selected: @direccion.cliente_id , required: true}, { class: 'chosen-select', style: "width:350px;"}) %>
+                    <%= f.select :cliente_id, options_for_select(@clientes.collect { |cliente|
+                                                                   [cliente.nombre.titleize, cliente.id] }, @direccion.cliente_id), {}, { id: 'clientes_select', class:"form-control m-b", style: "width:350px;" } %>
 
                   </div>
                 </div>
@@ -57,8 +57,8 @@
                 <div class="form-group">
                   <%= f.label :sucursal, class: 'col-sm-2 control-label'%>
                   <div class="col-sm-5">
-                    <%= select("post", "sucursal_id", Sucursal.all.collect {|p| [ p.nombre, p.id ] },
-                               {prompt: 'Seleccione sucursal',selected: @direccion.sucursal_id , required: true}, { class: 'chosen-select', style: "width:350px;"}) %>
+                    <%= f.select :sucursal_id, options_for_select(@sucursales.collect { |sucursal|
+                                                                    [sucursal.nombre.titleize, sucursal.id] }, @direccion.sucursal_id), {}, { id: 'sucursales_select', class: 'form-control m-b', style: "width:350px;" } %>
 
                   </div>
                 </div>
@@ -194,6 +194,25 @@
             $(selector).chosen(config[selector]);
         }
 
-
+        $(function() {
+            return $(document).on('change', '#clientes_select', function(evt) {
+                return $.ajax({
+                    url:location.protocol + "//" + location.host + "/direccions/update_sucursales",
+                    type: 'GET',
+                    dataType: 'script',
+                    data: {
+                        cliente_id: $("#clientes_select option:selected").val()
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log(location.protocol + "//" + location.host + "/direccions/update_sucursales");
+                        return console.log("AJAX Error: " + textStatus);
+                    },
+                    success: function(data, textStatus, jqXHR) {
+                        return console.log("Dynamic sucursal select OK!");
+                    }
+                });
+            });
+        });
+//
     </script>
 <% end %>
