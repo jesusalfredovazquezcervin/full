@@ -17,29 +17,43 @@ class DatosgeneralesController < ApplicationController
   # GET /datosgenerales/new
   def new
     @datosgenerale = Datosgenerale.new
+    @clientes = Cliente.all
+    @contactos = Contacto.where("cliente_id = ?", Cliente.first.id)
     dashboard_4
+  end
+
+  def update_contactos
+    @contactos= Contacto.where("cliente_id = ?", params[:cliente_id])
+
+
+    respond_to do |format|
+      format.js
+    end
   end
 
   # GET /datosgenerales/1/edit
   def edit
-    @contactos=[]
+
+    @contactos_ids=[]
 
     if(@datosgenerale.contacto1_id.nil? == false)
-      @contactos.push(@datosgenerale.contacto1_id)
+      @contactos_ids.push(@datosgenerale.contacto1_id)
     end
     if(@datosgenerale.contacto2_id.nil? == false)
-      @contactos.push(@datosgenerale.contacto2_id)
+      @contactos_ids.push(@datosgenerale.contacto2_id)
     end
     if(@datosgenerale.contacto3_id.nil? == false)
-      @contactos.push(@datosgenerale.contacto3_id)
+      @contactos_ids.push(@datosgenerale.contacto3_id)
     end
     if(@datosgenerale.contacto4_id.nil? == false)
-      @contactos.push(@datosgenerale.contacto4_id)
+      @contactos_ids.push(@datosgenerale.contacto4_id)
     end
     if(@datosgenerale.contacto5_id.nil? == false)
-      @contactos.push(@datosgenerale.contacto5_id)
+      @contactos_ids.push(@datosgenerale.contacto5_id)
     end
-    #@datosgenerale.alta = @datosgenerale.alta.to_s(:month_day_year)
+
+    @contactos= Contacto.where("cliente_id = ?", @datosgenerale.cliente_id)
+    @clientes = Cliente.all
     dashboard_4
   end
 
@@ -47,7 +61,7 @@ class DatosgeneralesController < ApplicationController
   # POST /datosgenerales.json
   def create
     @datosgenerale = Datosgenerale.new(datosgenerale_params)
-    @datosgenerale.cliente_id = params[:post][:cliente_id]
+    @datosgenerale.cliente_id = params[:datosgenerale][:cliente_id]
 
     @datosgenerale.contacto1_id = nil
     @datosgenerale.contacto2_id = nil
@@ -55,23 +69,26 @@ class DatosgeneralesController < ApplicationController
     @datosgenerale.contacto4_id = nil
     @datosgenerale.contacto5_id = nil
 
-    params[:post][:contacto1_id].each_index { |i|
+
+    params[:datosgenerale][:contacto1_id].each_index { |i|
       case i
         when 1
-          @datosgenerale.contacto1_id = params[:post][:contacto1_id][i]
+          @datosgenerale.contacto1_id = params[:datosgenerale][:contacto1_id][i]
         when 2
-          @datosgenerale.contacto2_id = params[:post][:contacto1_id][i]
+          @datosgenerale.contacto2_id = params[:datosgenerale][:contacto1_id][i]
         when 3
-          @datosgenerale.contacto3_id = params[:post][:contacto1_id][i]
+          @datosgenerale.contacto3_id = params[:datosgenerale][:contacto1_id][i]
         when 4
-          @datosgenerale.contacto4_id = params[:post][:contacto1_id][i]
+          @datosgenerale.contacto4_id = params[:datosgenerale][:contacto1_id][i]
         when 5
-          @datosgenerale.contacto5_id = params[:post][:contacto1_id][i]
+          @datosgenerale.contacto5_id = params[:datosgenerale][:contacto1_id][i]
         else
           #do default case
       end
 
     }
+
+
     @datosgenerale.horario_id = params[:post][:horario_id]
     @datosgenerale.alta = Date.strptime(params[:datosgenerale][:alta], '%m/%d/%Y')
     respond_to do |format|
@@ -90,7 +107,7 @@ class DatosgeneralesController < ApplicationController
   def update
     respond_to do |format|
       if @datosgenerale.update(datosgenerale_params)
-        @datosgenerale.cliente_id = params[:post][:cliente_id]
+        @datosgenerale.cliente_id = params[:datosgenerale][:cliente_id]
 
         @datosgenerale.contacto1_id = nil
         @datosgenerale.contacto2_id = nil
@@ -98,18 +115,18 @@ class DatosgeneralesController < ApplicationController
         @datosgenerale.contacto4_id = nil
         @datosgenerale.contacto5_id = nil
 
-        params[:post][:contacto1_id].each_index { |i|
+        params[:datosgenerale][:contacto1_id].each_index { |i|
           case i
             when 1
-              @datosgenerale.contacto1_id = params[:post][:contacto1_id][i]
+              @datosgenerale.contacto1_id = params[:datosgenerale][:contacto1_id][i]
             when 2
-              @datosgenerale.contacto2_id = params[:post][:contacto1_id][i]
+              @datosgenerale.contacto2_id = params[:datosgenerale][:contacto1_id][i]
             when 3
-              @datosgenerale.contacto3_id = params[:post][:contacto1_id][i]
+              @datosgenerale.contacto3_id = params[:datosgenerale][:contacto1_id][i]
             when 4
-              @datosgenerale.contacto4_id = params[:post][:contacto1_id][i]
+              @datosgenerale.contacto4_id = params[:datosgenerale][:contacto1_id][i]
             when 5
-              @datosgenerale.contacto5_id = params[:post][:contacto1_id][i]
+              @datosgenerale.contacto5_id = params[:datosgenerale][:contacto1_id][i]
             else
               #do default case
           end

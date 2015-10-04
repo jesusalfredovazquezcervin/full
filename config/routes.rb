@@ -13,6 +13,7 @@ Myapp::Application.routes.draw do
 
   get 'direccions/update_sucursales', as: 'update_sucursales2'
   get 'horarios/update_sucursales', as: 'update_sucursales3'
+  get 'datosgenerales/update_contactos', as: 'update_contactos2'
 
   resources :cities
 
