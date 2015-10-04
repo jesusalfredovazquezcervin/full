@@ -17,11 +17,22 @@ class HorariosController < ApplicationController
   # GET /horarios/new
   def new
     @horario = Horario.new
+    @clientes = Cliente.all
+    @sucursales = Sucursal.where("cliente_id = ?", Cliente.first.id)
     dashboard_4
+  end
+
+  def update_sucursales
+    @sucursales = Sucursal.where("cliente_id = ?", params[:cliente_id])
+    respond_to do |format|
+      format.js
+    end
   end
 
   # GET /horarios/1/edit
   def edit
+    @clientes = Cliente.all
+    @sucursales = Sucursal.where("cliente_id = ?", Cliente.first.id)
     dashboard_4
   end
 
@@ -29,8 +40,8 @@ class HorariosController < ApplicationController
   # POST /horarios.json
   def create
     @horario = Horario.new(horario_params)
-    @horario.cliente_id = params[:post][:cliente_id]
-    @horario.sucursal_id= params[:post][:sucursal_id]
+    @horario.cliente_id = params[:horario][:cliente_id]
+    @horario.sucursal_id= params[:horario][:sucursal_id]
     respond_to do |format|
       if @horario.save
         format.html { redirect_to @horario, notice: 'Horario was successfully created.' }
@@ -47,8 +58,8 @@ class HorariosController < ApplicationController
   def update
     respond_to do |format|
       if @horario.update(horario_params)
-        @horario.cliente_id = params[:post][:cliente_id]
-        @horario.sucursal_id= params[:post][:sucursal_id]
+        @horario.cliente_id = params[:horario][:cliente_id]
+        @horario.sucursal_id= params[:horario][:sucursal_id]
         @horario.save!
         format.html { redirect_to @horario, notice: 'Horario was successfully updated.' }
         format.json { head :no_content }
