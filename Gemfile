@@ -43,9 +43,6 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-#Authentication
-#gem 'sorcery'
-
 #Manage images
 gem "paperclip", git: "git://github.com/thoughtbot/paperclip.git"
 gem 'imagemagick-identify', '~> 0.0.1'
@@ -58,3 +55,7 @@ group :development do
   gem 'capistrano-rbenv', '~> 2.0.3'
   gem 'capistrano-passenger'
 end
+
+
+#Authentication
+gem 'devise', '~> 3.5.2'
