@@ -30,4 +30,8 @@ Myapp::Application.configure do
   # Paperclip config:
   #Paperclip.options[:image_magick_path] = "/opt/ImageMagick/bin"
   Paperclip.options[:command_path] = "/usr/local/bin"
+
+  #Configuracion para el envio de correos de DEVISE
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
 end

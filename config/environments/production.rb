@@ -76,4 +76,6 @@ Myapp::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+  config.action_mailer.default_url_options = { host: '104.236.154.71', port: 3000 }
+
 end
