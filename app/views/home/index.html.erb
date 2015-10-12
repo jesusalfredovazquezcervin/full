@@ -1,6 +1,22 @@
+<div class="middle-box text-center loginscreen  animated fadeInDown">
+  <div>
+    <div>
+
+      <img alt="image"  src="<%= image_path('ofintel2.png') %>">
+
+    </div>
+    <div class="hr-line-dashed"></div>
+    <h2>Centro de Administracion Llamadas de Clientes</h2>
+
+
+    <div class="hr-line-solid"></div>
+    <h3>Su comunicacion... nuestro compromiso</h3>
+    <small>Ofintel &copy; 2015 - <%= Date.today.year %> </small>
 <br><br><br>
-<div class="middle-box text-center  animated fadeInDown">
-  <h2 class="font-bold">Bienvenido a CALL - Panel de administracion</h2>
+        <% if !usuario_signed_in? %>
+            <%= link_to 'Entrar',new_usuario_session_path, class: 'btn btn-sm btn-primary btn-block'%>
+        <%end%>
+  </div>
 </div>
 
 
