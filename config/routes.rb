@@ -1,5 +1,12 @@
 Myapp::Application.routes.draw do
 
+
+  devise_for :usuarios, controllers:{
+                 sessions:'usuarios/sessions',
+                 passwords: 'usuarios/passwords'
+                      }
+
+
   get 'countries/update_cities', as: 'update_cities'
   get 'countries/show'
 
@@ -34,8 +41,6 @@ Myapp::Application.routes.draw do
   resources :sucursals
 
   resources :contactos
-
-  resources :users
 
   resources :clientes
 

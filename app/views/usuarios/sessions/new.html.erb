@@ -1,0 +1,49 @@
+
+
+<div class="middle-box text-center loginscreen  animated fadeInDown">
+  <div>
+    <div>
+
+      <img alt="image"  src="<%= image_path('ofintel2.png') %>">
+
+    </div>
+    <div class="hr-line-dashed"></div>
+    <h2>Centro de Administracion Llamadas de Clientes</h2> <br>
+    <h3>Acceso</h3>
+
+
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <div class="form-group">
+
+          <%= f.email_field :email, autofocus: true, class: "form-control", placeholder: "Email" %>
+        </div>
+
+        <div class="form-group">
+
+          <%= f.password_field :password, autocomplete: "off",class: "form-control", placeholder: "Contraseña" %>
+        </div>
+
+        <% if devise_mapping.rememberable? -%>
+            <div class="checkbox checkbox-success ">
+              <%= f.check_box :remember_me%>
+              <%= f.label :remember_me%>
+            </div>
+        <% end -%>
+
+        <div class="actions">
+          <%= f.submit "Log in", class: "btn btn-primary block full-width m-b" %>
+        </div>
+
+
+    <% end %>
+
+    <%= link_to '¿Olvidaste contraseña?', new_usuario_password_path%>
+    <br>
+    <div class="hr-line-solid"></div>
+    <h3>Su comunicacion... nuestro compromiso</h3>
+    <small>Ofintel &copy; 2015 - <%= Date.today.year %> </small>
+  </div>
+</div>
+
+
+

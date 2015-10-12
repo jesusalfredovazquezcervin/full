@@ -1,0 +1,58 @@
+<div class="passwordBox animated fadeInDown">
+  <div class="row">
+
+    <div class="col-md-12">
+
+      <div class="ibox-content">
+        <div align="center">
+
+          <img alt="image"  src="<%= image_path('ofintel2.png') %>">
+
+        </div>
+<br>
+        <h2 class="font-bold">Olvidaste contraseña</h2>
+
+        <p>
+          Escribe tu email, tu contraseña será creada nuevamente y te enviaremos instrucciones a tu correo.
+        </p>
+
+        <div class="row">
+
+          <div class="col-lg-12">
+            <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: "m-t" }) do |f| %>
+                <%= devise_error_messages! %>
+
+                <div class="form-group">
+                  <%= f.email_field :email, autofocus: true,class: 'form-control', placeholder: "Email", required: true %>
+                </div>
+
+                <div class="actions">
+                  <%= f.submit "Enviarme contraseña e instrucciones", class: "btn btn-primary block full-width m-b" %>
+                </div>
+            <% end %>
+
+          </div>
+<div align="center">
+
+  <%= link_to 'Login', new_usuario_session_path%>
+
+</div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-6">
+
+    </div>
+    <div class="col-md-6 text-right">
+      <small>Ofintel &copy; 2015 - <%= Date.today.year %> </small>
+    </div>
+  </div>
+</div>
+
+
+
