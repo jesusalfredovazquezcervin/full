@@ -1,5 +1,6 @@
 class HorariosController < ApplicationController
   before_action :set_horario, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_usuario!
 
   # GET /horarios
   # GET /horarios.json

@@ -2,6 +2,7 @@ class ContactosController < ApplicationController
 
     #before_filter :require_login
     before_action :set_contacto, only: [:show, :edit, :update, :destroy]
+    before_action :authenticate_usuario!
 
     # GET /contactos
     # GET /contactos.json

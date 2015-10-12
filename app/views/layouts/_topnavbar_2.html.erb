@@ -26,7 +26,7 @@
               <li><a href="<%= url_for :controller => 'horarios', :action => 'index'%>">Horarios</a></li>
               <li><a href="<%= url_for :controller => 'datosgenerales', :action => 'index'%>">Datos generales</a></li>
 
-              <li><a href="<%= url_for :controller => 'users', :action => 'index'%>">Usuarios</a></li>
+              <li><a href="#">Usuarios</a></li>
             </ul>
         </li>
         <li class="dropdown">
@@ -47,29 +47,44 @@
                 <li><a href="">Menu item</a></li>
             </ul>
         </li>
-        <li class="dropdown">
-            <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Menu item <span class="caret"></span></a>
-            <ul role="menu" class="dropdown-menu">
-                <li><a href="">Menu item</a></li>
-                <li><a href="">Menu item</a></li>
-                <li><a href="">Menu item</a></li>
-                <li><a href="">Menu item</a></li>
-            </ul>
-        </li>
-
-
-
     </ul>
 
     <ul class="nav navbar-top-links navbar-right">
-        <li>
-            <a href="#">
-                <i class="fa fa-sign-out"></i> Log out
-            </a>
-        </li>
+      <li class="dropdown">
+        <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+          <i class="fa fa-user"></i>  <span class="label label-warning"></span>
+        </a>
+        <ul class="dropdown-menu dropdown-messages">
+          <li>
+            <div class="dropdown-messages-box">
+
+              <a href="#" class="pull-left">
+                <img alt="image" class="img-circle" src="<%= image_path('a7.jpg') %>" />
+              </a>
+              <div class="media-body">
+
+                    <strong>Firmado</strong> como: <strong>
+                        <%= current_usuario.email%>
+                    </strong><br/>
+
+                    <i class="fa fa-sign-out">
+                      <strong>
+                      <%=link_to "Log Out", destroy_usuario_session_path, method: :delete%>
+                          </strong>
+                    </i>
+
+              </div>
+
+            </div>
+          </li>
+        </ul>
+      </li>
+
+
+
+
+
     </ul>
-      <%= select("post", "cliente_id", Cliente.all.collect {|p| [ p.nombre, p.id ] },
-                 {include_blank: true}, {class: 'chosen-select', multiple: true, style: "width:180px;", data: {placeholder: "Seleciona cliente"} })%>
 
 
 

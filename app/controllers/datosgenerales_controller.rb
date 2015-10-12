@@ -1,5 +1,6 @@
 class DatosgeneralesController < ApplicationController
   before_action :set_datosgenerale, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_usuario!
 
   # GET /datosgenerales
   # GET /datosgenerales.json
