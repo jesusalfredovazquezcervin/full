@@ -6,45 +6,41 @@
         <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
             <i class="fa fa-reorder"></i>
         </button>
-        <a href="<%= url_for :controller => 'layoutsoptions', :action => 'index'%> " class="navbar-brand">CALL</a>
+        <a href="<%= url_for home_index_path%> " class="navbar-brand">CALL</a>
 
     </div>
     <div class="navbar-collapse collapse" id="navbar">
         <ul class="nav navbar-nav">
 
             <li class="active">
-                <a aria-expanded="false" role="button" href="<%= url_for :controller => 'layoutsoptions', :action => 'index' %>"> Centro de administracion de llamadas</a>
+                <a aria-expanded="false" role="button" href="#"> Centro de administracion de llamadas</a>
             </li>
 
         <li class="dropdown">
             <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Catalogos <span class="caret"></span></a>
             <ul role="menu" class="dropdown-menu">
-              <li><a href="<%= url_for :controller => 'clientes', :action => 'index'%> ">Clientes</a></li>
-              <li><a href="<%= url_for :controller => 'sucursals', :action => 'index'%> ">Sucursales</a></li>
-              <li><a href="<%= url_for :controller => 'contactos', :action => 'index'%>">Contactos</a></li>
-              <li><a href="<%= url_for :controller => 'direccions', :action => 'index'%>">Direcciones</a></li>
-              <li><a href="<%= url_for :controller => 'horarios', :action => 'index'%>">Horarios</a></li>
-              <li><a href="<%= url_for :controller => 'datosgenerales', :action => 'index'%>">Datos generales</a></li>
-
-              <li><a href="#">Usuarios</a></li>
+              <li><a href="<%= url_for clientes_path%> ">Clientes</a></li>
+              <li><a href="<%= url_for sucursals_path%> ">Sucursales</a></li>
+              <li><a href="<%= url_for contactos_path%>">Contactos</a></li>
+              <li><a href="<%= url_for direccions_path%>">Direcciones</a></li>
+              <li><a href="<%= url_for horarios_path%>">Horarios</a></li>
+              <li><a href="<%= url_for datosgenerales_path%>">Datos generales</a></li>
             </ul>
         </li>
         <li class="dropdown">
             <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Operativo <span class="caret"></span></a>
             <ul role="menu" class="dropdown-menu">
-              <li><a href="<%= url_for :controller => 'mensaje_configuracions', :action => 'index'%>">Capturas</a></li>
+              <li><a href="<%= url_for mensaje_configuracions_path%>">Capturas</a></li>
                 <li><a href="">Menu item</a></li>
                 <li><a href="">Menu item</a></li>
                 <li><a href="">Menu item</a></li>
             </ul>
         </li>
         <li class="dropdown">
-            <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Menu item <span class="caret"></span></a>
+            <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Configuracion <span class="caret"></span></a>
             <ul role="menu" class="dropdown-menu">
-                <li><a href="">Menu item</a></li>
-                <li><a href="">Menu item</a></li>
-                <li><a href="">Menu item</a></li>
-                <li><a href="">Menu item</a></li>
+              <li><a href="<%= url_for usuarios_path%>">Usuarios</a></li>
+
             </ul>
         </li>
     </ul>
@@ -66,7 +62,7 @@
                     <strong>Firmado</strong> como: <strong>
                         <%= current_usuario.email%>
                     </strong><br/>
-
+                <small class="text-muted">Ultima sesion: <%=current_usuario.last_sign_in_at%></small>
                     <i class="fa fa-sign-out">
                       <strong>
                       <%=link_to "Log Out", destroy_usuario_session_path, method: :delete%>
