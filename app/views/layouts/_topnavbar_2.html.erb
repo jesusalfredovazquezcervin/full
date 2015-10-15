@@ -63,14 +63,18 @@
                         <%= current_usuario.email%>
                     </strong><br/>
                 <small class="text-muted">Ultima sesion: <%=current_usuario.last_sign_in_at%></small>
-                    <i class="fa fa-sign-out">
-                      <strong>
-                      <%=link_to "Log Out", destroy_usuario_session_path, method: :delete%>
-                          </strong>
-                    </i>
+
 
               </div>
 
+            </div>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <div class="text-center link-block">
+              <strong><%=link_to "Editar", edit_usuario_registration_path%></strong>
+              <i class="fa fa-edit"></i> | <strong><%=link_to "Log Out", destroy_usuario_session_path, method: :delete%></strong>
+              <i class="fa fa-sign-out"></i>
             </div>
           </li>
         </ul>
