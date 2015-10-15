@@ -13,6 +13,7 @@ es:
     failure:
       already_authenticated: 'Ya iniciaste sesión.'
       unauthenticated: 'Tienes que registrarte o iniciar sesión antes de continuar.'
+      not_found_in_database: 'Usuario no encontrado en la db'
       unconfirmed: 'Tienes que confirmar tu cuenta antes de continuar.'
       locked: 'Tu cuente está bloqueada.'
       invalid: 'Email o contraseña inválidos.'
