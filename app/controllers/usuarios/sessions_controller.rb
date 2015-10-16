@@ -3,17 +3,36 @@ class Usuarios::SessionsController < Devise::SessionsController
 
   # GET /resource/sign_in
    def new
-
      self.resource = resource_class.new(sign_in_params)
      clean_up_passwords(resource)
      yield resource if block_given?
      respond_with(resource, serialize_options(resource), :layout => "empty")
-
    end
 
   # POST /resource/sign_in
    def create
-     super
+     usuario = Usuario.where(:email => params[:usuario][:email])
+     if (usuario.size > 0)
+       if (usuario[0].activo)
+         self.resource = warden.authenticate!(auth_options)
+         set_flash_message(:notice, :signed_in) if is_flashing_format?
+         sign_in(resource_name, resource)
+         yield resource if block_given?
+         respond_with resource, location: after_sign_in_path_for(resource)
+       else
+         respond_to do |format|
+           format.html { redirect_to new_usuario_session_path, notice: 'Usuario inactivo!'  }
+           format.json { head :no_content }
+         end
+       end
+     else
+       self.resource = warden.authenticate!(auth_options)
+       set_flash_message(:notice, :signed_in) if is_flashing_format?
+       sign_in(resource_name, resource)
+       yield resource if block_given?
+       respond_with resource, location: after_sign_in_path_for(resource)
+     end
+
 
 
    end
