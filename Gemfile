@@ -54,8 +54,12 @@ group :development do
   gem 'capistrano-rails', '~> 1.1.3'
   gem 'capistrano-rbenv', '~> 2.0.3'
   gem 'capistrano-passenger'
+  gem 'capistrano-figaro-yml', '~> 1.0.2'
 end
 
 
 #Authentication
 gem 'devise', '~> 3.5.2'
+
+#Variables de entorno ENV[myvar]
+gem 'figaro', '~> 1.1.1'

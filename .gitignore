@@ -12,3 +12,7 @@
  
 #Ignore database yml
 config/database.yml
+
+#Ignore de application.ylm because figaro
+config/application.yml
+
