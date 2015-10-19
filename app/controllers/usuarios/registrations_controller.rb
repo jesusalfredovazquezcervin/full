@@ -1,7 +1,7 @@
 class Usuarios::RegistrationsController < Devise::RegistrationsController
   before_action :authenticate_scope!
-  #prepend_before_filter :require_no_authentication, only: [:cancel]
-  #prepend_before_filter :authenticate_scope!, only: [:edit, :update, :destroy]
+  prepend_before_filter :require_no_authentication, only: [:cancel]
+  prepend_before_filter :authenticate_scope!, only: [:edit, :update, :destroy]
 
   before_filter :configure_sign_up_params, only: [:create]
   before_filter :configure_account_update_params, only: [:update]
@@ -88,12 +88,12 @@ class Usuarios::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
    def configure_sign_up_params
-     devise_parameter_sanitizer.for(:sign_up) << :attribute
+     devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:email, :password, :password_confirmation, :role) }
    end
 
   # If you have extra params to permit, append them to the sanitizer.
    def configure_account_update_params
-     devise_parameter_sanitizer.for(:account_update) << :attribute
+     devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:email, :password, :password_confirmation, :role, :current_password) }
    end
 
   # The path used after sign up.
