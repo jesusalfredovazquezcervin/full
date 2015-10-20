@@ -41,10 +41,11 @@
             <thead>
             <tr>
               <th>Email</th>
-              <th>Numero de inicios</th>
-              <th>Ultima sesion</th>
+              <th># Logins</th>
+              <th>Ultimo Login</th>
               <th>Creado</th>
               <th>Activo</th>
+              <th>Perfil</th>
               <th>Acciones</th>
             </tr>
             </thead>
@@ -64,23 +65,23 @@
                     <%if usuario.activo%>
                         <%= usuario.sign_in_count%>
                     <%else%>
-                        <p class="text-danger"><%= usuario.sign_in_count%></p>
+                        <p class="text-danger"><%= usuario.sign_in_count %></p>
                     <%end%>
                   </td>
 
                   <td>
                     <%if usuario.activo%>
-                        <%= usuario.last_sign_in_at %>
+                        <%= usuario.last_sign_in_at.to_formatted_s(:short) if usuario.last_sign_in_at%>
                     <%else%>
-                        <p class="text-danger"><%= usuario.last_sign_in_at%></p>
+                        <p class="text-danger"><%= usuario.last_sign_in_at.to_formatted_s(:short) if usuario.last_sign_in_at%></p>
                     <%end%>
                   </td>
 
                   <td>
                     <%if usuario.activo%>
-                        <%= usuario.created_at%>
+                        <%= usuario.created_at.to_formatted_s(:short) if usuario.last_sign_in_at%>
                     <%else%>
-                        <p class="text-danger"><%= usuario.created_at%></p>
+                        <p class="text-danger"><%= usuario.created_at.to_formatted_s(:short) if usuario.last_sign_in_at%></p>
                     <%end%>
                   </td>
                   <td>
@@ -88,6 +89,13 @@
                         <%=usuario.activo%>
                     <%else%>
                         <p class="text-danger"><%=usuario.activo%></p>
+                    <%end%>
+                  </td>
+                  <td>
+                    <%if usuario.activo%>
+                        <%=usuario.role%>
+                    <%else%>
+                        <p class="text-danger"><%=usuario.role%></p>
                     <%end%>
                   </td>
 
