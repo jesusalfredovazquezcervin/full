@@ -83,8 +83,9 @@ class Usuarios::RegistrationsController < Devise::RegistrationsController
      else
        clean_up_passwords resource
        respond_to do |format|
-         format.html { redirect_to edit_usuario_registration_path, notice: "Ocurrieron los siguientes errores: #{resource.errors.messages}"}
-         format.json { head :no_content }
+         format.html { render action: 'edit', :layout => "layout_2" }
+         format.json { render json: resource.errors, status: :unprocessable_entity }
+
        end
 
      end
