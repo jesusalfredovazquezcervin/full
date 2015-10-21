@@ -63,3 +63,6 @@ gem 'devise', '~> 3.5.2'
 
 #Variables de entorno ENV[myvar]
 gem 'figaro', '~> 1.1.1'
+
+#Authentication with roles
+gem 'cancan', '~> 1.6', '>= 1.6.10'
