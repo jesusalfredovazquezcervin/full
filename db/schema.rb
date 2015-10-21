@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151021152558) do
+ActiveRecord::Schema.define(version: 20151021183429) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 20151021152558) do
     t.datetime "updated_at"
     t.integer  "sucursal_id"
     t.string   "skype"
+    t.string   "funciones"
   end
 
   create_table "countries", force: true do |t|
