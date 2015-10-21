@@ -61,6 +61,8 @@ class DatosgeneralesController < ApplicationController
   # POST /datosgenerales
   # POST /datosgenerales.json
   def create
+    @clientes = Cliente.all
+    @contactos = Contacto.where("cliente_id = ?", Cliente.first.id)
     @datosgenerale = Datosgenerale.new(datosgenerale_params)
     @datosgenerale.cliente_id = params[:datosgenerale][:cliente_id]
 
@@ -91,7 +93,13 @@ class DatosgeneralesController < ApplicationController
 
 
     @datosgenerale.horario_id = params[:post][:horario_id]
-    @datosgenerale.alta = Date.strptime(params[:datosgenerale][:alta], '%m/%d/%Y')
+    #@datosgenerale.alta = Date.strptime(params[:datosgenerale][:alta], '%m/%d/%Y')
+    if(params[:datosgenerale][:tipocambio]=='1')
+      @datosgenerale.tipocambio=true
+    else
+      @datosgenerale.tipocambio=false
+    end
+
     respond_to do |format|
       if @datosgenerale.save
         format.html { redirect_to @datosgenerale, notice: 'Datosgenerale was successfully created.' }
@@ -107,6 +115,10 @@ class DatosgeneralesController < ApplicationController
   # PATCH/PUT /datosgenerales/1.json
   def update
     respond_to do |format|
+      @clientes = Cliente.all
+      @contactos = Contacto.where("cliente_id = ?", Cliente.first.id)
+      #logger.debug datosgenerale_params
+
       if @datosgenerale.update(datosgenerale_params)
         @datosgenerale.cliente_id = params[:datosgenerale][:cliente_id]
 
@@ -136,7 +148,12 @@ class DatosgeneralesController < ApplicationController
         @datosgenerale.horario_id = params[:post][:horario_id]
 
         #@datosgenerale.alta = Date.parse(params[:datosgenerale][:alta], "%m/%d/%Y") #=> {:year=>2001, :mon=>2, :mday=>3}
-        @datosgenerale.alta = Date.strptime(params[:datosgenerale][:alta], '%m/%d/%Y')
+        #@datosgenerale.alta = Date.strptime(params[:datosgenerale][:alta], '%m/%d/%Y')
+        if(params[:datosgenerale][:tipocambio]=='1')
+          @datosgenerale.tipocambio=true
+        else
+          @datosgenerale.tipocambio=false
+        end
         @datosgenerale.save!
         format.html { redirect_to @datosgenerale, notice: 'Datosgenerale was successfully updated.' }
         format.json { head :no_content }
@@ -165,7 +182,9 @@ class DatosgeneralesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def datosgenerale_params
-      params.require(:datosgenerale).permit(:alta, :actualizacion, :clavesalida, :locacion, :did, :telenrutados, :contacto1_id, :contacto2_id, :contacto3_id, :contacto4_id, :contacto5_id, :telefono1, :telefono2, :telefono3, :telefono4, :telefono5, :fax, :giro, :procedimiento, :paginaweb, :cliente_id, :horario_id)
+      fecha = Date.strptime(params[:datosgenerale][:alta], '%m/%d/%Y')
+      params[:datosgenerale][:alta]="#{fecha.year}-#{fecha.month}-#{fecha.day}"
+      params.require(:datosgenerale).permit(:alta, :actualizacion, :clavesalida, :locacion, :did, :telenrutados, :contacto1_id, :contacto2_id, :contacto3_id, :contacto4_id, :contacto5_id, :telefono1, :telefono2, :telefono3, :telefono4, :telefono5, :fax, :giro, :procedimiento, :paginaweb, :cliente_id, :horario_id, :tipocambio)
     end
     def dashboard_4
       render :layout => "layout_2"
