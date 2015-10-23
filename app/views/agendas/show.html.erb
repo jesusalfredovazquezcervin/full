@@ -1,0 +1,134 @@
+
+<div class="col-lg-10">
+  <h2>Mostrar contacto</h2>
+</div>
+<p id="notice"><%= notice %></p>
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+
+    <ol class="breadcrumb">
+      <li>
+        <a href="<%= url_for :controller => 'home', :action => 'index' %>">Inicio</a>
+      </li>
+      <li>
+        <a>Catalogos</a>
+      </li>
+      <li>
+        <a href="<%= url_for agendas_path%>">Agenda</a>
+
+      </li>
+      <li class="active">
+        <strong>Mostrar</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Formulario<small> que muestra los datos de un cliente de la agenda.</small></h5>
+
+        </div>
+        <div class="ibox-content">
+
+          <div class="form-group">
+            <div class="form-group">
+              <h4>Cliente:</h4>
+              <div class="col-sm-5">
+                <%= Cliente.find(@agenda.cliente_id).nombre %>
+              </div><br>
+
+              <h4>Nombre:</h4>
+              <div class="col-sm-5">
+                <%= @agenda.nombre %>
+              </div><br>
+
+              <h4>RFC:</h4>
+              <div class="col-sm-5">
+                <%= @agenda.rfc%>
+              </div><br>
+
+              <h4>Calle:</h4>
+              <div class="col-sm-5">
+                <%= @agenda.calle%>
+              </div><br>
+
+              <h4>Numero:</h4>
+              <div class="col-sm-5">
+                <%= @agenda.numero%>
+              </div><br>
+
+              <h4>Colonia:</h4>
+              <div class="col-sm-5">
+                <%= @agenda.colonia%>
+              </div><br>
+
+              <h4>Delegacion:</h4>
+              <div class="col-sm-5">
+                <%= @agenda.delegacion%>
+              </div><br>
+
+              <h4>Estado:</h4>
+              <div class="col-sm-5">
+                <%= @agenda.estado%>
+              </div><br>
+
+              <h4>CP:</h4>
+              <div class="col-sm-5">
+                <%= @agenda.cp%>
+              </div><br>
+
+              <h4>Email:</h4>
+              <div class="col-sm-5">
+                <%= @agenda.email%>
+              </div><br>
+
+              <h4>Telefono:</h4>
+              <div class="col-sm-5">
+                <%= @agenda.telefono%>
+              </div><br>
+
+              <h4>Cel:</h4>
+              <div class="col-sm-5">
+                <%= @agenda.cel%>
+              </div><br>
+
+            </div>
+            <br>
+            <div class="hr-line-dashed"></div>
+
+
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-4 col-sm-offset-2">
+              <a href="<%= url_for agendas_path%>">
+                <button class="btn btn-outline btn-danger btn-rounded" type="button"><i class="fa fa-list-ol"></i>&nbsp;Listado</button>
+              </a>
+
+              <a href="<%= url_for edit_agenda_path(@agenda) %>">
+                <button class="btn btn-outline btn-success btn-rounded" type="button"><i class="fa fa-pencil"></i>&nbsp;Editar</button>
+              </a>
+
+              <a href="<%= url_for new_agenda_path%>">
+                <button class="btn btn-outline btn-warning btn-rounded" type="button"><i class="fa fa-plus"></i>&nbsp;Nuevo</button>
+              </a>
+            </div>
+
+
+
+          </div>
+          <br><br>
+
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
