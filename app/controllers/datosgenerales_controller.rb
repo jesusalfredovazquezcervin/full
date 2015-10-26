@@ -185,7 +185,7 @@ class DatosgeneralesController < ApplicationController
     def datosgenerale_params
       fecha = Date.strptime(params[:datosgenerale][:alta], '%m/%d/%Y')
       params[:datosgenerale][:alta]="#{fecha.year}-#{fecha.month}-#{fecha.day}"
-      params.require(:datosgenerale).permit(:alta, :actualizacion, :clavesalida, :locacion, :did, :telenrutados, :contacto1_id, :contacto2_id, :contacto3_id, :contacto4_id, :contacto5_id, :telefono1, :telefono2, :telefono3, :telefono4, :telefono5, :fax, :giro, :procedimiento, :paginaweb, :cliente_id, :horario_id, :tipocambio, :pedido)
+      params.require(:datosgenerale).permit(:alta, :actualizacion, :clavesalida, :locacion, :did, :telenrutados, :contacto1_id, :contacto2_id, :contacto3_id, :contacto4_id, :contacto5_id, :telefono1, :telefono2, :telefono3, :telefono4, :telefono5, :fax, :giro, :procedimiento, :paginaweb, :cliente_id, :horario_id, :tipocambio, :pedido, :frase)
     end
     def dashboard_4
       render :layout => "layout_2"
