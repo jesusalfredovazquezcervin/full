@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151021210555) do
+ActiveRecord::Schema.define(version: 20151023204821) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,6 +107,7 @@ ActiveRecord::Schema.define(version: 20151021210555) do
     t.integer  "cliente_id"
     t.integer  "horario_id"
     t.boolean  "tipocambio"
+    t.boolean  "pedido"
   end
 
   create_table "direccions", force: true do |t|
@@ -158,22 +159,9 @@ ActiveRecord::Schema.define(version: 20151021210555) do
   end
 
   create_table "mensaje_configuracions", force: true do |t|
-    t.boolean  "cliente"
     t.boolean  "ticket"
-    t.boolean  "rt"
-    t.boolean  "fecha"
-    t.boolean  "destinatario"
-    t.boolean  "remitente"
     t.boolean  "compania"
-    t.boolean  "telefono"
-    t.boolean  "ciudadEstado"
-    t.boolean  "municipio"
-    t.boolean  "email"
-    t.boolean  "motivoLlamada"
-    t.boolean  "accionRealizada"
-    t.boolean  "observaciones"
     t.boolean  "polizaContrato"
-    t.boolean  "direccion"
     t.boolean  "descripcionEmergencia"
     t.boolean  "identificarSistema"
     t.boolean  "referencia"
