@@ -1,35 +1,18 @@
-<h1>Listing captures</h1>
+<br><br><br><br>
+<div class="middle-box text-center animated fadeInDown">
+  <h2>Call - Registro de llamadas</h2>
+  <h3 class="font-bold">Bienvenido al sistema de captura de llamadas</h3>
 
-<table>
-  <thead>
-    <tr>
-      <th>Ticket</th>
-      <th>Fecha</th>
-      <th>Fecha</th>
-      <th>Hora</th>
-      <th>Para</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+  <div class="error-desc">
+    Para iniciar seleccione una cuenta
+    <form class="form-inline m-t" role="form">
+      <div class="form-group">
+        <%= select("post", "cliente_id", Cliente.all.collect {|c| [ c.nombre, c.id ] },
+                   {prompt: 'Seleccione cuenta' }, { class: 'chosen-select', style: "width:400px;"}) %>
 
-  <tbody>
-    <% @captures.each do |capture| %>
-      <tr>
-        <td><%= capture.ticket %></td>
-        <td><%= capture.fecha %></td>
-        <td><%= capture.fecha %></td>
-        <td><%= capture.hora %></td>
-        <td><%= capture.para %></td>
-        <td><%= link_to 'Show', capture %></td>
-        <td><%= link_to 'Edit', edit_capture_path(capture) %></td>
-        <td><%= link_to 'Destroy', capture, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Capture', new_capture_path %>
+      </div>
+      <br><br>
+      <button type="submit" class="btn btn-primary">Consultar</button>
+    </form>
+  </div>
+</div>
