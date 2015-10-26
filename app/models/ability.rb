@@ -31,11 +31,31 @@ class Ability
 
     user ||= Usuario.new #guest user
 
-    if user.role == 'Admin'
-      can :manage, :all
-    else
-      can :read, :all
+    # if user.role == 'Admin'
+    #   can :manage, :all
+    # else
+    #   can :read, :all
+    #
+    # end
+
+    role = user.role
+    case role # was case obj.class
+      when 'Admin'
+        can :manage, :all
+      when 'Operador'
+        can :manage, Capture
+      else # Consulta
+        # can :read, :all
     end
+
+
+=begin
+      can :update, Article
+      You can pass :manage to represent any action and :all to represent any object.
+                                                                can :manage, Article  # user can perform any action on the article
+      can :read, :all       # user can read any object
+      can :manage, :all
+=end
 
 
   end

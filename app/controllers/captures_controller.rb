@@ -1,10 +1,11 @@
 class CapturesController < ApplicationController
   before_action :set_capture, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_usuario!
+  load_and_authorize_resource
   # GET /captures
   # GET /captures.json
   def index
-    @captures = Capture.all
+    dashofintel
   end
 
   # GET /captures/1
@@ -70,5 +71,9 @@ class CapturesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def capture_params
       params.require(:capture).permit(:ticket, :fecha, :fecha, :hora, :para)
+    end
+
+    def dashofintel
+      render :layout => "layout_3"
     end
 end

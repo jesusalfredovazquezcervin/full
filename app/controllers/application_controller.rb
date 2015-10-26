@@ -10,7 +10,20 @@ class ApplicationController < ActionController::Base
 
     alias_method :current_user, :current_usuario# Could be :current_member or :logged_in_user
     rescue_from CanCan::AccessDenied do |exception|
+
       flash[:error] = "Accesso no permitido."
-      redirect_to root_url
+      role = current_user.role
+      case role # was case obj.class
+        when 'Admin'
+          redirect_to root_url
+        when 'Operador'
+          redirect_to captures_path
+        else # Consulta
+          redirect_to root_url
+      end
+
+
+
+
     end
 end
