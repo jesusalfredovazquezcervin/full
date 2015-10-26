@@ -18,7 +18,16 @@ class Usuarios::SessionsController < Devise::SessionsController
          set_flash_message(:notice, :signed_in) if is_flashing_format?
          sign_in(resource_name, resource)
          yield resource if block_given?
-         respond_with resource, location: after_sign_in_path_for(resource)
+
+         role = usuario[0].role
+         case role # was case obj.class
+           when "Admin"
+             respond_with resource, location: after_sign_in_path_for(resource)
+           when "Operador"
+             respond_with resource, location: captures_path
+           else # Consulta
+             respond_with resource, location: pages_invoice_path
+         end
        else
          respond_to do |format|
            format.html { redirect_to new_usuario_session_path, notice: 'Usuario inactivo!'  }
