@@ -31,22 +31,9 @@ class MensajeConfiguracionsController < ApplicationController
   def create
     @mensaje_configuracion = MensajeConfiguracion.new()
     @mensaje_configuracion.cliente_id = params[:post][:cliente_id]
-    @mensaje_configuracion.cliente=params[:mensaje_configuracion][:cliente]
     @mensaje_configuracion.ticket=params[:mensaje_configuracion][:ticket]
-    @mensaje_configuracion.rt=params[:mensaje_configuracion][:rt]
-    @mensaje_configuracion.fecha=params[:mensaje_configuracion][:fecha]
-    @mensaje_configuracion.destinatario=params[:mensaje_configuracion][:destinatario]
-    @mensaje_configuracion.remitente=params[:mensaje_configuracion][:remitente]
     @mensaje_configuracion.compania=params[:mensaje_configuracion][:compania]
-    @mensaje_configuracion.telefono=params[:mensaje_configuracion][:telefono]
-    @mensaje_configuracion.ciudadEstado=params[:mensaje_configuracion][:ciudadEstado]
-    @mensaje_configuracion.municipio=params[:mensaje_configuracion][:municipio]
-    @mensaje_configuracion.email=params[:mensaje_configuracion][:email]
-    @mensaje_configuracion.motivoLlamada=params[:mensaje_configuracion][:motivoLlamada]
-    @mensaje_configuracion.accionRealizada=params[:mensaje_configuracion][:accionRealizada]
-    @mensaje_configuracion.observaciones=params[:mensaje_configuracion][:observaciones]
     @mensaje_configuracion.polizaContrato=params[:mensaje_configuracion][:polizaContrato]
-    @mensaje_configuracion.direccion=params[:mensaje_configuracion][:direccion]
     @mensaje_configuracion.descripcionEmergencia=params[:mensaje_configuracion][:descripcionEmergencia]
     @mensaje_configuracion.identificarSistema=params[:mensaje_configuracion][:identificarSistema]
     @mensaje_configuracion.referencia=params[:mensaje_configuracion][:referencia]
@@ -166,22 +153,9 @@ class MensajeConfiguracionsController < ApplicationController
   def update
     respond_to do |format|
       @mensaje_configuracion.cliente_id = params[:post][:cliente_id]
-      @mensaje_configuracion.cliente=params[:mensaje_configuracion][:cliente]
       @mensaje_configuracion.ticket=params[:mensaje_configuracion][:ticket]
-      @mensaje_configuracion.rt=params[:mensaje_configuracion][:rt]
-      @mensaje_configuracion.fecha=params[:mensaje_configuracion][:fecha]
-      @mensaje_configuracion.destinatario=params[:mensaje_configuracion][:destinatario]
-      @mensaje_configuracion.remitente=params[:mensaje_configuracion][:remitente]
       @mensaje_configuracion.compania=params[:mensaje_configuracion][:compania]
-      @mensaje_configuracion.telefono=params[:mensaje_configuracion][:telefono]
-      @mensaje_configuracion.ciudadEstado=params[:mensaje_configuracion][:ciudadEstado]
-      @mensaje_configuracion.municipio=params[:mensaje_configuracion][:municipio]
-      @mensaje_configuracion.email=params[:mensaje_configuracion][:email]
-      @mensaje_configuracion.motivoLlamada=params[:mensaje_configuracion][:motivoLlamada]
-      @mensaje_configuracion.accionRealizada=params[:mensaje_configuracion][:accionRealizada]
-      @mensaje_configuracion.observaciones=params[:mensaje_configuracion][:observaciones]
       @mensaje_configuracion.polizaContrato=params[:mensaje_configuracion][:polizaContrato]
-      @mensaje_configuracion.direccion=params[:mensaje_configuracion][:direccion]
       @mensaje_configuracion.descripcionEmergencia=params[:mensaje_configuracion][:descripcionEmergencia]
       @mensaje_configuracion.identificarSistema=params[:mensaje_configuracion][:identificarSistema]
       @mensaje_configuracion.referencia=params[:mensaje_configuracion][:referencia]
@@ -211,7 +185,7 @@ class MensajeConfiguracionsController < ApplicationController
       @mensaje_configuracion.codigoOrganizador=params[:mensaje_configuracion][:codigoOrganizador]
       @mensaje_configuracion.fijoMovil=params[:mensaje_configuracion][:fijoMovil]
       @mensaje_configuracion.telefonoOrigen=params[:mensaje_configuracion][:telefonoOrigen]
-      @mensaje_configuracion.audoconferenciaReporta=params[:audoconferenciaReporta][:audoconferenciaReporta]
+      @mensaje_configuracion.audioconferenciaReporta=params[:mensaje_configuracion][:audioconferenciaReporta]
       @mensaje_configuracion.paisOrigino=params[:mensaje_configuracion][:paisOrigino]
       @mensaje_configuracion.localidadOrigino=params[:mensaje_configuracion][:localidadOrigino]
       @mensaje_configuracion.motivoDenuncia=params[:mensaje_configuracion][:motivoDenuncia]
@@ -311,7 +285,7 @@ class MensajeConfiguracionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def mensaje_configuracion_params
-      params.require(:mensaje_configuracion).permit(:cliente, :ticket, :rt, :fecha, :destinatario, :remitente, :compania, :telefono, :ciudadEstado, :municipio, :email, :motivoLlamada, :accionRealizada, :observaciones, :polizaContrato, :direccion, :descripcionEmergencia, :identificarSistema, :referencia, :comentariosExtra, :avisoNombre, :avisoFecha, :notificoNombre, :notificoFechaHora, :rllsOperador, :rllsFechaHora, :tiempoRespuesta, :notificacionLlegadaSitio, :rteOperador, :rteFechaHora, :situacionEmergencia, :duracionEmeregencia, :faltaSuministroGas, :sucursal, :tipoLlamada, :codigo, :horaEnlace, :medioSeEntero, :terminoChat, :razaMascota, :edad, :codigoAcceso, :codigoOrganizador, :fijoMovil, :telefonoOrigen, :audioconferenciaReporta, :paisOrigino, :localidadOrigino, :motivoDenuncia, :tipoDelito, :puestoInvolucrado, :resultadoEstatus, :emailContacto, :marca, :modelo, :serie, :beneficiario, :contactoBeneficiario, :nombreFiado, :puestoFiado, :montoReportar, :enlazadaCorrectamente, :intentosEnlace, :duracionLlamada, :origenCodigoGami, :codigoGami, :tipoEmergencia, :empresaCodigoGami, :nomenclaturaSistema, :personaRecibe, :razonSocial, :rfc, :ticketCliente, :relacionPaciente, :lugarTumor, :institucionAtiende, :medicoTratante, :programaInteres, :club, :handicap, :redConecta, :intensidadSenal, :ubicacionFisica, :ipv4, :macAddress, :hotel, :habitacion, :usuario, :contrasena, :tiempoContrato, :dispositivo, :acuse, :fechaCirugia, :hospital, :tipoCirugia, :especidalidad, :paciente, :cargoPersona, :telefonoMedico, :equipoEspecial, :telefonoPaciente, :procedimiento, :fechaProcedimiento, :equipoDetenido, :fianza, :inclusion, :codigoSeguridad, :numeroControl, :lineaValidacion, :tipoPoliza, :telefonoFiado, :direccionFiado, :lugarFianza, :vendedorFianza, :formaPagoFianza, :cliente_id)
+      params.require(:mensaje_configuracion).permit(:ticket, :compania, :polizaContrato, :descripcionEmergencia, :identificarSistema, :referencia, :comentariosExtra, :avisoNombre, :avisoFecha, :notificoNombre, :notificoFechaHora, :rllsOperador, :rllsFechaHora, :tiempoRespuesta, :notificacionLlegadaSitio, :rteOperador, :rteFechaHora, :situacionEmergencia, :duracionEmeregencia, :faltaSuministroGas, :sucursal, :tipoLlamada, :codigo, :horaEnlace, :medioSeEntero, :terminoChat, :razaMascota, :edad, :codigoAcceso, :codigoOrganizador, :fijoMovil, :telefonoOrigen, :audioconferenciaReporta, :paisOrigino, :localidadOrigino, :motivoDenuncia, :tipoDelito, :puestoInvolucrado, :resultadoEstatus, :emailContacto, :marca, :modelo, :serie, :beneficiario, :contactoBeneficiario, :nombreFiado, :puestoFiado, :montoReportar, :enlazadaCorrectamente, :intentosEnlace, :duracionLlamada, :origenCodigoGami, :codigoGami, :tipoEmergencia, :empresaCodigoGami, :nomenclaturaSistema, :personaRecibe, :razonSocial, :rfc, :ticketCliente, :relacionPaciente, :lugarTumor, :institucionAtiende, :medicoTratante, :programaInteres, :club, :handicap, :redConecta, :intensidadSenal, :ubicacionFisica, :ipv4, :macAddress, :hotel, :habitacion, :usuario, :contrasena, :tiempoContrato, :dispositivo, :acuse, :fechaCirugia, :hospital, :tipoCirugia, :especidalidad, :paciente, :cargoPersona, :telefonoMedico, :equipoEspecial, :telefonoPaciente, :procedimiento, :fechaProcedimiento, :equipoDetenido, :fianza, :inclusion, :codigoSeguridad, :numeroControl, :lineaValidacion, :tipoPoliza, :telefonoFiado, :direccionFiado, :lugarFianza, :vendedorFianza, :formaPagoFianza, :cliente_id)
     end
   def dashboard_4
     render :layout => "layout_2"

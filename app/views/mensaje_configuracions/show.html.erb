@@ -52,7 +52,7 @@
 
                 <div class="form-group">
                   <div class="form-group">
-                    <%= f.label :cliente, class: 'col-sm-2 control-label'%>
+                    <%= f.label "Cliente:", class: 'col-sm-2 control-label'%>
                     <div class="col-sm-5">
                       <%= Cliente.find(@mensaje_configuracion.cliente_id).nombre %>
                     </div>
@@ -62,31 +62,12 @@
 
                   <div class="form-group" >
                     <div class="checkbox checkbox-success checkbox-inline">
-                      <%= f.check_box :cliente, :disabled => true %>
-                      <%= f.label "Cuenta"%>
-                    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <div class="checkbox checkbox-success checkbox-inline">
                       <%= f.check_box :ticket , :disabled => true %>
                       <%= f.label :ticket%>
                     </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <div class="checkbox checkbox-success checkbox-inline">
-                      <%= f.check_box :rt, :disabled => true %>
-                      <%= f.label :rt%>
-                    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <div class="checkbox checkbox-success checkbox-inline">
-                      <%= f.check_box :fecha, :disabled => true %>
-                      <%= f.label :fecha%>
-                      <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Fecha + Hora">?</button>
-                    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <div class="checkbox checkbox-success checkbox-inline">
-                      <%= f.check_box :destinatario, :disabled => true %>
-                      <%= f.label :destinatario%>
-                      <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="A quien llama">?</button>
-                    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <div class="checkbox checkbox-success checkbox-inline">
-                      <%= f.check_box :remitente, :disabled => true %>
-                      <%= f.label :remitente%>
-                      <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Con quien tengo el gusto">?</button>
+                      <%= f.check_box :audioconferenciaReporta, :disabled => true %>
+                      <%= f.label :audioconferenciaReporta%>
                     </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <div class="checkbox checkbox-success checkbox-inline">
                       <%= f.check_box :compania, :disabled => true %>
@@ -96,58 +77,11 @@
                   <br>
                   <div class="hr-line-dashed"></div>
 
-
-
-
-
-
                   <div class="form-group" >
-
-                    <div class="checkbox checkbox-success checkbox-inline">
-                      <%= f.check_box :telefono, :disabled => true %>
-                      <%= f.label :telefono%>
-                    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <div class="checkbox checkbox-success checkbox-inline">
-                      <%= f.check_box :ciudadEstado, :disabled => true %>
-                      <%= f.label :"Ciudad o Estado"%>
-                    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <div class="checkbox checkbox-success checkbox-inline">
-                      <%= f.check_box :municipio, :disabled => true %>
-                      <%= f.label :municipio%>
-                    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <div class="checkbox checkbox-success checkbox-inline">
-                      <%= f.check_box :email, :disabled => true %>
-                      <%= f.label :email%>
-                    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <div class="checkbox checkbox-success checkbox-inline">
-                      <%= f.check_box :motivoLlamada, :disabled => true %>
-                      <%= f.label "Motivo Llamada"%>
-                      <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Motivo de la llamada">?</button>
-                    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <div class="checkbox checkbox-success checkbox-inline">
-                      <%= f.check_box :accionRealizada, :disabled => true %>
-                      <%= f.label "Accion Realizada"%>
-                    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  </div>
-                  <br>
-                  <div class="hr-line-dashed"></div>
-
-
-                  <div class="form-group" >
-
-                    <div class="checkbox checkbox-success checkbox-inline">
-                      <%= f.check_box :observaciones, :disabled => true %>
-                      <%= f.label :observaciones%>
-                    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <div class="checkbox checkbox-success checkbox-inline">
                       <%= f.check_box :polizaContrato, :disabled => true %>
                       <%= f.label "Poliza o Contrato"%>
                       <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="No. de contratro o No. de poliza">?</button>
-                    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <div class="checkbox checkbox-success checkbox-inline">
-                      <%= f.check_box :direccion, :disabled => true %>
-                      <%= f.label :direccion%>
-                      <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Direccion completa">?</button>
                     </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <div class="checkbox checkbox-success checkbox-inline">
                       <%= f.check_box :descripcionEmergencia, :disabled => true %>
@@ -168,11 +102,7 @@
 
 
                   <div class="form-group" >
-                    <div class="checkbox checkbox-success checkbox-inline">
-                      <%= f.check_box :municipio, :disabled => true %>
-                      <%= f.label :municipio%>
-                      <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="En cual municipio se encuentra">?</button>
-                    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
 
                     <div class="checkbox checkbox-success checkbox-inline">
                       <%= f.check_box :referencia, :disabled => true %>

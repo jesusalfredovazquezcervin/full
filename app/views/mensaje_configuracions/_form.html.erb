@@ -57,92 +57,27 @@
 
                 <div class="form-group" >
                   <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :cliente%>
-                    <%= f.label "Cuenta"%>
-                  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <div class="checkbox checkbox-success checkbox-inline">
                     <%= f.check_box :ticket%>
                     <%= f.label :ticket%>
                   </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :rt%>
-                    <%= f.label :rt%>
-                  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :fecha%>
-                    <%= f.label :fecha%>
-                    <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Fecha + Hora">?</button>
-                  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :destinatario%>
-                    <%= f.label :destinatario%>
-                    <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="A quien llama">?</button>
-                  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :remitente%>
-                    <%= f.label :remitente%>
-                    <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Con quien tengo el gusto">?</button>
-                  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
                   <div class="checkbox checkbox-success checkbox-inline">
                     <%= f.check_box :compania%>
                     <%= f.label :compania%>
+                  </div>
+                  <div class="checkbox checkbox-success checkbox-inline">
+                    <%= f.check_box :audioconferenciaReporta%>
+                    <%= f.label :audioconferenciaReporta%>
                   </div>
                 </div>
                 <br>
                 <div class="hr-line-dashed"></div>
 
-
-
-
-
-
                 <div class="form-group" >
-
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :telefono%>
-                    <%= f.label :telefono%>
-                  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :ciudadEstado%>
-                    <%= f.label :"Ciudad o Estado"%>
-                  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :municipio%>
-                    <%= f.label :municipio%>
-                  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :email%>
-                    <%= f.label :email%>
-                  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :motivoLlamada%>
-                    <%= f.label "Motivo Llamada"%>
-                    <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Motivo de la llamada">?</button>
-                  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :accionRealizada%>
-                    <%= f.label "Accion Realizada"%>
-                  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                </div>
-                <br>
-                <div class="hr-line-dashed"></div>
-
-
-                <div class="form-group" >
-
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :observaciones%>
-                    <%= f.label :observaciones%>
-                  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   <div class="checkbox checkbox-success checkbox-inline">
                     <%= f.check_box :polizaContrato%>
                     <%= f.label "Poliza o Contrato"%>
                     <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="No. de contratro o No. de poliza">?</button>
-                  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :direccion%>
-                    <%= f.label :direccion%>
-                    <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Direccion completa">?</button>
                   </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   <div class="checkbox checkbox-success checkbox-inline">
                     <%= f.check_box :descripcionEmergencia%>
@@ -163,12 +98,6 @@
 
 
                 <div class="form-group" >
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :municipio%>
-                    <%= f.label :municipio%>
-                    <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="En cual municipio se encuentra">?</button>
-                  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
                   <div class="checkbox checkbox-success checkbox-inline">
                     <%= f.check_box :referencia%>
                     <%= f.label :referencia%>

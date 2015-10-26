@@ -41,12 +41,9 @@
             <thead>
             <tr>
               <th>Cliente</th>
-              <th>Cuenta</th>
+
               <th>Ticket</th>
-              <th>RT</th>
-              <th>Fecha</th>
-              <th>Destinatario</th>
-              <th>Remitente</th>
+
               <th>&nbsp;&nbsp;Acciones</th>
             </tr>
             </thead>
@@ -54,12 +51,7 @@
             <% @mensaje_configuracions.each do |mensaje| %>
                 <tr>
                   <td><%= Cliente.find(mensaje.cliente_id).nombre %></td>
-                  <td><%= mensaje.cliente%></td>
                   <td><%= mensaje.ticket%></td>
-                  <td><%= mensaje.rt%></td>
-                  <td><%= mensaje.fecha%></td>
-                  <td><%= mensaje.destinatario%></td>
-                  <td><%= mensaje.remitente%></td>
                   <td>
                     <%= link_to 'V', mensaje,class: "btn btn-primary btn-circle", title:"Ver" %>
                     <%= link_to 'M', edit_mensaje_configuracion_path(mensaje), class: "btn btn-warning btn-circle", title:"Modificar" %>
