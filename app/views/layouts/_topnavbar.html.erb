@@ -4,13 +4,19 @@
             <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
             <form role="search" class="navbar-form-custom" method="post" action="">
                 <div class="form-group">
-                    <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search"/>
+
+<br>
+                    <%= select("post", "cliente_id", Cliente.all.collect {|c| [ c.nombre, c.id ] },
+                               {prompt: 'Buscar cuenta' }, { class: 'chosen-select', style: "width:400px;"}) %>
+
+
+
                 </div>
             </form>
         </div>
         <ul class="nav navbar-top-links navbar-right">
             <li>
-                <span class="m-r-sm text-muted welcome-message">Welcome to INSPINIA+ Admin Theme.</span>
+                <span class="m-r-sm text-muted welcome-message">CALL - Registro de llamadas</span>
             </li>
             <li class="dropdown">
                 <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
@@ -110,8 +116,7 @@
 
 
             <li>
-
-                <i class="fa fa-sign-out"></i> Log out
+                <i class="fa fa-sign-out"><%=link_to "Salir", destroy_usuario_session_path, method: :delete%></i>
             </a>
         </li>
 
@@ -123,3 +128,23 @@
     </ul>
 </nav>
 </div>
+
+<% content_for :javascript do %>
+
+    <script type="text/javascript">
+
+
+        var config = {
+            '.chosen-select'           : {},
+            '.chosen-select-deselect'  : {allow_single_deselect:true},
+            '.chosen-select-no-single' : {disable_search_threshold:10},
+            '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+            '.chosen-select-width'     : {width:"95%"}
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+
+
+    </script>
+<% end %>
