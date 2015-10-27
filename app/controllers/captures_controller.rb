@@ -1,7 +1,7 @@
 class CapturesController < ApplicationController
   before_action :set_capture, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_usuario!
-  load_and_authorize_resource
+  #load_and_authorize_resource
   # GET /captures
   # GET /captures.json
   def index
