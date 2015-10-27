@@ -1,23 +1,31 @@
-<div class="row border-bottom">
+<div class="row border-bottom" xmlns="http://www.w3.org/1999/html">
     <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
-            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
-            <form role="search" class="navbar-form-custom" method="post" action="">
-                <div class="form-group">
 
-<br>
-                    <%= select("post", "cliente_id", Cliente.all.collect {|c| [ c.nombre, c.id ] },
-                               {prompt: 'Buscar cuenta' }, { class: 'chosen-select', style: "width:400px;"}) %>
+          <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
 
-
-
-                </div>
-            </form>
         </div>
+      <div class="navbar-header">
+        <%= form_for @capture , url: {action: "consultar"}, class: "navbar-form-custom" do |f| %> 
+            <div>
+            <%= f.select :cliente_id, options_for_select(@clientes.order(:nombre).collect { |c|
+                                                           [c.nombre << ' - ' << c.datosgenerale.frase, c.id ] }),
+                         {prompt: 'Seleccione cuenta'}, { class:"chosen-select", style: "width:500px;" } %>    
+
+              <%= button_tag(type: 'submit', class: "btn btn-primary") do %>
+                  <i class="fa fa-search"></i>
+              <% end %>
+              </div>
+
+
+
+        <%end%> 
+      </div>
+
+
+
         <ul class="nav navbar-top-links navbar-right">
-            <li>
-                <span class="m-r-sm text-muted welcome-message">CALL - Registro de llamadas</span>
-            </li>
+
             <li class="dropdown">
                 <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                     <i class="fa fa-envelope"></i>  <span class="label label-warning">16</span>
@@ -116,7 +124,11 @@
 
 
             <li>
-                <i class="fa fa-sign-out"><%=link_to "Salir", destroy_usuario_session_path, method: :delete%></i>
+
+                <%=link_to "Salir",  destroy_usuario_session_path, method: :delete%>
+
+
+
             </a>
         </li>
 
