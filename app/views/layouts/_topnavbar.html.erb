@@ -8,6 +8,13 @@
       <div class="navbar-header">
         <%= form_for @capture , url: {action: "consultar"}, class: "navbar-form-custom" do |f| %> 
             <div>
+            <%= f.select :cliente_id, options_for_select(@clientes.order(:nombre).collect { |c|
+                                                           [c.nombre << ' - ' << c.datosgenerale.frase, c.id ] }),
+                         {prompt: 'Seleccione cuenta'}, { class:"chosen-select", style: "width:500px;" } %>    
+
+              <%= button_tag(type: 'submit', class: "btn btn-primary") do %>
+                  <i class="fa fa-search"></i>
+              <% end %>
               </div>
 
 
