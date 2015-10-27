@@ -1,7 +1,7 @@
 class MensajeConfiguracionsController < ApplicationController
   before_action :set_mensaje_configuracion, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_usuario!
-  load_and_authorize_resource
+  #load_and_authorize_resource
 
   # GET /mensaje_configuracions
   # GET /mensaje_configuracions.json
