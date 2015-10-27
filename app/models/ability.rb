@@ -44,6 +44,7 @@ class Ability
         can :manage, :all
       when 'Operador'
         can :manage, Capture
+        can :consultar, Capture
       else # Consulta
         # can :read, :all
     end
