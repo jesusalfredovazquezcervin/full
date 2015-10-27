@@ -5,6 +5,8 @@ class CapturesController < ApplicationController
   # GET /captures
   # GET /captures.json
   def index
+    @capture= Capture.new
+    @clientes = Cliente.all #Aqui en el futuro deberé solamente traer los clientes a los que está asociado el operador
     dashofintel
   end
 
@@ -20,6 +22,24 @@ class CapturesController < ApplicationController
 
   # GET /captures/1/edit
   def edit
+  end
+
+  # GET /captures/1/consultar
+  def consultar
+    logger.debug params
+=begin
+    respond_to do |format|
+      @usuario.activo=false
+      @usuario.save!
+      format.html { redirect_to usuarios_path, notice: 'El usuario ha sido desactivado exitosamente.'  }
+      format.json { head :no_content }
+    end
+=end
+    @cliente = Cliente.find(params[:capture][:cliente_id])
+    @capture= Capture.new
+    @clientes = Cliente.all #Aqui en el futuro deberé solamente traer los clientes a los que está asociado el operador
+    @capture = Capture.new
+    dashofintel
   end
 
   # POST /captures
@@ -70,7 +90,7 @@ class CapturesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def capture_params
-      params.require(:capture).permit(:ticket, :fecha, :fecha, :hora, :para)
+      params.require(:capture).permit(:ticket, :fecha, :fecha, :hora, :para, :cliente_id, :capture)
     end
 
     def dashofintel

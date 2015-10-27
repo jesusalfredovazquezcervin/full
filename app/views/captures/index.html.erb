@@ -5,14 +5,20 @@
 
   <div class="error-desc">
     Para iniciar seleccione una cuenta
-    <form class="form-inline m-t" role="form">
-      <div class="form-group">
-        <%= select("post", "cliente_id", Cliente.all.collect {|c| [ c.nombre, c.id ] },
-                   {prompt: 'Seleccione cuenta' }, { class: 'chosen-select', style: "width:400px;"}) %>
+    <%= form_for @capture , url: {action: "consultar"}, class:"form-inline m-t", role:"form" do |f| %>
+        <div class="form-group">
+          <%= f.select :cliente_id, options_for_select(@clientes.order(:nombre).collect { |c|
+                                                         [c.nombre.titleize, c.id] }),
+                       {prompt: 'Seleccione cuenta'}, { class:"chosen-select", style: "width:400px;" } %>
+        </div>
+        <div class="form-group">
 
-      </div>
-      <br><br>
-      <button type="submit" class="btn btn-primary">Consultar</button>
-    </form>
+            <%= f.submit "Consultar", class: "btn btn-primary"%>
+
+        </div>
+    <%end%>
+
+
+
   </div>
 </div>
