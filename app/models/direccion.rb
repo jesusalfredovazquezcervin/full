@@ -6,6 +6,11 @@ class Direccion < ActiveRecord::Base
   validates :sucursal_id, :cliente_id, :calle, :numero, :delegacion, :cp, :referencia,
       presence: true
   validates :sucursal_id,
-      uniqueness: {scope: :cliente_id}
+      uniqueness: {scope: [:cliente_id]}
+
+  validates :cliente_id,
+            uniqueness: {scope: [:matriz]}
+
+  belongs_to :cliente
 
 end

@@ -5,4 +5,5 @@ class Horario < ActiveRecord::Base
             uniqueness: {scope: :cliente_id}
   validates :lunhini, :lunhfin, :marhini, :marhfin, :miehini, :miehfin, :juehini, :juehfin, :viehini, :viehfin, :sabhini, :sabhfin, :domhini, :domhfin,
             presence:true, allow_blank: true
+  belongs_to :cliente
 end
