@@ -1,9 +1,9 @@
 <div class="wrapper wrapper-content animated fadeIn">
   <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-8">
       <div class="ibox float-e-margins">
         <div class="ibox-title">
-          <h5>Datos generales <small class="m-l-sm">Aqui encuentras datos generales de la cuenta</small> <%=@cliente.nombre%> </h5>
+          <h5>Datos generales<small class="m-l-sm">de la cuenta:</small> <%=@cliente.nombre%> </h5>
           <div class="ibox-tools">
             <a class="collapse-link">
               <i class="fa fa-chevron-up"></i>
@@ -23,21 +23,120 @@
           </div>
         </div>
         <div class="ibox-content">
-          <h2 >
-            This is standard IN+ Panel<br/>
-          </h2>
-          <p>
-            <strong>Lorem ipsum dolor</strong>
-            Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. </p>
-          <p>
-            <small>
-              Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi.
+          <ul>
+            <li><strong>Direccion: </strong><%=@direccion.calle%> <%=@direccion.numero%>, <%=@direccion.colonia%> <%=@direccion.delegacion%> <%=@direccion.cp%></li>
+            <li><strong>Horario: </strong><small>
+              <strong>L</strong><%if(@horario.lunhini.nil? || @horario.lunhfin.nil? )%>
+                  <%="N/L"%>
+                <%else%>
+                  <%=@horario.lunhini.strftime("%I:%M%p")%>-<%=@horario.lunhfin.strftime("%I:%M%p")%>
+                <%end%> |
+              <strong>M</strong><%if(@horario.marhini.nil? || @horario.marhfin.nil? )%>
+                  <%="N/L"%>
+              <%else%>
+                  <%=@horario.marhini.strftime("%I:%M%p")%>-<%=@horario.marhfin.strftime("%I:%M%p")%>
+              <%end%> |
+              <strong>W</strong><%if(@horario.miehini.nil? || @horario.miehfin.nil? )%>
+                  <%="N/L"%>
+              <%else%>
+                  <%=@horario.miehini.strftime("%I:%M%p")%>-<%=@horario.miehfin.strftime("%I:%M%p")%>
+              <%end%> |
+              <strong>J</strong><%if(@horario.juehini.nil? || @horario.juehfin.nil? )%>
+                  <%="N/L"%>
+              <%else%>
+                  <%=@horario.juehini.strftime("%I:%M%p")%>-<%=@horario.juehfin.strftime("%I:%M%p")%>
+              <%end%>|
+              <strong>V</strong><%if(@horario.viehini.nil? || @horario.viehfin.nil? )%>
+                  <%="N/L"%>
+              <%else%>
+                  <%=@horario.viehini.strftime("%I:%M%p")%>-<%=@horario.viehfin.strftime("%I:%M%p")%>
+              <%end%>|
+              <strong>S</strong><%if(@horario.sabhini.nil? || @horario.sabhfin.nil? )%>
+                  <%="N/L"%>
+              <%else%>
+                  <%=@horario.sabhini.strftime("%I:%M%p")%>-<%=@horario.sabhfin.strftime("%I:%M%p")%>
+              <%end%>|
+              <strong>D</strong><%if(@horario.domhini.nil? || @horario.domhfin.nil? )%>
+                  <%="N/L"%>
+              <%else%>
+                  <%=@horario.domhini.strftime("%I:%M%p")%>-<%=@horario.domhfin.strftime("%I:%M%p")%>
+              <%end%>
             </small>
-          </p>
-        </div>
 
+            </li>
+            <li><strong>Telefonos: </strong><%=@cliente.datosgenerale.telefono1%>
+              <%if @cliente.datosgenerale.telefono2.nil? == false%>
+                  , <%=@cliente.datosgenerale.telefono2%>
+              <%end%>
+            </li>
+            <li><strong>Website: </strong><%=@cliente.datosgenerale.paginaweb%></li>
+            <li><strong>Contacto: </strong><%=@contacto.nombre%></li>
+            <li><strong>Giro: </strong><%=@cliente.datosgenerale.giro%></li>
+          </ul>
+        </div>
       </div>
     </div>
+
+    <div class="col-lg-4">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Frase y Clave</h5>
+          <div class="ibox-tools">
+            <a class="collapse-link">
+              <i class="fa fa-chevron-up"></i>
+            </a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              <i class="fa fa-wrench"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-user">
+              <li><a href="#">Config option 1</a>
+              </li>
+              <li><a href="#">Config option 2</a>
+              </li>
+            </ul>
+            <a class="close-link">
+              <i class="fa fa-times"></i>
+            </a>
+          </div>
+        </div>
+        <div class="ibox-content">
+          <div class="panel-body">
+            <div class="panel-group" id="accordion">
+
+              <div class="panel panel-info">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Frase de contestación</a>
+                  </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse in">
+                  <div class="panel-body">
+                    <p><%=@cliente.datosgenerale.frase%> </p>
+                  </div>
+                </div>
+              </div>
+              <div class="panel panel-warning">
+                <div class="panel-heading">
+                  <h5 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Clave de salida: <%=@cliente.datosgenerale.clavesalida%></a>
+                  </h5>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse">
+                  <div class="panel-body">
+                    <p>La clave de salida es: <%=@cliente.datosgenerale.clavesalida%> </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+        </div>
+      </div>
+    </div>
+
+
     <div class="col-lg-12">
       <div class="ibox">
         <div class="ibox-title">
@@ -56,14 +155,16 @@
         </div>
         <div class="ibox-content">
 
-          <p>
-            Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. </p>
-          <p>
-            Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi.
-          </p>
+
+
+          <%= render 'form' %>
+
+
         </div>
       </div>
     </div>
+
+
 
   </div>
 </div>

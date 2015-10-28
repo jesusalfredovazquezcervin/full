@@ -11,27 +11,37 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :ticket %><br>
-    <%= f.check_box :ticket %>
-  </div>
-  <div class="field">
-    <%= f.label :fecha %><br>
-    <%= f.check_box :fecha %>
-  </div>
-  <div class="field">
-    <%= f.label :fecha %><br>
-    <%= f.check_box :fecha %>
-  </div>
-  <div class="field">
-    <%= f.label :hora %><br>
-    <%= f.check_box :hora %>
-  </div>
-  <div class="field">
-    <%= f.label :para %><br>
-    <%= f.check_box :para %>
-  </div>
+    <div class="form-group">
+      <%= f.label :ticket, class: 'col-sm-2 control-label'%>
+      <div class="col-sm-5">
+        <%= f.text_field :ticket, class: 'form-control', :required => true %>
+      </div>
+    </div>
+
+    <br><div class="hr-line-dashed"></div>
+    <div class="form-group">
+      <%= f.label :compania, class: 'col-sm-2 control-label'%>
+      <div class="col-sm-5">
+        <%= f.text_field :compania, class: 'form-control', :required => true %>
+      </div>
+    </div>
+
+    <br><div class="hr-line-dashed"></div>
+    <div class="form-group">
+      <%= f.label :polizaContrato, class: 'col-sm-2 control-label'%>
+      <div class="col-sm-5">
+        <%= f.text_field :polizaContrato, class: 'form-control', :required => true %>
+      </div>
+    </div>
+
+
+
+<br><div class="hr-line-dashed"></div>
   <div class="actions">
-    <%= f.submit %>
+    <div class="form-group">
+      <div class="col-sm-4 col-sm-offset-2">
+        <%= f.submit "Capturar", class: "btn btn-primary"%>
+      </div>
+    </div>
   </div>
 <% end %>

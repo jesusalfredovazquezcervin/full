@@ -39,6 +39,17 @@ class CapturesController < ApplicationController
     @capture= Capture.new
     @clientes = Cliente.all #Aqui en el futuro deberé solamente traer los clientes a los que está asociado el operador
     @capture = Capture.new
+    @direccion =nil
+    @horario =nil
+    @contacto=nil
+
+    direcciones = Direccion.where(:cliente_id => params[:capture][:cliente_id], :matriz => true)
+    if (direcciones.size > 0)
+      @direccion = direcciones[0]
+    end
+
+    @horario = Horario.find(@cliente.datosgenerale.horario_id)
+    @contacto = Contacto.find(@cliente.datosgenerale.contacto1_id)
     dashofintel
   end
 
