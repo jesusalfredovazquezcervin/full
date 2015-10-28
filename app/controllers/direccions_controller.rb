@@ -52,6 +52,9 @@ class DireccionsController < ApplicationController
   # POST /direccions
   # POST /direccions.json
   def create
+    @clientes = Cliente.all
+    @sucursales = Sucursal.where("cliente_id = ?", Cliente.first.id)
+
     @direccion = Direccion.new(direccion_params)
     @direccion.sucursal_id =params[:direccion][:sucursal_id]
     @direccion.cliente_id =params[:direccion][:cliente_id]
@@ -69,6 +72,9 @@ class DireccionsController < ApplicationController
   # PATCH/PUT /direccions/1
   # PATCH/PUT /direccions/1.json
   def update
+    @clientes = Cliente.all
+    @sucursales = Sucursal.where("cliente_id = ?", Cliente.first.id)
+
     respond_to do |format|
       if @direccion.update(direccion_params)
         @direccion.cliente_id =params[:direccion][:cliente_id]
