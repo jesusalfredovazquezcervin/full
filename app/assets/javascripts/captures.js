@@ -13,3 +13,4 @@
 //= require footable/footable.all.min.js
 //= require chosen/chosen.jquery.js
 //= require datapicker/bootstrap-datepicker.js
+//= require clockpicker/clockpicker.js
