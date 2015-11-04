@@ -165,7 +165,7 @@
         <div class="ibox-title">
           <h5>Listado de capturas<small class="m-l-sm">Aqui tienes las ultimas capturas de:</small> <%=@cliente.nombre%>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <small class="m-l-sm">Ultima modificacion: <i class="fa fa-clock-o"></i> <%=@captures.order(:updated_at).last.updated_at.strftime("%H:%M %P - %d.%M.%Y")%></small>
+            <small class="m-l-sm">Ultima modificacion: <i class="fa fa-clock-o"></i> <%=@captures.try(:order, "updated_at").last.try(:updated_at).try(:strftime, "%H:%M %P - %d.%M.%Y") %></small>
 
           </h5>
 
