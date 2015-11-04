@@ -1,24 +1,31 @@
 <br><br><br><br>
 <div class="middle-box text-center animated fadeInDown">
-  <h2>Call - Registro de llamadas</h2>
-  <h3 class="font-bold">Bienvenido al sistema de captura de llamadas</h3>
-
+  <%if @cliente.nil? %>
+    <h2>Call - Registro de llamadas</h2>
+    <h3 class="font-bold">Bienvenido al sistema de captura de llamadas</h3>
+  <%else%>
+      <h3 class="font-bold">Consulte otra cuenta o continue con: <strong></string><%=@cliente.nombre%></strong></h3>
+  <%end%>
   <div class="error-desc">
-    Para iniciar seleccione una cuenta
+    <%if @cliente.nil? %>
+        Para iniciar seleccione una cuenta
+    <%end%>
+
     <%= form_for @capture , url: {action: "consultar"}, class:"form-inline m-t", role:"form" do |f| %>
         <div class="form-group">
           <%= f.select :cliente_id, options_for_select(@clientes.order(:nombre).collect { |c|
-                                                         [c.nombre, c.id] }),
+                                                         [c.nombre, c.id] }, @cliente.try(:id)),
                        {prompt: 'Seleccione cuenta'}, { class:"chosen-select", style: "width:400px;" } %>
         </div>
         <div class="form-group">
+          <%if @cliente.nil? %>
+              <%= f.submit "Consultar", class: "btn btn-primary"%>
+          <%else%>
+              <%= f.submit "Continuar", class: "btn btn-primary"%>
+          <%end%>
 
-            <%= f.submit "Consultar", class: "btn btn-primary"%>
 
         </div>
     <%end%>
-
-
-
   </div>
 </div>

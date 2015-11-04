@@ -1,4 +1,6 @@
 class CapturesController < ApplicationController
+  #skip_before_action :set_capture, only: [:consultar]
+  #before_action :set_capture, except: [:consultar, :index, :new, :create, :dashofintel]
   before_action :set_capture, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_usuario!
   #load_and_authorize_resource
@@ -7,6 +9,10 @@ class CapturesController < ApplicationController
   def index
     @capture= Capture.new
     @clientes = Cliente.all #Aqui en el futuro deberé solamente traer los clientes a los que está asociado el operador
+    if params[:id]
+      @cliente = Cliente.find(params[:id])
+    end
+    @captures = Capture.all
     dashofintel
   end
 
@@ -26,15 +32,7 @@ class CapturesController < ApplicationController
 
   # GET /captures/1/consultar
   def consultar
-    logger.debug params
-=begin
-    respond_to do |format|
-      @usuario.activo=false
-      @usuario.save!
-      format.html { redirect_to usuarios_path, notice: 'El usuario ha sido desactivado exitosamente.'  }
-      format.json { head :no_content }
-    end
-=end
+    @captures = Capture.all
     @cliente = Cliente.find(params[:capture][:cliente_id])
     @capture= Capture.new
     @clientes = Cliente.all #Aqui en el futuro deberé solamente traer los clientes a los que está asociado el operador
@@ -50,20 +48,47 @@ class CapturesController < ApplicationController
 
     @horario = Horario.find(@cliente.datosgenerale.horario_id)
     @contacto = Contacto.find(@cliente.datosgenerale.contacto1_id)
+    @sucursales = Sucursal.where(:cliente_id => params[:capture][:cliente_id])
     dashofintel
   end
 
   # POST /captures
   # POST /captures.json
   def create
-    @capture = Capture.new(capture_params)
+    @cliente = Cliente.find(params[:cliente_id])
+    @capture= Capture.new
+    @clientes = Cliente.all #Aqui en el futuro deberé solamente traer los clientes a los que está asociado el operador
+    @capture = Capture.new
+    @direccion =nil
+    @horario =nil
+    @contacto=nil
 
+    direcciones = Direccion.where(:cliente_id => params[:cliente_id], :matriz => true)
+    if (direcciones.size > 0)
+      @direccion = direcciones[0]
+    end
+
+    @horario = Horario.find(@cliente.datosgenerale.horario_id)
+    @contacto = Contacto.find(@cliente.datosgenerale.contacto1_id)
+    @sucursales = Sucursal.where(:cliente_id => params[:cliente_id])
+
+
+
+    @capture = Capture.new(capture_params)
+    if @cliente.mensaje_configuracion.sucursal
+      @capture.sucursal_id = params[:capture][:sucursal_id]
+    end
+    @capture.cliente_id = params[:cliente_id]
+    @capture.usuario_id = current_usuario.id
+    #
     respond_to do |format|
       if @capture.save
-        format.html { redirect_to @capture, notice: 'Capture was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @capture }
+        #format.html { redirect_to captures_path, notice: 'El registro ha sido creado exitosamente' }
+        format.html { redirect_to({ action: 'index', id:@cliente.id }, notice: "El registro ha sido creado exitosamente") }
+
+
       else
-        format.html { render action: 'new' }
+        format.html { render action: 'new', :layout => "layout_2" }
         format.json { render json: @capture.errors, status: :unprocessable_entity }
       end
     end
@@ -101,7 +126,21 @@ class CapturesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def capture_params
-      params.require(:capture).permit(:ticket, :fecha, :fecha, :hora, :para, :cliente_id, :capture)
+      params.require(:capture).permit(:ticket, :compania, :polizaContrato, :descripcionEmergencia, :identificarSistema, :referencia, :comentariosExtra, :avisoNombre, :avisoFechaHora, :notificoNombre, :notificoFechaHora,
+                                      :rllsOperador, :rllsFechaHora, :tiempoRespuesta, :notificacionLlegadaSitio, :rteOperador,
+                                      :rteFechaHora, :situacionEmergencia, :duracionEmeregencia, :faltaSuministroGas, :tipoLlamada,
+                                      :codigo, :horaEnlace, :medioSeEntero, :terminoChat, :razaMascota, :edad, :codigoAcceso,:codigoOrganizador,
+                                      :fijoMovil, :telefonoOrigen, :paisOrigino, :localidadOrigino, :motivoDenuncia, :tipoDelito, :puestoInvolucrado,
+                                      :resultadoEstatus, :emailContacto, :marca, :modelo, :serie, :beneficiario, :contactoBeneficiario, :nombreFiado,
+                                      :puestoFiado, :montoReportar, :enlazadaCorrectamente, :intentosEnlace, :duracionLlamada, :origenCodigoGami,
+                                      :codigoGami, :tipoEmergencia, :empresaCodigoGami, :nomenclaturaSistema, :personaRecibe, :razonSocial, :rfc,
+                                      :ticketCliente, :relacionPaciente, :lugarTumor, :institucionAtiende, :medicoTratante, :programaInteres, :club,
+                                      :handicap, :redConecta, :intensidadSenal, :ubicacionFisica, :ipv4, :macAddress, :hotel, :habitacion, :usuario,
+                                      :contrasena, :tiempoContrato, :dispositivo, :acuse, :fechaCirugia, :hospital, :tipoCirugia, :especidalidad,
+                                      :paciente, :cargoPersona, :telefonoMedico, :equipoEspecial, :telefonoPaciente, :procedimiento, :fechaProcedimiento,
+                                      :equipoDetenido, :fianza, :inclusion, :codigoSeguridad, :numeroControl, :lineaValidacion, :tipoPoliza,
+                                      :telefonoFiado, :direccionFiado, :lugarFianza, :vendedorFianza, :formaPagoFianza, :audioconferenciaReporta,
+                                      :sucursal_id, :cliente_id, :usuario_id)
     end
 
     def dashofintel
