@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151029173546) do
+ActiveRecord::Schema.define(version: 20151110192934) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,33 +44,26 @@ ActiveRecord::Schema.define(version: 20151029173546) do
     t.string   "referencia"
     t.string   "comentariosExtra"
     t.string   "avisoNombre"
-    t.datetime "avisoFechaHora"
     t.string   "notificoNombre"
-    t.datetime "notificoFechaHora"
     t.string   "rllsOperador"
-    t.datetime "rllsFechaHora"
     t.time     "tiempoRespuesta"
     t.string   "notificacionLlegadaSitio"
     t.string   "rteOperador"
-    t.datetime "rteFechaHora"
     t.string   "situacionEmergencia"
     t.string   "duracionEmeregencia",      limit: nil
     t.string   "faltaSuministroGas"
     t.string   "tipoLlamada"
     t.string   "codigo"
-    t.datetime "horaEnlace"
+    t.time     "horaEnlace"
     t.string   "medioSeEntero"
-    t.datetime "terminoChat"
     t.string   "razaMascota"
     t.string   "edad",                     limit: nil
     t.integer  "codigoAcceso"
     t.integer  "codigoOrganizador"
-    t.string   "fijoMovil"
     t.integer  "telefonoOrigen"
     t.string   "paisOrigino"
     t.string   "localidadOrigino"
     t.string   "motivoDenuncia"
-    t.string   "tipoDelito"
     t.string   "puestoInvolucrado"
     t.string   "resultadoEstatus"
     t.string   "emailContacto"
@@ -82,7 +75,6 @@ ActiveRecord::Schema.define(version: 20151029173546) do
     t.string   "nombreFiado"
     t.string   "puestoFiado"
     t.decimal  "montoReportar",                        precision: 7, scale: 2
-    t.string   "enlazadaCorrectamente"
     t.integer  "intentosEnlace"
     t.string   "duracionLlamada",          limit: nil
     t.string   "origenCodigoGami"
@@ -112,10 +104,8 @@ ActiveRecord::Schema.define(version: 20151029173546) do
     t.string   "contrasena"
     t.string   "tiempoContrato",           limit: nil
     t.string   "dispositivo"
-    t.string   "acuse"
-    t.datetime "fechaCirugia"
+    t.date     "fechaCirugia"
     t.string   "hospital"
-    t.string   "tipoCirugia"
     t.string   "especidalidad"
     t.string   "paciente"
     t.string   "cargoPersona"
@@ -123,8 +113,7 @@ ActiveRecord::Schema.define(version: 20151029173546) do
     t.string   "equipoEspecial"
     t.string   "telefonoPaciente"
     t.string   "procedimiento"
-    t.datetime "fechaProcedimiento"
-    t.string   "equipoDetenido"
+    t.date     "fechaProcedimiento"
     t.string   "fianza"
     t.string   "inclusion"
     t.string   "codigoSeguridad"
@@ -140,6 +129,22 @@ ActiveRecord::Schema.define(version: 20151029173546) do
     t.integer  "sucursal_id"
     t.integer  "cliente_id"
     t.integer  "usuario_id"
+    t.date     "avisoFecha"
+    t.time     "avisoHora"
+    t.date     "notificoFecha"
+    t.time     "notificoHora"
+    t.date     "rllsFecha"
+    t.time     "rllsHora"
+    t.date     "rteFecha"
+    t.time     "rteHora"
+    t.date     "terminoChatFecha"
+    t.time     "terminoChatHora"
+    t.string   "delito"
+    t.string   "cirugia"
+    t.boolean  "fijoMovil"
+    t.boolean  "enlazadaCorrectamente"
+    t.boolean  "acuse"
+    t.boolean  "equipoDetenido"
   end
 
   add_index "captures", ["cliente_id"], name: "index_captures_on_cliente_id", using: :btree
