@@ -1,4 +1,4 @@
-<%= form_for(@capture) do |f| %>
+<%= form_for @capture, url: {action: "create"}  do |f| %>
   <% if @capture.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@capture.errors.count, "error") %> prohibited this capture from being saved:</h2>
@@ -92,10 +92,18 @@
             <div class="form-group" id="data_1">
               <div class="input-group date">
                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                <%= f.text_field :avisoFechaHora, class: "form-control", :required => true%>
+                <%= f.text_field :avisoFecha, class: "form-control", :required => true%>
               </div>
             </div>
-
+          </div>
+          <%= f.label "Aviso hora", class: 'col-sm-2 control-label'%>
+          <div class="col-sm-5" style="width: 200px">
+            <div class="input-group clockpicker" data-autoclose="true" >
+              <%= f.text_field :avisoHora, class: 'form-control', :required => true%>
+              <span class="input-group-addon">
+              <span class="glyphicon glyphicon-time"></span>
+            </span>
+            </div>
           </div>
         </div>
         <br><div class="hr-line-dashed"></div>
@@ -117,7 +125,7 @@
             <div class="form-group" id="data_1">
               <div class="input-group date">
                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                <%= f.text_field "notificoFechaHora", class: "form-control", :required => true%>
+                <%= f.text_field :notificoFecha, class: "form-control", :required => true%>
               </div>
             </div>
 
@@ -126,7 +134,7 @@
           <%= f.label "Notifico Hora", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5" style="width: 200px">
             <div class="input-group clockpicker" data-autoclose="true" >
-              <%= f.text_field "notificoFechaHora", class: 'form-control'%>
+              <%= f.text_field :notificoHora, class: 'form-control'%>
               <span class="input-group-addon">
               <span class="glyphicon glyphicon-time"></span>
             </span>
@@ -152,7 +160,7 @@
             <div class="form-group" id="data_1">
               <div class="input-group date">
                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                <%= f.text_field :rllsFechaHora, class: "form-control", :required => true%>
+                <%= f.text_field :rllsFecha, class: "form-control", :required => true%>
               </div>
             </div>
 
@@ -161,7 +169,7 @@
           <%= f.label "Rep Llegada sitio Hora", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5" style="width: 200px">
             <div class="input-group clockpicker" data-autoclose="true" >
-              <%= f.text_field :rllsFechaHora, class: 'form-control'%>
+              <%= f.text_field :rllsHora, class: 'form-control'%>
               <span class="input-group-addon">
               <span class="glyphicon glyphicon-time"></span>
             </span>
@@ -175,9 +183,8 @@
           <%= f.label "Tiempo de respuesta", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5" style="width: 200px">
             <div class="input-group clockpicker" data-autoclose="true" >
-              <%= f.text_field :tiempoRespuesta, class: 'form-control'%>
-              <span class="input-group-addon">
-              <span class="glyphicon glyphicon-time"></span>
+              <%= f.text_field :tiempoRespuesta, class: "form-control", :required => true, :data => {:mask=> '9 99:99:99', :placeholder =>""} %>
+              <span class="help-block">D HH:MM (Dias Horas : Minutos)</span>
             </span>
             </div>
           </div>
@@ -209,7 +216,7 @@
             <div class="form-group" id="data_1">
               <div class="input-group date">
                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                <%= f.text_field :rteFechaHora, class: "form-control", :required => true%>
+                <%= f.text_field :rteFecha, class: "form-control", :required => true%>
               </div>
             </div>
 
@@ -218,7 +225,7 @@
           <%= f.label "Rte Hora", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5" style="width: 200px">
             <div class="input-group clockpicker" data-autoclose="true" >
-              <%= f.text_field :rteFechaHora, class: 'form-control'%>
+              <%= f.text_field :rteHora, class: 'form-control'%>
               <span class="input-group-addon">
               <span class="glyphicon glyphicon-time"></span>
             </span>
@@ -240,7 +247,10 @@
         <div class="form-group">
           <%= f.label "Duracion emergencia", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
-            <%= f.text_field :duracionEmeregencia, class: 'form-control', :required => true %>
+            <div class="col-sm-5">
+              <%= f.text_field :duracionEmergencia, class: "form-control", :required => true, :data => {:mask=> '9 99:99:99', :placeholder =>""} %>
+              <span class="help-block">D HH:MM (Dias Horas : Minutos)</span>
+            </div>
           </div>
           </div>
         </div>
@@ -268,10 +278,12 @@
         <br><div class="hr-line-dashed"></div>
     <%end%>
     <%if @cliente.mensaje_configuracion.tipoLlamada%>
+
         <div class="form-group">
           <%= f.label "Tipo de llamada", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
-            <%= f.text_field :tipoLlamada, class: 'form-control', :required => true %>
+            <%= f.select :tipoLlamada, options_for_select(Capture::TIPOLLAMADA.collect { |tipoLlamada|
+                                                     [tipoLlamada.to_s.titleize] }), {}, {class:"chosen-select", style: "width:350px;" } %>
           </div>
         </div>
         <br><div class="hr-line-dashed"></div>
@@ -352,10 +364,10 @@
         <br><div class="hr-line-dashed"></div>
     <%end%>
     <%if @cliente.mensaje_configuracion.fijoMovil%>
-        <div class="form-group">
-          <%= f.label :fijoMovil, class: 'col-sm-2 control-label'%>
-          <div class="col-sm-5">
-            <%= f.text_field :fijoMovil, class: 'form-control', :required => true %>
+        <div class="form-group" >
+          <div class="checkbox checkbox-success checkbox-inline">
+            <%= f.check_box :fijoMovil%>
+            <%= f.label "Telefono fijo"%>
           </div>
         </div>
         <br><div class="hr-line-dashed"></div>
@@ -373,7 +385,8 @@
         <div class="form-group">
           <%= f.label "Pais origen", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
-            <%= f.text_field :paisOrigino, class: 'form-control', :required => true %>
+            <%= f.select :paisOrigino, options_for_select(Capture::PAIS.collect { |pais|
+                                                     [pais.to_s.titleize] }), {}, {class:"chosen-select", style: "width:350px;" } %>
           </div>
         </div>
         <br><div class="hr-line-dashed"></div>
@@ -398,9 +411,9 @@
     <%end%>
     <%if @cliente.mensaje_configuracion.tipoDelito%>
         <div class="form-group">
-          <%= f.label :fijoMovil, class: 'col-sm-2 control-label'%>
+          <%= f.label :delito, class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
-            <%= f.text_field :fijoMovil, class: 'form-control', :required => true %>
+            <%= f.text_field :delito, class: 'form-control', :required => true %>
           </div>
         </div>
         <br><div class="hr-line-dashed"></div>
@@ -500,18 +513,19 @@
         <div class="form-group">
           <%= f.label "Resultado estatus", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
-            <%= f.number_field :resultadoEstatus, class: 'form-control', :required => true, :step => "0.01" %>
+            <%= f.number_field :montoReportar, class: 'form-control', :required => true, :step => "0.01" %>
           </div>
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
     <%if @cliente.mensaje_configuracion.enlazadaCorrectamente%>
-        <div class="form-group">
-          <%= f.label "Enlazada correctamente", class: 'col-sm-2 control-label'%>
-          <div class="col-sm-5">
-            <%= f.text_field :enlazadaCorrectamente, class: 'form-control', :required => true %>
+        <div class="form-group" >
+          <div class="checkbox checkbox-success checkbox-inline">
+            <%= f.check_box :enlazadaCorrectamente %>
+            <%= f.label "Enlazada correctamente"%>
           </div>
         </div>
+
         <br><div class="hr-line-dashed"></div>
     <%end%>
     <%if @cliente.mensaje_configuracion.intentosEnlace%>
@@ -527,10 +541,11 @@
         <div class="form-group">
           <%= f.label "Duracion de la llamada", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
-            <%= f.text_field :duracionLlamada, class: 'form-control', :required => true %>
+            <%= f.text_field :duracionLlamada, class: "form-control", :required => true, :data => {:mask=> '9 99:99:99', :placeholder =>""} %>
+            <span class="help-block">D HH:MM (Dias Horas : Minutos)</span>
           </div>
         </div>
-        <br><div class="hr-line-dashed"></div>
+        <br><br><div class="hr-line-dashed"></div>
     <%end%>
     <%if @cliente.mensaje_configuracion.origenCodigoGami%>
         <div class="form-group">
@@ -608,7 +623,7 @@
         <div class="form-group">
           <%= f.label "Razon Social", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
-            <%= f.text_field :razonSocial, class: 'form-control', :required => true, :max => '13' %>
+            <%= f.text_field :ticketCliente, class: 'form-control', :required => true%>
           </div>
         </div>
         <br><div class="hr-line-dashed"></div>
@@ -617,7 +632,8 @@
         <div class="form-group">
           <%= f.label "Relacion paciente", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
-            <%= f.text_field :relacionPaciente, class: 'form-control', :required => true%>
+            <%= f.select :relacionPaciente, options_for_select(Capture::FILIACION.collect { |relacionPaciente|
+                                                     [relacionPaciente.to_s.titleize] }), {}, {class:"form-control m-b", style: "width:350px;" } %>
           </div>
         </div>
         <br><div class="hr-line-dashed"></div>
@@ -689,7 +705,8 @@
         <div class="form-group">
           <%= f.label "Intensidad de señal", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
-            <%= f.text_field :intensidadSenal, class: 'form-control', :required => true%>
+            <%= f.select :intensidadSenal, options_for_select(Capture::INTENSIDADSENAL.collect { |intensidadSenal|
+                                                     [intensidadSenal.to_s.titleize] }), {}, {class:"form-control m-b", style: "width:350px;" } %>
           </div>
         </div>
         <br><div class="hr-line-dashed"></div>
@@ -761,7 +778,10 @@
         <div class="form-group">
           <%= f.label "Tiempo contrato", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
-            <%= f.text_field :tiempoContrato, class: 'form-control', :required => true%>
+            <div class="col-sm-5">
+              <%= f.text_field :tiempoContrato, class: "form-control", :required => true, :data => {:mask=> '9 99:99:99', :placeholder =>""} %>
+              <span class="help-block">D HH:MM (Dias Horas : Minutos)</span>
+            </div>
           </div>
         </div>
         <br><div class="hr-line-dashed"></div>
@@ -770,18 +790,20 @@
         <div class="form-group">
           <%= f.label :dispositivo, class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
-            <%= f.text_field :dispositivo, class: 'form-control', :required => true%>
+            <%= f.select :dispositivo, options_for_select(Capture::DISPOSITIVO.collect { |dispositivo|
+                                                     [dispositivo.to_s.titleize] }), {}, {class:"form-control m-b", style: "width:350px;" } %>
           </div>
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
     <%if @cliente.mensaje_configuracion.acuse%>
-        <div class="form-group">
-          <%= f.label :acuse, class: 'col-sm-2 control-label'%>
-          <div class="col-sm-5">
-            <%= f.text_field :acuse, class: 'form-control', :required => true%>
+        <div class="form-group" >
+          <div class="checkbox checkbox-success checkbox-inline">
+            <%= f.check_box :acuse%>
+            <%= f.label :acuse%>
           </div>
         </div>
+
         <br><div class="hr-line-dashed"></div>
     <%end%>
     <%if @cliente.mensaje_configuracion.fechaCirugia%>
@@ -820,9 +842,9 @@
     <%end%>
     <%if @cliente.mensaje_configuracion.tipoCirugia%>
         <div class="form-group">
-          <%= f.label "Tipo cirugia", class: 'col-sm-2 control-label'%>
+          <%= f.label :cirugia, class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
-            <%= f.text_field :tipoCirugia, class: 'form-control', :required => true%>
+            <%= f.text_field :cirugia, class: 'form-control', :required => true%>
           </div>
         </div>
         <br><div class="hr-line-dashed"></div>
@@ -905,10 +927,10 @@
         <br><div class="hr-line-dashed"></div>
     <%end%>
     <%if @cliente.mensaje_configuracion.equipoDetenido%>
-        <div class="form-group">
-          <%= f.label "Equipo detenido", class: 'col-sm-2 control-label'%>
-          <div class="col-sm-5">
-            <%= f.text_field :equipoDetenido, class: 'form-control', :required => true%>
+        <div class="form-group" >
+          <div class="checkbox checkbox-success checkbox-inline">
+            <%= f.check_box :equipoDetenido%>
+            <%= f.label "Equipo detenido"%>
           </div>
         </div>
         <br><div class="hr-line-dashed"></div>
@@ -1007,7 +1029,8 @@
         <div class="form-group">
           <%= f.label "Forma pago fianza", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
-            <%= f.text_field :formaPagoFianza, class: 'form-control', :required => true%>
+            <%= f.select :formaPagoFianza, options_for_select(Capture::FORMAPAGO.collect { |formaPago|
+                                                     [formaPago.to_s.titleize] }), {}, {class:"form-control m-b", style: "width:350px;" } %>
           </div>
         </div>
         <br><div class="hr-line-dashed"></div>

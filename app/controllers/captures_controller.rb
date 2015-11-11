@@ -1,6 +1,4 @@
 class CapturesController < ApplicationController
-  #skip_before_action :set_capture, only: [:consultar]
-  #before_action :set_capture, except: [:consultar, :index, :new, :create, :dashofintel]
   before_action :set_capture, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_usuario!
   #load_and_authorize_resource
@@ -55,10 +53,9 @@ class CapturesController < ApplicationController
   # POST /captures
   # POST /captures.json
   def create
+    @capture = Capture.new(capture_params)
     @cliente = Cliente.find(params[:cliente_id])
-    @capture= Capture.new
     @clientes = Cliente.all #Aqui en el futuro deberé solamente traer los clientes a los que está asociado el operador
-    @capture = Capture.new
     @direccion =nil
     @horario =nil
     @contacto=nil
@@ -74,7 +71,7 @@ class CapturesController < ApplicationController
 
 
 
-    @capture = Capture.new(capture_params)
+
     if @cliente.mensaje_configuracion.sucursal
       @capture.sucursal_id = params[:capture][:sucursal_id]
     end
@@ -126,17 +123,43 @@ class CapturesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def capture_params
-      params.require(:capture).permit(:ticket, :compania, :polizaContrato, :descripcionEmergencia, :identificarSistema, :referencia, :comentariosExtra, :avisoNombre, :avisoFechaHora, :notificoNombre, :notificoFechaHora,
-                                      :rllsOperador, :rllsFechaHora, :tiempoRespuesta, :notificacionLlegadaSitio, :rteOperador,
-                                      :rteFechaHora, :situacionEmergencia, :duracionEmeregencia, :faltaSuministroGas, :tipoLlamada,
+      if !params[:capture][:avisoFecha].nil?
+        fecha = Date.strptime(params[:capture][:avisoFecha], '%m/%d/%Y')
+        params[:capture][:avisoFecha]="#{fecha.year}-#{fecha.month}-#{fecha.day}"
+      end
+      if !params[:capture][:notificoFecha].nil?
+        fecha = Date.strptime(params[:capture][:notificoFecha], '%m/%d/%Y')
+        params[:capture][:notificoFecha]="#{fecha.year}-#{fecha.month}-#{fecha.day}"
+      end
+      if !params[:capture][:rllsFecha].nil?
+        fecha = Date.strptime(params[:capture][:rllsFecha], '%m/%d/%Y')
+        params[:capture][:rllsFecha]="#{fecha.year}-#{fecha.month}-#{fecha.day}"
+      end
+      if !params[:capture][:rteFecha].nil?
+        fecha = Date.strptime(params[:capture][:rteFecha], '%m/%d/%Y')
+        params[:capture][:rteFecha]="#{fecha.year}-#{fecha.month}-#{fecha.day}"
+      end
+      if !params[:capture][:fechaCirugia].nil?
+        fecha = Date.strptime(params[:capture][:fechaCirugia], '%m/%d/%Y')
+        params[:capture][:fechaCirugia]="#{fecha.year}-#{fecha.month}-#{fecha.day}"
+      end
+      if !params[:capture][:fechaProcedimiento].nil?
+        fecha = Date.strptime(params[:capture][:fechaProcedimiento], '%m/%d/%Y')
+        params[:capture][:fechaProcedimiento]="#{fecha.year}-#{fecha.month}-#{fecha.day}"
+      end
+      #params[:capture][:duracionLlamada]='1 12:59:10'
+      params.require(:capture).permit(:ticket, :compania, :polizaContrato, :descripcionEmergencia, :identificarSistema, :referencia, :comentariosExtra,
+                                      :avisoNombre, :avisoFecha,:avisoHora, :notificoNombre, :notificoFecha, :notificoHora,
+                                      :rllsOperador, :rllsFecha, :rllsHora, :tiempoRespuesta, :notificacionLlegadaSitio, :rteOperador,
+                                      :rteFecha, :rteHora, :situacionEmergencia, :duracionEmeregencia, :faltaSuministroGas, :tipoLlamada,
                                       :codigo, :horaEnlace, :medioSeEntero, :terminoChat, :razaMascota, :edad, :codigoAcceso,:codigoOrganizador,
-                                      :fijoMovil, :telefonoOrigen, :paisOrigino, :localidadOrigino, :motivoDenuncia, :tipoDelito, :puestoInvolucrado,
+                                      :fijoMovil, :telefonoOrigen, :paisOrigino, :localidadOrigino, :motivoDenuncia, :delito, :puestoInvolucrado,
                                       :resultadoEstatus, :emailContacto, :marca, :modelo, :serie, :beneficiario, :contactoBeneficiario, :nombreFiado,
                                       :puestoFiado, :montoReportar, :enlazadaCorrectamente, :intentosEnlace, :duracionLlamada, :origenCodigoGami,
                                       :codigoGami, :tipoEmergencia, :empresaCodigoGami, :nomenclaturaSistema, :personaRecibe, :razonSocial, :rfc,
                                       :ticketCliente, :relacionPaciente, :lugarTumor, :institucionAtiende, :medicoTratante, :programaInteres, :club,
                                       :handicap, :redConecta, :intensidadSenal, :ubicacionFisica, :ipv4, :macAddress, :hotel, :habitacion, :usuario,
-                                      :contrasena, :tiempoContrato, :dispositivo, :acuse, :fechaCirugia, :hospital, :tipoCirugia, :especidalidad,
+                                      :contrasena, :tiempoContrato, :dispositivo, :acuse, :fechaCirugia, :hospital, :cirugia, :especidalidad,
                                       :paciente, :cargoPersona, :telefonoMedico, :equipoEspecial, :telefonoPaciente, :procedimiento, :fechaProcedimiento,
                                       :equipoDetenido, :fianza, :inclusion, :codigoSeguridad, :numeroControl, :lineaValidacion, :tipoPoliza,
                                       :telefonoFiado, :direccionFiado, :lugarFianza, :vendedorFianza, :formaPagoFianza, :audioconferenciaReporta,
