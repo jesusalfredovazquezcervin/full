@@ -163,7 +163,7 @@ class CapturesController < ApplicationController
                                       :paciente, :cargoPersona, :telefonoMedico, :equipoEspecial, :telefonoPaciente, :procedimiento, :fechaProcedimiento,
                                       :equipoDetenido, :fianza, :inclusion, :codigoSeguridad, :numeroControl, :lineaValidacion, :tipoPoliza,
                                       :telefonoFiado, :direccionFiado, :lugarFianza, :vendedorFianza, :formaPagoFianza, :audioconferenciaReporta,
-                                      :sucursal_id, :cliente_id, :usuario_id)
+                                      :sucursal_id, :cliente_id, :usuario_id, :status)
     end
 
     def dashofintel
