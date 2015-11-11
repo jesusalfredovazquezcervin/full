@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151111190843) do
+ActiveRecord::Schema.define(version: 20151111193057) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -145,6 +145,7 @@ ActiveRecord::Schema.define(version: 20151111190843) do
     t.boolean  "acuse"
     t.boolean  "equipoDetenido"
     t.string   "tiempoRespuesta",          limit: nil
+    t.string   "status"
   end
 
   add_index "captures", ["cliente_id"], name: "index_captures_on_cliente_id", using: :btree

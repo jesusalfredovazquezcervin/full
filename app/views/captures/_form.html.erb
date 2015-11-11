@@ -1044,7 +1044,14 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-
+    <div class="form-group">
+      <%= f.label :status, class: 'col-sm-2 control-label'%>
+      <div class="col-sm-5">
+        <%= f.select :status, options_for_select(Capture::STATUS.collect { |status|
+                                                        [status.to_s.titleize] }), {}, {class:"chosen-select", style: "width:350px;" } %>
+      </div>
+    </div>
+    <br><div class="hr-line-dashed"></div>
 
 
   <div class="actions">

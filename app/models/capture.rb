@@ -9,5 +9,6 @@ class Capture < ActiveRecord::Base
   INTENSIDADSENAL = %w[tipo1 tipo2 tipo3] #intensidadSenal -  Pendiente lista de valores
   DISPOSITIVO = %w[pc-escritorio laptop tablet movil] #dispositivo
   FORMAPAGO = %w[efectivo tarjeta cheque transferencia deposito] #formaPagoFianza
+  STATUS= %w[pendiente concluida] #Status
 
 end

@@ -5,6 +5,7 @@
     <th>Fecha</th>
     <th>Operador</th>
     <th>Ticket</th>
+    <th>Estatus</th>
     <th>&nbsp;&nbsp;Acciones</th>
   </tr>
   </thead>
@@ -15,6 +16,12 @@
         <td><%=capture.created_at.strftime("%d/%m/%Y %H:%M:%S")%></td>
         <td><%=Usuario.find(capture.usuario_id).email%></td>
         <td><%=capture.ticket%></td>
+        <td><%if capture.status == "Pendiente"%>
+                <span class="label label-danger"><%=capture.status%></span>
+              <%else%>
+                <span class="label label-primary"><%=capture.status%></span>
+            <%end%>
+         </td>
         <td>
           <%= link_to 'Ver', capture,class: "btn-white btn btn-xs", title:"Ver" %>
           <%= link_to 'Editar', edit_capture_path(capture), class: "btn-white btn btn-xs", title:"Modificar" %>
