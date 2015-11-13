@@ -43,6 +43,7 @@
             <thead>
             <tr>
               <th>Razon social</th>
+              <th>Nombre comercial</th>
               <th>RFC</th>
               <th>Forma pago</th>
               <th>&nbsp;&nbsp;Acciones</th>
@@ -52,6 +53,7 @@
             <% @clientes.each do |cliente| %>
                 <tr>
                   <td><%= cliente.nombre %></td>
+                  <td><%= cliente.nombreComercial%></td>
                   <td><%= cliente.rfc %></td>
                   <td><% if (cliente.formapago_id.nil? == false) %>
                       <%= Formapago.find(cliente.formapago_id).nombre%>
