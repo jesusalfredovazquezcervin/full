@@ -88,7 +88,7 @@ class ClientesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def cliente_params
-      params.require(:cliente).permit(:nombre, :rfc, :direccion_id, :formapago_id)
+      params.require(:cliente).permit(:nombre, :rfc, :direccion_id, :formapago_id, :nombreComercial, :tipoCambio)
     end
     def dashboard_4
       render :layout => "layout_2"
