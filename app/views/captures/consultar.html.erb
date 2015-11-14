@@ -1,7 +1,7 @@
 <div class="wrapper wrapper-content animated fadeIn">
   <div class="row">
     <div class="col-lg-8">
-      <div class="ibox float-e-margins">
+      <div class="ibox">
         <div class="ibox-title">
           <h5>Datos generales<small class="m-l-sm">de la cuenta:</small> <%=@cliente.nombre%> </h5>
           <div class="ibox-tools">
@@ -22,57 +22,86 @@
             </a>
           </div>
         </div>
-        <div class="ibox-content">
-          <ul>
-            <li><strong>Direccion: </strong><%=@direccion.calle%> <%=@direccion.numero%>, <%=@direccion.colonia%> <%=@direccion.delegacion%> <%=@direccion.cp%></li>
-            <li><strong>Horario: </strong><small>
-              <strong>L</strong><%if(@horario.lunhini.nil? || @horario.lunhfin.nil? )%>
-                  <%="N/L"%>
-                <%else%>
-                  <%=@horario.lunhini.strftime("%I:%M%p")%>-<%=@horario.lunhfin.strftime("%I:%M%p")%>
-                <%end%> |
-              <strong>M</strong><%if(@horario.marhini.nil? || @horario.marhfin.nil? )%>
-                  <%="N/L"%>
-              <%else%>
-                  <%=@horario.marhini.strftime("%I:%M%p")%>-<%=@horario.marhfin.strftime("%I:%M%p")%>
-              <%end%> |
-              <strong>W</strong><%if(@horario.miehini.nil? || @horario.miehfin.nil? )%>
-                  <%="N/L"%>
-              <%else%>
-                  <%=@horario.miehini.strftime("%I:%M%p")%>-<%=@horario.miehfin.strftime("%I:%M%p")%>
-              <%end%> |
-              <strong>J</strong><%if(@horario.juehini.nil? || @horario.juehfin.nil? )%>
-                  <%="N/L"%>
-              <%else%>
-                  <%=@horario.juehini.strftime("%I:%M%p")%>-<%=@horario.juehfin.strftime("%I:%M%p")%>
-              <%end%>|
-              <strong>V</strong><%if(@horario.viehini.nil? || @horario.viehfin.nil? )%>
-                  <%="N/L"%>
-              <%else%>
-                  <%=@horario.viehini.strftime("%I:%M%p")%>-<%=@horario.viehfin.strftime("%I:%M%p")%>
-              <%end%>|
-              <strong>S</strong><%if(@horario.sabhini.nil? || @horario.sabhfin.nil? )%>
-                  <%="N/L"%>
-              <%else%>
-                  <%=@horario.sabhini.strftime("%I:%M%p")%>-<%=@horario.sabhfin.strftime("%I:%M%p")%>
-              <%end%>|
-              <strong>D</strong><%if(@horario.domhini.nil? || @horario.domhfin.nil? )%>
-                  <%="N/L"%>
-              <%else%>
-                  <%=@horario.domhini.strftime("%I:%M%p")%>-<%=@horario.domhfin.strftime("%I:%M%p")%>
-              <%end%>
-            </small>
+        <div class="ibox-content scrollable">
 
-            </li>
-            <li><strong>Telefonos: </strong><%=@cliente.datosgenerale.telefono1%>
-              <%if @cliente.datosgenerale.telefono2.nil? == false%>
-                  , <%=@cliente.datosgenerale.telefono2%>
-              <%end%>
-            </li>
-            <li><strong>Website: </strong><%=@cliente.datosgenerale.paginaweb%></li>
-            <li><strong>Contacto: </strong><%=@contacto.nombre%></li>
-            <li><strong>Giro: </strong><%=@cliente.datosgenerale.giro%></li>
-          </ul>
+            <ul>
+              <li><strong>Direccion: </strong><%=@direccion.calle%> <%=@direccion.numero%>, <%=@direccion.colonia%> <%=@direccion.delegacion%> <%=@direccion.cp%></li>
+              <li><strong>Horario: </strong><small><%=@horario.horario_semana%></small>
+
+              </li>
+              <li><strong>Telefonos: </strong><%=@cliente.datosgenerale.telefono1%>
+                <%if @cliente.datosgenerale.telefono2.nil? == false%>
+                    , <%=@cliente.datosgenerale.telefono2%>
+                <%end%>
+              </li>
+              <li><strong>Website: </strong><%=@cliente.datosgenerale.paginaweb%></li>
+              <li><strong>Contacto: </strong><%=@contacto.nombre%></li>
+              <li><strong>Giro: </strong><%=@cliente.datosgenerale.giro%>&nbsp;&nbsp;&nbsp;&nbsp;<a data-toggle="collapse" href="#dg" ><small>Ver mas ...</small></a></li>
+            </ul>
+
+          <div class="row">
+            <div class="col-lg-12">
+              <div id="dg" class="panel-collapse collapse ">
+
+                  <ul>
+                    <li>
+                      <strong>Cliente desde: </strong><%=@cliente.datosgenerale.alta.to_s(:month_day_year)%>
+                    </li>
+                    <li>
+                      <strong>Locacion: </strong><%=@cliente.datosgenerale.locacion%>
+                    </li>
+                    <li>
+                      <strong>DID: </strong><%=@cliente.datosgenerale.did%>
+                    </li>
+                    <li>
+                      <strong>Tel enrutados: </strong><%=@cliente.datosgenerale.telenrutados%>
+                    </li>
+                    <li>
+                      <strong>FAX: </strong><%=@cliente.datosgenerale.fax%>
+                    </li>
+                    <%if @cliente.datosgenerale.tipocambio%>
+                        <li><%=@cliente.tipoCambio%></li>
+                    <%end%>
+
+                    <li>
+                      <strong>Sucursales:</strong>
+                      <ul>
+                      <% @cliente.sucursals.each do |sucursal| %>
+                        <li><%if sucursal.direccion.matriz%>
+                             <strong> Matriz: <%= sucursal.nombre%> </strong>
+                          <%else%>
+                              <%= sucursal.nombre%>
+                          <%end%>
+                           | Tel: <%=sucursal.telefono%>
+                          <%if !Contacto.find_by_id(sucursal.contacto_id).nil?%>
+                              | Gerente: <%=Contacto.find_by_id(sucursal.contacto_id).nombre%>
+                          <%end%>
+                          <%if !Contacto.find_by_id(sucursal.contactoprincipal_id).nil?%>
+                              | Contacto: <%=Contacto.find_by_id(sucursal.contactoprincipal_id).nombre%>
+                          <%end%>
+                              | Domicilio: <%=sucursal.direccion.calle%>, <%=sucursal.direccion.numero%>
+                          <%if !sucursal.direccion.colonia.nil?%>
+                              , <%=sucursal.direccion.colonia%>
+                          <%end%>
+                              ,<%=sucursal.direccion.delegacion%>, <%=sucursal.direccion.cp%>
+                              | Referencia: <%=sucursal.direccion.referencia%>
+                              | Horario: <%=sucursal.horario.horario_semana%>
+                        </li>
+                            <br>
+                     <%end%>
+                      </ul>
+                    </li>
+
+
+                  </ul>
+
+
+              </div>
+            </div>
+          </div>
+
+
+
         </div>
       </div>
     </div>
