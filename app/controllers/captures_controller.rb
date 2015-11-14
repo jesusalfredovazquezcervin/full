@@ -12,13 +12,6 @@ class CapturesController < ApplicationController
     end
     @captures = Capture.all
     dashofintel
-    @sucursales = Sucursal.de_cliente(params[:id])
-    # <%=Direccion.where(:sucursal_id => sucursal.id).calle%> | <%=Direccion.where(:sucursal_id => sucursal.id).numero%> | <%=Direccion.where(:sucursal_id => sucursal.id).colonia%> | <%=Direccion.where(:sucursal_id => sucursal.id).delegacion%> | <%=Direccion.where(:sucursal_id => sucursal.id).cp%> | <%=Direccion.where(:sucursal_id => sucursal.id).referencia%> | <%=Direccion.where(:sucursal_id => sucursal.id).matriz%>
-    #<%=Direccion.where(:sucursal_id => sucursal.id).calle%>, <%=Direccion.where(:sucursal_id => sucursal.id).numero%>
-    #<%if !Direccion.where(:sucursal_id => sucursal.id).colonia.nil?%>
-    #<%=Direccion.where(:sucursal_id => sucursal.id).colonia%>
-    #<%end%>
-    #, <%=Direccion.where(:sucursal_id => sucursal.id).cp%>, <%=Direccion.where(:sucursal_id => sucursal.id).referencia%>
   end
 
   # GET /captures/1
