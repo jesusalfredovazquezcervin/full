@@ -220,7 +220,7 @@
                       <%if @horario.viehfin.nil?%>
                           <%= f.text_field :viehfin, class: 'form-control'%>
                       <%else%>
-                          <%= f.text_field :viehfin, class: 'form-control', value: @horario.sabhfin.to_s(:time)%>
+                          <%= f.text_field :viehfin, class: 'form-control', value: @horario.viehfin.to_s(:time)%>
                       <%end%>
                       <span class="input-group-addon">
                         <span class="glyphicon glyphicon-time"></span>
