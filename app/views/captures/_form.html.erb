@@ -368,7 +368,7 @@
             <%= f.label "Telefono fijo"%>
           </div>
         </div>
-        <br><div class="hr-line-dashed"></div>
+        <div class="hr-line-dashed"></div>
     <%end%>
     <%if @cliente.mensaje_configuracion.telefonoOrigen.include?('Captura')%>
         <div class="form-group">
@@ -523,7 +523,7 @@
           </div>
         </div>
 
-        <br><div class="hr-line-dashed"></div>
+        <div class="hr-line-dashed"></div>
     <%end%>
     <%if @cliente.mensaje_configuracion.intentosEnlace.include?('Captura')%>
         <div class="form-group">
@@ -801,7 +801,7 @@
           </div>
         </div>
 
-        <br><div class="hr-line-dashed"></div>
+        <div class="hr-line-dashed"></div>
     <%end%>
     <%if @cliente.mensaje_configuracion.fechaCirugia.include?('Captura')%>
         <div class="form-group">
@@ -930,7 +930,8 @@
             <%= f.label "Equipo detenido"%>
           </div>
         </div>
-        <br><div class="hr-line-dashed"></div>
+
+        <div class="hr-line-dashed"></div>
     <%end%>
     <%if @cliente.mensaje_configuracion.fianza.include?('Captura')%>
         <div class="form-group">
