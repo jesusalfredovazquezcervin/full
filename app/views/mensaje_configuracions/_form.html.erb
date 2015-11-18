@@ -55,141 +55,33 @@
                 <br><br>
                 <div class="hr-line-dashed"></div>
 
-                <div class="form-group" >
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :ticket%>
-                    <%= f.label :ticket%>
-                  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :compania%>
-                    <%= f.label :compania%>
-                  </div>
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :audioconferenciaReporta%>
-                    <%= f.label :audioconferenciaReporta%>
-                  </div>
-                </div>
-                <br>
-                <div class="hr-line-dashed"></div>
-
-                <div class="form-group" >
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :polizaContrato%>
-                    <%= f.label "Poliza o Contrato"%>
-                    <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="No. de contratro o No. de poliza">?</button>
-                  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :descripcionEmergencia%>
-                    <%= f.label "Descripcion Emergencia"%>
-                    <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Me puede describir en que consiste la emergencia">?</button>
-                  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :identificarSistema%>
-                    <%= f.label "Identificar Sistema"%>
-                    <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Puede ayudarme a identificar el sistema, gasoducto o GNC (camion)">?</button>
-                  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-                </div>
-                <br>
-                <div class="hr-line-dashed"></div>
-
-
-
-
-                <div class="form-group" >
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :referencia%>
-                    <%= f.label :referencia%>
-                    <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Me puede proporcionar un punto de referencia">?</button>
-                  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :comentariosExtra%>
-                    <%= f.label "Comentarios Extra"%>
-                    <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Su reporte sera atendido por el operador correspondiente, ¿desea comentar algo mas?">?</button>
-                  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :avisoNombre%>
-                    <%= f.label "Aviso Nombre"%>
-                    <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Se dio aviso a: (Nombre)">?</button>
-                  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :avisoFecha%>
-                    <%= f.label "Aviso Fecha"%>
-                    <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Se dio aviso a: (Fecha)">?</button>
-                  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-
+                <div class="form-group">
+                  <%= f.label :ticket%>
+                  <%= f.select :ticket,  MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <%= f.label :compania%>
+                  <%= f.select :compania,  MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <%= f.label "Audio conferencia reporta"%>
+                  <%= f.select :audioconferenciaReporta,  MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
                 </div>
                 <br>
                 <div class="hr-line-dashed"></div>
 
 
                 <div class="form-group" >
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :notificoNombre%>
-                    <%= f.label "Notifico Nombre"%>
-                    <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Se notifico a (Nombre)">?</button>
-                  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :notificoFechaHora%>
-                    <%= f.label "Notifico Fecha"%>
-                    <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Se notifico a (Fecha)">?</button>
-                  </div>
-
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :rllsOperador%>
-                    <%= f.label "R Llegada Sitio Op"%>
-                    <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Reporte de llegada al sitio (Nombre del operador)">?</button>
-                  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :rllsFechaHora%>
-                    <%= f.label "R Llegada Sitio Fecha"%>
-                    <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Reporte de llegada al sitio (Fecha + Hora)">?</button>
-                  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :tiempoRespuesta%>
-                    <%= f.label "Tiempo respuesta"%>
-                    <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Tiempo de respuesta a la emergencia">?</button>
-                  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-
-                </div>
-                <br>
-                <div class="hr-line-dashed"></div>
-
-
-
-
-
-
-
-
-                <div class="form-group" >
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :notificacionLlegadaSitio%>
-                    <%= f.label "Notificacion llegada al sitio"%>
-                  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :rteOperador%>
-                    <%= f.label "R Fin Emergencia"%>
-                    <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Reporte de terminacion de la emergencia (Operador)">?</button>
-                  </div>
-
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :rteFechaHora%>
-                    <%= f.label "R Fin  Emergencia Fecha"%>
-                    <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Reporte de terminacion de la emergencia (Fecha + Hora)">?</button>
-                  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :situacionEmergencia%>
-                    <%= f.label "Situacion de la emergencia"%>
-                  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-
-
+                  <%= f.label "Poliza o Contrato"%>
+                  <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="No. de contratro o No. de poliza">?</button>
+                  <%= f.select :polizaContrato,  MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <%= f.label "Descripcion Emergencia"%>
+                  <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Me puede describir en que consiste la emergencia">?</button>
+                  <%= f.select :descripcionEmergencia,  MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <%= f.label "Identificar Sistema"%>
+                  <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Puede ayudarme a identificar el sistema, gasoducto o GNC (camion)">?</button>
+                  <%= f.select :identificarSistema,  MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
                 </div>
                 <br>
                 <div class="hr-line-dashed"></div>
@@ -197,33 +89,73 @@
 
 
                 <div class="form-group" >
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :duracionEmeregencia%>
-                    <%= f.label "Duracion emergencia"%>
-                    <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Tiempo de duracion de la emergencia">?</button>
-                  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :faltaSuministroGas%>
-                    <%= f.label "Falta suministro gas"%>
-                    <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Si reporta que falta suministro de gas preguntar desde que hora no tienen gas, si hay olor o ruido">?</button>
-                  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :sucursal%>
-                    <%= f.label :sucursal%>
-                  </div>
+                  <%= f.label :referencia%>
+                  <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Me puede proporcionar un punto de referencia">?</button>
+                  <%= f.select :referencia,  MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <%= f.label "Comentarios Extra"%>
+                  <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Su reporte sera atendido por el operador correspondiente, ¿desea comentar algo mas?">?</button>
+                  <%= f.select :comentariosExtra,  MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <%= f.label "Aviso Nombre"%>
+                  <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Se dio aviso a: (Nombre)">?</button>
+                  <%= f.select :avisoNombre,  MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
 
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :tipoLlamada%>
-                    <%= f.label :tipoLlamada%>
-                  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :codigo%>
-                    <%= f.label :codigo%>
-                  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :horaEnlace%>
-                    <%= f.label "Hora enlace"%>
-                  </div>
+
+                <div class="form-group" >
+                  <%= f.label "Aviso Fecha"%>
+                  <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Se dio aviso a: (Fecha)">?</button>
+                  <%= f.select :avisoFecha,  MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <%= f.label "Notifico Nombre"%>
+                  <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Se notifico a (Nombre)">?</button>
+                  <%= f.select :notificoNombre,  MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <%= f.label "Notifico Fecha"%>
+                  <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Se notifico a (Fecha)">?</button>
+                  <%= f.select :notificoFechaHora,  MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+
+
+                <div class="form-group" >
+
+                  <%= f.label "R Llegada Sitio Op"%>
+                  <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Reporte de llegada al sitio (Nombre del operador)">?</button>
+                  <%= f.select :rllsOperador,  MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <%= f.label "R Llegada Sitio Fecha"%>
+                  <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Reporte de llegada al sitio (Fecha + Hora)">?</button>
+                  <%= f.select :rllsFechaHora,  MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <%= f.label "Tiempo respuesta"%>
+                  <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Tiempo de respuesta a la emergencia">?</button>
+                  <%= f.select :tiempoRespuesta,  MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+
+
+                <div class="form-group" >
+                  <%= f.label "Notificacion llegada al sitio"%>
+                  <%= f.select :notificacionLlegadaSitio,  MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <%= f.label "R Fin Emergencia"%>
+                  <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Reporte de terminacion de la emergencia (Operador)">?</button>
+                  <%= f.select :rteOperador,  MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <%= f.label "R Fin  Emergencia Fecha"%>
+                  <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Reporte de terminacion de la emergencia (Fecha + Hora)">?</button>
+                  <%= f.select :rteFechaHora,  MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
                 </div>
                 <br>
                 <div class="hr-line-dashed"></div>
@@ -231,32 +163,39 @@
 
 
                 <div class="form-group" >
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :medioSeEntero%>
-                    <%= f.label "Medio se entero"%>
-                    <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Por cual medio se entero de la compañia o de nuestros servicios">?</button>
-                  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :terminoChat%>
-                    <%= f.label "Termino del chat"%>
-                  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :fijoMovil%>
-                    <%= f.label "Telefono fijo o movil"%>
-                  </div>
+                  <%= f.label "Situacion de la emergencia"%>
+                  <%= f.select :situacionEmergencia,  MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :telefonoOrigen%>
-                    <%= f.label "Telefono origen"%>
-                  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :codigoAcceso%>
-                    <%= f.label "Codigo de acceso"%>
-                  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :codigoOrganizador%>
-                    <%= f.label "Codigo de organizador"%>
-                  </div>
+                  <%= f.label "Duracion emergencia"%>
+                  <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Tiempo de duracion de la emergencia">?</button>
+                  <%= f.select :duracionEmeregencia,  MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+                  <%= f.label "Falta suministro gas"%>
+                  <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Si reporta que falta suministro de gas preguntar desde que hora no tienen gas, si hay olor o ruido">?</button>
+                  <%= f.select :faltaSuministroGas,  MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+
+
+                <div class="form-group">
+                  <%= f.label :sucursal%>
+                  <%= f.select :sucursal,  MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <%= f.label :tipoLlamada%>
+                  <%= f.select :tipoLlamada,  MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <%= f.label :codigo%>
+                  <%= f.select :codigo,  MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <%= f.label "Hora enlace"%>
+                  <%= f.select :horaEnlace,  MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
                 </div>
                 <br>
                 <div class="hr-line-dashed"></div>
@@ -264,27 +203,62 @@
 
 
                 <div class="form-group" >
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :paisOrigino%>
+                  <%= f.label "Medio se entero"%>
+                  <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Por cual medio se entero de la compañia o de nuestros servicios">?</button>
+                  <%= f.select :medioSeEntero,  MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <%= f.label "Termino del chat"%>
+                  <%= f.select :terminoChat,  MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <%= f.label "Telefono fijo o movil"%>
+                  <%= f.select :fijoMovil,  MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+
+
+                <div class="form-group">
+                  <%= f.label "Telefono origen"%>
+                  <%= f.select :telefonoOrigen,  MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+                  <%= f.label "Codigo de acceso"%>
+                  <%= f.select :codigoAcceso, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"} %>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <%= f.label "Codigo de organizador"%>
+                  <%= f.select :codigoOrganizador, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+
+
+
+                <div class="form-group" >
+
                     <%= f.label "Pais origino"%>
-                  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :localidadOrigino%>
-                    <%= f.label "Localidad origino"%>
-                  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :motivoDenuncia%>
-                    <%= f.label "Motivo denuncia"%>
-                  </div>
+                  <%= f.select :paisOrigino, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
 
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :telefonoOrigen%>
+                    <%= f.label "Localidad origino"%>
+                  <%= f.select :localidadOrigino, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
+                    <%= f.label "Motivo denuncia"%>
+                  <%= f.select :motivoDenuncia, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
+
                     <%= f.label "Telefono origen"%>
-                  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :numeroControl%>
+                  <%= f.select :telefonoOrigen, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
                     <%= f.label "Numero de control"%>
-                  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <%= f.select :numeroControl, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
                 </div>
                 <br>
                 <div class="hr-line-dashed"></div>
@@ -294,37 +268,42 @@
 
                 <div class="form-group" >
 
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :tipoDelito%>
+
                     <%= f.label "Tipo Delito"%>
                     <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Tipo de delito o acto denunciado">?</button>
-                  </div>
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :puestoInvolucrado%>
+                  <%= f.select :tipoDelito, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
                     <%= f.label "Puesto involucrado"%>
                     <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Personal puesto o departamento involucrado">?</button>
-                  </div>
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :resultadoEstatus%>
+                    <%= f.select :puestoInvolucrado, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
                     <%= f.label "Resultado o estatus"%>
-                  </div>
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :emailContacto%>
-                    <%= f.label "Email contacto"%>
-                    <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Email del contacto informado en caso de solicitar la grabacion">?</button>
-                  </div>
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :marca%>
-                    <%= f.label :marca%>
-                  </div>
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :modelo%>
-                    <%= f.label :modelo%>
-                  </div>
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :serie%>
-                    <%= f.label "No serie"%>
-                  </div>
+                  <%= f.select :resultadoEstatus, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+
+
+
+                <div class="form-group" >
+                  <%= f.label "Email contacto"%>
+                  <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Email del contacto informado en caso de solicitar la grabacion">?</button>
+                  <%= f.select :emailContacto, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <%= f.label :marca%>
+                  <%= f.select :marca, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <%= f.label :modelo%>
+                  <%= f.select :modelo, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <%= f.label "No serie"%>
+                  <%= f.select :serie, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
 
                 </div>
                 <br>
@@ -334,277 +313,334 @@
 
 
 
-
                 <div class="form-group" >
 
-                    <div class="checkbox checkbox-success checkbox-inline">
-                      <%= f.check_box :beneficiario%>
+
                       <%= f.label "Nombre beneficiario"%>
-                    </div>
-                    <div class="checkbox checkbox-success checkbox-inline">
-                      <%= f.check_box :contactoBeneficiario%>
+                  <%= f.select :beneficiario, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
+
                       <%= f.label "Contacto beneficiario"%>
                       <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Persona a contactar por parte del beneficiario">?</button>
-                    </div>
-                    <div class="checkbox checkbox-success checkbox-inline">
-                      <%= f.check_box :nombreFiado%>
+                      <%= f.select :contactoBeneficiario, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
+
                       <%= f.label "Nombre del fiado"%>
-                    </div>
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :puestoFiado%>
-                    <%= f.label "Puesto del fiado"%>
-                    <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Puesto que desempeña el fiado">?</button>
-                  </div>
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :montoReportar%>
-                    <%= f.label "Monto a reportar"%>
-                    <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Monto aproximado a reportar">?</button>
-                  </div>
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :enlazadaCorrectamente%>
-                    <%= f.label "Enlazada correctamente"%>
-                  </div>
+                  <%= f.select :nombreFiado, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+
+
+
                 </div>
                 <br>
                 <div class="hr-line-dashed"></div>
 
+
+
+                <div class="form-group" >
+                  <%= f.label "Puesto del fiado"%>
+                  <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Puesto que desempeña el fiado">?</button>
+                  <%= f.select :puestoFiado, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <%= f.label "Monto a reportar"%>
+                  <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Monto aproximado a reportar">?</button>
+                  <%= f.select :montoReportar, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <%= f.label "Enlazada correctamente"%>
+                  <%= f.select :enlazadaCorrectamente, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+
+
+
+
+
                 <div class="form-group" >
 
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :intentosEnlace%>
+
                     <%= f.label "No. intentos"%>
                     <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Numero de intentos para enlace">?</button>
-                  </div>
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :duracionLlamada%>
+                  <%= f.select :intentosEnlace, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
                     <%= f.label "Duracion llamada"%>
-                  </div>
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :origenCodigoGami%>
+                  <%= f.select :duracionLlamada, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
                     <%= f.label "Origen GAMI"%>
                     <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="En donde se origino el codigo GAMI">?</button>
-                  </div>
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :codigoGami%>
-                    <%= f.label "Codigo GAMI"%>
-                    <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Que codigo GAMI reporta">?</button>
-                  </div>
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :tipoEmergencia%>
-                    <%= f.label "Tipo emergencia"%>
-                    <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Que tipo de emergencia tiene, preguntar en caso de codigo amarillo y rojo">?</button>
-                  </div>
-                  <div class="checkbox checkbox-success checkbox-inline">
-                    <%= f.check_box :empresaCodigoGami%>
-                    <%= f.label "Empresa Gami"%>
-                    <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Nombre de la empresa a la que se da aviso de codigo GAMI">?</button>
-                  </div>
+              <%= f.select :origenCodigoGami, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+
+
+
                 </div>
               </div>
               <br>
               <div class="hr-line-dashed"></div>
 
+
+
+
+
               <div class="form-group" >
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :nomenclaturaSistema%>
+                <%= f.label "Codigo GAMI"%>
+                <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Que codigo GAMI reporta">?</button>
+                <%= f.select :codigoGami, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
+                <%= f.label "Tipo emergencia"%>
+                <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Que tipo de emergencia tiene, preguntar en caso de codigo amarillo y rojo">?</button>
+                <%= f.select :tipoEmergencia, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
+                <%= f.label "Empresa Gami"%>
+                <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Nombre de la empresa a la que se da aviso de codigo GAMI">?</button>
+                <%= f.select :empresaCodigoGami, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+
+              </div>
+              <br>
+              <div class="hr-line-dashed"></div>
+
+
+
+
+              <div class="form-group" >
+
                   <%= f.label "Nomenclatura del sistema"%>
                   <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Nomenclatura del sistema que reporta">?</button>
-                </div>
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :personaRecibe%>
+                  <%= f.select :nomenclaturaSistema, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
                   <%= f.label "Persona recibe"%>
                   <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Nombre de la persona que recibira al tecnico y sellara la WO una vez concluido el servicio">?</button>
-                </div>
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :razonSocial%>
+                  <%= f.select :personaRecibe, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
                   <%= f.label "Razon social"%>
-                </div>
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :rfc%>
-                  <%= f.label :rfc%>
-                </div>
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :ticketCliente%>
-                  <%= f.label "Ticket cliente"%>
-                  <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Numero de ticket del cliente">?</button>
-                </div>
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :relacionPaciente%>
-                  <%= f.label "Relacion con paciente"%>
-                </div>
+                <%= f.select :razonSocial, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+
+
+
+
               </div>
 
 
 
+
+
+
+              <div class="form-group" >
+                <%= f.label :rfc%>
+                <%= f.select :rfc, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
+                <%= f.label "Ticket cliente"%>
+                <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Numero de ticket del cliente">?</button>
+                <%= f.select :ticketCliente, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
+                <%= f.label "Relacion con paciente"%>
+                <%= f.select :relacionPaciente, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+
+              </div>
               <br>
               <div class="hr-line-dashed"></div>
+
               <div class="form-group" >
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :lugarTumor%>
-                  <%= f.label "Lugar del tumor"%>
-                  <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Lugar donde tiene el tumor">?</button>
-                </div>
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :institucionAtiende%>
+
+                <%= f.label "Lugar del tumor"%>
+                <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Lugar donde tiene el tumor">?</button>
+                <%= f.select :lugarTumor, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
                   <%= f.label "Institucion atiende"%>
                   <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Institucion donde se atiende">?</button>
-                </div>
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :medicoTratante%>
+                  <%= f.select :institucionAtiende, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+
                   <%= f.label "Medico tratante"%>
                   <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Nombre del medico tratante">?</button>
-                </div>
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :programaInteres%>
+                  <%= f.select :medicoTratante, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+
+              </div>
+              <br>
+              <div class="hr-line-dashed"></div>
+              <div class="form-group" >
+
+
                   <%= f.label "Programa de interes"%>
-                </div>
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :club%>
+                <%= f.select :programaInteres, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+
+                &nbsp;&nbsp;&nbsp;&nbsp;
                   <%= f.label :club%>
                   <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Club en el que juega">?</button>
-                </div>
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :handicap%>
+                  <%= f.select :club, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
                   <%= f.label :handicap%>
-                </div>
+                <%= f.select :handicap, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+
               </div>
-
-
               <br>
               <div class="hr-line-dashed"></div>
+
+
               <div class="form-group" >
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :redConecta%>
-                  <%= f.label "Red conecta"%>
-                  <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Red a la que intenta conectarse">?</button>
-                </div>
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :intensidadSenal%>
-                  <%= f.label "Intensidad de señal"%>
-                  <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Intensidad de su señal. ALTA, BUENA, BAJA, NULA, si es baja o nula pregutar por su ubicacion fisica">?</button>
-                </div>
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :ubicacionFisica%>
-                  <%= f.label "Ubicacion fisica"%>
-                </div>
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :ipv4%>
+                <%= f.label "Red conecta"%>
+                <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Red a la que intenta conectarse">?</button>
+                <%= f.select :redConecta, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
+                <%= f.label "Intensidad de señal"%>
+                <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Intensidad de su señal. ALTA, BUENA, BAJA, NULA, si es baja o nula pregutar por su ubicacion fisica">?</button>
+                <%= f.select :intensidadSenal, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
+                <%= f.label "Ubicacion fisica"%>
+                <%= f.select :ubicacionFisica, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+              </div>
+              <br>
+              <div class="hr-line-dashed"></div>
+
+
+              <div class="form-group" >
                   <%= f.label :ipv4%>
-                </div>
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :macAddress%>
+                <%= f.select :ipv4, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
                   <%= f.label :macAddress%>
-                </div>
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :hotel%>
+                <%= f.select :macAddress, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
                   <%= f.label :hotel%>
-                </div>
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :habitacion%>
+                <%= f.select :hotel, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
                   <%= f.label :habitacion%>
-                </div>
+                <%= f.select :habitacion, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+
               </div>
 
 
               <br>
               <div class="hr-line-dashed"></div>
+
               <div class="form-group" >
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :usuario%>
-                  <%= f.label :usuario%>
-                </div>
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :contrasena%>
+
+                <%= f.label :usuario%>
+                <%= f.select :usuario, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
                   <%= f.label :contrasena%>
-                </div>
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :tiempoContrato%>
+                  <%= f.select :contrasena, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
                   <%= f.label "Tiempo contrato"%>
                   <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Por cuanto tiempo contrato la señal de internet">?</button>
-                </div>
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :dispositivo%>
+                  <%= f.select :tiempoContrato, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+              </div>
+              <br>
+              <div class="hr-line-dashed"></div>
+
+
+              <div class="form-group" >
+
+
                   <%= f.label :dispositivo%>
                   <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Con que dispositivo intenta conectarse a internet">?</button>
-                </div>
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :acuse%>
+                  <%= f.select :dispositivo, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
                   <%= f.label :acuse%>
                   <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Se recibio acuse de recibo?">?</button>
-                </div>
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :fechaCirugia%>
-                  <%= f.label "Fecha + Hora cirugia"%>
-                </div>
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :hospital%>
+                  <%= f.select :acuse, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <%= f.label "Fecha cirugia"%>
+                <%= f.select :fechaCirugia, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
                   <%= f.label :hospital%>
-                </div>
+                <%= f.select :hospital, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+
               </div>
-
-
-
-
-
               <br>
               <div class="hr-line-dashed"></div>
+
               <div class="form-group" >
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :tipoCirugia%>
-                  <%= f.label "Tipo de cirugia"%>
-                </div>
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :especidalidad%>
-                  <%= f.label :especidalidad%>
-                </div>
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :paciente%>
-                  <%= f.label "Nombre del paciente"%>
-                </div>
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :cargoPersona%>
+                <%= f.label "Tipo de cirugia"%>
+                <%= f.select :tipoCirugia, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
+                <%= f.label :especidalidad%>
+                <%= f.select :especidalidad, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
+                <%= f.label "Nombre del paciente"%>
+                <%= f.select :paciente, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+              </div>
+              <br>
+              <div class="hr-line-dashed"></div>
+
+
+
+              <div class="form-group" >
+
+
                   <%= f.label "Cargo persona"%>
                   <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Cargo de la persona que llama">?</button>
-                </div>
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :telefonoMedico%>
+                  <%= f.select :cargoPersona, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
                   <%= f.label "Telefono del medico"%>
-                </div>
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :equipoEspecial%>
+                <%= f.select :telefonoMedico, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
                   <%= f.label "Equipo especial"%>
                   <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Se requiere equipo especial">?</button>
-                </div>
+                  <%= f.select :equipoEspecial, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
 
               </div>
 
               <br>
               <div class="hr-line-dashed"></div>
+
               <div class="form-group" >
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :telefonoPaciente%>
-                  <%= f.label "Telefono del paciente"%>
+
+                <%= f.label "Telefono del paciente"%>
+                <%= f.select :telefonoPaciente, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
+                <%= f.label "Telefono del paciente"%>
+                <%= f.select :telefonoMedico, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
+                <%= f.label "Nombre del procedimiento"%>
+                <%= f.select :procedimiento, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
                 </div>
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :procedimiento%>
-                  <%= f.label "Nombre del procedimiento"%>
-                </div>
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :fechaProcedimiento%>
-                  <%= f.label "Fecha procedimiento"%>
-                </div>
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :equipoDetenido%>
-                  <%= f.label "Equipo detenido"%>
-                </div>
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :fianza%>
-                  <%= f.label "No de fianza"%>
-                </div>
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :inclusion%>
-                  <%= f.label :inclusion%>
-                </div>
+              <br>
+              <div class="hr-line-dashed"></div>
+
+              <div class="form-group" >
+                <%= f.label "Fecha procedimiento"%>
+                <%= f.select :fechaProcedimiento, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
+                <%= f.label "Equipo detenido"%>
+                <%= f.select :equipoDetenido, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
+                <%= f.label "No de fianza"%>
+                <%= f.select :fianza, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
+                <%= f.label :inclusion%>
+                <%= f.select :inclusion, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+
 
               </div>
 
@@ -613,33 +649,42 @@
 
               <br>
               <div class="hr-line-dashed"></div>
+
               <div class="form-group" >
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :codigoSeguridad%>
-                  <%= f.label "Codigo de seguridad"%>
-                  <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Codigo de seguridad o No de control">?</button>
+                <%= f.label "Codigo de seguridad"%>
+                <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Codigo de seguridad o No de control">?</button>
+                <%= f.select :codigoSeguridad, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
+                <%= f.label "Linea de validacion"%>
+                <%= f.select :lineaValidacion, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
+                <%= f.label "Tipo de poliza"%>
+                <%= f.select :tipoPoliza, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
                 </div>
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :lineaValidacion%>
-                  <%= f.label "Linea de validacion"%>
-                </div>
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :tipoPoliza%>
-                  <%= f.label "Tipo de poliza"%>
-                </div>
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :telefonoFiado%>
+              <br>
+              <div class="hr-line-dashed"></div>
+
+
+
+              <div class="form-group" >
+
+
+
+
                   <%= f.label "Telefono del fiado"%>
-                </div>
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :direccionFiado%>
+                <%= f.select :telefonoFiado, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
                   <%= f.label "Direccion del fiado"%>
-                </div>
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :lugarFianza%>
+                <%= f.select :direccionFiado, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
                   <%= f.label "Lugar fianza"%>
                   <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Codigo de seguridad o No de control">?</button>
-                </div>
+                  <%= f.select :lugarFianza, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+
 
               </div>
 
@@ -648,14 +693,14 @@
               <br>
               <div class="hr-line-dashed"></div>
               <div class="form-group" >
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :vendedorFianza%>
+
                   <%= f.label "Vendedor de fianza"%>
                   <button type="button" class="btn btn-danger btn-circle" data-container="body" data-toggle="popover" data-placement="top" data-content="Nombre de la persona que vendio la fianza">?</button>
-                </div>
-                <div class="checkbox checkbox-success checkbox-inline">
-                  <%= f.check_box :formaPagoFianza%>
+                  <%= f.select :vendedorFianza, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
                   <%= f.label "Forma pago de la fianza"%>
+                <%= f.select :formaPagoFianza, MensajeConfiguracion::OPCIONES.collect { |opcion| [opcion.to_s.titleize] }, {:include_blank => ''}, {class:"chosen-select", style: "width:170px;"}%>
                 </div>
 
 
@@ -688,5 +733,22 @@
 </div>
 
 
+<% content_for :javascript do %>
+
+    <script type="text/javascript">
+
+
+        var config = {
+            '.chosen-select'           : {},
+            '.chosen-select-deselect'  : {allow_single_deselect:true},
+            '.chosen-select-no-single' : {disable_search_threshold:10},
+            '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+            '.chosen-select-width'     : {width:"95%"}
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+    </script>
+<% end %>
 
 
