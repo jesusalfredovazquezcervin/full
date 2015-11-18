@@ -4,4 +4,6 @@ class MensajeConfiguracion < ActiveRecord::Base
       uniqueness: true
   validates :cliente_id,
       presence: true
+
+  OPCIONES = %w[captura captura_y_listado]
 end
