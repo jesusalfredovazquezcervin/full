@@ -11,7 +11,7 @@
     </div>
   <% end %>
     <%= hidden_field_tag :cliente_id, @cliente.id %>
-    <%if @cliente.mensaje_configuracion.ticket%>
+    <%if @cliente.mensaje_configuracion.ticket.include?('Captura')%>
         <div class="form-group">
           <%= f.label :ticket, class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -21,7 +21,7 @@
         <br><div class="hr-line-dashed"></div>
     <%end%>
 
-    <%if @cliente.mensaje_configuracion.compania%>
+    <%if @cliente.mensaje_configuracion.compania.include?('Captura')%>
         <div class="form-group">
           <%= f.label :compania, class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -31,7 +31,7 @@
 
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.polizaContrato%>
+    <%if @cliente.mensaje_configuracion.polizaContrato.include?('Captura')%>
         <div class="form-group">
           <%= f.label :polizaContrato, class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -40,7 +40,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.descripcionEmergencia%>
+    <%if @cliente.mensaje_configuracion.descripcionEmergencia.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Descripcion Emergencia", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -49,7 +49,7 @@
         </div>
         <br><br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.identificarSistema%>
+    <%if @cliente.mensaje_configuracion.identificarSistema.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Identificar sistema", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -58,7 +58,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.referencia%>
+    <%if @cliente.mensaje_configuracion.referencia.include?('Captura')%>
         <div class="form-group">
           <%= f.label :referencia, class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -67,7 +67,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.comentariosExtra%>
+    <%if @cliente.mensaje_configuracion.comentariosExtra.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Comentarios extra", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -76,7 +76,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.avisoNombre%>
+    <%if @cliente.mensaje_configuracion.avisoNombre.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Aviso nombre", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -85,7 +85,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.avisoFecha%>
+    <%if @cliente.mensaje_configuracion.avisoFecha.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Aviso fecha", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -108,7 +108,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.notificoNombre%>
+    <%if @cliente.mensaje_configuracion.notificoNombre.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Notifico nombre", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -117,8 +117,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.notificoFechaHora%>
-
+    <%if @cliente.mensaje_configuracion.notificoFechaHora.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Notifico Fecha", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -144,7 +143,7 @@
         <br><div class="hr-line-dashed"></div>
 
     <%end%>
-    <%if @cliente.mensaje_configuracion.rllsOperador%>
+    <%if @cliente.mensaje_configuracion.rllsOperador.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Rep Llegada sitio (Operador)", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -153,7 +152,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.rllsFechaHora%>
+    <%if @cliente.mensaje_configuracion.rllsFechaHora.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Rep Llegada sitio Fecha", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -178,7 +177,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.tiempoRespuesta%>
+    <%if @cliente.mensaje_configuracion.tiempoRespuesta.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Tiempo de respuesta", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5" style="width: 200px">
@@ -191,7 +190,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.notificacionLlegadaSitio%>
+    <%if @cliente.mensaje_configuracion.notificacionLlegadaSitio.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Notif Llegada a Sitio", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -200,7 +199,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.rteOperador%>
+    <%if @cliente.mensaje_configuracion.rteOperador.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Rte Operador", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -209,7 +208,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.rteFechaHora%>
+    <%if @cliente.mensaje_configuracion.rteFechaHora.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Rte Fecha", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -234,7 +233,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.situacionEmergencia%>
+    <%if @cliente.mensaje_configuracion.situacionEmergencia.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Situacion Emergencia", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -243,7 +242,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.duracionEmeregencia%>
+    <%if @cliente.mensaje_configuracion.duracionEmeregencia.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Duracion emergencia", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -256,7 +255,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.faltaSuministroGas%>
+    <%if @cliente.mensaje_configuracion.faltaSuministroGas.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Falta suministro Gas", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -265,7 +264,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.sucursal%>
+    <%if @cliente.mensaje_configuracion.sucursal.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Sucursal", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -277,8 +276,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.tipoLlamada%>
-
+    <%if @cliente.mensaje_configuracion.tipoLlamada.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Tipo de llamada", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -288,7 +286,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.codigo%>
+    <%if @cliente.mensaje_configuracion.codigo.include?('Captura')%>
         <div class="form-group">
           <%= f.label :codigo, class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -297,7 +295,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.horaEnlace%>
+    <%if @cliente.mensaje_configuracion.horaEnlace.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Hora enlace", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5" style="width: 200px">
@@ -311,7 +309,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.medioSeEntero%>
+    <%if @cliente.mensaje_configuracion.medioSeEntero.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Medio se entero", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -320,7 +318,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.terminoChat%>
+    <%if @cliente.mensaje_configuracion.terminoChat.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Termino chat Fecha", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -345,7 +343,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.codigoAcceso%>
+    <%if @cliente.mensaje_configuracion.codigoAcceso.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Codigo de acceso", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -354,7 +352,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.codigoOrganizador%>
+    <%if @cliente.mensaje_configuracion.codigoOrganizador.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Codigo organizador", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -372,7 +370,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.telefonoOrigen%>
+    <%if @cliente.mensaje_configuracion.telefonoOrigen.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Codigo organizador", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -381,7 +379,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.paisOrigino%>
+    <%if @cliente.mensaje_configuracion.paisOrigino.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Pais origen", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -391,7 +389,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.localidadOrigino%>
+    <%if @cliente.mensaje_configuracion.localidadOrigino.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Localidad origen", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -400,7 +398,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.motivoDenuncia%>
+    <%if @cliente.mensaje_configuracion.motivoDenuncia.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Motivo denuncia", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -409,7 +407,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.tipoDelito%>
+    <%if @cliente.mensaje_configuracion.tipoDelito.include?('Captura')%>
         <div class="form-group">
           <%= f.label :delito, class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -418,7 +416,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.puestoInvolucrado%>
+    <%if @cliente.mensaje_configuracion.puestoInvolucrado.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Puesto involucrado", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -427,7 +425,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.resultadoEstatus%>
+    <%if @cliente.mensaje_configuracion.resultadoEstatus.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Resultado estatus", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -436,8 +434,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.emailContacto%>
-
+    <%if @cliente.mensaje_configuracion.emailContacto.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Email contacto", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -446,7 +443,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.marca%>
+    <%if @cliente.mensaje_configuracion.marca.include?('Captura')%>
         <div class="form-group">
           <%= f.label :marca, class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -455,7 +452,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.modelo%>
+    <%if @cliente.mensaje_configuracion.modelo.include?('Captura')%>
         <div class="form-group">
           <%= f.label :modelo, class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -464,7 +461,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.serie%>
+    <%if @cliente.mensaje_configuracion.serie.include?('Captura')%>
         <div class="form-group">
           <%= f.label "No serie", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -473,7 +470,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.beneficiario%>
+    <%if @cliente.mensaje_configuracion.beneficiario.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Nombre beneficiario", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -482,7 +479,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.contactoBeneficiario%>
+    <%if @cliente.mensaje_configuracion.contactoBeneficiario.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Contacto beneficiario", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -491,7 +488,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.nombreFiado%>
+    <%if @cliente.mensaje_configuracion.nombreFiado.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Nombre del fiado", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -500,7 +497,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.puestoFiado%>
+    <%if @cliente.mensaje_configuracion.puestoFiado.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Puesto del fiado", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -509,7 +506,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.montoReportar%>
+    <%if @cliente.mensaje_configuracion.montoReportar.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Resultado estatus", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -518,8 +515,8 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.enlazadaCorrectamente%>
-        <div class="form-group" >
+    <%if @cliente.mensaje_configuracion.enlazadaCorrectamente.include?('Captura')%>
+        <div class="form-group">
           <div class="checkbox checkbox-success checkbox-inline">
             <%= f.check_box :enlazadaCorrectamente %>
             <%= f.label "Enlazada correctamente"%>
@@ -528,7 +525,7 @@
 
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.intentosEnlace%>
+    <%if @cliente.mensaje_configuracion.intentosEnlace.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Intentos enlace", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -537,7 +534,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.duracionLlamada%>
+    <%if @cliente.mensaje_configuracion.duracionLlamada.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Duracion de la llamada", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -547,7 +544,7 @@
         </div>
         <br><br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.origenCodigoGami%>
+    <%if @cliente.mensaje_configuracion.origenCodigoGami.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Origen codigo GAMI", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -556,7 +553,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.codigoGami%>
+    <%if @cliente.mensaje_configuracion.codigoGami.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Codigo GAMI", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -565,7 +562,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.tipoEmergencia%>
+    <%if @cliente.mensaje_configuracion.tipoEmergencia.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Tipo de emergencia", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -574,7 +571,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.empresaCodigoGami%>
+    <%if @cliente.mensaje_configuracion.empresaCodigoGami.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Empresa codigo GAMI", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -583,7 +580,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.nomenclaturaSistema%>
+    <%if @cliente.mensaje_configuracion.nomenclaturaSistema.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Nomenclatura de sistema", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -592,7 +589,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.personaRecibe%>
+    <%if @cliente.mensaje_configuracion.personaRecibe.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Persona recibe", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -601,7 +598,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.razonSocial%>
+    <%if @cliente.mensaje_configuracion.razonSocial.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Razon Social", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -610,7 +607,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.rfc%>
+    <%if @cliente.mensaje_configuracion.rfc.include?('Captura')%>
         <div class="form-group">
           <%= f.label "RFC", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -619,7 +616,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.ticketCliente%>
+    <%if @cliente.mensaje_configuracion.ticketCliente.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Razon Social", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -628,7 +625,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.relacionPaciente%>
+    <%if @cliente.mensaje_configuracion.relacionPaciente.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Relacion paciente", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -638,7 +635,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.lugarTumor%>
+    <%if @cliente.mensaje_configuracion.lugarTumor.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Lugar tumor", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -647,7 +644,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.institucionAtiende%>
+    <%if @cliente.mensaje_configuracion.institucionAtiende.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Institucion atiende", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -656,7 +653,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.medicoTratante%>
+    <%if @cliente.mensaje_configuracion.medicoTratante.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Medico tratante", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -665,7 +662,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.programaInteres%>
+    <%if @cliente.mensaje_configuracion.programaInteres.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Programa interes", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -674,7 +671,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.club%>
+    <%if @cliente.mensaje_configuracion.club.include?('Captura')%>
         <div class="form-group">
           <%= f.label :club, class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -683,7 +680,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.handicap%>
+    <%if @cliente.mensaje_configuracion.handicap.include?('Captura')%>
         <div class="form-group">
           <%= f.label :handicap, class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -692,7 +689,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.redConecta%>
+    <%if @cliente.mensaje_configuracion.redConecta.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Red que se conecta", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -701,7 +698,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.intensidadSenal%>
+    <%if @cliente.mensaje_configuracion.intensidadSenal.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Intensidad de señal", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -711,7 +708,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.ubicacionFisica%>
+    <%if @cliente.mensaje_configuracion.ubicacionFisica.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Ubicacion fisica", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -720,7 +717,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.ipv4%>
+    <%if @cliente.mensaje_configuracion.ipv4.include?('Captura')%>
         <div class="form-group">
           <%= f.label :ipv4, class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -729,7 +726,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.macAddress%>
+    <%if @cliente.mensaje_configuracion.macAddress.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Mac Address", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -738,7 +735,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.hotel%>
+    <%if @cliente.mensaje_configuracion.hotel.include?('Captura')%>
         <div class="form-group">
           <%= f.label :hotel, class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -747,7 +744,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.habitacion%>
+    <%if @cliente.mensaje_configuracion.habitacion.include?('Captura')%>
         <div class="form-group">
           <%= f.label :habitacion, class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -756,7 +753,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.usuario%>
+    <%if @cliente.mensaje_configuracion.usuario.include?('Captura')%>
         <div class="form-group">
           <%= f.label :usuario, class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -765,7 +762,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.contrasena%>
+    <%if @cliente.mensaje_configuracion.contrasena.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Lugar tumor", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -774,7 +771,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.tiempoContrato%>
+    <%if @cliente.mensaje_configuracion.tiempoContrato.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Tiempo contrato", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -786,7 +783,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.dispositivo%>
+    <%if @cliente.mensaje_configuracion.dispositivo.include?('Captura')%>
         <div class="form-group">
           <%= f.label :dispositivo, class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -796,8 +793,8 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.acuse%>
-        <div class="form-group" >
+    <%if @cliente.mensaje_configuracion.acuse.include?('Captura')%>
+        <div class="form-group">
           <div class="checkbox checkbox-success checkbox-inline">
             <%= f.check_box :acuse%>
             <%= f.label :acuse%>
@@ -806,7 +803,7 @@
 
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.fechaCirugia%>
+    <%if @cliente.mensaje_configuracion.fechaCirugia.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Fecha cirugia", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -831,7 +828,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.hospital%>
+    <%if @cliente.mensaje_configuracion.hospital.include?('Captura')%>
         <div class="form-group">
           <%= f.label :hospital, class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -840,7 +837,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.tipoCirugia%>
+    <%if @cliente.mensaje_configuracion.tipoCirugia.include?('Captura')%>
         <div class="form-group">
           <%= f.label :cirugia, class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -849,7 +846,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.especidalidad%>
+    <%if @cliente.mensaje_configuracion.especidalidad.include?('Captura')%>
         <div class="form-group">
           <%= f.label :especidalidad, class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -858,7 +855,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.paciente%>
+    <%if @cliente.mensaje_configuracion.paciente.include?('Captura')%>
         <div class="form-group">
           <%= f.label :paciente, class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -867,7 +864,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.cargoPersona%>
+    <%if @cliente.mensaje_configuracion.cargoPersona.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Cargo persona", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -876,7 +873,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.telefonoMedico%>
+    <%if @cliente.mensaje_configuracion.telefonoMedico.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Telefono del medico", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -885,7 +882,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.equipoEspecial%>
+    <%if @cliente.mensaje_configuracion.equipoEspecial.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Equipo especial", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -894,7 +891,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.telefonoPaciente%>
+    <%if @cliente.mensaje_configuracion.telefonoPaciente.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Telefono del paciente", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -903,7 +900,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.procedimiento%>
+    <%if @cliente.mensaje_configuracion.procedimiento.include?('Captura')%>
         <div class="form-group">
           <%= f.label :procedimiento, class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -912,7 +909,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.fechaProcedimiento%>
+    <%if @cliente.mensaje_configuracion.fechaProcedimiento.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Fecha procedimiento", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -926,8 +923,8 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.equipoDetenido%>
-        <div class="form-group" >
+    <%if @cliente.mensaje_configuracion.equipoDetenido.include?('Captura')%>
+        <div class="form-group">
           <div class="checkbox checkbox-success checkbox-inline">
             <%= f.check_box :equipoDetenido%>
             <%= f.label "Equipo detenido"%>
@@ -935,7 +932,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.fianza%>
+    <%if @cliente.mensaje_configuracion.fianza.include?('Captura')%>
         <div class="form-group">
           <%= f.label :fianza, class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -944,7 +941,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.inclusion%>
+    <%if @cliente.mensaje_configuracion.inclusion.include?('Captura')%>
         <div class="form-group">
           <%= f.label :inclusion, class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -953,7 +950,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.codigoSeguridad%>
+    <%if @cliente.mensaje_configuracion.codigoSeguridad.include?('Captura')%>
         <div class="form-group">
           <%= f.label :procedimiento, class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -962,7 +959,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.numeroControl%>
+    <%if @cliente.mensaje_configuracion.numeroControl.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Numero de control", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -971,7 +968,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.lineaValidacion%>
+    <%if @cliente.mensaje_configuracion.lineaValidacion.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Linea de validacion", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -980,7 +977,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.tipoPoliza%>
+    <%if @cliente.mensaje_configuracion.tipoPoliza.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Tipo de poliza", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -989,7 +986,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.telefonoFiado%>
+    <%if @cliente.mensaje_configuracion.telefonoFiado.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Telefono del fiado", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -998,7 +995,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.direccionFiado%>
+    <%if @cliente.mensaje_configuracion.direccionFiado.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Direccion del fiado", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -1007,7 +1004,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.lugarFianza%>
+    <%if @cliente.mensaje_configuracion.lugarFianza.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Lugar de fianza", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -1016,7 +1013,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.vendedorFianza%>
+    <%if @cliente.mensaje_configuracion.vendedorFianza.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Vendedor fianza", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -1025,7 +1022,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.formaPagoFianza%>
+    <%if @cliente.mensaje_configuracion.formaPagoFianza.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Forma pago fianza", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
@@ -1035,7 +1032,7 @@
         </div>
         <br><div class="hr-line-dashed"></div>
     <%end%>
-    <%if @cliente.mensaje_configuracion.audioconferenciaReporta%>
+    <%if @cliente.mensaje_configuracion.audioconferenciaReporta.include?('Captura')%>
         <div class="form-group">
           <%= f.label "Audioconferencia reporta", class: 'col-sm-2 control-label'%>
           <div class="col-sm-5">
