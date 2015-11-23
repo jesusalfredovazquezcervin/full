@@ -26,7 +26,7 @@ class HorariosController < ApplicationController
   end
 
   def update_sucursales
-    @sucursales = Sucursal.where("cliente_id = ?", params[:cliente_id])
+    @sucursales = Cliente.find(params[:cliente_id]).sucursals
     respond_to do |format|
       format.js
     end
@@ -35,7 +35,7 @@ class HorariosController < ApplicationController
   # GET /horarios/1/edit
   def edit
     @clientes = Cliente.all
-    @sucursales = Sucursal.where("cliente_id = ?", Cliente.first.id)
+    @sucursales = @horario.cliente.sucursals
     dashboard_4
   end
 
