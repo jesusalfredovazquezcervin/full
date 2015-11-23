@@ -28,11 +28,7 @@ class ContactosController < ApplicationController
     end
 
     def update_sucursales
-      logger.debug params[:cliente_id]
-      @damn = Sucursal.where("cliente_id = ?", params[:cliente_id])
-      logger.debug @damn.count
-
-      @sucursales = Sucursal.where("cliente_id = ?", params[:cliente_id])
+      @sucursales = Cliente.find(params[:cliente_id]).sucursals
       respond_to do |format|
         format.js
       end
@@ -41,7 +37,7 @@ class ContactosController < ApplicationController
     # GET /contactos/1/edit
     def edit
       @clientes = Cliente.all
-      @sucursales = Sucursal.where("cliente_id = ?", Cliente.first.id)
+      @sucursales = @contacto.cliente.sucursals
       dashboard_4
     end
 
