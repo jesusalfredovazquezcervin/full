@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151115002443) do
+ActiveRecord::Schema.define(version: 20151124205713) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -243,6 +243,12 @@ ActiveRecord::Schema.define(version: 20151115002443) do
     t.integer  "cliente_id"
   end
 
+  create_table "events", force: true do |t|
+    t.string   "event"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "formapagos", force: true do |t|
     t.string   "nombre"
     t.datetime "created_at"
@@ -379,9 +385,38 @@ ActiveRecord::Schema.define(version: 20151115002443) do
     t.string   "audioconferenciaReporta"
   end
 
+  create_table "notifications", force: true do |t|
+    t.integer  "cliente_id"
+    t.integer  "sucursal_id"
+    t.integer  "usuario_id"
+    t.integer  "contacto_id"
+    t.integer  "status_id"
+    t.integer  "event_id"
+    t.string   "notification"
+    t.date     "startdate"
+    t.time     "starttime"
+    t.date     "duedate"
+    t.time     "duetime"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "notifications", ["cliente_id"], name: "index_notifications_on_cliente_id", using: :btree
+  add_index "notifications", ["contacto_id"], name: "index_notifications_on_contacto_id", using: :btree
+  add_index "notifications", ["event_id"], name: "index_notifications_on_event_id", using: :btree
+  add_index "notifications", ["status_id"], name: "index_notifications_on_status_id", using: :btree
+  add_index "notifications", ["sucursal_id"], name: "index_notifications_on_sucursal_id", using: :btree
+  add_index "notifications", ["usuario_id"], name: "index_notifications_on_usuario_id", using: :btree
+
   create_table "pruebas", force: true do |t|
     t.string   "clave"
     t.string   "nombre"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "statuses", force: true do |t|
+    t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

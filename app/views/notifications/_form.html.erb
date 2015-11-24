@@ -1,0 +1,61 @@
+<%= form_for(@notification) do |f| %>
+  <% if @notification.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@notification.errors.count, "error") %> prohibited this notification from being saved:</h2>
+
+      <ul>
+      <% @notification.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :cliente_id %><br>
+    <%= f.text_field :cliente_id %>
+  </div>
+  <div class="field">
+    <%= f.label :sucursal_id %><br>
+    <%= f.text_field :sucursal_id %>
+  </div>
+  <div class="field">
+    <%= f.label :usuario_id %><br>
+    <%= f.text_field :usuario_id %>
+  </div>
+  <div class="field">
+    <%= f.label :contacto_id %><br>
+    <%= f.text_field :contacto_id %>
+  </div>
+  <div class="field">
+    <%= f.label :status_id %><br>
+    <%= f.text_field :status_id %>
+  </div>
+  <div class="field">
+    <%= f.label :event_id %><br>
+    <%= f.text_field :event_id %>
+  </div>
+  <div class="field">
+    <%= f.label :notification %><br>
+    <%= f.text_field :notification %>
+  </div>
+  <div class="field">
+    <%= f.label :startdate %><br>
+    <%= f.date_select :startdate %>
+  </div>
+  <div class="field">
+    <%= f.label :starttime %><br>
+    <%= f.time_select :starttime %>
+  </div>
+  <div class="field">
+    <%= f.label :duedate %><br>
+    <%= f.date_select :duedate %>
+  </div>
+  <div class="field">
+    <%= f.label :duetime %><br>
+    <%= f.time_select :duetime %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

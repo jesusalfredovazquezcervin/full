@@ -1,0 +1,47 @@
+<h1>Listing notifications</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Cliente</th>
+      <th>Sucursal</th>
+      <th>Usuario</th>
+      <th>Contacto</th>
+      <th>Status</th>
+      <th>Event</th>
+      <th>Notification</th>
+      <th>Startdate</th>
+      <th>Starttime</th>
+      <th>Duedate</th>
+      <th>Duetime</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @notifications.each do |notification| %>
+      <tr>
+        <td><%= notification.cliente %></td>
+        <td><%= notification.sucursal %></td>
+        <td><%= notification.usuario %></td>
+        <td><%= notification.contacto %></td>
+        <td><%= notification.status %></td>
+        <td><%= notification.event %></td>
+        <td><%= notification.notification %></td>
+        <td><%= notification.startdate %></td>
+        <td><%= notification.starttime %></td>
+        <td><%= notification.duedate %></td>
+        <td><%= notification.duetime %></td>
+        <td><%= link_to 'Show', notification %></td>
+        <td><%= link_to 'Edit', edit_notification_path(notification) %></td>
+        <td><%= link_to 'Destroy', notification, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Notification', new_notification_path %>

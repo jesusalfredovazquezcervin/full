@@ -1,5 +1,11 @@
 Myapp::Application.routes.draw do
 
+  resources :notifications
+
+  resources :statuses
+
+  resources :events
+
   #get "consultar/:id", to: "captures#consultar", as: 'consultar_cliente'
   #get "captures/consultar", to: "captures#consultar", as: 'captures_consultar_cliente'
   post "captures/consultar"

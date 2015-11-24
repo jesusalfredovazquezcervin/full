@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Cliente:</strong>
+  <%= @notification.cliente %>
+</p>
+
+<p>
+  <strong>Sucursal:</strong>
+  <%= @notification.sucursal %>
+</p>
+
+<p>
+  <strong>Usuario:</strong>
+  <%= @notification.usuario %>
+</p>
+
+<p>
+  <strong>Contacto:</strong>
+  <%= @notification.contacto %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @notification.status %>
+</p>
+
+<p>
+  <strong>Event:</strong>
+  <%= @notification.event %>
+</p>
+
+<p>
+  <strong>Notification:</strong>
+  <%= @notification.notification %>
+</p>
+
+<p>
+  <strong>Startdate:</strong>
+  <%= @notification.startdate %>
+</p>
+
+<p>
+  <strong>Starttime:</strong>
+  <%= @notification.starttime %>
+</p>
+
+<p>
+  <strong>Duedate:</strong>
+  <%= @notification.duedate %>
+</p>
+
+<p>
+  <strong>Duetime:</strong>
+  <%= @notification.duetime %>
+</p>
+
+<%= link_to 'Edit', edit_notification_path(@notification) %> |
+<%= link_to 'Back', notifications_path %>
