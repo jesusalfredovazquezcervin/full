@@ -147,7 +147,7 @@
                 <div class="form-group">
                   <%= f.label :email, class: 'col-sm-2 control-label'%>
                   <div class="col-sm-5">
-                    <%= email_field_tag :email, '', class: 'form-control', placeholder: 'email@dom.com'%>
+                    <%= f.email_field :email, autofocus: false,class: 'form-control' %>
                   </div>
                 </div>
 
