@@ -4,6 +4,7 @@ class Cliente < ActiveRecord::Base
   has_one :datosgenerale
   has_one :mensaje_configuracion
   has_many :sucursals
+  has_many :agendas
   validates :nombre,
             presence: true,
             uniqueness: {scope: :rfc}
