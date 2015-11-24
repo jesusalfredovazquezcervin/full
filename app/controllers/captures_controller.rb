@@ -30,11 +30,10 @@ class CapturesController < ApplicationController
 
   # GET /captures/1/consultar
   def consultar
-    @captures = Capture.all
+    @captures = Capture.where(:cliente_id => params[:capture][:cliente_id])
     @cliente = Cliente.find(params[:capture][:cliente_id])
     @capture= Capture.new
     @clientes = Cliente.all #Aqui en el futuro deberé solamente traer los clientes a los que está asociado el operador
-    @capture = Capture.new
     @direccion =nil
     @horario =nil
     @contacto=nil
@@ -47,6 +46,7 @@ class CapturesController < ApplicationController
     @horario = Horario.find(@cliente.datosgenerale.horario_id)
     @contacto = Contacto.find(@cliente.datosgenerale.contacto1_id)
     @sucursales = Sucursal.where(:cliente_id => params[:capture][:cliente_id])
+    @contactos = Contacto.where(:cliente_id => params[:capture][:cliente_id])
     dashofintel
   end
 
@@ -69,9 +69,6 @@ class CapturesController < ApplicationController
     @contacto = Contacto.find(@cliente.datosgenerale.contacto1_id)
     @sucursales = Sucursal.where(:cliente_id => params[:cliente_id])
 
-
-
-
     if @cliente.mensaje_configuracion.sucursal
       @capture.sucursal_id = params[:capture][:sucursal_id]
     end
@@ -82,8 +79,6 @@ class CapturesController < ApplicationController
       if @capture.save
         #format.html { redirect_to captures_path, notice: 'El registro ha sido creado exitosamente' }
         format.html { redirect_to({ action: 'index', id:@cliente.id }, notice: "El registro ha sido creado exitosamente") }
-
-
       else
         format.html { render action: 'new', :layout => "layout_2" }
         format.json { render json: @capture.errors, status: :unprocessable_entity }
