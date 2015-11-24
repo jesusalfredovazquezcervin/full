@@ -1,0 +1,307 @@
+<div class="wrapper wrapper-content  animated fadeInRight">
+  <div class="row">
+    <div class="col-sm-8">
+      <div class="ibox">
+        <div class="ibox-content">
+          <div class="clients-list">
+            <ul class="nav nav-tabs">
+              <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i> Contactos (<%=@contactos.count%>)</a></li>
+              <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-briefcase"></i> Agenda (<%=@cliente.agendas.count%>)</a></li>
+            </ul>
+            <div class="tab-content">
+              <div id="tab-1" class="tab-pane active">
+                <div class="full-height-scroll">
+                  <div class="table-responsive">
+                    <div class="input-group" >
+                      <input type="text" class="form-control input-sm m-b-xs" id="filter1"
+                             placeholder="Buscar en directorio">
+                                <span class="input-group-addon">
+                                    <span class="fa fa-search"></span>
+                                </span>
+                    </div>
+                    <table class="footable table table-stripped" data-filter=#filter1>
+                      <tbody>
+                      <% @contactos.each do |contacto| %>
+                          <tr>
+                            <td class="client-avatar"><img alt="image" src="<%= image_path('a2.jpg') %>"> </td>
+                            <td><a data-toggle="tab" href="#contact-<%=contacto.id%>" class="client-link"><%=contacto.nombre%></a></td>
+                            <td class="contact-type"><i class="fa fa-phone"> </i></td>
+                            <td> <%=contacto.telefono%></td>
+                            <td class="contact-type"><i class="fa fa-envelope"> </i></td>
+                            <td> <%=contacto.email%></td>
+                            <td class="client-status"><span class="label label-primary">Active</span></td>
+                          </tr>
+                      <%end%>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div id="tab-2" class="tab-pane">
+                <div class="full-height-scroll">
+                  <div class="table-responsive">
+
+                    <table class="footable table table-stripped" data-filter=#filter2>
+                      <div class="input-group" >
+                        <input type="text" class="form-control input-sm m-b-xs" id="filter2"
+                               placeholder="Buscar en agenda">
+                                <span class="input-group-addon">
+                                    <span class="fa fa-search"></span>
+                                </span>
+                      </div>
+                      <tbody>
+                      <% @cliente.agendas.each do |agenda| %>
+                          <tr>
+                            <td class="client-avatar"><img alt="image" src="<%= image_path('a2.jpg') %>"> </td>
+                            <td><a data-toggle="tab" href="#agenda-<%=agenda.id%>" class="client-link"><%=agenda.nombre%></a></td>
+                            <td> <%=agenda.rfc%></td>
+                            <td class="contact-type"><i class="fa fa-phone"> </i></td>
+                            <td> <%=agenda.telefono%></td>
+                            <td class="contact-type"><i class="fa fa-envelope"> </i></td>
+                            <td> <%=agenda.email%></td>
+                          </tr>
+                      <%end%>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-4">
+      <div class="ibox ">
+
+        <div class="ibox-content">
+          <div class="tab-content">
+            <% @contactos.each do |contacto| %>
+                <div id="contact-<%=contacto.id%>" class="tab-pane <%=@contactos.first.id.equal?(contacto.id) ? ('active'):('')%>">
+                  <div class="row m-b-lg">
+                    <div class="col-lg-4 text-center">
+                      <h2><%=contacto.nombre%></h2>
+
+                      <div class="m-b-sm">
+                        <img alt="image" class="img-circle" src="<%= image_path('a2.jpg') %>"
+                             style="width: 62px">
+                      </div>
+                    </div>
+                    <div class="col-lg-8">
+                      <p>
+                        Mi puesto es: <strong><%=contacto.puesto%></strong>
+                        <%if !contacto.funciones.nil? and contacto.funciones!=''%>
+                            y mis funciones: <strong><%=contacto.funciones%></strong>
+                        <%end%>
+                      </p>
+                      <button type="button" class="btn btn-primary btn-sm btn-block">
+                        <i class="fa fa-envelope"></i> Enviar correo
+                      </button>
+                    </div>
+                  </div>
+                  <div class="client-detail">
+                    <div class="full-height-scroll">
+
+                      <strong>Datos completos</strong>
+
+                      <ul class="list-group clear-list">
+                        <li class="list-group-item fist-item">
+                          <span class="pull-right"> <%=contacto.cliente.nombre%> </span>
+                          <h3><i class="fa fa-institution"></i></h3>
+                        </li>
+                        <%if !contacto.cliente.nombreComercial.nil? and contacto.cliente.nombreComercial!=''%>
+                            <li class="list-group-item">
+                              <span class="pull-right"> <%=contacto.cliente.nombreComercial%> </span>
+                              Nombre comercial
+                            </li>
+                        <%end%>
+
+                        <li class="list-group-item">
+                          <span class="pull-right"> <%=Sucursal.find_by_id(contacto.sucursal_id).nombre%> </span>
+                          <h3><i class="fa fa-building"></i></h3>
+                        </li>
+                        <%if !contacto.ext.nil? and contacto.ext!=''%>
+                            <li class="list-group-item">
+                              <span class="pull-right"> <%=contacto.ext%> </span>
+                              Ext
+                            </li>
+                        <%end%>
+
+                        <%if !contacto.cel.nil? and contacto.cel!=''%>
+                            <li class="list-group-item">
+                              <span class="pull-right"> <%=contacto.cel%> </span>
+                              <h2><i class="fa fa-mobile-phone"></i></h2>
+                            </li>
+                        <%end%>
+                        <%if !contacto.skype.nil? and contacto.skype!=''%>
+                            <li class="list-group-item">
+                              <span class="pull-right"> <%=contacto.skype%> </span>
+                              <h2><i class="fa fa-skype"></i></h2>
+                            </li>
+                        <%end%>
+                      </ul>
+                      <strong>Notes</strong>
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua.
+                      </p>
+                      <hr />
+                      <strong>Actividad reciente del contacto</strong>
+                      <div id="vertical-timeline" class="vertical-container dark-timeline">
+                        <div class="vertical-timeline-block">
+                          <div class="vertical-timeline-icon gray-bg">
+                            <i class="fa fa-coffee"></i>
+                          </div>
+                          <div class="vertical-timeline-content">
+                            <p>
+                              Conference on the sales results for the previous year.
+                            </p>
+                            <span class="vertical-date small text-muted"> 2:10 pm - 12.06.2014 </span>
+                          </div>
+                        </div>
+                        <div class="vertical-timeline-block">
+                          <div class="vertical-timeline-icon gray-bg">
+                            <i class="fa fa-briefcase"></i>
+                          </div>
+                          <div class="vertical-timeline-content">
+                            <p>
+                              Many desktop publishing packages and web page editors now use Lorem.
+                            </p>
+                            <span class="vertical-date small text-muted"> 4:20 pm - 10.05.2014 </span>
+                          </div>
+                        </div>
+                        <div class="vertical-timeline-block">
+                          <div class="vertical-timeline-icon gray-bg">
+                            <i class="fa fa-bolt"></i>
+                          </div>
+                          <div class="vertical-timeline-content">
+                            <p>
+                              There are many variations of passages of Lorem Ipsum available.
+                            </p>
+                            <span class="vertical-date small text-muted"> 06:10 pm - 11.03.2014 </span>
+                          </div>
+                        </div>
+                        <div class="vertical-timeline-block">
+                          <div class="vertical-timeline-icon navy-bg">
+                            <i class="fa fa-warning"></i>
+                          </div>
+                          <div class="vertical-timeline-content">
+                            <p>
+                              The generated Lorem Ipsum is therefore.
+                            </p>
+                            <span class="vertical-date small text-muted"> 02:50 pm - 03.10.2014 </span>
+                          </div>
+                        </div>
+                        <div class="vertical-timeline-block">
+                          <div class="vertical-timeline-icon gray-bg">
+                            <i class="fa fa-coffee"></i>
+                          </div>
+                          <div class="vertical-timeline-content">
+                            <p>
+                              Conference on the sales results for the previous year.
+                            </p>
+                            <span class="vertical-date small text-muted"> 2:10 pm - 12.06.2014 </span>
+                          </div>
+                        </div>
+                        <div class="vertical-timeline-block">
+                          <div class="vertical-timeline-icon gray-bg">
+                            <i class="fa fa-briefcase"></i>
+                          </div>
+                          <div class="vertical-timeline-content">
+                            <p>
+                              Many desktop publishing packages and web page editors now use Lorem.
+                            </p>
+                            <span class="vertical-date small text-muted"> 4:20 pm - 10.05.2014 </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            <%end%>
+
+
+            <% @cliente.agendas.each do |agenda| %>
+                <div id="agenda-<%=agenda.id%>" class="tab-pane">
+                  <div class="row m-b-lg">
+                    <div class="col-lg-4 text-center">
+                      <h2><%=agenda.nombre.titleize%></h2>
+                    </div>
+                    <div class="col-lg-8">
+                        <span class="pull-right">
+                          <strong><%=agenda.rfc.upcase%></strong>
+                        </span>
+                    </div>
+                  </div>
+                  <div class="client-detail">
+                    <div class="full-height-scroll">
+
+                      <strong>Datos completos</strong>
+
+                      <ul class="list-group clear-list">
+                        <li class="list-group-item fist-item">
+                          <span class="pull-left"> <%=agenda.nombre.titleize%> </span>
+                        </li>
+                        <br>
+                        <li class="list-group-item">
+                          <span class="pull-left">
+                            <h3><i class="fa fa-home"></i></h3>
+                            <%=agenda.calle.titleize%>,&nbsp;<%=agenda.numero%>,&nbsp;<%=agenda.colonia.titleize%>,&nbsp;<%=agenda.delegacion.titleize%>,&nbsp;<%=agenda.estado.titleize%>,&nbsp;<%=agenda.cp.titleize%>
+
+
+                          </span>
+                        </li>
+                        <br><br><br><br>
+                        <%if !agenda.email.nil? and agenda.email!=''%>
+                            <li class="list-group-item">
+                              <span class="pull-right"> <%=agenda.email%> </span>
+                              <h3><i class="fa fa-envelope"></i></h3>
+                            </li>
+                        <%end%>
+                        <%if !agenda.telefono.nil? and agenda.telefono!=''%>
+                            <li class="list-group-item">
+                              <span class="pull-right"> <%=agenda.telefono%> </span>
+                              <h2><i class="fa fa-phone"></i></h2>
+                            </li>
+                        <%end%>
+                        <%if !agenda.cel.nil? and agenda.cel!=''%>
+                            <li class="list-group-item">
+                              <span class="pull-right"> <%=agenda.cel%> </span>
+                              <h2><i class="fa fa-mobile-phone"></i></h2>
+                            </li>
+                        <%end%>
+                      </ul>
+                      <strong>Notas</strong>
+                      <p>
+                        Aqui pueden ir algunas notas
+                      </p>
+                      <hr />
+                    </div>
+                  </div>
+                </div>
+            <%end%>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :javascript do %>
+
+    <script type="text/javascript">
+
+
+        $(function() {
+
+            $('.footable').footable();
+            $('.footable2').footable();
+
+
+        });
+
+    </script>
+
+<% end %>
