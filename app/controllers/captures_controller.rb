@@ -11,7 +11,7 @@ class CapturesController < ApplicationController
       @cliente = Cliente.find(params[:id])
     end
     @captures = Capture.all
-    @notification = Notification.new
+    #@notification = Notification.new
     dashofintel
 
   end
@@ -32,7 +32,7 @@ class CapturesController < ApplicationController
 
   # GET /captures/1/consultar
   def consultar
-    @notification = Notification.new
+    #@notification = Notification.new
     @captures = Capture.where(:cliente_id => params[:capture][:cliente_id])
     @cliente = Cliente.find(params[:capture][:cliente_id])
     @capture= Capture.new
