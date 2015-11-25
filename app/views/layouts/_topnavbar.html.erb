@@ -38,7 +38,7 @@
                             </a>
                             <div class="media-body">
                                 <small class="pull-right">46h ago</small>
-                                <strong>Mike Loreipsum</strong> started following <strong>Monica Smith</strong>. <br/>
+                                <strong>Mike MORSA</strong> started following <strong>Monica Smith</strong>. <br/>
                                 <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
                             </div>
                         </div>
@@ -72,9 +72,11 @@
                     <li class="divider"></li>
                     <li>
                         <div class="text-center link-block">
-                            <a href="#">
-                                <i class="fa fa-envelope"></i> <strong>Read All Messages</strong>
-                            </a>
+                          <%if !@cliente.nil?%>
+                              <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal">
+                                Crear notificacion</button>
+                          <%end%>
+
                         </div>
                     </li>
                 </ul>
@@ -141,22 +143,9 @@
 </nav>
 </div>
 
-<% content_for :javascript do %>
+<div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <%if !@cliente.nil?%>
+    <%= render 'layouts/form' %>
+  <%end%>
+</div>
 
-    <script type="text/javascript">
-
-
-        var config = {
-            '.chosen-select'           : {},
-            '.chosen-select-deselect'  : {allow_single_deselect:true},
-            '.chosen-select-no-single' : {disable_search_threshold:10},
-            '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
-            '.chosen-select-width'     : {width:"95%"}
-        }
-        for (var selector in config) {
-            $(selector).chosen(config[selector]);
-        }
-
-
-    </script>
-<% end %>
