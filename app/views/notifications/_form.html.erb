@@ -1,61 +1,140 @@
-<%= form_for(@notification) do |f| %>
-  <% if @notification.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@notification.errors.count, "error") %> prohibited this notification from being saved:</h2>
-
-      <ul>
-      <% @notification.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+<div class="modal-dialog modal-lg">
+  <div class="modal-content animated flipInX">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+      <h4 class="modal-title">Crear Notificacion</h4>
     </div>
-  <% end %>
+    <div class="modal-body">
+      <%= form_for @notification, class: 'form-horizontal'  do |f| %>
+          <% if @notification.errors.any? %>
+              <div id="error_explanation">
+                <h2><%= @notification.errors.count %> error(es) no permitieron guardar el registro:</h2>
 
-  <div class="field">
-    <%= f.label :cliente_id %><br>
-    <%= f.text_field :cliente_id %>
+                <ul>
+                  <% @notification.errors.full_messages.each do |msg| %>
+                      <li><%= msg %></li>
+                  <% end %>
+                </ul>
+              </div>
+          <% end %>
+
+          <div class="form-group">
+            <div class="form-group">
+              <%= f.label "Persona", class: 'col-sm-2 control-label'%>
+              <div class="col-sm-5">
+                <%= f.select :person_id, options_for_select(@cliente.contactos.collect { |contacto|
+                                                              [contacto.nombre.titleize, contacto.id] }, @notification.person_id), {}, {class: "form-control m-b", style: "width:350px;" } %>
+
+
+              </div>
+            </div>
+
+            <br>
+            <div class="hr-line-dashed"></div>
+            <div class="form-group">
+              <%= f.label "Evento", class: 'col-sm-2 control-label'%>
+              <div class="col-sm-5">
+                <%= f.select :event_id, options_for_select(Event.all.collect { |event|
+                                                             [event.event.titleize, event.id] }, @notification.event_id), {}, { class: "form-control m-b", style: "width:350px;" } %>
+
+
+              </div>
+            </div>
+            <br>
+            <div class="hr-line-dashed"></div>
+            <div class="form-group">
+              <%= f.label :status, class: 'col-sm-2 control-label'%>
+              <div class="col-sm-5">
+                <%= f.select :status_id, options_for_select(Status.all.collect { |status|
+                                                              [status.status.titleize, status.id] }, @notification.status_id), {}, { class: "form-control m-b", style: "width:350px;" } %>
+
+
+              </div>
+            </div>
+            <br>
+            <div class="hr-line-dashed"></div>
+            <div class="form-group">
+              <%= f.label :notification, class: 'col-sm-2 control-label'%>
+              <div class="col-sm-5">
+                <%= f.text_field :notification, class: 'form-control' %>
+              </div>
+            </div>
+            <br>
+            <div class="hr-line-dashed"></div>
+
+            <div class="form-group">
+              <%= f.label "Destinatario", class: 'col-sm-2 control-label'%>
+              <div class="col-sm-5">
+                <%= f.select :recipient_id, options_for_select(@cliente.contactos.collect { |contacto|
+                                                                 [contacto.nombre.titleize, contacto.id] }, @notification.recipient_id), {}, {class: "form-control m-b", style: "width:350px;" } %>
+
+
+              </div>
+            </div>
+
+            <br>
+            <div class="hr-line-dashed"></div>
+
+
+            <div class="form-group">
+              <%= f.label "Fecha inicia", class: 'col-sm-2 control-label'%>
+              <div class="col-sm-5">
+                <div class="form-group" id="data_1">
+                  <div class="input-group date">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    <%= f.text_field :startdate, class: "form-control", :required => true%>
+                  </div>
+                </div>
+              </div>
+              <%= f.label "Hora inicia", class: 'col-sm-2 control-label'%>
+              <div class="col-sm-5" style="width: 200px">
+                <div class="input-group clockpicker" data-autoclose="true" >
+                  <%= f.text_field :starttime, class: 'form-control'%>
+                  <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-time"></span>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+
+            <br>
+            <div class="hr-line-dashed"></div>
+            <div class="form-group">
+              <%= f.label "Fecha caduca", class: 'col-sm-2 control-label'%>
+              <div class="col-sm-5">
+                <div class="form-group" id="data_1">
+                  <div class="input-group date">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    <%= f.text_field :duedate, class: "form-control", :required => true%>
+                  </div>
+                </div>
+              </div>
+              <%= f.label "Hora caduca", class: 'col-sm-2 control-label'%>
+              <div class="col-sm-5" style="width: 200px">
+                <div class="input-group clockpicker" data-autoclose="true" >
+                  <%= f.text_field :duetime, class: 'form-control'%>
+                  <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-time"></span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <br>
+            <br>
+          </div>
+
+
+
+
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-white" data-dismiss="modal">Cerrar</button>
+            <%= button_tag(type: 'submit', class: "btn btn-primary") do %>
+                <i class="fa fa-database"></i> Guardar
+            <% end %>
+          </div>
+      <% end %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :sucursal_id %><br>
-    <%= f.text_field :sucursal_id %>
-  </div>
-  <div class="field">
-    <%= f.label :usuario_id %><br>
-    <%= f.text_field :usuario_id %>
-  </div>
-  <div class="field">
-    <%= f.label :contacto_id %><br>
-    <%= f.text_field :contacto_id %>
-  </div>
-  <div class="field">
-    <%= f.label :status_id %><br>
-    <%= f.text_field :status_id %>
-  </div>
-  <div class="field">
-    <%= f.label :event_id %><br>
-    <%= f.text_field :event_id %>
-  </div>
-  <div class="field">
-    <%= f.label :notification %><br>
-    <%= f.text_field :notification %>
-  </div>
-  <div class="field">
-    <%= f.label :startdate %><br>
-    <%= f.date_select :startdate %>
-  </div>
-  <div class="field">
-    <%= f.label :starttime %><br>
-    <%= f.time_select :starttime %>
-  </div>
-  <div class="field">
-    <%= f.label :duedate %><br>
-    <%= f.date_select :duedate %>
-  </div>
-  <div class="field">
-    <%= f.label :duetime %><br>
-    <%= f.time_select :duetime %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>
