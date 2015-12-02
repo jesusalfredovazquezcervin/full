@@ -6,7 +6,7 @@
 
         </div>
       <div class="navbar-header">
-        <%= form_for @capture , url: {action: "consultar"}, class: "navbar-form-custom" do |f| %> 
+        <%= form_for @capture , url: {controller:"captures", action: "consultar"}, class: "navbar-form-custom" do |f| %> 
             <div>
             <%= f.select :cliente_id, options_for_select(@clientes.order(:nombreComercial).collect { |c|
                                                            [(c.nombreComercial.nil? == true ? (c.nombre):(c.nombreComercial)) << ' - ' << c.datosgenerale.frase, c.id ] }),
@@ -25,104 +25,63 @@
 
 
         <ul class="nav navbar-top-links navbar-right">
-
-            <li class="dropdown">
+            <%if !@cliente.nil?%>
+              <li class="dropdown">
                 <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-                    <i class="fa fa-envelope"></i>  <span class="label label-warning">16</span>
+                  <i class="fa fa-bell"></i>
+                  <% if @cliente.notifications.active(@cliente).count > 0%>
+                    <span class="label label-warning"><%=@cliente.notifications.active(@cliente).count%></span>
+                  <%end%>
                 </a>
                 <ul class="dropdown-menu dropdown-messages">
-                    <li>
+                  <% @cliente.notifications.active(@cliente).each do |notification| %>
+                      <li>
                         <div class="dropdown-messages-box">
-                            <a href="#" class="pull-left">
-                                <img alt="image" class="img-circle" src="<%= image_path('a7.jpg') %>" />
-                            </a>
-                            <div class="media-body">
-                                <small class="pull-right">46h ago</small>
-                                <strong>Mike MORSA</strong> started following <strong>Monica Smith</strong>. <br/>
-                                <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <div class="dropdown-messages-box">
-                            <a href="#" class="pull-left">
-                                <img alt="image" class="img-circle" src="<%= image_path('a4.jpg') %>" />
-                            </a>
-                            <div class="media-body ">
-                                <small class="pull-right text-navy">5h ago</small>
-                                <strong>Chris Johnatan Overtunk</strong> started following <strong>Monica Smith</strong>. <br/>
-                                <small class="text-muted">Yesterday 1:21 pm - 11.06.2014</small>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <div class="dropdown-messages-box">
-                            <a href="#" class="pull-left">
-                                <img alt="image" class="img-circle" src="<%= image_path('profile.jpg') %>" />
-                            </a>
-                            <div class="media-body ">
-                                <small class="pull-right">23h ago</small>
-                                <strong>Monica Smith</strong> love <strong>Kim Smith</strong>. <br/>
-                                <small class="text-muted">2 days ago at 2:30 am - 11.06.2014</small>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <div class="text-center link-block">
-                          <%if !@cliente.nil?%>
-                              <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal">
-                                Crear notificacion</button>
-                          <%end%>
+                          <a href="#" class="pull-left">
+                            <img alt="image" class="img-circle" src="<%= image_path('profile.jpg') %>" />
+                          </a>
+                          <div class="media-body ">
+                            <small class="pull-right">&nbsp;&nbsp;&nbsp;hace <%= distance_of_time_in_words(notification.startdatetime + DateTime.now.utc_offset*(-1).second, DateTime.now).to_s  %></small>
+                            <strong><%=notification.person.nombre%></strong>&nbsp;<%=notification.event.event%>
+                            <%=notification.notification.nil? == false ? (notification.notification):('') %>
+                            <strong>
+                              <%=notification.recipient.nil? == false ? (notification.recipient.nombre):('') %>
+                            </strong><br/>
+                            <small class="text-muted">Vence en <%= distance_of_time_in_words(DateTime.now, notification.duedatetime + DateTime.now.utc_offset*(-1).second).to_s  %>
 
+                            </small>
+                            <small class="pull-right">&nbsp;&nbsp;&nbsp;
+
+                            </small>
+                            <small class="pull-right">
+                              <%= link_to edit_notification_path(notification), class:"text-muted" do%>
+                                  <i class="fa fa-pencil"></i>
+                              <% end %>
+                              <%= link_to notification, method: :delete, class:"text-muted", data: { confirm: '¿Está seguro?'} do%>
+                                  <i class="fa fa-trash"></i>
+                              <% end %>
+                            </small>
+
+
+                          </div>
                         </div>
-                    </li>
+                      </li>
+                      <li class="divider"></li>
+                  <%end%>
+                  <li>
+                    <div class="text-center link-block">
+
+                      <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal">
+                        Crear notificacion</button>
+
+
+                    </div>
+                  </li>
                 </ul>
-            </li>
-            <li class="dropdown">
-                <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-                    <i class="fa fa-bell"></i>  <span class="label label-primary">8</span>
-                </a>
-                <ul class="dropdown-menu dropdown-alerts">
-                    <li>
-                        <a href="#">
-                            <div>
-                                <i class="fa fa-envelope fa-fw"></i> You have 16 messages
-                                <span class="pull-right text-muted small">4 minutes ago</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <a href="#">
-                            <div>
-                                <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-                                <span class="pull-right text-muted small">12 minutes ago</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <a href="#">
-                            <div>
-                                <i class="fa fa-upload fa-fw"></i> Server Rebooted
-                                <span class="pull-right text-muted small">4 minutes ago</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <div class="text-center link-block">
-                            <a href="#">
-                                <strong>See All Alerts</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-            </li>
+              </li>
+            <%end%>
+
+
 
 
             <li>
@@ -145,7 +104,7 @@
 
 <div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
   <%if !@cliente.nil?%>
-    <%= render 'layouts/form' %>
+    <%= render 'notifications/form' %>
   <%end%>
 </div>
 <% content_for :javascript do %>
@@ -164,6 +123,11 @@
             $(selector).chosen(config[selector]);
         }
 
+        $('#myModal').on('shown.bs.modal', function (e) {
+        // Initialise external plugins for controls
+            //require chosen/chosen.jquery.js
 
+
+        })
     </script>
 <% end %>
