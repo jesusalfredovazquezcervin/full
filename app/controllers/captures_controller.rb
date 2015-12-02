@@ -49,7 +49,7 @@ class CapturesController < ApplicationController
     @horario = Horario.find(@cliente.datosgenerale.horario_id)
     @contacto = Contacto.find(@cliente.datosgenerale.contacto1_id)
     @sucursales = Sucursal.where(:cliente_id => params[:capture][:cliente_id])
-    @contactos = Contacto.where(:cliente_id => params[:capture][:cliente_id])
+    #@contactos = Contacto.where(:cliente_id => params[:capture][:cliente_id])
     dashofintel
   end
 
