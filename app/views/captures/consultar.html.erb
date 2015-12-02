@@ -224,7 +224,7 @@
         <div class="ibox-title">
           <h5>Directorio<small class="m-l-sm">Aqui tienes los empleados de:</small> <%=@cliente.nombre%>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <small class="m-l-sm">Ultima modificacion: <i class="fa fa-clock-o"></i> <%=@contactos.try(:order, "updated_at").last.try(:updated_at).try(:strftime, "%H:%M %P - %d.%M.%Y") %></small>
+            <small class="m-l-sm">Ultima modificacion: <i class="fa fa-clock-o"></i> <%=@cliente.contactos.try(:order, "updated_at").last.try(:updated_at).try(:strftime, "%H:%M %P - %d.%M.%Y") %></small>
 
           </h5>
 
