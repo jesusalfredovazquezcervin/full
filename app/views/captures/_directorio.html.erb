@@ -29,7 +29,15 @@
                             <td> <%=contacto.telefono%></td>
                             <td class="contact-type"><i class="fa fa-envelope"> </i></td>
                             <td> <%=contacto.email%></td>
-                            <td class="client-status"><span class="label label-primary">Active</span></td>
+
+                            <td class="client-status">
+                              <% if contacto.notifications.active(@cliente).count > 0 %>
+                              <span class="label label-danger">
+                                  <%= 'Notificacion (' << contacto.notifications.active(@cliente).count.to_s << ')'%>
+                              </span>
+                              <%end%>
+
+                            </td>
                           </tr>
                       <%end%>
                       </tbody>
