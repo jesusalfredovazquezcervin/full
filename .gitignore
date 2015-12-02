@@ -16,3 +16,23 @@ config/database.yml
 #Ignore de application.ylm because figaro
 config/application.yml
 
+# Ignoramos algunos archivos que uso para pruebas, despues los eliminaré
+/app/views/countries/*
+/app/views/cities/*
+/app/controllers/cities_controller.rb
+/app/controllers/countries_controller.rb
+/app/models/city.rb
+/app/models/country.rb
+/app/assets/javascripts/cities.js.coffee
+/app/assets/javascripts/countries.js.coffee
+/app/assets/stylesheets/cities.css.scss
+/app/assets/stylesheets/countries.css.scss
+/app/helpers/cities_helper.rb
+/app/helpers/countries_helper.rb
+/db/migrate/20150929162218_create_countries.rb
+/db/migrate/20150929162309_create_cities.rb
+
+#Ignoramos todos test y tmp
+/test/*
+/tmp/*
+/tmp/cache/
