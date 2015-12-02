@@ -66,3 +66,4 @@ gem 'figaro', '~> 1.1.1'
 
 #Authentication with roles
 gem 'cancan', '~> 1.6', '>= 1.6.10'
+gem 'rails-i18n', '~> 4.0', '>= 4.0.7'
