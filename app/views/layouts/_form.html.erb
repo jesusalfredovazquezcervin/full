@@ -6,8 +6,6 @@
     </div>
     <div class="modal-body">
       <%= form_for @notification, url: {controller: "notifications", action: "create"}, class: 'form-horizontal'  do |f| %>
-
-
           <% if @notification.errors.any? %>
               <div id="error_explanation">
                 <h2><%= @notification.errors.count %> error(es) no permitieron guardar el registro:</h2>
@@ -22,21 +20,10 @@
 
           <div class="form-group">
             <div class="form-group">
-              <%= f.label :sucursal, class: 'col-sm-2 control-label'%>
+              <%= f.label "Persona", class: 'col-sm-2 control-label'%>
               <div class="col-sm-5">
-                <%= f.select :sucursal_id, options_for_select(@cliente.sucursals.collect { |sucursal|
-                                                                [sucursal.nombre.titleize, sucursal.id] }, @notification.sucursal_id), {}, {class: "form-control m-b", style: "width:350px;" } %>
-
-
-              </div>
-            </div>
-            <br>
-            <div class="hr-line-dashed"></div>
-            <div class="form-group">
-              <%= f.label "Destinatario", class: 'col-sm-2 control-label'%>
-              <div class="col-sm-5">
-                <%= f.select :contacto_id, options_for_select(@contactos.collect { |contacto|
-                                                                [contacto.nombre.titleize, contacto.id] }, @notification.contacto_id), {}, {class: "form-control m-b", style: "width:350px;" } %>
+                <%= f.select :person_id, options_for_select(@cliente.contactos.collect { |contacto|
+                                                                [contacto.nombre.titleize, contacto.id] }, @notification.person_id), {}, {class: "form-control m-b", style: "width:350px;" } %>
 
 
               </div>
@@ -69,10 +56,23 @@
             <div class="form-group">
               <%= f.label :notification, class: 'col-sm-2 control-label'%>
               <div class="col-sm-5">
-                <%= f.text_area :notification, class: 'form-control' %>
+                <%= f.text_field :notification, class: 'form-control' %>
               </div>
             </div>
-            <br><br>
+            <br>
+            <div class="hr-line-dashed"></div>
+
+            <div class="form-group">
+              <%= f.label "Destinatario", class: 'col-sm-2 control-label'%>
+              <div class="col-sm-5">
+                <%= f.select :recipient_id, options_for_select(@cliente.contactos.collect { |contacto|
+                                                                [contacto.nombre.titleize, contacto.id] }, @notification.recipient_id), {}, {class: "form-control m-b", style: "width:350px;" } %>
+
+
+              </div>
+            </div>
+
+            <br>
             <div class="hr-line-dashed"></div>
 
 
@@ -121,10 +121,10 @@
               </div>
             </div>
             <br>
-            <div class="hr-line-dashed"></div>
+            <br>
           </div>
 
-          <div class="hr-line-dashed"></div>
+
           <div class="modal-footer">
             <button type="button" class="btn btn-white" data-dismiss="modal">Cerrar</button>
             <%= button_tag(type: 'submit', class: "btn btn-primary") do %>
