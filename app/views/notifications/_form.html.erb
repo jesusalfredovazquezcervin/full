@@ -43,18 +43,7 @@
             <br>
             <div class="hr-line-dashed"></div>
             <div class="form-group">
-              <%= f.label :status, class: 'col-sm-2 control-label'%>
-              <div class="col-sm-5">
-                <%= f.select :status_id, options_for_select(Status.all.collect { |status|
-                                                              [status.status.titleize, status.id] }, @notification.status_id), {}, { class: "form-control m-b", style: "width:350px;" } %>
-
-
-              </div>
-            </div>
-            <br>
-            <div class="hr-line-dashed"></div>
-            <div class="form-group">
-              <%= f.label :notification, class: 'col-sm-2 control-label'%>
+              <%= f.label "Mensaje", class: 'col-sm-2 control-label'%>
               <div class="col-sm-5">
                 <%= f.text_field :notification, class: 'form-control' %>
               </div>
@@ -66,7 +55,7 @@
               <%= f.label "Destinatario", class: 'col-sm-2 control-label'%>
               <div class="col-sm-5">
                 <%= f.select :recipient_id, options_for_select(@cliente.contactos.collect { |contacto|
-                                                                 [contacto.nombre.titleize, contacto.id] }, @notification.recipient_id), {}, {class: "form-control m-b", style: "width:350px;" } %>
+                                                                 [contacto.nombre.titleize, contacto.id] }, @notification.recipient_id), {include_blank: true}, {class: "form-control m-b", style: "width:350px;" } %>
 
 
               </div>
