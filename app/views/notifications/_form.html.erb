@@ -118,7 +118,12 @@
 
 
           <div class="modal-footer">
-            <button type="button" class="btn btn-white" data-dismiss="modal">Cerrar</button>
+            <%if @notification.cliente.nil?%>
+                <button type="button" class="btn btn-white" data-dismiss="modal">Cerrar</button>
+            <%else%>
+                <%= link_to "Regresar", captures_consultar_path(@notification.cliente.id), :method => :patch,  class:"btn btn-white"%>
+            <%end%>
+
             <%= button_tag(type: 'submit', class: "btn btn-primary") do %>
                 <i class="fa fa-database"></i> Guardar
             <% end %>

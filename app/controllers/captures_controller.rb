@@ -19,6 +19,7 @@ class CapturesController < ApplicationController
   # GET /captures/1
   # GET /captures/1.json
   def show
+    @clientes = Cliente.all
   end
 
   # GET /captures/new
@@ -28,28 +29,34 @@ class CapturesController < ApplicationController
 
   # GET /captures/1/edit
   def edit
+    @clientes = Cliente.all #Aqui en el futuro deberé solamente traer los clientes a los que está asociado el operador
+    @cliente = @capture.cliente
+    @captures = Capture.all
+    @notification = Notification.new
+    dashofintel
   end
 
   # GET /captures/1/consultar
   def consultar
+    logger.debug params[:id]
+    id=params[:id]=="id" ? (params[:cliente_id]):(params[:id])
     @notification = Notification.new
-    @captures = Capture.where(:cliente_id => params[:capture][:cliente_id])
-    @cliente = Cliente.find(params[:capture][:cliente_id])
+    @captures = Capture.where(:cliente_id => id)
+    @cliente = Cliente.find(id)
     @capture= Capture.new
     @clientes = Cliente.all #Aqui en el futuro deberé solamente traer los clientes a los que está asociado el operador
     @direccion =nil
     @horario =nil
     @contacto=nil
 
-    direcciones = Direccion.where(:cliente_id => params[:capture][:cliente_id], :matriz => true)
+    direcciones = Direccion.where(:cliente_id => id, :matriz => true)
     if (direcciones.size > 0)
       @direccion = direcciones[0]
     end
 
     @horario = Horario.find(@cliente.datosgenerale.horario_id)
     @contacto = Contacto.find(@cliente.datosgenerale.contacto1_id)
-    @sucursales = Sucursal.where(:cliente_id => params[:capture][:cliente_id])
-    #@contactos = Contacto.where(:cliente_id => params[:capture][:cliente_id])
+    @sucursales = Sucursal.where(:cliente_id => id)
     dashofintel
   end
 
@@ -94,10 +101,10 @@ class CapturesController < ApplicationController
   def update
     respond_to do |format|
       if @capture.update(capture_params)
-        format.html { redirect_to @capture, notice: 'Capture was successfully updated.' }
+        format.html { redirect_to({ action: 'index', id:@capture.cliente_id }, notice: "El registro ha sido actualizado exitosamente") }
         format.json { head :no_content }
       else
-        format.html { render action: 'edit' }
+        format.html { render action: 'edit', :layout => "layout_2" }
         format.json { render json: @capture.errors, status: :unprocessable_entity }
       end
     end
@@ -108,7 +115,7 @@ class CapturesController < ApplicationController
   def destroy
     @capture.destroy
     respond_to do |format|
-      format.html { redirect_to captures_url }
+      format.html { redirect_to({ action: 'index', id:@capture.cliente_id }, notice: "La captura ha sido eliminada exitosamente") }
       format.json { head :no_content }
     end
   end

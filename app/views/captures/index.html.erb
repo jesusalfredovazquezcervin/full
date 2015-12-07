@@ -11,17 +11,17 @@
         Para iniciar seleccione una cuenta
     <%end%>
 
-    <%= form_for @capture , url: {action: "consultar"}, class:"form-inline m-t", role:"form" do |f| %>
+    <%= form_tag  captures_consultar_path(:id), method: "patch" do |f| %>
         <div class="form-group">
-          <%= f.select :cliente_id, options_for_select(@clientes.order(:nombre).collect { |c|
-                                                         [c.nombre, c.id] }, @cliente.try(:id)),
-                       {prompt: 'Seleccione cuenta'}, { class:"chosen-select", style: "width:400px;" } %>
+          <%= select_tag :cliente_id, options_for_select(@clientes.order(:nombreComercial).collect { |c|
+                                                           [(c.nombreComercial.nil? == true ? (c.nombre):(c.nombreComercial)) << ' - ' << c.datosgenerale.frase, c.id ] }),  { class:"chosen-select", style: "width:500px;", :required => true } %>    
         </div>
         <div class="form-group">
           <%if @cliente.nil? %>
-              <%= f.submit "Consultar", class: "btn btn-primary"%>
+
+              <%= submit_tag "Consultar", class: "btn btn-primary"%>
           <%else%>
-              <%= f.submit "Continuar", class: "btn btn-primary"%>
+              <%= submit_tag "Continuar", class: "btn btn-primary"%>
           <%end%>
 
 

@@ -1,4 +1,4 @@
-<%= form_for @capture, url: {action: "create"}  do |f| %>
+<%= form_for @capture do |f| %>
   <% if @capture.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@capture.errors.count, "error") %> prohibited this capture from being saved:</h2>
@@ -1056,10 +1056,16 @@
   <div class="actions">
     <div class="form-group">
       <div class="col-sm-4 col-sm-offset-2">
+        <%if !@capture.cliente.nil?%>
+            <%= link_to "Regresar", captures_consultar_path(@cliente.id), :method => :patch,  class:"btn btn-white"%>
+        <%end%>
+
         <%= f.submit "Capturar", class: "btn btn-primary"%>
       </div>
     </div>
   </div>
+    <br><div class="hr-line-dashed"></div>
+
 <% end %>
 
 
