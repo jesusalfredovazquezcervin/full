@@ -637,9 +637,17 @@
 
 
         <td>
-        <%= link_to 'Ver', capture, class: "btn-white btn btn-xs", title: "Ver" %>
-        <%= link_to 'Editar', edit_capture_path(capture), class: "btn-white btn btn-xs", title: "Modificar" %>
-        <%= link_to 'Eliminar', capture, method: :delete, class: "btn-white btn btn-xs", title: "Eliminar", data: {confirm: '¿Está seguro?'} %>
+          <%= link_to capture,  class:"text-muted", title: "Ver" do%>
+              <i class="fa fa-eye"></i>
+          <% end %>
+          &nbsp;&nbsp;
+          <%= link_to edit_capture_path(capture),  class:"text-muted", title: "Editar" do%>
+              <i class="fa fa-pencil"></i>
+          <% end %>
+          &nbsp;&nbsp;
+          <%= link_to capture, method: :delete, class:"text-muted", title: "Eliminar", data: { confirm: '¿Está seguro?'} do%>
+              <i class="fa fa-trash"></i>
+          <% end %>
         </td>
       </tr>
   <% end %>
