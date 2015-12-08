@@ -1,127 +1,43 @@
-<div class="modal-dialog modal-lg">
+<div class="modal-dialog">
   <div class="modal-content animated flipInX">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-      <h4 class="modal-title">Crear Notificacion</h4>
+      <h4 class="modal-title">Actualizar TC</h4>
     </div>
     <div class="modal-body">
-      <%= form_for @notification, url: {controller: "notifications", action: "create"}, class: 'form-horizontal'  do |f| %>
-          <% if @notification.errors.any? %>
+      <%= form_for @cliente, url: update_tipocambio_path, method: "patch", class: 'form-horizontal'  do |f| %>
+          <% if @cliente.errors.any? %>
               <div id="error_explanation">
-                <h2><%= @notification.errors.count %> error(es) no permitieron guardar el registro:</h2>
+                <h2><%= @cliente.errors.count %> error(es) no permitieron guardar el registro:</h2>
 
                 <ul>
-                  <% @notification.errors.full_messages.each do |msg| %>
+                  <% @cliente.errors.full_messages.each do |msg| %>
                       <li><%= msg %></li>
                   <% end %>
                 </ul>
               </div>
           <% end %>
-
+          <%= f.hidden_field :id, :value => @cliente.id %>
           <div class="form-group">
             <div class="form-group">
-              <%= f.label "Persona", class: 'col-sm-2 control-label'%>
+              <%= f.label "Tipo Cambio" , class: 'col-sm-2 control-label'%>
               <div class="col-sm-5">
-                <%= f.select :person_id, options_for_select(@cliente.contactos.collect { |contacto|
-                                                                [contacto.nombre.titleize, contacto.id] }, @notification.person_id), {}, {class: "form-control m-b", style: "width:350px;" } %>
+                <%= f.text_field :tipoCambio, class: 'form-control', :required => true, :data => {:mask=> '99.99', :placeholder =>""}%>
 
 
               </div>
             </div>
 
-            <br>
-            <div class="hr-line-dashed"></div>
-            <div class="form-group">
-              <%= f.label "Evento", class: 'col-sm-2 control-label'%>
-              <div class="col-sm-5">
-                <%= f.select :event_id, options_for_select(Event.all.collect { |event|
-                                                             [event.event.titleize, event.id] }, @notification.event_id), {}, { class: "form-control m-b", style: "width:350px;" } %>
+            <br><br>
 
 
-              </div>
-            </div>
-            <br>
-            <div class="hr-line-dashed"></div>
-            <div class="form-group">
-              <%= f.label :status, class: 'col-sm-2 control-label'%>
-              <div class="col-sm-5">
-                <%= f.select :status_id, options_for_select(Status.all.collect { |status|
-                                                              [status.status.titleize, status.id] }, @notification.status_id), {}, { class: "form-control m-b", style: "width:350px;" } %>
 
 
-              </div>
-            </div>
-            <br>
-            <div class="hr-line-dashed"></div>
-            <div class="form-group">
-              <%= f.label :notification, class: 'col-sm-2 control-label'%>
-              <div class="col-sm-5">
-                <%= f.text_field :notification, class: 'form-control' %>
-              </div>
-            </div>
-            <br>
-            <div class="hr-line-dashed"></div>
-
-            <div class="form-group">
-              <%= f.label "Destinatario", class: 'col-sm-2 control-label'%>
-              <div class="col-sm-5">
-                <%= f.select :recipient_id, options_for_select(@cliente.contactos.collect { |contacto|
-                                                                [contacto.nombre.titleize, contacto.id] }, @notification.recipient_id), {}, {class: "form-control m-b", style: "width:350px;" } %>
 
 
-              </div>
-            </div>
-
-            <br>
-            <div class="hr-line-dashed"></div>
 
 
-            <div class="form-group">
-              <%= f.label "Fecha inicia", class: 'col-sm-2 control-label'%>
-              <div class="col-sm-5">
-                <div class="form-group" id="data_1">
-                  <div class="input-group date">
-                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                    <%= f.text_field :startdate, class: "form-control", :required => true%>
-                  </div>
-                </div>
-              </div>
-              <%= f.label "Hora inicia", class: 'col-sm-2 control-label'%>
-              <div class="col-sm-5" style="width: 200px">
-                <div class="input-group clockpicker" data-autoclose="true" >
-                  <%= f.text_field :starttime, class: 'form-control'%>
-                  <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-time"></span>
-                  </span>
-                </div>
-              </div>
-            </div>
 
-
-            <br>
-            <div class="hr-line-dashed"></div>
-            <div class="form-group">
-              <%= f.label "Fecha caduca", class: 'col-sm-2 control-label'%>
-              <div class="col-sm-5">
-                <div class="form-group" id="data_1">
-                  <div class="input-group date">
-                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                    <%= f.text_field :duedate, class: "form-control", :required => true%>
-                  </div>
-                </div>
-              </div>
-              <%= f.label "Hora caduca", class: 'col-sm-2 control-label'%>
-              <div class="col-sm-5" style="width: 200px">
-                <div class="input-group clockpicker" data-autoclose="true" >
-                  <%= f.text_field :duetime, class: 'form-control'%>
-                  <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-time"></span>
-                  </span>
-                </div>
-              </div>
-            </div>
-            <br>
-            <br>
           </div>
 
 
