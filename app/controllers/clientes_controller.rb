@@ -1,7 +1,9 @@
 
 class ClientesController < ApplicationController
   #before_filter :require_login
-  before_action :set_cliente, only: [:show, :edit, :update, :destroy]
+  before_action :set_cliente, only: [:show, :edit, :update, :destroy], except: [:update_tipocambio]
+  #skip_before_action :set_cliente, :only => [:show, :edit, :update, :destroy]
+
   before_action :authenticate_usuario!
   #load_and_authorize_resource
 
@@ -59,6 +61,21 @@ class ClientesController < ApplicationController
         format.json { head :no_content }
       else
         format.html { render action: 'edit', :layout => "layout_2"}
+        format.json { render json: @cliente.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def update_tipocambio
+    cliente=Cliente.find params[:cliente][:id]
+    cliente.tipoCambio=params[:cliente][:tipoCambio]
+    cliente.tipocambio_updated_at=DateTime.now
+    respond_to do |format|
+      if cliente.save
+        format.html { redirect_to({ controller:"captures",  action: 'index', id:params[:cliente][:id] }, notice: "Tipo cambio actualizado exitosamente") }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to({ controller:"captures",  action: 'index', id:params[:cliente][:id] }) }
         format.json { render json: @cliente.errors, status: :unprocessable_entity }
       end
     end
