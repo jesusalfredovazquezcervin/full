@@ -29,7 +29,7 @@ class NotificationsController < ApplicationController
       if @notification.save
         format.html { redirect_to({ controller:"captures",  action: 'index', id:params[:notification][:cliente_id] }, notice: "Notificacion creada exitosamente") }
       else
-        format.html { render action: 'new', :layout => "layout_2" }
+        format.html { render action: 'new', :layout => "layout_3" }
         format.json { render json: @notification.errors, status: :unprocessable_entity }
       end
     end
