@@ -6,10 +6,11 @@
 
         </div>
       <div class="navbar-header">
+
         <%= form_tag  captures_consultar_path(:id), method: "patch" do |f| %>
             <div>
             <%= select_tag :cliente_id, options_for_select(@clientes.order(:nombreComercial).collect { |c|
-                                                           [(c.nombreComercial.nil? == true ? (c.nombre):(c.nombreComercial)) << ' - ' << c.datosgenerale.frase, c.id ] }),  { class:"chosen-select", style: "width:500px;", :required => true } %>    
+                                                           [(c.nombreComercial.nil? == true ? (c.nombre):(c.nombreComercial)) << ' - ' << c.datosgenerale.frase, c.id ] }, @cliente.try(:id)),  { class:"chosen-select", style: "width:700px;", :required => true } %>    
 
               <%= button_tag(type: 'submit', class: "btn btn-primary") do %>
                   <i class="fa fa-search"></i>
@@ -27,12 +28,23 @@
             <%if !@cliente.nil?%>
               <li class="dropdown">
                 <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-                  <i class="fa fa-bell"></i>
+                  <i class="fa fa-group"></i>
                   <% if @cliente.notifications.active(@cliente).count > 0%>
                     <span class="label label-warning"><%=@cliente.notifications.active(@cliente).count%></span>
                   <%end%>
                 </a>
                 <ul class="dropdown-menu dropdown-messages">
+                  <%if @cliente.notifications.count >0  %>
+                      <li>
+                          <div>
+                            <i class="fa fa-info-circle"></i> Sin notificaciones
+                            <span class="pull-right text-muted small"><%= distance_of_time_in_words(DateTime.now, @cliente.notifications.last.duedatetime + DateTime.now.utc_offset*(-1).second).to_s  %>
+
+                            </span>
+                          </div>
+                      </li>
+                      <li class="divider"></li>
+                  <%end%>
                   <% @cliente.notifications.active(@cliente).each do |notification| %>
                       <li>
                         <div class="dropdown-messages-box">
@@ -40,13 +52,13 @@
                             <img alt="image" class="img-circle" src="<%= image_path('profile.jpg') %>" />
                           </a>
                           <div class="media-body ">
-                            <small class="pull-right">&nbsp;&nbsp;&nbsp;hace <%= distance_of_time_in_words(notification.startdatetime + DateTime.now.utc_offset*(-1).second, DateTime.now).to_s  %></small>
+                            <small class="pull-right">&nbsp;&nbsp;&nbsp;<%= distance_of_time_in_words(notification.startdatetime + DateTime.now.utc_offset*(-1).second, DateTime.now).to_s  %></small>
                             <strong><%=notification.person.nombre%></strong>&nbsp;<%=notification.event.event%>
                             <%=notification.notification.nil? == false ? (notification.notification):('') %>
                             <strong>
                               <%=notification.recipient.nil? == false ? (notification.recipient.nombre):('') %>
                             </strong><br/>
-                            <small class="text-muted">Vence en <%= distance_of_time_in_words(DateTime.now, notification.duedatetime + DateTime.now.utc_offset*(-1).second).to_s  %>
+                            <small class="text-muted">Vence <%= distance_of_time_in_words(DateTime.now, notification.duedatetime + DateTime.now.utc_offset*(-1).second).to_s  %>
 
                             </small>
                             <small class="pull-right">&nbsp;&nbsp;&nbsp;
@@ -79,7 +91,33 @@
                 </ul>
               </li>
             <%end%>
+          <%if !@cliente.nil?%>
+              <%if @cliente.datosgenerale.tipocambio%>
+                  <li class="dropdown">
+                    <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                      <i class="fa fa-bell"></i>  <span class="label label-primary">1</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-alerts">
+                      <li>
+                        <a href="#">
+                          <div>
+                            <i class="fa fa-usd"></i> TC Dollar: <%=@cliente.tipoCambio%>
+                            <span class="pull-right text-muted small"><%= distance_of_time_in_words(DateTime.now,@cliente.tipocambio_updated_at).to_s  %></span>
+                          </div>
+                        </a>
+                      </li>
 
+                      <li class="divider"></li>
+                      <li>
+                        <div class="text-center link-block">
+                          <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal2">
+                            Actualizar</button>
+                        </div>
+                      </li>
+                    </ul>
+                  </li>
+              <%end%>
+          <%end%>
 
 
 
@@ -106,6 +144,12 @@
     <%= render 'notifications/form' %>
   <%end%>
 </div>
+<div class="modal inmodal" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
+  <%if !@cliente.nil?%>
+      <%= render 'layouts/form' %>
+  <%end%>
+</div>
+
 <% content_for :javascript do %>
 
     <script type="text/javascript">
