@@ -14,7 +14,7 @@
     <%= form_tag  captures_consultar_path(:id), method: "patch" do |f| %>
         <div class="form-group">
           <%= select_tag :cliente_id, options_for_select(@clientes.order(:nombreComercial).collect { |c|
-                                                           [(c.nombreComercial.nil? == true ? (c.nombre):(c.nombreComercial)) << ' - ' << c.datosgenerale.frase, c.id ] }),  { class:"chosen-select", style: "width:500px;", :required => true } %>    
+                                                           [(c.nombreComercial.nil? == true ? (c.nombre):(c.nombreComercial)) << ' - ' << c.datosgenerale.frase, c.id ] }, @cliente.try(:id)),  { class:"chosen-select", style: "width:400px;", :required => true } %>    
         </div>
         <div class="form-group">
           <%if @cliente.nil? %>
