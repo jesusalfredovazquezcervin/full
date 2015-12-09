@@ -102,7 +102,10 @@
                         <a href="#">
                           <div>
                             <i class="fa fa-usd"></i> TC Dollar: <%=@cliente.tipoCambio%>
-                            <span class="pull-right text-muted small"><%= distance_of_time_in_words(DateTime.now,@cliente.tipocambio_updated_at).to_s  %></span>
+                            <span class="pull-right text-muted small">
+
+                              <%= @cliente.tipocambio_updated_at.nil? == true ? (""):(distance_of_time_in_words(DateTime.now,@cliente.tipocambio_updated_at).to_s)%>
+                            </span>
                           </div>
                         </a>
                       </li>
