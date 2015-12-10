@@ -53,7 +53,7 @@ class DireccionsController < ApplicationController
   # POST /direccions.json
   def create
     @clientes = Cliente.all
-    @sucursales = Sucursal.where("cliente_id = ?", Cliente.first.id)
+    @sucursales = Sucursal.where("cliente_id = ?", params[:direccion][:cliente_id])
 
     @direccion = Direccion.new(direccion_params)
     @direccion.sucursal_id =params[:direccion][:sucursal_id]
@@ -63,7 +63,7 @@ class DireccionsController < ApplicationController
         format.html { redirect_to @direccion, notice: 'Direccion was successfully created.' }
         format.json { render action: 'show', status: :created, location: @direccion }
       else
-        format.html { render action: 'new', :layout => "layout_2" }
+        format.html { render action: 'new',  :layout => "layout_2" }
         format.json { render json: @direccion.errors, status: :unprocessable_entity }
       end
     end
@@ -73,7 +73,7 @@ class DireccionsController < ApplicationController
   # PATCH/PUT /direccions/1.json
   def update
     @clientes = Cliente.all
-    @sucursales = Sucursal.where("cliente_id = ?", Cliente.first.id)
+    @sucursales = @direccion.cliente.sucursals
 
     respond_to do |format|
       if @direccion.update(direccion_params)
