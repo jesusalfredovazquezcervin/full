@@ -48,6 +48,7 @@
               <th>Deleg-Mun</th>
               <th>CP</th>
               <th>Tel</th>
+              <th>Matriz</th>
               <th>&nbsp;&nbsp;Acciones</th>
             </tr>
             </thead>
@@ -62,6 +63,7 @@
                   <td><%= direccion.delegacion%></td>
                   <td><%= direccion.cp%></td>
                   <td><%= direccion.telefono%></td>
+                  <td><%= direccion.matriz%></td>
                   <td>
                     <%= link_to 'V', direccion,class: "btn btn-primary btn-circle", title:"Ver" %>
                     <%= link_to 'M', edit_direccion_path(direccion), class: "btn btn-warning btn-circle", title:"Modificar" %>
