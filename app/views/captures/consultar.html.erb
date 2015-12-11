@@ -85,7 +85,7 @@
                           <%end%>
                               ,<%=sucursal.direccion.delegacion%>, <%=sucursal.direccion.cp%>
                               | Referencia: <%=sucursal.direccion.referencia%>
-                              | Horario: <%=sucursal.horario.horario_semana%>
+                              | Horario: <%= sucursal.horario.nil? == true ? (''):(sucursal.horario.horario_semana) %>
                         </li>
                             <br>
                      <%end%>
