@@ -1,5 +1,11 @@
 Myapp::Application.routes.draw do
 
+  resources :order_details
+
+  resources :orders
+
+  resources :products
+
   patch "clientes/update_tipocambio", to: "clientes#update_tipocambio", as: "update_tipocambio"
   resources :notifications
 
