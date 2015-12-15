@@ -251,3 +251,23 @@
   </div>
 </div>
 
+<% content_for :javascript do %>
+    <script type="text/javascript">
+
+
+
+        $(function() {
+            $('.dataTables-example').dataTable({
+                "order": [[ 1, "desc" ]],
+                "dom": 'T<"clear">lfrtip',
+                "tableTools": {
+                    "sSwfPath": "../../assets/dataTables/swf/copy_csv_xls_pdf.swf"
+                }
+            });
+        });
+        $(function() {
+            $('.footable').footable();
+        });
+
+    </script>
+<% end %>
