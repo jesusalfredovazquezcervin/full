@@ -1,0 +1,204 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+
+    <ol class="breadcrumb">
+      <li>
+        <a href="<%= url_for home_index_path %>">Inicio</a>
+      </li>
+      <li>
+        <a>Operativo</a>
+      </li>
+      <li>
+        <a href="<%= url_for products_path%>">Productos</a>
+
+      </li>
+      <li class="active">
+        <strong>Agregar / Modificar producto</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Formulario<small> para  agregar o modificar a un producto.</small></h5>
+
+        </div>
+        <div class="ibox-content">
+
+          <%= form_for(@product, class: 'form-horizontal') do |f| %>
+              <% if @product.errors.any? %>
+                  <div id="error_explanation">
+                    <h2><%= @product.errors.count %> error(es) no permitieron guardar el registro:</h2>
+
+                    <ul>
+                      <% @product.errors.full_messages.each do |msg| %>
+                          <li><%= msg %></li>
+                      <% end %>
+                    </ul>
+                  </div>
+              <% end %>
+
+              <div class="form-group">
+                <div class="form-group">
+                  <%= f.label :cliente, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.select :cliente_id, options_for_select(Cliente.all.collect { |cliente|
+                                                                   [cliente.nombre, cliente.id] }, @product.cliente_id), {}, { id: 'clientes_select', class:"chosen-select", style: "width:350px;" } %>
+
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label "Clave", class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.text_field :code, class: 'form-control'%>
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label "Descripcion", class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.text_field :description, class: 'form-control', :required => true%>
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label "Magnitud descripcion", class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.text_field :magnitude_description, class: 'form-control', :required => true, placeholder: "Ej. Peso, Distancia"%>
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label "Medida", class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.select :measure, options_for_select(Product::MEASURE.collect { |measure|
+                                                                         [measure] }, @product.measure), {}, {class:"chosen-select", style: "width:100px;" } %>
+
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label "Valor", class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.text_field :magnitude, class: 'form-control', :required => true, :data => {:mask=> '9999.99', :placeholder =>""}%>
+
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label "Precio", class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.text_field :price, class: 'form-control', :required => true, :data => {:mask=> '9999.99', :placeholder =>""}%>
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+
+                <div class="form-group">
+                  <%= f.label "Precio/Kg", class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.text_field :price_by_kg, class: 'form-control', :data => {:mask=> '9999.99', :placeholder =>""}%>
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+
+                <div class="form-group">
+                  <%= f.label "Uso", class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.text_field :usability, class: 'form-control'%>
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+
+
+                <div class="form-group">
+                  <%= f.label "Clasificacion", class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.select :category, options_for_select(Product::CATEGORY.collect { |category|
+                                                                  [category.titleize] }, @product.category), {include_blank:true}, {class:"chosen-select", style: "width:350px;" } %>
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+
+                <div class="form-group">
+                  <%= f.label "Tipo empaque", class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.select :presentation, options_for_select(Product::PRESENTATION.collect { |presentation|
+                                                                 [presentation.titleize] }, @product.presentation), {include_blank:true}, {class:"chosen-select", style: "width:350px;" } %>
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+
+                <div class="form-group">
+                  <%= f.label "Marca", class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.select :brand, options_for_select(Product::BRAND.collect { |brand|
+                                                                     [brand.titleize] }, @product.brand), {include_blank:true}, {class:"chosen-select", style: "width:350px;" } %>
+                  </div>
+                </div>
+                <br>
+
+
+              </div>
+
+              <div class="hr-line-dashed"></div>
+              <div class="form-group">
+                <div class="col-sm-4 col-sm-offset-2">
+                  <a href="<%= url_for products_path %>">
+                    <button class="btn btn-outline btn-danger btn-rounded" type="button"><i class="fa fa-list-ol"></i>&nbsp;Cancelar</button>
+                  </a>
+
+                  <%= button_tag(type: 'submit', class: "btn btn-outline btn-success btn-rounded") do %>
+                      <i class="fa fa-database"></i> Guardar
+                  <% end %>
+                </div>
+
+
+
+              </div>
+              <br><br>
+          <% end %>
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :javascript do %>
+
+    <script type="text/javascript">
+
+
+        var config = {
+            '.chosen-select'           : {},
+            '.chosen-select-deselect'  : {allow_single_deselect:true},
+            '.chosen-select-no-single' : {disable_search_threshold:10},
+            '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+            '.chosen-select-width'     : {width:"95%"}
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+    </script>
+<% end %>
+
+
