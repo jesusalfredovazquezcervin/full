@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151209181438) do
+ActiveRecord::Schema.define(version: 20151214192806) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -412,6 +412,42 @@ ActiveRecord::Schema.define(version: 20151209181438) do
   add_index "notifications", ["status_id"], name: "index_notifications_on_status_id", using: :btree
   add_index "notifications", ["sucursal_id"], name: "index_notifications_on_sucursal_id", using: :btree
   add_index "notifications", ["usuario_id"], name: "index_notifications_on_usuario_id", using: :btree
+
+  create_table "order_details", force: true do |t|
+    t.integer  "order_id"
+    t.integer  "quatity"
+    t.integer  "product_id"
+    t.decimal  "price",      precision: 8, scale: 2
+    t.decimal  "total",      precision: 8, scale: 2
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "orders", force: true do |t|
+    t.integer  "agenda_id"
+    t.integer  "usuario_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "breed"
+    t.integer  "age"
+  end
+
+  create_table "products", force: true do |t|
+    t.integer  "cliente_id"
+    t.string   "description"
+    t.decimal  "price",                 precision: 6, scale: 2
+    t.decimal  "price_by_kg",           precision: 6, scale: 2
+    t.string   "usability"
+    t.string   "category"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.decimal  "magnitude",             precision: 6, scale: 2
+    t.string   "measure"
+    t.string   "magnitude_description"
+    t.string   "code"
+    t.string   "presentation"
+    t.string   "brand"
+  end
 
   create_table "pruebas", force: true do |t|
     t.string   "clave"
