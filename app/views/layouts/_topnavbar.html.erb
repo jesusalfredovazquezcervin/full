@@ -153,6 +153,7 @@
   <%end%>
 </div>
 
+
 <% content_for :javascript do %>
 
     <script type="text/javascript">
@@ -169,11 +170,11 @@
             $(selector).chosen(config[selector]);
         }
 
+
+
         $('#myModal').on('shown.bs.modal', function (e) {
-        // Initialise external plugins for controls
-            //require chosen/chosen.jquery.js
-
-
+            $('.clockpicker').clockpicker();
         })
+
     </script>
 <% end %>

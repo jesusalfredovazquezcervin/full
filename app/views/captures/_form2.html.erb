@@ -1,0 +1,64 @@
+<%if @cliente.forms.count > 0%>
+    <div class="wrapper wrapper-content  animated fadeInRight">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="ibox">
+            <div class="clients-list">
+              <ul class="nav nav-tabs">
+                <% @cliente.forms.each_with_index do |f, index| %>
+                    <li class="<%= index == 0 ? ("active"):("") %>"><a data-toggle="tab" href="#tab-<%=index+1%>"><i class="fa fa-briefcase"></i><%=f.name%></a></li>
+                <%end%>
+              </ul>
+              <div class="tab-content">
+                <% @cliente.forms.each_with_index do |form, index| %>
+                    <div id="tab-<%=index+1%>" class="tab-pane <%= index == 0 ? (" active"):("") %>">
+                      <%= form_for @forms[index] do |f| %>
+                          <%if form.fields.count >0 %>
+                              <%= hidden_field_tag :cliente_id, @cliente.id %>
+                              <% form.fields.each_with_index do |field, index| %>
+                                  <%fld = "field" << (index + 1).to_s%>
+                                  <div class="form-group">
+                                    <%= f.label field.name, class: 'col-sm-2 control-label'%>
+                                    <div class="col-sm-5">
+                                      <%type=field.data_type%>
+                                      <%case type%>
+                                          <%when "Date"%>
+                                              <%= f.date_select fld, class: 'form-control', :required => true %>
+                                          <%when "DateTime"%>
+                                              <%= f.datetime_select fld, class: 'form-control', :required => true %>
+                                          <%when "Integer"%>
+                                              <%= f.number_field fld, class: 'form-control', :required => true %>
+                                          <%when "String"%>
+                                              <%= f.text_field fld, class: 'form-control', :required => true %>
+                                      <%end%>
+                                    </div>
+                                  </div>
+                                  <br><div class="hr-line-dashed"></div>
+                              <%end%>
+                              <div class="actions">
+                                <div class="form-group">
+                                  <div class="col-sm-4 col-sm-offset-2">
+                                    <%= f.submit "Capturar", class: "btn btn-primary"%>
+                                  </div>
+                                </div>
+                              </div>
+                          <%end%>
+                      <%end%>
+                    </div>
+                <%end%>
+
+
+
+
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+<%else%>
+    <H3>No hay formas de captura de este cliente</H3>
+<%end%>
