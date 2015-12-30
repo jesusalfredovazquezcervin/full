@@ -48,7 +48,32 @@ class CapturesController < ApplicationController
     @direccion =nil
     @horario =nil
     @contacto=nil
-
+    @forms = []
+    @cliente.forms.count.times{ |n|
+      a = n
+      case a
+        when 0
+          @forms.push(Form1.new)
+        when 1
+          @forms.push(Form2.new)
+        when 2
+          @forms.push(Form3.new)
+        # when 3
+        #   @forms.push(Form4.new)
+        # when 4
+        #   @forms.push(Form5.new)
+        # when 5
+        #   @forms.push(Form6.new)
+        # when 6
+        #   @forms.push(Form7.new)
+        # when 7
+        #   @forms.push(Form8.new)
+        # when 8
+        #   @forms.push(Form9.new)
+        # when 9
+        #   @forms.push(Form10.new)
+      end
+    }
     direcciones = Direccion.where(:cliente_id => id, :matriz => true)
     if (direcciones.size > 0)
       @direccion = direcciones[0]
