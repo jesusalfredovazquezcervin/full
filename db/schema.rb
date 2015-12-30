@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151214192806) do
+ActiveRecord::Schema.define(version: 20151226011828) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -250,8 +250,103 @@ ActiveRecord::Schema.define(version: 20151214192806) do
     t.datetime "updated_at"
   end
 
+  create_table "fields", force: true do |t|
+    t.integer  "form_id"
+    t.string   "name"
+    t.boolean  "mandatory"
+    t.boolean  "show_in_list"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "data_type"
+  end
+
+  create_table "form1s", force: true do |t|
+    t.integer  "cliente_id"
+    t.integer  "usuario_id"
+    t.string   "field1"
+    t.string   "field2"
+    t.string   "field3"
+    t.string   "field4"
+    t.string   "field5"
+    t.string   "field6"
+    t.string   "field7"
+    t.string   "field8"
+    t.string   "field9"
+    t.string   "field10"
+    t.string   "field11"
+    t.string   "field12"
+    t.string   "field13"
+    t.string   "field15"
+    t.string   "field16"
+    t.string   "field17"
+    t.string   "field18"
+    t.string   "field19"
+    t.string   "field20"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "form2s", force: true do |t|
+    t.integer  "cliente_id"
+    t.integer  "usuario_id"
+    t.string   "field1"
+    t.string   "field2"
+    t.string   "field3"
+    t.string   "field4"
+    t.string   "field5"
+    t.string   "field6"
+    t.string   "field7"
+    t.string   "field8"
+    t.string   "field9"
+    t.string   "field10"
+    t.string   "field11"
+    t.string   "field12"
+    t.string   "field13"
+    t.string   "field15"
+    t.string   "field16"
+    t.string   "field17"
+    t.string   "field18"
+    t.string   "field19"
+    t.string   "field20"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "form3s", force: true do |t|
+    t.integer  "cliente_id"
+    t.integer  "usuario_id"
+    t.string   "field1"
+    t.string   "field2"
+    t.string   "field3"
+    t.string   "field4"
+    t.string   "field5"
+    t.string   "field6"
+    t.string   "field7"
+    t.string   "field8"
+    t.string   "field9"
+    t.string   "field10"
+    t.string   "field11"
+    t.string   "field12"
+    t.string   "field13"
+    t.string   "field15"
+    t.string   "field16"
+    t.string   "field17"
+    t.string   "field18"
+    t.string   "field19"
+    t.string   "field20"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "formapagos", force: true do |t|
     t.string   "nombre"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "forms", force: true do |t|
+    t.string   "name"
+    t.integer  "cliente_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
