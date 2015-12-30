@@ -1,0 +1,106 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+
+    <ol class="breadcrumb">
+      <li>
+        <a href="<%= url_for home_index_path %>">Inicio</a>
+      </li>
+      <li>
+        <a>Operativo</a>
+      </li>
+      <li>
+        <a href="<%= url_for forms_path%>">Formularios</a>
+
+      </li>
+      <li class="active">
+        <strong>Agregar / Modificar formulario</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Formulario<small> para  agregar o modificar a un producto.</small></h5>
+
+        </div>
+        <div class="ibox-content">
+          <%= form_for(@form, class: 'form-horizontal') do |f| %>
+              <% if @form.errors.any? %>
+                  <div id="error_explanation">
+                    <h2><%= @form.errors.count %> error(es) no permitieron guardar el registro:</h2>
+                    <ul>
+                      <% @form.errors.full_messages.each do |msg| %>
+                          <li><%= msg %></li>
+                      <% end %>
+                    </ul>
+                  </div>
+              <% end %>
+              <div class="form-group">
+                <div class="form-group">
+                  <%= f.label :cliente, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.select :cliente_id, options_for_select(Cliente.all.collect { |cliente|
+                                                                   [cliente.nombre, cliente.id] }, @form.cliente_id), {}, {class:"chosen-select", style: "width:350px;" } %>
+
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label "Nombre", class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.text_field :name, class: 'form-control'%>
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+
+
+              </div>
+
+              <div class="hr-line-dashed"></div>
+              <div class="form-group">
+                <div class="col-sm-4 col-sm-offset-2">
+                  <a href="<%= url_for forms_path %>">
+                    <button class="btn btn-outline btn-danger btn-rounded" type="button"><i class="fa fa-list-ol"></i>&nbsp;Cancelar</button>
+                  </a>
+
+                  <%= button_tag(type: 'submit', class: "btn btn-outline btn-success btn-rounded") do %>
+                      <i class="fa fa-database"></i> Guardar
+                  <% end %>
+                </div>
+
+
+
+              </div>
+              <br><br>
+          <% end %>
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :javascript do %>
+
+    <script type="text/javascript">
+
+
+        var config = {
+            '.chosen-select'           : {},
+            '.chosen-select-deselect'  : {allow_single_deselect:true},
+            '.chosen-select-no-single' : {disable_search_threshold:10},
+            '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+            '.chosen-select-width'     : {width:"95%"}
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+    </script>
+<% end %>
