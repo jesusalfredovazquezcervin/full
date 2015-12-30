@@ -1,5 +1,15 @@
 Myapp::Application.routes.draw do
 
+  resources :form3s
+
+  resources :form2s
+
+  resources :form1s
+
+  resources :fields
+
+  resources :forms
+
   resources :order_details
 
   resources :orders
