@@ -7,6 +7,7 @@ class CapturesController < ApplicationController
   def index
     @capture= Capture.new
     @clientes = Cliente.all #Aqui en el futuro deberé solamente traer los clientes a los que está asociado el operador
+    logger.debug @clientes.count
     if params[:id]
       @cliente = Cliente.find(params[:id])
     end
@@ -49,29 +50,43 @@ class CapturesController < ApplicationController
     @horario =nil
     @contacto=nil
     @forms = []
+    @lists = []
+    @form1 = Form1.new
     @cliente.forms.count.times{ |n|
       a = n
       case a
         when 0
           @forms.push(Form1.new)
+          @lists.push(Form1.all)
         when 1
           @forms.push(Form2.new)
+          @lists.push(Form2.all)
         when 2
           @forms.push(Form3.new)
-        # when 3
-        #   @forms.push(Form4.new)
-        # when 4
-        #   @forms.push(Form5.new)
-        # when 5
-        #   @forms.push(Form6.new)
-        # when 6
-        #   @forms.push(Form7.new)
-        # when 7
-        #   @forms.push(Form8.new)
-        # when 8
-        #   @forms.push(Form9.new)
-        # when 9
-        #   @forms.push(Form10.new)
+          @lists.push(Form3.all)
+=begin
+        when 3
+          @forms.push(Form4.new)
+          @lists.push(Form4.all)
+        when 4
+          @forms.push(Form5.new)
+          @lists.push(Form5.all)
+        when 5
+          @forms.push(Form6.new)
+          @lists.push(Form6.all)
+        when 6
+          @forms.push(Form7.new)
+          @lists.push(Form7.all)
+        when 7
+          @forms.push(Form8.new)
+          @lists.push(Form8.all)
+        when 8
+          @forms.push(Form9.new)
+          @lists.push(Form9.all)
+        when 9
+          @forms.push(Form10.new)
+          @lists.push(Form10.all)
+=end
       end
     }
     direcciones = Direccion.where(:cliente_id => id, :matriz => true)
