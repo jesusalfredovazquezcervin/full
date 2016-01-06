@@ -39,7 +39,7 @@ class Form3sController < ApplicationController
     @sucursales = Sucursal.where(:cliente_id => params[:cliente_id])
 
     respond_to do |format|
-      if @form2.save
+      if @form3.save
         #format.html { redirect_to captures_path, notice: 'El registro ha sido creado exitosamente' }
         logger.debug @clientes.count
         format.html { redirect_to({ controller:"captures", action: 'index', id:@cliente.id }, notice: "El registro ha sido creado exitosamente") }
