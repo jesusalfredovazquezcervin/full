@@ -1,35 +1,71 @@
-<%if @cliente.forms.count > 0%>
-    <div class="wrapper wrapper-content  animated fadeInRight">
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="ibox">
-            <div class="clients-list">
-              <ul class="nav nav-tabs">
-                <% @cliente.forms.each_with_index do |f, index| %>
-                    <li class="<%= index == 0 ? ("active"):("") %>"><a data-toggle="tab" href="#tab-<%=index+1%>"><i class="fa fa-briefcase"></i><%=f.name%></a></li>
-                <%end%>
-              </ul>
-              <div class="tab-content">
-                <% @cliente.forms.each_with_index do |form, index| %>
-                    <div id="tab-<%=index+1%>" class="tab-pane <%= index == 0 ? (" active"):("") %>">
+<div class="row">
+  <div class="col-lg-12">
+    <div class="ibox">
+      <div class="ibox-title">
+        <h5>Formas de captura <small>Aqui estan todas los formularios de captura para el cliente</small></h5>
+        <div class="ibox-tools">
+          <a class="collapse-link">
+            <i class="fa fa-chevron-up"></i>
+          </a>
+          <a class="fullscreen-link">
+            <i class="fa fa-expand"></i>
+          </a>
+          <a class="close-link">
+            <i class="fa fa-times"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="ibox-content">
+        <div>
+          <ul class="nav nav-tabs">
+            <% @cliente.forms.order(:id).each_with_index do |f, index| %>
+                <li class="<%= index == 0 ? ("active"):("") %>"><a data-toggle="tab" href="#tab-<%=index+1%>"><i class="fa fa-briefcase"></i><%=f.name%></a></li>
+            <%end%>
+          </ul>
+          <div class="tab-content">
+            <% @cliente.forms.order(:id).each_with_index do |form, index| %>
+                <br>
+                <div id="tab-<%=index+1%>" class="tab-pane <%= index == 0 ? (" active"):("") %>">
+                  <div class="panel panel-success">
+                    <div class="panel-heading">
+                      Formulario para capturas de <%=form.name%>
+                    </div>
+                    <div class="panel-body">
                       <%= form_for @forms[index] do |f| %>
                           <%if form.fields.count >0 %>
                               <%= hidden_field_tag :cliente_id, @cliente.id %>
-                              <% form.fields.each_with_index do |field, index| %>
+                              <% form.fields.order(:id).each_with_index do |field, index| %>
                                   <%fld = "field" << (index + 1).to_s%>
                                   <div class="form-group">
                                     <%= f.label field.name, class: 'col-sm-2 control-label'%>
                                     <div class="col-sm-5">
                                       <%type=field.data_type%>
                                       <%case type%>
-                                          <%when "Date"%>
-                                              <%= f.date_select fld, class: 'form-control', :required => true %>
-                                          <%when "DateTime"%>
+                                      <%when "Date"%>
+                                          <%if field.mandatory%>
+                                              <%= f.date_select fld, class: 'form-control', :required => true  %>
+                                          <%else%>
+                                              <%= f.date_select fld, class: 'form-control'%>
+                                          <%end%>
+                                      <%when "DateTime"%>
+                                          <%if field.mandatory%>
                                               <%= f.datetime_select fld, class: 'form-control', :required => true %>
-                                          <%when "Integer"%>
+                                          <%else%>
+                                              <%= f.datetime_select fld, class: 'form-control'%>
+                                          <%end%>
+                                      <%when "Integer"%>
+                                          <%if field.mandatory%>
                                               <%= f.number_field fld, class: 'form-control', :required => true %>
-                                          <%when "String"%>
+                                          <%else%>
+                                              <%= f.number_field fld, class: 'form-control'%>
+                                          <%end%>
+                                      <%when "String"%>
+                                          <%if field.mandatory%>
                                               <%= f.text_field fld, class: 'form-control', :required => true %>
+                                          <%else%>
+                                              <%= f.text_field fld, class: 'form-control'%>
+                                          <%end%>
                                       <%end%>
                                     </div>
                                   </div>
@@ -38,27 +74,77 @@
                               <div class="actions">
                                 <div class="form-group">
                                   <div class="col-sm-4 col-sm-offset-2">
-                                    <%= f.submit "Capturar", class: "btn btn-primary"%>
+                                    <%= f.submit "Capturar", class: "btn btn-success"%>
                                   </div>
                                 </div>
                               </div>
                           <%end%>
                       <%end%>
                     </div>
-                <%end%>
+                    <div class="panel-footer">
 
+                    </div>
+                  </div>
 
+                  <div class="panel panel-danger">
+                    <div class="panel-heading">
+                      Listado de capturas de <%=form.name%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <small class="m-l-sm">Ultima modificacion: <i class="fa fa-clock-o"></i> <%= @lists[index].try(:order, "updated_at").last.try(:updated_at).try(:strftime, "%H:%M %P - %d.%M.%Y") %></small>&nbsp;&nbsp;
+                      Total registros:<small class="m-l-sm"><%=@lists[index].count%></small>
+                    </div>
+                    <div class="panel-body">
+                      <%= form_for @forms[index] do |f| %>
+                          <%if form.fields.count >0 %>
+                              <table class="table table-striped table-bordered table-hover dataTables-example">
+                                <thead>
+                                <tr>
+                                  <th>ID</th>
+                                  <th>Fecha</th>
+                                  <th>Operador</th>
+                                  <% form.fields.order(:id).each_with_index do |field, index| %>
+                                      <%fld = "field" << (index + 1).to_s%>
+                                      <%if field.show_in_list %>
+                                          <th> <%=field.name%> </th>
+                                      <% end %>
+                                  <%end%>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <%  @lists[index].order(:id).each do |record| %>
+                                    <tr>
+                                      <td><%= record.id %></td>
+                                      <td><%= record.created_at %></td>
+                                      <td><%= Usuario.find_by_id(record.usuario_id).try(:email) %></td>
+                                      <% form.fields.order(:id).each_with_index do |field, index| %>
+                                          <%a = index + 1%>
+                                          <%case a%>
+                                      <%when 1%>
+                                              <%if field.show_in_list %>
+                                                  <td><%= record.field1 %></td>
+                                              <% end %>
+                                          <%when 2%>
+                                              <%if field.show_in_list %>
+                                                  <td><%= record.field2 %></td>
+                                              <% end %>
+                                          <%end%>
+                                      <%end%>
+                                    </tr>
+                                <%end%>
+                                </tbody>
+                              </table>
+                          <%end%>
+                      <%end%>
+                    </div>
+                    <div class="panel-footer">
 
+                    </div>
+                  </div>
 
-              </div>
-
-            </div>
-
+                </div>
+            <%end%>
           </div>
         </div>
-
       </div>
     </div>
-<%else%>
-    <H3>No hay formas de captura de este cliente</H3>
-<%end%>
+  </div>
+</div>
