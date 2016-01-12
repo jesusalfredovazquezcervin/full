@@ -9,6 +9,8 @@ class Form1sController < ApplicationController
   end
 
   def show
+    @clientes = Cliente.all
+    @fields = @form1.
     dashofintel
   end
 
@@ -18,6 +20,8 @@ class Form1sController < ApplicationController
   end
 
   def edit
+    @clientes = Cliente.all
+    dashofintel
   end
 
   def create
@@ -90,6 +94,7 @@ class Form1sController < ApplicationController
         params[:form1].delete d
       }
       params[:form1][:usuario_id] = current_user.id
+      params[:form1][:cliente_id] = params[:cliente_id]
       params.require(:form1).permit(:cliente_id, :usuario_id, :field1, :field2, :field3, :field4, :field5, :field6, :field7, :field8, :field9, :field10, :field11, :field12, :field13, :field15, :field16, :field17, :field18, :field19, :field20)
     end
   def dashofintel
