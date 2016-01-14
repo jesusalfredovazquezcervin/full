@@ -1,5 +1,6 @@
 class Form1sController < ApplicationController
   before_action :set_form1, only: [:show, :edit, :update, :destroy]
+  before_action :set_fields, only: [:show, :edit]
 
   respond_to :html
 
@@ -10,7 +11,6 @@ class Form1sController < ApplicationController
 
   def show
     @clientes = Cliente.all
-    @fields = @form1.
     dashofintel
   end
 
@@ -57,13 +57,23 @@ class Form1sController < ApplicationController
   end
 
   def update
-    @form1.update(form1_params)
-    dashboard_panel
+    respond_to do |format|
+      if @form1.update(form1_params)
+        format.html { redirect_to({controller: "captures" , action: 'index', id:@form1.cliente_id }, notice: "El registro ha sido actualizado exitosamente") }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit', :layout => "layout_3" }
+        format.json { render json: @form1.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def destroy
     @form1.destroy
-    dashboard_panel
+    respond_to do |format|
+      format.html { redirect_to({controller: "captures" , action: 'index', id:@form1.cliente_id }, notice: "El registro ha sido eliminado exitosamente") }
+      format.json { head :no_content }
+    end
   end
 
   private
@@ -71,6 +81,12 @@ class Form1sController < ApplicationController
       @form1 = Form1.find(params[:id])
     end
 
+  def set_fields
+    @fields
+    if @form1.cliente.forms.count > 0
+      @fields = @form1.cliente.forms[0].fields
+    end
+  end
     def form1_params
       fields=Hash.new
       fieldsDelete = []
@@ -94,7 +110,10 @@ class Form1sController < ApplicationController
         params[:form1].delete d
       }
       params[:form1][:usuario_id] = current_user.id
-      params[:form1][:cliente_id] = params[:cliente_id]
+      if params[:action] == "create"
+        params[:form1][:cliente_id] = params[:cliente_id]
+      end
+
       params.require(:form1).permit(:cliente_id, :usuario_id, :field1, :field2, :field3, :field4, :field5, :field6, :field7, :field8, :field9, :field10, :field11, :field12, :field13, :field15, :field16, :field17, :field18, :field19, :field20)
     end
   def dashofintel
