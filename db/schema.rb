@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160106192908) do
+ActiveRecord::Schema.define(version: 20160114215554) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -284,6 +284,7 @@ ActiveRecord::Schema.define(version: 20160106192908) do
     t.string   "field20"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "field14"
   end
 
   create_table "form2s", force: true do |t|
@@ -310,6 +311,7 @@ ActiveRecord::Schema.define(version: 20160106192908) do
     t.string   "field20"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "field14"
   end
 
   create_table "form3s", force: true do |t|
@@ -336,6 +338,7 @@ ActiveRecord::Schema.define(version: 20160106192908) do
     t.string   "field20"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "field14"
   end
 
   create_table "form4s", force: true do |t|
