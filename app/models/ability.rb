@@ -42,6 +42,7 @@ class Ability
     case role # was case obj.class
       when 'Admin'
         can :manage, :all
+        can :create, Horario
       when 'Operador'
         can :manage, Capture
         can :consultar, Capture
