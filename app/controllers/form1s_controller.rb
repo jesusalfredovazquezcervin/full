@@ -10,6 +10,7 @@ class Form1sController < ApplicationController
   end
 
   def show
+    @nameForm = @form1.cliente.forms[0].name
     @clientes = Cliente.all
     dashofintel
   end
@@ -21,13 +22,14 @@ class Form1sController < ApplicationController
 
   def edit
     @clientes = Cliente.all
+    @nameForm = @form1.cliente.forms[0].name
     dashofintel
   end
 
   def create
     @form1 = Form1.new(form1_params)
     @cliente = Cliente.find(params[:cliente_id])
-    @clientes = Cliente.all #Aqui en el futuro deberé solamente traer los clientes a los que está asociado el operador
+    @clientes = Cliente.all
     logger.debug @clientes.count
     @direccion =nil
     @horario =nil
@@ -44,8 +46,6 @@ class Form1sController < ApplicationController
 
     respond_to do |format|
       if @form1.save
-        #format.html { redirect_to captures_path, notice: 'El registro ha sido creado exitosamente' }
-        logger.debug @clientes.count
         format.html { redirect_to({ controller:"captures", action: 'index', id:@cliente.id }, notice: "El registro ha sido creado exitosamente") }
       else
         format.html { render action: 'new', :layout => "layout_2" }
