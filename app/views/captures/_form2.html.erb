@@ -211,7 +211,7 @@
                                           <%end%>
                                       <%end%>
                                       <td>
-                                        <%= link_to 'V',form1_path(record), form: form.name,class: "btn btn-primary btn-xs", title:"Ver" %>
+                                        <%= link_to 'V',record,class: "btn btn-primary btn-xs", title:"Ver" %>
                                         <%= link_to "M", {controller: "form1s", action: "edit", id: record.id}, class: "btn btn-warning btn-xs", title:"Modificar" %>
                                         <%= link_to 'E', record, method: :delete, class: "btn btn-danger btn-xs", title:"Eliminar" ,data: { confirm: '¿Está seguro?'} %>
                                       </td>
