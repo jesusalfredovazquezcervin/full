@@ -1,29 +1,35 @@
 class Form3sController < ApplicationController
   before_action :set_form3, only: [:show, :edit, :update, :destroy]
+  before_action :set_fields, only: [:show, :edit]
 
   respond_to :html
 
   def index
     @form3s = Form3.all
-    dashboard_panel
+    dashofintel
   end
 
   def show
-    dashboard_panel
+    @nameForm = @form3.cliente.forms[2].name
+    @clientes = Cliente.all
+    dashofintel
   end
 
   def new
     @form3 = Form3.new
-    dashboard_panel
+    dashofintel
   end
 
   def edit
+    @clientes = Cliente.all
+    @nameForm = @form3.cliente.forms[2].name
+    dashofintel
   end
 
   def create
     @form3 = Form3.new(form3_params)
     @cliente = Cliente.find(params[:cliente_id])
-    @clientes = Cliente.all #Aqui en el futuro deberé solamente traer los clientes a los que está asociado el operador
+    @clientes = Cliente.all
     logger.debug @clientes.count
     @direccion =nil
     @horario =nil
@@ -40,31 +46,47 @@ class Form3sController < ApplicationController
 
     respond_to do |format|
       if @form3.save
-        #format.html { redirect_to captures_path, notice: 'El registro ha sido creado exitosamente' }
-        logger.debug @clientes.count
         format.html { redirect_to({ controller:"captures", action: 'index', id:@cliente.id }, notice: "El registro ha sido creado exitosamente") }
       else
         format.html { render action: 'new', :layout => "layout_2" }
         format.json { render json: @form3.errors, status: :unprocessable_entity }
       end
     end
+
+
   end
 
   def update
-    @form3.update(form3_params)
-    dashboard_panel
+    respond_to do |format|
+      if @form3.update(form3_params)
+        format.html { redirect_to({controller: "captures" , action: 'index', id:@form3.cliente_id }, notice: "El registro ha sido actualizado exitosamente") }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit', :layout => "layout_3" }
+        format.json { render json: @form3.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def destroy
     @form3.destroy
-    dashboard_panel
+    respond_to do |format|
+      format.html { redirect_to({controller: "captures" , action: 'index', id:@form3.cliente_id }, notice: "El registro ha sido eliminado exitosamente") }
+      format.json { head :no_content }
+    end
   end
 
   private
-    def set_form3
-      @form3 = Form3.find(params[:id])
-    end
+  def set_form3
+    @form3 = Form3.find(params[:id])
+  end
 
+  def set_fields
+    @fields
+    if @form3.cliente.forms.count > 0
+      @fields = @form3.cliente.forms[2].fields
+    end
+  end
   def form3_params
     fields=Hash.new
     fieldsDelete = []
@@ -88,10 +110,13 @@ class Form3sController < ApplicationController
       params[:form3].delete d
     }
     params[:form3][:usuario_id] = current_user.id
+    if params[:action] == "create"
+      params[:form3][:cliente_id] = params[:cliente_id]
+    end
+
     params.require(:form3).permit(:cliente_id, :usuario_id, :field1, :field2, :field3, :field4, :field5, :field6, :field7, :field8, :field9, :field10, :field11, :field12, :field13, :field15, :field16, :field17, :field18, :field19, :field20)
   end
-
-  def dashboard_panel
+  def dashofintel
     render :layout => "layout_3"
   end
 end
