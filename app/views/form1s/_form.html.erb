@@ -22,6 +22,7 @@
 
               <div class="form-group">
                 <div class="form-group">
+
                   <%= f.label :cliente, class: 'col-sm-2 control-label'%>
                   <div class="col-sm-5">
                     <%= f.select :cliente_id, options_for_select(Cliente.all.collect { |cliente|
@@ -89,7 +90,7 @@
                         <%= link_to "Regresar", captures_consultar_path(@form1.cliente.id), :method => :patch,  class:"btn btn-default"%>
                     <%end%>
 
-                    <%= f.submit "Capturar", class: "btn btn-primary"%>
+                    <%= f.submit "Modificar", class: "btn btn-primary"%>
                   </div>
                 </div>
               </div>
