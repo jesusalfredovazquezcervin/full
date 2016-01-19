@@ -35,4 +35,8 @@ config/application.yml
 #Ignoramos todos test y tmp
 /test/*
 /tmp/*
-/tmp/cache/
+/tmp/cache/*
+/app/helpers/*
+/log/migration.log
+/public/system/direccions/photos/*
+/tmp/cache/assets/development/sprockets/*
