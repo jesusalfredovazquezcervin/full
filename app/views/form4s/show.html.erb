@@ -1,114 +1,111 @@
-<p id="notice"><%= notice %></p>
+<div class="col-lg-10">
+  <h2>Mostrando Registro de captura de <%=@nameForm%></h2>
+</div>
 
-<p>
-  <strong>Cliente:</strong>
-  <%= @form4.cliente_id %>
-</p>
+<div class="wrapper wrapper-content animated fadeInRight">
 
-<p>
-  <strong>Usuario:</strong>
-  <%= @form4.usuario_id %>
-</p>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Formulario<small> que muestra los datos de una captura.</small></h5>
 
-<p>
-  <strong>Field1:</strong>
-  <%= @form4.field1 %>
-</p>
+        </div>
+        <div class="ibox-content">
 
-<p>
-  <strong>Field2:</strong>
-  <%= @form4.field2 %>
-</p>
+          <div class="form-group">
+            <div class="form-group">
+              <h4>Cliente:</h4>
+              <div class="col-sm-5">
+                <%= Cliente.find(@form4.cliente_id).nombre %>
+              </div><br>
 
-<p>
-  <strong>Field3:</strong>
-  <%= @form4.field3 %>
-</p>
+              <h4>Operador:</h4>
+              <div class="col-sm-5">
+                <%= Usuario.find_by_id(@form4.usuario_id).email%>
+              </div><br>
 
-<p>
-  <strong>Field4:</strong>
-  <%= @form4.field4 %>
-</p>
+              <% @fields.order(:id).each_with_index do |field, index| %>
+                  <h4><%=field.name%></h4>
+                  <div class="col-sm-5">
+                    <%case index%>
+                    <%when 0%>
+                        <%=@form4.field1%>
+                    <%when 1%>
+                        <%=@form4.field2%>
+                    <%when 2%>
+                        <%=@form4.field3%>
+                    <%when 3%>
+                        <%=@form4.field4%>
+                    <%when 4%>
+                        <%=@form4.field5%>
+                    <%when 5%>
+                        <%=@form4.field6%>
+                    <%when 6%>
+                        <%=@form4.field7%>
+                    <%when 7%>
+                        <%=@form4.field8%>
+                    <%when 8%>
+                        <%=@form4.field9%>
+                    <%when 9%>
+                        <%=@form4.field10%>
 
-<p>
-  <strong>Field5:</strong>
-  <%= @form4.field5 %>
-</p>
+                    <%when 10%>
+                        <%=@form4.field11%>
+                    <%when 11%>
+                        <%=@form4.field12%>
+                    <%when 12%>
+                        <%=@form4.field13%>
+                    <%when 13%>
+                        <%=@form4.field14%>
+                    <%when 14%>
+                        <%=@form4.field15%>
+                    <%when 15%>
+                        <%=@form4.field16%>
+                    <%when 16%>
+                        <%=@form4.field17%>
+                    <%when 17%>
+                        <%=@form4.field18%>
+                    <%when 18%>
+                        <%=@form4.field19%>
+                    <%when 19%>
+                        <%=@form4.field20%>
+                    <%end%>
+                  </div>
+                  <br>
+              <%end%>
 
-<p>
-  <strong>Field6:</strong>
-  <%= @form4.field6 %>
-</p>
 
-<p>
-  <strong>Field7:</strong>
-  <%= @form4.field7 %>
-</p>
 
-<p>
-  <strong>Field8:</strong>
-  <%= @form4.field8 %>
-</p>
+            </div>
 
-<p>
-  <strong>Field9:</strong>
-  <%= @form4.field9 %>
-</p>
 
-<p>
-  <strong>Field10:</strong>
-  <%= @form4.field10 %>
-</p>
+          </div>
 
-<p>
-  <strong>Field11:</strong>
-  <%= @form4.field11 %>
-</p>
 
-<p>
-  <strong>Field12:</strong>
-  <%= @form4.field12 %>
-</p>
 
-<p>
-  <strong>Field13:</strong>
-  <%= @form4.field13 %>
-</p>
+          <div class="actions">
+            <div class="form-group">
+              <div class="col-sm-4 col-sm-offset-2">
+                <%if !@form4.cliente.nil?%>
+                    <%= link_to "Regresar", captures_consultar_path(@form4.cliente.id), :method => :patch,  class:"btn btn-default"%>
+                <%end%>
 
-<p>
-  <strong>Field14:</strong>
-  <%= @form4.field14 %>
-</p>
+                <a href="<%= url_for edit_form4_path(@form4) %>">
+                  <button class="btn btn-primary" type="button"><i class="fa fa-pencil"></i>&nbsp;Editar</button>
+                </a>
+              </div>
+            </div>
+          </div>
+          <br><div class="hr-line-dashed"></div>
 
-<p>
-  <strong>Field15:</strong>
-  <%= @form4.field15 %>
-</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-<p>
-  <strong>Field16:</strong>
-  <%= @form4.field16 %>
-</p>
 
-<p>
-  <strong>Field17:</strong>
-  <%= @form4.field17 %>
-</p>
 
-<p>
-  <strong>Field18:</strong>
-  <%= @form4.field18 %>
-</p>
 
-<p>
-  <strong>Field19:</strong>
-  <%= @form4.field19 %>
-</p>
 
-<p>
-  <strong>Field20:</strong>
-  <%= @form4.field20 %>
-</p>
-
-<%= link_to 'Edit', edit_form4_path(@form4) %> |
-<%= link_to 'Back', form4s_path %>
