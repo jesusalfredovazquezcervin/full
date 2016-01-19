@@ -75,10 +75,10 @@ class CapturesController < ApplicationController
         when 5
           @forms.push(Form6.new)
           @lists.push(Form6.all)
-=begin
         when 6
           @forms.push(Form7.new)
           @lists.push(Form7.all)
+=begin
         when 7
           @forms.push(Form8.new)
           @lists.push(Form8.all)
