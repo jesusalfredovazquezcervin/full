@@ -1,0 +1,69 @@
+<h1>Listing form5s</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Cliente</th>
+      <th>Usuario</th>
+      <th>Field1</th>
+      <th>Field2</th>
+      <th>Field3</th>
+      <th>Field4</th>
+      <th>Field5</th>
+      <th>Field6</th>
+      <th>Field7</th>
+      <th>Field8</th>
+      <th>Field9</th>
+      <th>Field10</th>
+      <th>Field11</th>
+      <th>Field12</th>
+      <th>Field13</th>
+      <th>Field14</th>
+      <th>Field15</th>
+      <th>Field16</th>
+      <th>Field17</th>
+      <th>Field18</th>
+      <th>Field19</th>
+      <th>Field20</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @form5s.each do |form5| %>
+      <tr>
+        <td><%= form5.cliente_id %></td>
+        <td><%= form5.usuario_id %></td>
+        <td><%= form5.field1 %></td>
+        <td><%= form5.field2 %></td>
+        <td><%= form5.field3 %></td>
+        <td><%= form5.field4 %></td>
+        <td><%= form5.field5 %></td>
+        <td><%= form5.field6 %></td>
+        <td><%= form5.field7 %></td>
+        <td><%= form5.field8 %></td>
+        <td><%= form5.field9 %></td>
+        <td><%= form5.field10 %></td>
+        <td><%= form5.field11 %></td>
+        <td><%= form5.field12 %></td>
+        <td><%= form5.field13 %></td>
+        <td><%= form5.field14 %></td>
+        <td><%= form5.field15 %></td>
+        <td><%= form5.field16 %></td>
+        <td><%= form5.field17 %></td>
+        <td><%= form5.field18 %></td>
+        <td><%= form5.field19 %></td>
+        <td><%= form5.field20 %></td>
+        <td><%= link_to 'Show', form5 %></td>
+        <td><%= link_to 'Edit', edit_form5_path(form5) %></td>
+        <td><%= link_to 'Destroy', form5, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Form5', new_form5_path %>
