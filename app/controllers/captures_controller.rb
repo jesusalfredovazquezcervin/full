@@ -67,29 +67,25 @@ class CapturesController < ApplicationController
         when 3
           @forms.push(Form4.new)
           @lists.push(Form4.all)
-
         when 4
           @forms.push(Form5.new)
           @lists.push(Form5.all)
-
         when 5
           @forms.push(Form6.new)
           @lists.push(Form6.all)
         when 6
           @forms.push(Form7.new)
           @lists.push(Form7.all)
-
         when 7
           @forms.push(Form8.new)
           @lists.push(Form8.all)
-=begin
         when 8
           @forms.push(Form9.new)
           @lists.push(Form9.all)
         when 9
           @forms.push(Form10.new)
           @lists.push(Form10.all)
-=end
+
       end
     }
     direcciones = Direccion.where(:cliente_id => id, :matriz => true)

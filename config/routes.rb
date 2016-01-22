@@ -1,5 +1,9 @@
 Myapp::Application.routes.draw do
 
+  resources :form10s
+
+  resources :form9s
+
   resources :form8s
 
   resources :form7s

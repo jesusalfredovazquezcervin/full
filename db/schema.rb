@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160122040412) do
+ActiveRecord::Schema.define(version: 20160122043348) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -260,6 +260,33 @@ ActiveRecord::Schema.define(version: 20160122040412) do
     t.string   "data_type"
   end
 
+  create_table "form10s", force: true do |t|
+    t.integer  "cliente_id"
+    t.integer  "usuario_id"
+    t.string   "field1"
+    t.string   "field2"
+    t.string   "field3"
+    t.string   "field4"
+    t.string   "field5"
+    t.string   "field6"
+    t.string   "field7"
+    t.string   "field8"
+    t.string   "field9"
+    t.string   "field10"
+    t.string   "field11"
+    t.string   "field12"
+    t.string   "field13"
+    t.string   "field14"
+    t.string   "field15"
+    t.string   "field16"
+    t.string   "field17"
+    t.string   "field18"
+    t.string   "field19"
+    t.string   "field20"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "form1s", force: true do |t|
     t.integer  "cliente_id"
     t.integer  "usuario_id"
@@ -450,6 +477,33 @@ ActiveRecord::Schema.define(version: 20160122040412) do
   end
 
   create_table "form8s", force: true do |t|
+    t.integer  "cliente_id"
+    t.integer  "usuario_id"
+    t.string   "field1"
+    t.string   "field2"
+    t.string   "field3"
+    t.string   "field4"
+    t.string   "field5"
+    t.string   "field6"
+    t.string   "field7"
+    t.string   "field8"
+    t.string   "field9"
+    t.string   "field10"
+    t.string   "field11"
+    t.string   "field12"
+    t.string   "field13"
+    t.string   "field14"
+    t.string   "field15"
+    t.string   "field16"
+    t.string   "field17"
+    t.string   "field18"
+    t.string   "field19"
+    t.string   "field20"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "form9s", force: true do |t|
     t.integer  "cliente_id"
     t.integer  "usuario_id"
     t.string   "field1"

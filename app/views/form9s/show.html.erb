@@ -1,0 +1,111 @@
+<div class="col-lg-10">
+  <h2>Mostrando Registro de captura de <%=@nameForm%></h2>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Formulario<small> que muestra los datos de una captura.</small></h5>
+
+        </div>
+        <div class="ibox-content">
+
+          <div class="form-group">
+            <div class="form-group">
+              <h4>Cliente:</h4>
+              <div class="col-sm-5">
+                <%= Cliente.find(@form9.cliente_id).nombre %>
+              </div><br>
+
+              <h4>Operador:</h4>
+              <div class="col-sm-5">
+                <%= Usuario.find_by_id(@form9.usuario_id).email%>
+              </div><br>
+
+              <% @fields.order(:id).each_with_index do |field, index| %>
+                  <h4><%=field.name%></h4>
+                  <div class="col-sm-5">
+                    <%case index%>
+                    <%when 0%>
+                        <%=@form9.field1%>
+                    <%when 1%>
+                        <%=@form9.field2%>
+                    <%when 2%>
+                        <%=@form9.field3%>
+                    <%when 3%>
+                        <%=@form9.field4%>
+                    <%when 4%>
+                        <%=@form9.field5%>
+                    <%when 5%>
+                        <%=@form9.field6%>
+                    <%when 6%>
+                        <%=@form9.field7%>
+                    <%when 7%>
+                        <%=@form9.field8%>
+                    <%when 8%>
+                        <%=@form9.field9%>
+                    <%when 9%>
+                        <%=@form9.field10%>
+
+                    <%when 10%>
+                        <%=@form9.field11%>
+                    <%when 11%>
+                        <%=@form9.field12%>
+                    <%when 12%>
+                        <%=@form9.field13%>
+                    <%when 13%>
+                        <%=@form9.field14%>
+                    <%when 14%>
+                        <%=@form9.field15%>
+                    <%when 15%>
+                        <%=@form9.field16%>
+                    <%when 16%>
+                        <%=@form9.field17%>
+                    <%when 17%>
+                        <%=@form9.field18%>
+                    <%when 18%>
+                        <%=@form9.field19%>
+                    <%when 19%>
+                        <%=@form9.field20%>
+                    <%end%>
+                  </div>
+                  <br>
+              <%end%>
+
+
+
+            </div>
+
+
+          </div>
+
+
+
+          <div class="actions">
+            <div class="form-group">
+              <div class="col-sm-4 col-sm-offset-2">
+                <%if !@form9.cliente.nil?%>
+                    <%= link_to "Regresar", captures_consultar_path(@form9.cliente.id), :method => :patch,  class:"btn btn-default"%>
+                <%end%>
+
+                <a href="<%= url_for edit_form9_path(@form9) %>">
+                  <button class="btn btn-primary" type="button"><i class="fa fa-pencil"></i>&nbsp;Editar</button>
+                </a>
+              </div>
+            </div>
+          </div>
+          <br><div class="hr-line-dashed"></div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
