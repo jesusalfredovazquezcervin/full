@@ -21,12 +21,12 @@
         <div>
           <ul class="nav nav-tabs">
             <% @cliente.forms.order(:id).each_with_index do |f, index| %>
-                <li class="<%= index == 0 ? ("active"):("") %>"><a data-toggle="tab" href="#tab-<%=index+1%>"><i class="fa fa-briefcase"></i><%=f.name%></a></li>
+                <li class="<%= index == 0 ? ("active"):("") %>"><a data-toggle="tab" href="#tab-<%=index+1%>"><%=f.name%></a></li>
             <%end%>
           </ul>
           <div class="tab-content">
+            <br>
             <% @cliente.forms.order(:id).each_with_index do |form, index| %>
-                <br>
                 <div id="tab-<%=index+1%>" class="tab-pane <%= index == 0 ? (" active"):("") %>">
                   <div class="panel panel-success">
                     <div class="panel-heading">
