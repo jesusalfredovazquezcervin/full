@@ -10,7 +10,7 @@ class Form7sController < ApplicationController
   end
 
   def show
-    @nameForm = @form7.cliente.forms[6].name
+    @nameForm = @form7.cliente.forms.order(:id)[6].name
     @clientes = Cliente.all
     dashofintel
   end
@@ -22,7 +22,7 @@ class Form7sController < ApplicationController
 
   def edit
     @clientes = Cliente.all
-    @nameForm = @form7.cliente.forms[6].name
+    @nameForm = @form7.cliente.forms.order(:id)[6].name
     dashofintel
   end
 
@@ -84,7 +84,7 @@ class Form7sController < ApplicationController
   def set_fields
     @fields
     if @form7.cliente.forms.count > 0
-      @fields = @form7.cliente.forms[6].fields
+      @fields = @form7.cliente.forms.order(:id)[6].fields
     end
   end
   def form7_params

@@ -10,7 +10,7 @@ class Form6sController < ApplicationController
   end
 
   def show
-    @nameForm = @form6.cliente.forms[5].name
+    @nameForm = @form6.cliente.forms.order(:id)[5].name
     @clientes = Cliente.all
     dashofintel
   end
@@ -22,7 +22,7 @@ class Form6sController < ApplicationController
 
   def edit
     @clientes = Cliente.all
-    @nameForm = @form6.cliente.forms[5].name
+    @nameForm = @form6.cliente.forms.order(:id)[5].name
     dashofintel
   end
 
@@ -84,7 +84,7 @@ class Form6sController < ApplicationController
   def set_fields
     @fields
     if @form6.cliente.forms.count > 0
-      @fields = @form6.cliente.forms[5].fields
+      @fields = @form6.cliente.forms.order(:id)[5].fields
     end
   end
   def form6_params
