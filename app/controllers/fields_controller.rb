@@ -4,7 +4,23 @@ class FieldsController < ApplicationController
   respond_to :html
 
   def index
-    @fields = Field.all
+    @selected_form_id
+    id=0
+    if params[:id] == "id"
+      if !params[:form_id].to_s.empty?
+        id=params[:form_id]
+      end
+    elsif !params[:id].to_s.empty?
+      id = params[:id]
+    end
+
+    if id == 0
+      @fields = Field.all
+    else
+      @selected_form_id = id
+      @fields = Field.where(:form_id =>  id)
+    end
+
     dashboard_4
   end
 
@@ -14,6 +30,7 @@ class FieldsController < ApplicationController
 
   def new
     @field = Field.new
+    @field.form_id = params[:id]
     dashboard_4
   end
 

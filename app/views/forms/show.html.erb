@@ -55,7 +55,7 @@
           </div>
 
           <div class="form-group">
-            <div class="col-sm-4 col-sm-offset-2">
+            <div class="col-sm-6 col-sm-offset-2">
               <a href="<%= url_for forms_path %>">
                 <button class="btn btn-outline btn-danger btn-rounded" type="button"><i class="fa fa-list-ol"></i>&nbsp;Listado</button>
               </a>
@@ -66,6 +66,9 @@
 
               <a href="<%= url_for new_form_path %>">
                 <button class="btn btn-outline btn-warning btn-rounded" type="button"><i class="fa fa-plus"></i>&nbsp;Nuevo</button>
+              </a>
+              <a href="<%= url_for new_field_form_path(@form.id) %>">
+                <button class="btn btn-outline btn-primary btn-rounded" type="button"><i class="fa fa-plus"></i>&nbsp;Agregar campos</button>
               </a>
             </div>
 
