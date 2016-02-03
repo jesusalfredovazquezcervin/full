@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160122043348) do
+ActiveRecord::Schema.define(version: 20160202225710) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -719,6 +719,15 @@ ActiveRecord::Schema.define(version: 20160122043348) do
     t.integer  "age"
   end
 
+  create_table "procedures", force: true do |t|
+    t.integer  "cliente_id"
+    t.integer  "sucursal_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "number"
+  end
+
   create_table "products", force: true do |t|
     t.integer  "cliente_id"
     t.string   "description"
@@ -748,6 +757,18 @@ ActiveRecord::Schema.define(version: 20160122043348) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "steps", force: true do |t|
+    t.integer  "procedure_id"
+    t.string   "name"
+    t.string   "detail"
+    t.integer  "number"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "required"
+  end
+
+  add_index "steps", ["procedure_id"], name: "index_steps_on_procedure_id", using: :btree
 
   create_table "sucursals", force: true do |t|
     t.integer  "cliente_id"
