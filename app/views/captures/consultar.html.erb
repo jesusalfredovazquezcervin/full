@@ -201,6 +201,13 @@
     </div>
 
 
+
+    <%if @cliente.procedures.count > 0%>
+        <%= render 'procedure' %>
+    <%else%>
+        <H3>No hay procedimientos para este cliente</H3>
+    <%end%>
+
   </div>
 </div>
 
