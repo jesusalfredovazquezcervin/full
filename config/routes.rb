@@ -1,4 +1,8 @@
 Myapp::Application.routes.draw do
+  resources :steps
+
+  resources :procedures
+
 # patch "captures/consultar/:id", to: "captures#consultar", as: "captures_consultar"
   get "fields/index/:id", to: "fields#index", as: "field_form"
   get "fields/new/:id", to: "fields#new", as: "new_field_form"
