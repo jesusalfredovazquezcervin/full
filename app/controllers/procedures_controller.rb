@@ -5,19 +5,20 @@ class ProceduresController < ApplicationController
 
   def index
     @procedures = Procedure.all
-    respond_with(@procedures)
+    dashboard_4
   end
 
   def show
-    respond_with(@procedure)
+    dashboard_4
   end
 
   def new
     @procedure = Procedure.new
-    respond_with(@procedure)
+    dashboard_4
   end
 
   def edit
+    dashboard_4
   end
 
   def create
@@ -44,4 +45,7 @@ class ProceduresController < ApplicationController
     def procedure_params
       params.require(:procedure).permit(:cliente_id, :sucursal_id, :name)
     end
+  def dashboard_4
+    render :layout => "layout_2"
+  end
 end
