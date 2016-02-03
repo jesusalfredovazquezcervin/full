@@ -5,19 +5,20 @@ class StepsController < ApplicationController
 
   def index
     @steps = Step.all
-    respond_with(@steps)
+    dashboard_4
   end
 
   def show
-    respond_with(@step)
+    dashboard_4
   end
 
   def new
     @step = Step.new
-    respond_with(@step)
+    dashboard_4
   end
 
   def edit
+    dashboard_4
   end
 
   def create
@@ -44,4 +45,7 @@ class StepsController < ApplicationController
     def step_params
       params.require(:step).permit(:procedure_id, :name, :detail, :number)
     end
+  def dashboard_4
+    render :layout => "layout_2"
+  end
 end
