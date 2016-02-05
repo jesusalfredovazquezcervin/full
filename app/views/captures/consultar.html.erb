@@ -164,6 +164,15 @@
         </div>
       </div>
     </div>
+<!--  PROCEDIMIENTOS -->
+    <%if @cliente.procedures.count > 0%>
+        <%= render 'procedure' %>
+    <%else%>
+        <H3>No hay procedimientos para este cliente</H3>
+    <%end%>
+
+
+    <!--  LISTADOS DE CAPTURAS -->
 
     <%if @cliente.forms.count > 0%>
         <%= render 'form2' %>
@@ -171,42 +180,14 @@
         <H3>No hay formas de captura de este cliente</H3>
     <%end%>
 
-
-    <div class="col-lg-12">
-      <div class="ibox">
-        <div class="ibox-title">
-          <h5>Directorio<small class="m-l-sm">Aqui tienes los empleados de:</small> <%=@cliente.nombre%>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <small class="m-l-sm">Ultima modificacion: <i class="fa fa-clock-o"></i> <%=@cliente.contactos.try(:order, "updated_at").last.try(:updated_at).try(:strftime, "%H:%M %P - %d.%M.%Y") %></small>
-
-          </h5>
-
-          <div class="ibox-tools">
-            <a class="collapse-link">
-              <i class="fa fa-chevron-up"></i>
-            </a>
-            <a class="fullscreen-link">
-              <i class="fa fa-expand"></i>
-            </a>
-            <a class="close-link">
-              <i class="fa fa-times"></i>
-            </a>
-          </div>
-        </div>
-        <div class="ibox-content">
-          <%= render 'directorio' %>
-          <br><br>
-        </div>
-      </div>
-    </div>
-
-
-
-    <%if @cliente.procedures.count > 0%>
-        <%= render 'procedure' %>
+    <!--  DIRECTORIO -->
+    <%if @cliente.contactos.count > 0%>
+        <%= render 'directorio' %>
     <%else%>
-        <H3>No hay procedimientos para este cliente</H3>
+        <H3>No hay contactos para este cliente</H3>
     <%end%>
+
+
 
   </div>
 </div>
