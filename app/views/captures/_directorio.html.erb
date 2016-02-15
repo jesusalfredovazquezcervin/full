@@ -27,11 +27,11 @@
 
             <div class="clients-list">
               <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i> Contactos (<%=@cliente.contactos.count%>)</a></li>
-                <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-briefcase"></i> Agenda (<%=@cliente.agendas.count%>)</a></li>
+                <li class="active"><a data-toggle="tab" href="#tabcontactos"><i class="fa fa-user"></i> Contactos (<%=@cliente.contactos.count%>)</a></li>
+                <li class=""><a data-toggle="tab" href="#tabagenda"><i class="fa fa-briefcase"></i> Agenda (<%=@cliente.agendas.count%>)</a></li>
               </ul>
               <div class="tab-content">
-                <div id="tab-1" class="tab-pane active">
+                <div id="tabcontactos" class="tab-pane active">
                   <div class="full-height-scroll">
                     <div class="table-responsive">
                       <div class="input-group" >
@@ -67,7 +67,7 @@
                     </div>
                   </div>
                 </div>
-                <div id="tab-2" class="tab-pane">
+                <div id="tabagenda" class="tab-pane">
                   <div class="full-height-scroll">
                     <div class="table-responsive">
 
