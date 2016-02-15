@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160202225710) do
+ActiveRecord::Schema.define(version: 20160211183212) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -541,7 +541,10 @@ ActiveRecord::Schema.define(version: 20160202225710) do
     t.integer  "cliente_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "procedure_id"
   end
+
+  add_index "forms", ["procedure_id"], name: "index_forms_on_procedure_id", using: :btree
 
   create_table "horarios", force: true do |t|
     t.string   "nombre"
@@ -564,6 +567,26 @@ ActiveRecord::Schema.define(version: 20160202225710) do
     t.integer  "cliente_id"
     t.integer  "sucursal_id"
   end
+
+  create_table "information", force: true do |t|
+    t.integer  "form_id"
+    t.integer  "usuario_id"
+    t.string   "field1"
+    t.string   "field2"
+    t.string   "field3"
+    t.string   "field4"
+    t.string   "field5"
+    t.string   "field6"
+    t.string   "field7"
+    t.string   "field8"
+    t.string   "field9"
+    t.string   "field10"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "information", ["form_id"], name: "index_information_on_form_id", using: :btree
+  add_index "information", ["usuario_id"], name: "index_information_on_usuario_id", using: :btree
 
   create_table "mensaje_configuracions", force: true do |t|
     t.string   "ticket"
@@ -765,7 +788,7 @@ ActiveRecord::Schema.define(version: 20160202225710) do
     t.integer  "number"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "required"
+    t.boolean  "form"
   end
 
   add_index "steps", ["procedure_id"], name: "index_steps_on_procedure_id", using: :btree

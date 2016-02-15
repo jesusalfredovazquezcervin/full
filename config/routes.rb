@@ -1,4 +1,9 @@
 Myapp::Application.routes.draw do
+
+  get 'forms/update_procedures', as: 'update_procedures'
+
+  resources :information
+
   resources :steps
 
   resources :procedures

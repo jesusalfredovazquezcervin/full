@@ -1,0 +1,49 @@
+<h1>Listing information</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Form</th>
+      <th>Usuario</th>
+      <th>Field1</th>
+      <th>Field2</th>
+      <th>Field3</th>
+      <th>Field4</th>
+      <th>Field5</th>
+      <th>Field6</th>
+      <th>Field7</th>
+      <th>Field8</th>
+      <th>Field9</th>
+      <th>Field10</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @information.each do |information| %>
+      <tr>
+        <td><%= information.form %></td>
+        <td><%= information.usuario %></td>
+        <td><%= information.field1 %></td>
+        <td><%= information.field2 %></td>
+        <td><%= information.field3 %></td>
+        <td><%= information.field4 %></td>
+        <td><%= information.field5 %></td>
+        <td><%= information.field6 %></td>
+        <td><%= information.field7 %></td>
+        <td><%= information.field8 %></td>
+        <td><%= information.field9 %></td>
+        <td><%= information.field10 %></td>
+        <td><%= link_to 'Show', information %></td>
+        <td><%= link_to 'Edit', edit_information_path(information) %></td>
+        <td><%= link_to 'Destroy', information, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Information', new_information_path %>
