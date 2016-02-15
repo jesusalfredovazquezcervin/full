@@ -43,7 +43,7 @@
                   <%= f.label :cliente, class: 'col-sm-2 control-label'%>
                   <div class="col-sm-5">
                     <%= f.select :cliente_id, options_for_select(Cliente.all.collect { |cliente|
-                                                                   [cliente.nombre, cliente.id] }, @form.cliente_id), {}, {class:"chosen-select", style: "width:350px;" } %>
+                                                                   [cliente.nombre, cliente.id] }, @form.cliente_id), {}, {id: 'clientes_select', class:"form-control m-b", style: "width:350px;" } %>
 
                   </div>
                 </div>
@@ -58,6 +58,16 @@
                 <br>
                 <div class="hr-line-dashed"></div>
 
+                <div class="form-group">
+                  <%= f.label "Procedimiento", class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.select :procedure_id, options_for_select(@procedures.all.collect { |procedure|
+                                                                   [procedure.name, procedure.id] }, @form.procedure_id), {}, {id: 'procedures_select', class:"form-control m-b", style: "width:350px;" } %>
+
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
 
               </div>
 
@@ -102,5 +112,26 @@
         for (var selector in config) {
             $(selector).chosen(config[selector]);
         }
+
+
+        $(function() {
+            return $(document).on('change', '#clientes_select', function(evt) {
+                return $.ajax({
+                    url:location.protocol + "//" + location.host + "/forms/update_procedures",
+                    type: 'GET',
+                    dataType: 'script',
+                    data: {
+                        cliente_id: $("#clientes_select option:selected").val()
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log(location.protocol + "//" + location.host + "/forms/update_procedures");
+                        return console.log("AJAX Error: " + textStatus);
+                    },
+                    success: function(data, textStatus, jqXHR) {
+                        return console.log("Dynamic procedure select OK!");
+                    }
+                });
+            });
+        });
     </script>
 <% end %>

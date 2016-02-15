@@ -3,6 +3,13 @@ class FormsController < ApplicationController
 
   respond_to :html
 
+  def update_procedures
+    @procedures = Cliente.find(params[:cliente_id]).procedures
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def index
     @forms = Form.all
     dashboard_4
@@ -14,16 +21,18 @@ class FormsController < ApplicationController
 
   def new
     @form = Form.new
+    @procedures= Procedure.where("cliente_id = ?", Cliente.first.id)
     dashboard_4
   end
 
   def edit
+    @procedures= @form.cliente.procedures
     dashboard_4
   end
 
   def create
     @form = Form.new(form_params)
-
+    @procedures= Procedure.where("cliente_id = ?", params[:form][:cliente_id])
     respond_to do |format|
       if @form.save
         format.html { redirect_to @form, notice: 'El Formulario ha sido creado exitosamente' }
@@ -37,7 +46,7 @@ class FormsController < ApplicationController
 
   def update
 
-
+    @procedures= @form.cliente.procedures
     respond_to do |format|
       if @form.update(form_params)
         @form.save!
