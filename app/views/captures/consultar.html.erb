@@ -175,14 +175,14 @@
     <!--  LISTADOS DE CAPTURAS -->
 
     <%if @cliente.forms.count > 0%>
-        <%= render 'form2' %>
+        <%= render 'list' %>
     <%else%>
         <H3>No hay formas de captura de este cliente</H3>
     <%end%>
 
     <!--  DIRECTORIO -->
     <%if @cliente.contactos.count > 0%>
-        <%= render 'directorio' %>
+         <%= render 'directorio' %>
     <%else%>
         <H3>No hay contactos para este cliente</H3>
     <%end%>

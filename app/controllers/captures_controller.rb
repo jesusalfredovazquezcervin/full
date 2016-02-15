@@ -49,45 +49,7 @@ class CapturesController < ApplicationController
     @direccion =nil
     @horario =nil
     @contacto=nil
-    @forms = []
-    @lists = []
     @form1 = Form1.new
-    @cliente.forms.count.times{ |n|
-      a = n
-      case a
-        when 0
-          @forms.push(Form1.new)
-          @lists.push(Form1.all)
-        when 1
-          @forms.push(Form2.new)
-          @lists.push(Form2.all)
-        when 2
-          @forms.push(Form3.new)
-          @lists.push(Form3.all)
-        when 3
-          @forms.push(Form4.new)
-          @lists.push(Form4.all)
-        when 4
-          @forms.push(Form5.new)
-          @lists.push(Form5.all)
-        when 5
-          @forms.push(Form6.new)
-          @lists.push(Form6.all)
-        when 6
-          @forms.push(Form7.new)
-          @lists.push(Form7.all)
-        when 7
-          @forms.push(Form8.new)
-          @lists.push(Form8.all)
-        when 8
-          @forms.push(Form9.new)
-          @lists.push(Form9.all)
-        when 9
-          @forms.push(Form10.new)
-          @lists.push(Form10.all)
-
-      end
-    }
     direcciones = Direccion.where(:cliente_id => id, :matriz => true)
     if (direcciones.size > 0)
       @direccion = direcciones[0]
@@ -97,6 +59,7 @@ class CapturesController < ApplicationController
     @contacto = Contacto.find(@cliente.datosgenerale.contacto1_id)
     @sucursales = Sucursal.where(:cliente_id => id)
     @products = Product.all
+    @information = Information.new
     dashofintel
   end
 

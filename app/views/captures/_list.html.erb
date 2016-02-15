@@ -1,657 +1,124 @@
-<table class="table table-striped table-bordered table-hover dataTables-example">
-  <thead>
-  <tr>
-    <th>ID</th>
-    <th>Estatus</th>
-    <th>Fecha</th>
-    <th>Operador</th>
-    <% if @cliente.mensaje_configuracion.ticket=='Captura Y Listado' %>
-        <th> Ticket </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.compania=='Captura Y Listado' %>
-        <th> Compania </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.polizaContrato=='Captura Y Listado' %>
-        <th> Poliza Contrato </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.descripcionEmergencia=='Captura Y Listado' %>
-        <th> Descripcion Emergencia </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.identificarSistema=='Captura Y Listado' %>
-        <th> Identificar Sistema </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.referencia=='Captura Y Listado' %>
-        <th> Referencia </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.comentariosExtra=='Captura Y Listado' %>
-        <th> Comentarios Extra </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.avisoNombre=='Captura Y Listado' %>
-        <th> Aviso Nombre </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.avisoFecha=='Captura Y Listado' %>
-        <th> Aviso Fecha</th>
-    <% end %>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="ibox">
+      <div class="ibox-title">
+        <h5>Listados de captura <small>Aqui estan todos los registros de captura para el cliente</small></h5>
+        <div class="ibox-tools">
+          <a class="collapse-link">
+            <i class="fa fa-chevron-up"></i>
+          </a>
+          <a class="fullscreen-link">
+            <i class="fa fa-expand"></i>
+          </a>
+          <a class="close-link">
+            <i class="fa fa-times"></i>
+          </a>
+        </div>
+      </div>
 
-    <% if @cliente.mensaje_configuracion.notificoNombre=='Captura Y Listado' %>
-        <th> Notifico Nombre </th>
-    <% end %>
+      <!-- Listados -->
+      <div class="ibox-content">
+        <div>
+          <ul class="nav nav-tabs">
+            <% @cliente.forms.order(:id).each_with_index do |f, index| %>
+                <li class="<%= index == 0 ? ("active"):("") %>"><a data-toggle="tab" href="#tab-<%=index+1%>"><%=f.name%></a></li>
+            <%end%>
+          </ul>
+          <div class="tab-content">
+            <br>
+            <h5>Listados de captura <small>Aqui estan todos los registros de captura para el cliente</small></h5>
+            <% @cliente.forms.order(:id).each_with_index do |form, index| %>
+                <div id="tab-<%=index+1%>" class="tab-pane <%= index == 0 ? (" active"):("") %>">
+                      <%if form.fields.count >0 %>
+                          <table class="table table-striped table-bordered table-hover dataTables-example">
+                            <thead>
+                            <tr>
+                              <th>ID</th>
+                              <th>Fecha</th>
+                              <th>Operador</th>
+                              <% form.fields.order(:id).each_with_index do |field, index| %>
+                                  <%fld = "field" << (index + 1).to_s%>
+                                  <%if field.show_in_list %>
+                                      <th> <%=field.name%> </th>
+                                  <% end %>
+                              <%end%>
+                              <th>Acciones</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%  form.informations.order(id: :desc).each do |information| %>
+                                <tr>
+                                  <td><%= information.id %></td>
+                                  <td><%= information.created_at %></td>
+                                  <td><%= Usuario.find_by_id(information.usuario_id).try(:email) %></td>
+                                  <% form.fields.order(:id).each_with_index do |field, index| %>
+                                      <%a = index + 1%>
+                                      <%case a%>
+                                  <%when 1%>
+                                          <%if field.show_in_list %>
+                                              <td><%= information.field1 %></td>
+                                          <% end %>
+                                      <%when 2%>
+                                          <%if field.show_in_list %>
+                                              <td><%= information.field2 %></td>
+                                          <% end %>
+                                      <%when 3%>
+                                          <%if field.show_in_list %>
+                                              <td><%= information.field3 %></td>
+                                          <% end %>
+                                      <%when 4%>
+                                          <%if field.show_in_list %>
+                                              <td><%= information.field4 %></td>
+                                          <% end %>
+                                      <%when 5%>
+                                          <%if field.show_in_list %>
+                                              <td><%= information.field5 %></td>
+                                          <% end %>
+                                      <%when 6%>
+                                          <%if field.show_in_list %>
+                                              <td><%= information.field6 %></td>
+                                          <% end %>
+                                      <%when 7%>
+                                          <%if field.show_in_list %>
+                                              <td><%= information.field7 %></td>
+                                          <% end %>
 
-    <% if @cliente.mensaje_configuracion.notificoFechaHora=='Captura Y Listado' %>
-        <th> Notifico Fecha</th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.rllsOperador=='Captura Y Listado' %>
-        <th> Rlls Operador </th>
-    <% end %>
-
-    <% if @cliente.mensaje_configuracion.rllsFechaHora=='Captura Y Listado' %>
-        <th> Rlls Fecha</th>
-    <% end %>
-
-    <% if @cliente.mensaje_configuracion.tiempoRespuesta=='Captura Y Listado' %>
-        <th> Tiempo Respuesta </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.notificacionLlegadaSitio=='Captura Y Listado' %>
-        <th> Notificacion Llegada Sitio </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.rteOperador=='Captura Y Listado' %>
-        <th> Rte Operador </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.rteFechaHora=='Captura Y Listado' %>
-        <th> Rte Fecha</th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.situacionEmergencia=='Captura Y Listado' %>
-        <th> Situacion Emergencia </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.duracionEmeregencia=='Captura Y Listado' %>
-        <th> Duracion Emeregencia </th>
-    <% end %>
-
-    <% if @cliente.mensaje_configuracion.faltaSuministroGas=='Captura Y Listado' %>
-        <th> Falta Suministro Gas </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.sucursal=='Captura Y Listado' %>
-        <th>Sucursal</th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.tipoLlamada=='Captura Y Listado' %>
-        <th> Tipo Llamada </th>
-    <% end %>
-
-    <% if @cliente.mensaje_configuracion.codigo=='Captura Y Listado' %>
-        <th> Codigo </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.horaEnlace=='Captura Y Listado' %>
-        <th> Hora Enlace</th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.medioSeEntero=='Captura Y Listado' %>
-        <th> Medio Se Entero </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.terminoChat=='Captura Y Listado' %>
-        <th> Termino Chat Fecha</th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.codigoAcceso=='Captura Y Listado' %>
-        <th> Codigo Acceso </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.codigoOrganizador=='Captura Y Listado' %>
-        <th> Codigo Organizador </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.fijoMovil =='Captura Y Listado' %>
-        <th> Telfono Fijo</th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.telefonoOrigen=='Captura Y Listado' %>
-        <th> Telefono Origen </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.paisOrigino=='Captura Y Listado' %>
-        <th> Pais Origino </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.localidadOrigino=='Captura Y Listado' %>
-        <th> Localidad Origino </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.motivoDenuncia=='Captura Y Listado' %>
-        <th> Motivo Denuncia </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.tipoDelito=='Captura Y Listado' %>
-        <th> Delito </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.puestoInvolucrado=='Captura Y Listado' %>
-        <th> Puesto Involucrado </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.resultadoEstatus=='Captura Y Listado' %>
-        <th> Resultado Estatus </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.emailContacto=='Captura Y Listado' %>
-        <th> Email Contacto </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.marca=='Captura Y Listado' %>
-        <th> Marca </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.modelo=='Captura Y Listado' %>
-        <th> Modelo </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.serie=='Captura Y Listado' %>
-        <th> Serie </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.beneficiario=='Captura Y Listado' %>
-        <th> Beneficiario </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.contactoBeneficiario=='Captura Y Listado' %>
-        <th> Contacto Beneficiario </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.nombreFiado=='Captura Y Listado' %>
-        <th> Nombre Fiado </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.puestoFiado=='Captura Y Listado' %>
-        <th> Puesto Fiado </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.montoReportar=='Captura Y Listado' %>
-        <th> Monto Reportar </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.enlazadaCorrectamente=='Captura Y Listado' %>
-        <th> Enlazada Correctamente </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.intentosEnlace=='Captura Y Listado' %>
-        <th> Intento sEnlace </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.duracionLlamada=='Captura Y Listado' %>
-        <th> Duracion Llamada </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.origenCodigoGami=='Captura Y Listado' %>
-        <th> Origen Codigo Gami </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.codigoGami=='Captura Y Listado' %>
-        <th> Codigo Gami </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.tipoEmergencia=='Captura Y Listado' %>
-        <th> Tipo Emergencia </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.empresaCodigoGami=='Captura Y Listado' %>
-        <th> Empresa Codigo Gami </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.nomenclaturaSistema=='Captura Y Listado' %>
-        <th> Nomenclatura Sistema </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.personaRecibe=='Captura Y Listado' %>
-        <th> Persona Recibe </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.razonSocial=='Captura Y Listado' %>
-        <th> Razon Social </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.rfc=='Captura Y Listado' %>
-        <th> Rfc </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.ticketCliente=='Captura Y Listado' %>
-        <th> Ticket Cliente </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.relacionPaciente=='Captura Y Listado' %>
-        <th> Relacion Paciente </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.lugarTumor=='Captura Y Listado' %>
-        <th> Lugar Tumor </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.institucionAtiende=='Captura Y Listado' %>
-        <th> Institucion Atiende </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.medicoTratante=='Captura Y Listado' %>
-        <th> Medico Tratante </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.programaInteres=='Captura Y Listado' %>
-        <th> Programa Interes </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.club=='Captura Y Listado' %>
-        <th> Club </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.handicap=='Captura Y Listado' %>
-        <th> Handicap </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.redConecta=='Captura Y Listado' %>
-        <th> Red Conecta </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.intensidadSenal=='Captura Y Listado' %>
-        <th> Intensidad Senal </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.ubicacionFisica=='Captura Y Listado' %>
-        <th> Ubicacion Fisica </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.ipv4=='Captura Y Listado' %>
-        <th> Ipv4 </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.macAddress=='Captura Y Listado' %>
-        <th> Mac Address </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.hotel=='Captura Y Listado' %>
-        <th> Hotel </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.habitacion=='Captura Y Listado' %>
-        <th> Habitacion </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.contrasena=='Captura Y Listado' %>
-        <th> Contrasena </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.tiempoContrato=='Captura Y Listado' %>
-        <th> Tiempo Contrato </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.dispositivo=='Captura Y Listado' %>
-        <th> Dispositivo </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.acuse=='Captura Y Listado' %>
-        <th> Acuse </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.fechaCirugia=='Captura Y Listado' %>
-        <th> Fecha Cirugia</th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.hospital=='Captura Y Listado' %>
-        <th> Hospital </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.tipoCirugia=='Captura Y Listado' %>
-        <th> Cirugia </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.especidalidad=='Captura Y Listado' %>
-        <th> Especidalidad </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.paciente=='Captura Y Listado' %>
-        <th> Paciente </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.cargoPersona=='Captura Y Listado' %>
-        <th> Cargo Persona </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.telefonoMedico=='Captura Y Listado' %>
-        <th> Telefono Medico </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.equipoEspecial=='Captura Y Listado' %>
-        <th> Equipo Especial </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.telefonoPaciente=='Captura Y Listado' %>
-        <th> Telefono Paciente </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.procedimiento=='Captura Y Listado' %>
-        <th> Procedimiento </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.fechaProcedimiento=='Captura Y Listado' %>
-        <th> Fecha Procedimiento</th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.equipoDetenido=='Captura Y Listado' %>
-        <th> Equipo Detenido </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.fianza=='Captura Y Listado' %>
-        <th> Fianza </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.inclusion=='Captura Y Listado' %>
-        <th> Inclusion </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.codigoSeguridad=='Captura Y Listado' %>
-        <th> Codigo Seguridad </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.numeroControl=='Captura Y Listado' %>
-        <th> Numero Control </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.lineaValidacion=='Captura Y Listado' %>
-        <th> Linea Validacion </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.tipoPoliza=='Captura Y Listado' %>
-        <th> Tipo Poliza </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.telefonoFiado=='Captura Y Listado' %>
-        <th> Telefono Fiado </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.direccionFiado=='Captura Y Listado' %>
-        <th> Direccion Fiado </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.lugarFianza=='Captura Y Listado' %>
-        <th> Lugar Fianza </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.vendedorFianza=='Captura Y Listado' %>
-        <th> Vendedor Fianza </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.formaPagoFianza=='Captura Y Listado' %>
-        <th> Forma Pago Fianza </th>
-    <% end %>
-    <% if @cliente.mensaje_configuracion.audioconferenciaReporta=='Captura Y Listado' %>
-        <th> Audioconferencia Reporta </th>
-    <% end %>
+                                      <%when 8%>
+                                          <%if field.show_in_list %>
+                                              <td><%= information.field8 %></td>
+                                          <% end %>
+                                      <%when 9%>
+                                          <%if field.show_in_list %>
+                                              <td><%= information.field9 %></td>
+                                          <% end %>
+                                      <%when 10%>
+                                          <%if field.show_in_list %>
+                                              <td><%= information.field10 %></td>
+                                          <% end %>
 
 
 
 
+                                      <%end%>
+                                  <%end%>
+                                  <td>
+                                    <%= link_to 'V',information,class: "btn btn-primary btn-xs", title:"Ver" %>
+                                    <%= link_to "M", edit_information_path(information), class: "btn btn-warning btn-xs", title:"Modificar" %>
+                                    <%= link_to 'E', information, method: :delete, class: "btn btn-danger btn-xs", title:"Eliminar" ,data: { confirm: '¿Está seguro?'} %>
+                                  </td>
+                                </tr>
+                            <%end%>
+                            </tbody>
+                          </table>
+                      <%end%>
 
-    <th>&nbsp;&nbsp;Acciones</th>
-  </tr>
-  </thead>
-  <tbody>
-  <% @captures.order(created_at: :desc).each do |capture| %>
-      <tr>
-        <td><%= capture.id %></td>
-        <td>
-          <% if capture.status == "Pendiente" %>
-              <span class="label label-danger"><%= capture.status %></span>
-          <% else %>
-              <span class="label label-primary"><%= capture.status %></span>
-          <% end %>
-        </td>
-        <td><%= capture.created_at.strftime("%d/%m/%Y %H:%M:%S") %></td>
-        <td><%= Usuario.find(capture.usuario_id).email %></td>
-
-        <% if @cliente.mensaje_configuracion.ticket=='Captura Y Listado' %>
-            <td><%= capture.ticket %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.compania=='Captura Y Listado' %>
-            <td><%= capture.compania %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.polizaContrato=='Captura Y Listado' %>
-            <td><%= capture.polizaContrato %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.descripcionEmergencia=='Captura Y Listado' %>
-            <td><%= capture.descripcionEmergencia %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.identificarSistema=='Captura Y Listado' %>
-            <td><%= capture.identificarSistema %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.referencia=='Captura Y Listado' %>
-            <td><%= capture.referencia %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.comentariosExtra=='Captura Y Listado' %>
-            <td><%= capture.comentariosExtra %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.avisoNombre=='Captura Y Listado' %>
-            <td><%= capture.avisoNombre %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.avisoFecha=='Captura Y Listado' %>
-            <td><%= capture.avisoFecha.strftime("%d/%m/%Y") %>&nbsp;<%= capture.avisoHora.strftime("%H/%M/%S") %></td>
-        <% end %>
-
-        <% if @cliente.mensaje_configuracion.notificoNombre=='Captura Y Listado' %>
-            <td><%= capture.notificoNombre %></td>
-        <% end %>
-
-        <% if @cliente.mensaje_configuracion.notificoFechaHora=='Captura Y Listado' %>
-            <td><%= capture.notificoFecha.strftime("%d/%m/%Y") %>&nbsp;<%= capture.notificoHora.strftime("%H:%M:%S") %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.rllsOperador=='Captura Y Listado' %>
-            <td><%= capture.rllsOperador %></td>
-        <% end %>
-
-        <% if @cliente.mensaje_configuracion.rllsFechaHora=='Captura Y Listado' %>
-            <td><%= capture.rllsFecha.strftime("%d/%m/%Y") %>&nbsp;<%= capture.rllsHora.strftime("%H:%M:%S") %></td>
-        <% end %>
-
-        <% if @cliente.mensaje_configuracion.tiempoRespuesta=='Captura Y Listado' %>
-            <td><%= capture.tiempoRespuesta %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.notificacionLlegadaSitio=='Captura Y Listado' %>
-            <td><%= capture.notificacionLlegadaSitio %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.rteOperador=='Captura Y Listado' %>
-            <td><%= capture.rteOperador %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.rteFechaHora=='Captura Y Listado' %>
-            <td><%= capture.rteFecha.strftime("%d/%m/%Y") %>&nbsp; <%= capture.rteHora.strftime("%H:%M:%S") %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.situacionEmergencia=='Captura Y Listado' %>
-            <td><%= capture.situacionEmergencia %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.duracionEmeregencia=='Captura Y Listado' %>
-            <td><%= capture.duracionEmeregencia %></td>
-        <% end %>
-
-        <% if @cliente.mensaje_configuracion.faltaSuministroGas=='Captura Y Listado' %>
-            <td><%= capture.faltaSuministroGas %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.sucursal=='Captura Y Listado' %>
-            <td><%= Sucursal.find_by_id capture.sucursal_id %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.tipoLlamada=='Captura Y Listado' %>
-            <td><%= capture.tipoLlamada %></td>
-        <% end %>
-
-        <% if @cliente.mensaje_configuracion.codigo=='Captura Y Listado' %>
-            <td><%= capture.codigo %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.horaEnlace=='Captura Y Listado' %>
-            <td><%= capture.horaEnlace.strftime("%H:%M:%S") %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.medioSeEntero=='Captura Y Listado' %>
-            <td><%= capture.medioSeEntero %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.terminoChat=='Captura Y Listado' %>
-            <td><%= capture.terminoChatFecha.strftime("%d/%m/%Y") %>&nbsp;<%= capture.terminoChatHora.strftime("%H:%M:%S") %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.codigoAcceso=='Captura Y Listado' %>
-            <td><%= capture.codigoAcceso %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.codigoOrganizador=='Captura Y Listado' %>
-            <td><%= capture.codigoOrganizador %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.fijoMovil=='Captura Y Listado'%>
-            <td><%= capture.fijoMovil %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.telefonoOrigen=='Captura Y Listado' %>
-            <td><%= capture.telefonoOrigen %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.paisOrigino=='Captura Y Listado' %>
-            <td><%= capture.paisOrigino %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.localidadOrigino=='Captura Y Listado' %>
-            <td><%= capture.localidadOrigino %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.motivoDenuncia=='Captura Y Listado' %>
-            <td><%= capture.motivoDenuncia %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.tipoDelito=='Captura Y Listado' %>
-            <td><%= capture.delito %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.puestoInvolucrado=='Captura Y Listado' %>
-            <td><%= capture.puestoInvolucrado %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.resultadoEstatus=='Captura Y Listado' %>
-            <td><%= capture.resultadoEstatus %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.emailContacto=='Captura Y Listado' %>
-            <td><%= capture.emailContacto %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.marca=='Captura Y Listado' %>
-            <td><%= capture.marca %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.modelo=='Captura Y Listado' %>
-            <td><%= capture.modelo %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.serie=='Captura Y Listado' %>
-            <td><%= capture.serie %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.beneficiario=='Captura Y Listado' %>
-            <td><%= capture.beneficiario %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.contactoBeneficiario=='Captura Y Listado' %>
-            <td><%= capture.contactoBeneficiario %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.nombreFiado=='Captura Y Listado' %>
-            <td><%= capture.nombreFiado %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.puestoFiado=='Captura Y Listado' %>
-            <td><%= capture.puestoFiado %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.montoReportar=='Captura Y Listado' %>
-            <td><%= capture.montoReportar %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.enlazadaCorrectamente=='Captura Y Listado' %>
-            <td><%= capture.enlazadaCorrectamente %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.intentosEnlace=='Captura Y Listado' %>
-            <td><%= capture.intentosEnlace %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.duracionLlamada=='Captura Y Listado' %>
-            <td><%= capture.duracionLlamada %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.origenCodigoGami=='Captura Y Listado' %>
-            <td><%= capture.origenCodigoGami %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.codigoGami=='Captura Y Listado' %>
-            <td><%= capture.codigoGami %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.tipoEmergencia=='Captura Y Listado' %>
-            <td><%= capture.tipoEmergencia %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.empresaCodigoGami=='Captura Y Listado' %>
-            <td><%= capture.empresaCodigoGami %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.nomenclaturaSistema=='Captura Y Listado' %>
-            <td><%= capture.nomenclaturaSistema %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.personaRecibe=='Captura Y Listado' %>
-            <td><%= capture.personaRecibe %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.razonSocial=='Captura Y Listado' %>
-            <td><%= capture.razonSocial %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.rfc=='Captura Y Listado' %>
-            <td><%= capture.rfc %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.ticketCliente=='Captura Y Listado' %>
-            <td><%= capture.ticketCliente %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.relacionPaciente=='Captura Y Listado' %>
-            <td><%= capture.relacionPaciente %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.lugarTumor=='Captura Y Listado' %>
-            <td><%= capture.lugarTumor %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.institucionAtiende=='Captura Y Listado' %>
-            <td><%= capture.institucionAtiende %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.medicoTratante=='Captura Y Listado' %>
-            <td><%= capture.medicoTratante %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.programaInteres=='Captura Y Listado' %>
-            <td><%= capture.programaInteres %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.club=='Captura Y Listado' %>
-            <td><%= capture.club %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.handicap=='Captura Y Listado' %>
-            <td><%= capture.handicap %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.redConecta=='Captura Y Listado' %>
-            <td><%= capture.redConecta %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.intensidadSenal=='Captura Y Listado' %>
-            <td><%= capture.intensidadSenal %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.ubicacionFisica=='Captura Y Listado' %>
-            <td><%= capture.ubicacionFisica %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.ipv4=='Captura Y Listado' %>
-            <td><%= capture.ipv4 %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.macAddress=='Captura Y Listado' %>
-            <td><%= capture.macAddress %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.hotel=='Captura Y Listado' %>
-            <td><%= capture.hotel %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.habitacion=='Captura Y Listado' %>
-            <td><%= capture.habitacion %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.contrasena=='Captura Y Listado' %>
-            <td><%= capture.contrasena %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.tiempoContrato=='Captura Y Listado' %>
-            <td><%= capture.tiempoContrato %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.dispositivo=='Captura Y Listado' %>
-            <td><%= capture.dispositivo %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.acuse=='Captura Y Listado' %>
-            <td><%= capture.acuse %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.fechaCirugia=='Captura Y Listado' %>
-            <td><%= capture.fechaCirugia.strftime("%d/%m/%Y") %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.hospital=='Captura Y Listado' %>
-            <td><%= capture.hospital %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.tipoCirugia=='Captura Y Listado' %>
-            <td><%= capture.cirugia %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.especidalidad=='Captura Y Listado' %>
-            <td><%= capture.especidalidad %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.paciente=='Captura Y Listado' %>
-            <td><%= capture.paciente %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.cargoPersona=='Captura Y Listado' %>
-            <td><%= capture.cargoPersona %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.telefonoMedico=='Captura Y Listado' %>
-            <td><%= capture.telefonoMedico %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.equipoEspecial=='Captura Y Listado' %>
-            <td><%= capture.equipoEspecial %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.telefonoPaciente=='Captura Y Listado' %>
-            <td><%= capture.telefonoPaciente %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.procedimiento=='Captura Y Listado' %>
-            <td><%= capture.procedimiento %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.fechaProcedimiento=='Captura Y Listado' %>
-            <td><%= capture.fechaProcedimiento.strftime("%D/%m/%Y") %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.equipoDetenido=='Captura Y Listado' %>
-            <td><%= capture.equipoDetenido %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.fianza=='Captura Y Listado' %>
-            <td><%= capture.fianza %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.inclusion=='Captura Y Listado' %>
-            <td><%= capture.inclusion %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.codigoSeguridad=='Captura Y Listado' %>
-            <td><%= capture.codigoSeguridad %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.numeroControl=='Captura Y Listado' %>
-            <td><%= capture.numeroControl %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.lineaValidacion=='Captura Y Listado' %>
-            <td><%= capture.lineaValidacion %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.tipoPoliza=='Captura Y Listado' %>
-            <td><%= capture.tipoPoliza %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.telefonoFiado=='Captura Y Listado' %>
-            <td><%= capture.telefonoFiado %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.direccionFiado=='Captura Y Listado' %>
-            <td><%= capture.direccionFiado %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.lugarFianza=='Captura Y Listado' %>
-            <td><%= capture.lugarFianza %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.vendedorFianza=='Captura Y Listado' %>
-            <td><%= capture.vendedorFianza %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.formaPagoFianza=='Captura Y Listado' %>
-            <td><%= capture.formaPagoFianza %></td>
-        <% end %>
-        <% if @cliente.mensaje_configuracion.audioconferenciaReporta=='Captura Y Listado' %>
-            <td>
-              <%= capture.audioconferenciaReporta %></td>
-        <% end %>
+                </div>
+            <%end%>
 
 
-        <td>
-          <%= link_to capture,  class:"text-muted", title: "Ver" do%>
-              <i class="fa fa-eye"></i>
-          <% end %>
-          &nbsp;&nbsp;
-          <%= link_to edit_capture_path(capture),  class:"text-muted", title: "Editar" do%>
-              <i class="fa fa-pencil"></i>
-          <% end %>
-          &nbsp;&nbsp;
-          <%= link_to capture, method: :delete, class:"text-muted", title: "Eliminar", data: { confirm: '¿Está seguro?'} do%>
-              <i class="fa fa-trash"></i>
-          <% end %>
-        </td>
-      </tr>
-  <% end %>
-
-
-  </tbody>
-</table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
