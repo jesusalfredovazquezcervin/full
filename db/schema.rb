@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160211183212) do
+ActiveRecord::Schema.define(version: 20160216174236) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -583,6 +583,15 @@ ActiveRecord::Schema.define(version: 20160211183212) do
     t.string   "field10"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "field12"
+    t.string   "field13"
+    t.string   "field14"
+    t.string   "field15"
+    t.string   "field16"
+    t.string   "field17"
+    t.string   "field18"
+    t.string   "field19"
+    t.string   "field20"
   end
 
   add_index "information", ["form_id"], name: "index_information_on_form_id", using: :btree
@@ -789,6 +798,7 @@ ActiveRecord::Schema.define(version: 20160211183212) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "form"
+    t.boolean  "required"
   end
 
   add_index "steps", ["procedure_id"], name: "index_steps_on_procedure_id", using: :btree
