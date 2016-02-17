@@ -9,7 +9,9 @@ class InformationController < ApplicationController
   end
 
   def show
-    respond_with(@information)
+    @clientes = Cliente.all
+    @current_user = current_user
+    dashofintel
   end
 
   def new
@@ -18,6 +20,9 @@ class InformationController < ApplicationController
   end
 
   def edit
+    @clientes = Cliente.all
+    @current_user = current_user
+    dashofintel
   end
 
   def create
@@ -35,8 +40,19 @@ class InformationController < ApplicationController
   end
 
   def update
-    @information.update(information_params)
-    respond_with(@information)
+    #@information.update(information_params)
+    #dashofintel
+
+    respond_to do |format|
+      if @information.update(information_params)
+        format.html { redirect_to({controller: "captures" , action: 'index', id:@information.form.cliente.id }, notice: "El registro ha sido actualizado exitosamente") }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit', :layout => "layout_3" }
+        format.json { render json: @information.errors, status: :unprocessable_entity }
+      end
+    end
+
   end
 
   def destroy
@@ -51,7 +67,12 @@ class InformationController < ApplicationController
 
     def information_params
       params[:information][:usuario_id] = current_user.id
-      params[:information][:form_id] = params[:form_id]
-      params.require(:information).permit(:form_id, :usuario_id, :field1, :field2, :field3, :field4, :field5, :field6, :field7, :field8, :field9, :field10)
+      if !params[:form_id].nil?
+        params[:information][:form_id] = params[:form_id]
+      end
+      params.require(:information).permit(:form_id, :usuario_id, :field1, :field2, :field3, :field4, :field5, :field6, :field7, :field8, :field9, :field10, :field11, :field12, :field13, :field14, :field15, :field16, :field17, :field18, :field19, :field20)
+    end
+    def dashofintel
+      render :layout => "layout_3"
     end
 end
