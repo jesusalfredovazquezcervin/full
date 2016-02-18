@@ -28,8 +28,16 @@ class StepsController < ApplicationController
   end
 
   def update
-    @step.update(step_params)
-    respond_with(@step)
+
+    respond_to do |format|
+      if @step.update(step_params)
+        format.html { redirect_to @step, notice: 'Paso actualizado correctamente' }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit', :layout => "layout_2" }
+        format.json { render json: @step.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def destroy
@@ -43,7 +51,7 @@ class StepsController < ApplicationController
     end
 
     def step_params
-      params.require(:step).permit(:procedure_id, :name, :detail, :number)
+      params.require(:step).permit(:procedure_id, :name, :detail, :number, :form)
     end
   def dashboard_4
     render :layout => "layout_2"

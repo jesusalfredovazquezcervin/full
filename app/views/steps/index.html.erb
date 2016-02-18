@@ -45,6 +45,7 @@
               <th>Paso</th>
               <th>Detalle</th>
               <th>Numero</th>
+              <th>Lleva formulario</th>
               <th>&nbsp;&nbsp;Acciones</th>
             </tr>
             </thead>
@@ -56,6 +57,7 @@
                   <td><%=step.name%></td>
                   <td><%=step.detail%></td>
                   <td><%=step.number%></td>
+                  <td><%=step.form%></td>
                   <td>
                     <%= link_to 'V', step,class: "btn btn-primary btn-circle", title:"Ver" %>
                     <%= link_to 'M', edit_step_path(step), class: "btn btn-warning btn-circle", title:"Modificar" %>
