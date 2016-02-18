@@ -62,10 +62,10 @@
                                 <%else%>
                                     <div class="row">
                                       <%if procedure.form.fields.count >0 %>
+                                          <h2>Formulario de: <%=procedure.form.name%></h2>
                                           <%= hidden_field_tag :form_id, procedure.form.id %>
                                           <% procedure.form.fields.order(:id).each_with_index do |field, index| %>
                                               <%fld = "field" << (index + 1).to_s%>
-                                              <h2>Formulario de: <%=procedure.form.name%></h2>
                                               <br>
                                               <div class="col-lg-8">
                                                 <div class="form-group">
