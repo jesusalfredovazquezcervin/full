@@ -42,6 +42,7 @@
               <th>ID</th>
               <th>Cliente</th>
               <th>Nombre</th>
+              <th>Procedimiento</th>
               <th>&nbsp;&nbsp;Acciones</th>
             </tr>
             </thead>
@@ -51,6 +52,7 @@
                   <td><%=form.id%></td>
                   <td><%= Cliente.find_by_id(form.cliente_id).nombre%></td>
                   <td><%=form.name%></td>
+                  <td><%= form.procedure_id.nil? == true ? ("Sin procedimiento"):(form.procedure.name.titleize)  %></td>
                   <td>
                     <%= link_to 'V', form,class: "btn btn-primary btn-circle", title:"Ver" %>
                     <%= link_to 'M', edit_form_path(form), class: "btn btn-warning btn-circle", title:"Modificar" %>

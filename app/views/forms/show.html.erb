@@ -46,6 +46,11 @@
                 <%= @form.name%>
               </div><br>
 
+              <h4>Procedimiento:</h4>
+              <div class="col-sm-5">
+                <%= @form.procedure_id.nil? == true ? ("Sin procedimiento"):(@form.procedure.name.titleize)  %>
+              </div><br>
+
 
             </div>
             <br>

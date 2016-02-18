@@ -49,7 +49,6 @@ class FormsController < ApplicationController
     @procedures= @form.cliente.procedures
     respond_to do |format|
       if @form.update(form_params)
-        @form.save!
         format.html { redirect_to @form, :notice => 'El Formulario ha sido actualizado correctamente.' }
         format.json { head :no_content }
       else
@@ -75,7 +74,7 @@ class FormsController < ApplicationController
     end
 
     def form_params
-      params.require(:form).permit(:name, :cliente_id)
+      params.require(:form).permit(:name, :cliente_id, :procedure_id)
     end
   def dashboard_4
     render :layout => "layout_2"
