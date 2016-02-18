@@ -69,6 +69,27 @@ class InformationController < ApplicationController
     end
 
     def information_params
+      fields=Hash.new
+      fieldsDelete = []
+      params[:information].each_with_index { |p, i|
+        if !(/(\di)/ =~ p.to_s).nil?
+          fieldsDelete.push p[0]
+          key=p[0].slice(0,p[0].length-4)
+          if fields[key.to_sym].nil?
+            fields[key.to_sym] = p[1]
+          else
+            fields[key.to_sym] = fields[key.to_sym] << "-" << p[1]
+          end
+
+        end
+      }
+      fields.each_pair{|k,v|
+        r = v.split("-").reverse!
+        params[:information][k] = r[0] << "-" << r[1] << "-" << r[2]
+      }
+      fieldsDelete.each{|d|
+        params[:information].delete d
+      }
       params[:information][:usuario_id] = current_user.id
       if !params[:form_id].nil?
         params[:information][:form_id] = params[:form_id]
