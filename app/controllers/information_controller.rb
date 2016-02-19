@@ -69,6 +69,17 @@ class InformationController < ApplicationController
     end
 
     def information_params
+      #Este codigo sirve para la pantalla de Edit del registro. Verifica que venga un parametro fieldX y lo agrega a params[information]
+      if !@information.nil?
+        @information.attributes.count.times{|i|
+          field = ("field" << i.to_s).next
+          if !params[field.to_sym].nil?
+            params[:information][field.to_sym] = params[:field3]["field3(1i)".to_sym] << "-" << params[:field3]["field3(2i)".to_sym] << "-" << params[:field3]["field3(3i)".to_sym]
+          end
+        }
+      end
+
+      #Este codigo sirve para convertir una fecha que viene de la pantalla de alta
       fields=Hash.new
       fieldsDelete = []
       params[:information].each_with_index { |p, i|
