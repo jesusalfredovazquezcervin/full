@@ -49,7 +49,7 @@
             <tbody>
             <% @procedures.each do |procedure| %>
                 <tr>
-                  <td><%= Cliente.find(procedure.cliente_id).nombre %></td>
+                  <td><%= Cliente.find_by_id(procedure.try(:cliente_id)).try(:nombre) %></td>
                   <td><%=procedure.name%></td>
                   <td><%=procedure.created_at%></td>
                   <td>
