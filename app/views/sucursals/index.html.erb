@@ -53,7 +53,7 @@
             <tbody>
             <% @sucursals.each do |sucursal| %>
                 <tr>
-                  <td><%= Cliente.find(sucursal.cliente_id).nombre %></td>
+                  <td><%= Cliente.find_by_id(sucursal.try(:cliente_id)).try(:nombre) %></td>
                   <td><%= sucursal.nombre%></td>
                   <td><%= sucursal.telefono%></td>
                   <td><% if (sucursal.contacto_id.nil? == false) %>

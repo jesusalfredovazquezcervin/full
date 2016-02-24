@@ -56,7 +56,7 @@
             <tbody>
             <% @agendas.each do |agenda| %>
                 <tr>
-                  <td><%= Cliente.find(agenda.cliente_id).nombre %></td>
+                  <td><%= Cliente.find_by_id(agenda.try(:cliente_id)).try(:nombre) %></td>
                   <td><%= agenda.nombre%></td>
                   <td><%= agenda.rfc%></td>
                   <td><%= agenda.calle %></td>

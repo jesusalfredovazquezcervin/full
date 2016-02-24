@@ -54,7 +54,7 @@
             <tbody>
             <% @horarios.each do |horario| %>
                 <tr>
-                  <td><%= Cliente.find(horario.cliente_id).nombre %></td>
+                  <td><%= Cliente.find_by_id(horario.try(:cliente_id)).try(:nombre) %></td>
                   <td><% if (horario.sucursal_id.nil? == false) %>
                         <%= Sucursal.find(horario.sucursal_id).nombre%>
                     <%end%>

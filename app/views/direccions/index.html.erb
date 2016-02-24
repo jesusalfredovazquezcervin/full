@@ -55,7 +55,7 @@
             <tbody>
             <% @direccions.each do |direccion| %>
                 <tr>
-                  <td><%= Cliente.find(direccion.cliente_id).nombre %></td>
+                  <td><%= Cliente.find_by_id(direccion.try(:cliente_id)).try(:nombre) %></td>
                   <td><%= Sucursal.find(direccion.sucursal_id).nombre %></td>
                   <td><%= direccion.calle%></td>
                   <td><%= direccion.numero%></td>

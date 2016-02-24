@@ -47,8 +47,7 @@
                 <div class="form-group">
                   <%= f.label "Formulario", class: 'col-sm-2 control-label'%>
                   <div class="col-sm-5">
-                    <%= f.select :form_id, options_for_select(Form.all.collect { |form|
-                                                                   [form.name, form.id] }, @field.form_id), {}, {class:"chosen-select", style: "width:350px;" } %>
+                    <%= f.select :form_id, options_for_select(Form.order(:id).collect {|c|  [ "" << c.cliente.nombre << " - " << c.name, c.id] }, @field.form_id), {}, {class:"chosen-select", style: "width:350px;" } %>
 
                   </div>
                 </div>

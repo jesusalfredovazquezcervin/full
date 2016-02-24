@@ -55,7 +55,7 @@
             <tbody>
             <% @datosgenerales.each do |datosgenerale| %>
                 <tr>
-                  <td><%= Cliente.find(datosgenerale.cliente_id).nombre %></td>
+                  <td><%= Cliente.find_by_id(datosgenerale.try(:cliente_id)).try(:nombre) %></td>
                   <td><%= datosgenerale.alta%></td>
                   <td><%= datosgenerale.clavesalida%></td>
                   <td><%= datosgenerale.locacion%></td>
