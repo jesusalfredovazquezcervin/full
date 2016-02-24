@@ -56,20 +56,10 @@
                   <td><%= Cliente.find_by_id(sucursal.try(:cliente_id)).try(:nombre) %></td>
                   <td><%= sucursal.nombre%></td>
                   <td><%= sucursal.telefono%></td>
-                  <td><% if (sucursal.contacto_id.nil? == false) %>
-                        <%= Contacto.find(sucursal.contacto_id).nombre%>
-                    <%end%>
-                  </td>
+                  <td><%= Contacto.find_by_id(sucursal.try(:contacto_id)).try(:nombre)%></td>
+                  <td><%= Contacto.find_by_id(sucursal.try(:recepcionista_id)).try(:nombre)%></td>
 
-                  <td><% if (sucursal.recepcionista_id.nil? == false) %>
-                        <%= Contacto.find(sucursal.recepcionista_id).nombre%>
-                        <%end%>
-                  </td>
-
-                  <td><% if (sucursal.contactoprincipal_id.nil? == false) %>
-                        <%= Contacto.find(sucursal.contactoprincipal_id).nombre%>
-                    <%end%>
-                  </td>
+                  <td><%= Contacto.find_by_id(sucursal.try(:contactoprincipal_id)).try(:nombre)%></td>
                   <td>
                     <%= link_to 'V', sucursal,class: "btn btn-primary btn-circle", title:"Ver" %>
                     <%= link_to 'M', edit_sucursal_path(sucursal), class: "btn btn-warning btn-circle", title:"Modificar" %>
