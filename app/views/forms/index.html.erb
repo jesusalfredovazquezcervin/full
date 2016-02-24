@@ -50,7 +50,7 @@
             <% @forms.each do |form| %>
                 <tr>
                   <td><%=form.id%></td>
-                  <td><%= Cliente.find_by_id(form.cliente_id).nombre%></td>
+                  <td><%= Cliente.find_by_id(form.try(:cliente_id)).try(:nombre)%></td>
                   <td><%=form.name%></td>
                   <td><%= form.procedure_id.nil? == true ? ("Sin procedimiento"):(form.procedure.name.titleize)  %></td>
                   <td>

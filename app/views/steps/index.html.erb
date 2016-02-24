@@ -52,7 +52,7 @@
             <tbody>
             <% @steps.each do |step| %>
                 <tr>
-                  <td><%= Cliente.find(step.procedure.cliente_id).nombre %></td>
+                  <td><%= step.procedure.try(:cliente).try(:name)%></td>
                   <td><%= Procedure.find(step.procedure_id).name%></td>
                   <td><%=step.name%></td>
                   <td><%=step.detail%></td>

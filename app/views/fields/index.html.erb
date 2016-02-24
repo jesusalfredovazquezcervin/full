@@ -63,7 +63,7 @@
                 <tr>
                   <td><%=field.id%></td>
                   <td><%=Form.find(field.form_id).name%></td>
-                  <td><%=Form.find(field.form_id).cliente.nombre%></td>
+                  <td><%=Form.find(field.form_id).try(:cliente).try(:nombre)%></td>
                   <td><%=field.name%></td>
                   <td><%=field.mandatory%></td>
                   <td><%=field.show_in_list%></td>
