@@ -55,6 +55,11 @@ group :development do
   gem 'capistrano-rbenv', '~> 2.0.3'
   gem 'capistrano-passenger'
   gem 'capistrano-figaro-yml', '~> 1.0.2'
+
+  #Dependencias de roadie
+  gem 'rspec', '~> 3.4'
+  gem 'rspec-collection_matchers', '~> 1.1', '>= 1.1.2'
+  gem 'webmock', '~> 1.24'
 end
 
 
@@ -67,3 +72,15 @@ gem 'figaro', '~> 1.1.1'
 #Authentication with roles
 gem 'cancan', '~> 1.6', '>= 1.6.10'
 gem 'rails-i18n', '~> 4.0', '>= 4.0.7'
+
+group :runtime, :test do
+  gem 'css_parser', '~> 1.3', '>= 1.3.7'
+  gem 'nokogiri', '~> 1.6', '>= 1.6.7.2'
+end
+
+
+#Envio de correos css inline
+#gem 'actionview'
+gem 'actionpack'
+gem 'actionmailer'
+gem 'roadie', '~> 3.1', '>= 3.1.1'
