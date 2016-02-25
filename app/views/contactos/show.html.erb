@@ -43,9 +43,7 @@
               </div><br>
               <h4>Sucursal:</h4>
               <div class="col-sm-5">
-                <% if (@contacto.sucursal_id.nil? == false) %>
-                    <%= Sucursal.find(@contacto.sucursal_id).nombre%>
-                <%end%>
+                <%= Sucursal.find_by_id(@contacto.try(:sucursal_id)).try(:nombre)%>
               </div><br>
               <h4>Nombre:</h4>
               <div class="col-sm-5">
