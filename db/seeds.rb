@@ -10,3 +10,5 @@
 Formapago.create(nombre: 'Efectivo')
 Formapago.create(nombre: 'Transferencia')
 Formapago.create(nombre: 'Cheque')
+Formapago.create(nombre: 'Deposito')
+
