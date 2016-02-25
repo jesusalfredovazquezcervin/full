@@ -47,7 +47,7 @@
                 <div class="form-group">
                   <%= f.label :cliente, class: 'col-sm-2 control-label'%>
                   <div class="col-sm-5">
-                    <%= f.select :cliente_id, options_for_select(@clientes.collect { |cliente|
+                    <%= f.select :cliente_id, options_for_select(@clientes.order(:id).collect { |cliente|
                                                                    [cliente.nombre.titleize, cliente.id] }, @datosgenerale.cliente_id), {}, { id: 'clientes_select', class:"form-control m-b", style: "width:350px;" } %>
 
                   </div>
@@ -131,8 +131,8 @@
                 <div class="form-group">
                   <%= f.label :horario, class: 'col-sm-2 control-label'%>
                   <div class="col-sm-5">
-                    <%= select("post", "horario_id", Horario.all.collect {|p| [ p.nombre, p.id ] },
-                               {prompt: 'Seleccione horario',selected: @datosgenerale.horario_id, required: true}, {class: 'chosen-select',style: "width:350px;", data: {placeholder: "Selecione contactos"}}) %>
+                    <%= select("post", "horario_id", @horarios.collect {|p| [ p.nombre, p.id ] },
+                               {prompt: 'Seleccione horario',selected: @datosgenerale.horario_id, required: true}, {id: 'horarios_select',class: 'form-control m-b',style: "width:350px;"}) %>
 
                   </div>
                 </div>
@@ -313,7 +313,28 @@
                         return console.log("AJAX Error: " + textStatus);
                     },
                     success: function(data, textStatus, jqXHR) {
-                        return console.log("Dynamic sucursal select OK!");
+                        return console.log("Dynamic contacto select OK!");
+                    }
+                });
+            });
+        });
+
+
+        $(function() {
+            return $(document).on('change', '#clientes_select', function(evt) {
+                return $.ajax({
+                    url:location.protocol + "//" + location.host + "/datosgenerales/update_horarios",
+                    type: 'GET',
+                    dataType: 'script',
+                    data: {
+                        cliente_id: $("#clientes_select option:selected").val()
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        // console.log(location.protocol + "//" + location.host + "/direccions/update_sucursales");
+                        return console.log("AJAX Error: " + textStatus);
+                    },
+                    success: function(data, textStatus, jqXHR) {
+                        return console.log("Dynamic horario select OK!");
                     }
                 });
             });

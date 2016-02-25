@@ -21,13 +21,18 @@ class DatosgeneralesController < ApplicationController
     @datosgenerale = Datosgenerale.new
     @clientes = Cliente.all
     @contactos = Contacto.where("cliente_id = ?", Cliente.first.id)
+    @horarios = Horario.where("cliente_id = ?", Cliente.first.id)
     dashboard_4
   end
 
   def update_contactos
     @contactos= Contacto.where("cliente_id = ?", params[:cliente_id])
-
-
+    respond_to do |format|
+      format.js
+    end
+  end
+  def update_horarios
+    @horarios = Horario.where("cliente_id = ?", params[:cliente_id])
     respond_to do |format|
       format.js
     end
@@ -55,6 +60,7 @@ class DatosgeneralesController < ApplicationController
     end
 
     @contactos= Contacto.where("cliente_id = ?", @datosgenerale.cliente_id)
+    @horarios = Horario.where("cliente_id = ?", @datosgenerale.cliente_id)
     @clientes = Cliente.all
     dashboard_4
   end
@@ -64,6 +70,7 @@ class DatosgeneralesController < ApplicationController
   def create
     @clientes = Cliente.all
     @contactos = Contacto.where("cliente_id = ?", Cliente.first.id)
+    @horarios = Horario.where("cliente_id = ?", Cliente.first.id)
     @datosgenerale = Datosgenerale.new(datosgenerale_params)
     @datosgenerale.cliente_id = params[:datosgenerale][:cliente_id]
 
@@ -118,7 +125,7 @@ class DatosgeneralesController < ApplicationController
     respond_to do |format|
       @clientes = Cliente.all
       @contactos = Contacto.where("cliente_id = ?", Cliente.first.id)
-      #logger.debug datosgenerale_params
+      @horarios = Horario.where("cliente_id = ?", Cliente.first.id)
 
       if @datosgenerale.update(datosgenerale_params)
         @datosgenerale.cliente_id = params[:datosgenerale][:cliente_id]
