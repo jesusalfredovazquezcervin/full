@@ -1,6 +1,6 @@
 class Contacto < ActiveRecord::Base
   belongs_to :cliente
-  has_many :notifications, :class_name => 'Notification', :foreign_key => 'person_id'
+  has_many :notifications, :class_name => 'Notification', :foreign_key => 'person_id', :dependent => :destroy
   validates :cliente_id, :nombre, :sucursal_id, :telefono, :puesto,
       presence: true
   validates :email, :skype,
