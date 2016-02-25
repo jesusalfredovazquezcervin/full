@@ -42,6 +42,7 @@
             <tr>
               <th>Cliente</th>
               <th>Nombre</th>
+              <th>Enviar correo</th>
               <th>Fecha creacion</th>
               <th>&nbsp;&nbsp;Acciones</th>
             </tr>
@@ -51,7 +52,9 @@
                 <tr>
                   <td><%= Cliente.find_by_id(procedure.try(:cliente_id)).try(:nombre) %></td>
                   <td><%=procedure.name%></td>
+                  <td><%=procedure.deliver%></td>
                   <td><%=procedure.created_at%></td>
+
                   <td>
                     <%= link_to 'V', procedure,class: "btn btn-primary btn-circle", title:"Ver" %>
                     <%= link_to 'M', edit_procedure_path(procedure), class: "btn btn-warning btn-circle", title:"Modificar" %>
