@@ -43,7 +43,7 @@ class ProceduresController < ApplicationController
     end
 
     def procedure_params
-      params.require(:procedure).permit(:cliente_id, :sucursal_id, :name)
+      params.require(:procedure).permit(:cliente_id, :sucursal_id, :name, :deliver)
     end
   def dashboard_4
     render :layout => "layout_2"
