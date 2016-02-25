@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.2'
+gem 'rails', '4.1.2'
 gem 'bootstrap-sass', '3.3.0.0'
 gem 'font-awesome-rails', '4.3.0.0'
 
@@ -64,14 +64,14 @@ end
 
 
 #Authentication
-gem 'devise', '~> 3.5.2'
+gem 'devise', '~> 3.5.6'
 
 #Variables de entorno ENV[myvar]
 gem 'figaro', '~> 1.1.1'
 
 #Authentication with roles
 gem 'cancan', '~> 1.6', '>= 1.6.10'
-gem 'rails-i18n', '~> 4.0', '>= 4.0.7'
+gem 'rails-i18n', '~> 4.0', '>= 4.0.8'
 
 group :runtime, :test do
   gem 'css_parser', '~> 1.3', '>= 1.3.7'
@@ -82,5 +82,5 @@ end
 #Envio de correos css inline
 #gem 'actionview'
 gem 'actionpack'
-gem 'actionmailer'
+gem 'actionmailer', '~> 4.1.2'
 gem 'roadie', '~> 3.1', '>= 3.1.1'
