@@ -31,7 +31,11 @@ class InformationController < ApplicationController
 
     respond_to do |format|
       if @information.save
-          format.html { redirect_to({ controller:"captures", action: 'index', id:@cliente.id }, notice: "El registro ha sido creado exitosamente") }
+        #Enviamos correo
+        if @information.form.procedure.deliver
+          InformationMailer.daily("jesusalfredovazquezcervin@gmail.com", @information.id).deliver
+        end
+        format.html { redirect_to({ controller:"captures", action: 'index', id:@cliente.id }, notice: "El registro ha sido creado exitosamente") }
       else
         format.html { render action: 'new', :layout => "layout_2" }
       end
