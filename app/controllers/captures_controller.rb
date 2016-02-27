@@ -49,7 +49,6 @@ class CapturesController < ApplicationController
     @direccion =nil
     @horario =nil
     @contacto=nil
-    @form1 = Form1.new
     direcciones = Direccion.where(:cliente_id => id, :matriz => true)
     if (direcciones.size > 0)
       @direccion = direcciones[0]
