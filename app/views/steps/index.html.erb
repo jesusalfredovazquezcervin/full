@@ -52,8 +52,8 @@
             <tbody>
             <% @steps.each do |step| %>
                 <tr>
-                  <td><%= step.procedure.cliente.name%></td>
-                  <td><%= Procedure.find(step.procedure_id).nombre%></td>
+                  <td><%= step.procedure.cliente.nombre%></td>
+                  <td><%= Procedure.find(step.procedure_id).name%></td>
                   <td><%=step.name%></td>
                   <td><%=step.detail%></td>
                   <td><%=step.number%></td>
