@@ -38,6 +38,7 @@
                       <tbody>
                       <% @information.form.fields.order(:id).each_with_index do |f,idx| %>
                           <tr>
+                            <%= f.name%>
                             <td>  <%= f.name << ": " <<  f.data_type == "Date" ?  ((@information.attributes.each_pair.select{|k,v| k == "field" << (idx + 1).to_s }[0][1]).to_date) :(@information.attributes.each_pair.select{|k,v| k == "field" << (idx + 1).to_s }[0][1])%> </td>
                           </tr>
                       <% end %>
