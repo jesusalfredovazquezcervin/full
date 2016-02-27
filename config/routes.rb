@@ -30,8 +30,6 @@ Myapp::Application.routes.draw do
 
   resources :form2s
 
-  resources :form1s
-
   resources :fields
 
   resources :forms
