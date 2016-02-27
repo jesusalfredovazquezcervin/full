@@ -12,24 +12,6 @@ Myapp::Application.routes.draw do
   get "fields/index/:id", to: "fields#index", as: "field_form"
   get "fields/new/:id", to: "fields#new", as: "new_field_form"
 
-  resources :form10s
-
-  resources :form9s
-
-  resources :form8s
-
-  resources :form7s
-
-  resources :form6s
-
-  resources :form5s
-
-  resources :form4s
-
-  resources :form3s
-
-  resources :form2s
-
   resources :fields
 
   resources :forms
@@ -91,8 +73,6 @@ Myapp::Application.routes.draw do
   resources :cities
 
   resources :countries
-
-  resources :mensaje_configuracions
 
   resources :captures
 

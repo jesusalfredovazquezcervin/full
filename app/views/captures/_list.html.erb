@@ -64,7 +64,7 @@
                                           <% end %>
                                       <%when 3%>
                                           <%if field.show_in_list %>
-                                              <td><%= information.field3 %></td>
+                                              <td><%= field.data_type == "Date" ? (information.try(:field3).try(:to_date)):(information.field3) %></td>
                                           <% end %>
                                       <%when 4%>
                                           <%if field.show_in_list %>
@@ -97,7 +97,47 @@
                                           <% end %>
 
 
+                                      <%when 11%>
+                                          <%if field.show_in_list %>
+                                              <td><%= information.field11 %></td>
+                                          <% end %>
+                                      <%when 12%>
+                                          <%if field.show_in_list %>
+                                              <td><%= information.field12 %></td>
+                                          <% end %>
+                                      <%when 13%>
+                                          <%if field.show_in_list %>
+                                              <td><%= information.field13 %></td>
+                                          <% end %>
+                                      <%when 14%>
+                                          <%if field.show_in_list %>
+                                              <td><%= information.field14 %></td>
+                                          <% end %>
+                                      <%when 15%>
+                                          <%if field.show_in_list %>
+                                              <td><%= information.field15 %></td>
+                                          <% end %>
+                                      <%when 16%>
+                                          <%if field.show_in_list %>
+                                              <td><%= information.field16 %></td>
+                                          <% end %>
+                                      <%when 17%>
+                                          <%if field.show_in_list %>
+                                              <td><%= information.field17 %></td>
+                                          <% end %>
 
+                                      <%when 18%>
+                                          <%if field.show_in_list %>
+                                              <td><%= information.field18 %></td>
+                                          <% end %>
+                                      <%when 19%>
+                                          <%if field.show_in_list %>
+                                              <td><%= information.field19 %></td>
+                                          <% end %>
+                                      <%when 20%>
+                                          <%if field.show_in_list %>
+                                              <td><%= information.field20 %></td>
+                                          <% end %>
 
                                       <%end%>
                                   <%end%>
