@@ -1,5 +1,7 @@
 Myapp::Application.routes.draw do
 
+  resources :sents
+
   get 'forms/update_procedures', as: 'update_procedures'
 
   resources :information

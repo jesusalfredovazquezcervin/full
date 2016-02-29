@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Usuario:</strong>
+  <%= @sent.usuario %>
+</p>
+
+<p>
+  <strong>Information:</strong>
+  <%= @sent.information %>
+</p>
+
+<p>
+  <strong>Recipient:</strong>
+  <%= @sent.recipient %>
+</p>
+
+<%= link_to 'Edit', edit_sent_path(@sent) %> |
+<%= link_to 'Back', sents_path %>
