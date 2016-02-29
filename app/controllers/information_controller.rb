@@ -34,6 +34,7 @@ class InformationController < ApplicationController
         #Enviamos correo
         if @information.form.procedure.deliver
           InformationMailer.daily(params[:recipient].select{|r| r unless r.empty?}.join(", "), @information.id).deliver
+          Sent.create(usuario: current_user, information: @information, recipient:params[:recipient].select{|r| r unless r.empty?}.join(", "))
         end
         format.html { redirect_to({ controller:"captures", action: 'index', id:@cliente.id }, notice: "El registro ha sido creado exitosamente") }
       else
