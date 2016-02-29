@@ -33,7 +33,7 @@ class InformationController < ApplicationController
       if @information.save
         #Enviamos correo
         if @information.form.procedure.deliver
-          InformationMailer.daily("jesusalfredovazquezcervin@gmail.com", @information.id).deliver
+          InformationMailer.daily(params[:recipient].select{|r| r unless r.empty?}.join(", "), @information.id).deliver
         end
         format.html { redirect_to({ controller:"captures", action: 'index', id:@cliente.id }, notice: "El registro ha sido creado exitosamente") }
       else
