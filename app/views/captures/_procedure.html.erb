@@ -66,7 +66,7 @@
                                           <%= hidden_field_tag :form_id, procedure.form.id %>
                                           <% procedure.form.fields.order(:id).each_with_index do |field, index| %>
                                               <%fld = "field" << (index + 1).to_s%>
-                                              <br>
+
                                               <div class="col-lg-8">
                                                 <div class="form-group">
                                                   <%= field.mandatory == true ? (f.label field.name << " *" ):(f.label field.name) %>
@@ -99,7 +99,6 @@
                                                   <%end%>
                                                 </div>
                                               </div>
-                                              <br><div class="hr-line-dashed"></div>
                                           <%end%>
                                       <%end%>
                                     </div>
@@ -111,7 +110,18 @@
                       <fieldset>
                         <h2>Pulsa finalizar para capturar y terminar</h2>
                         <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required">
-                        <label for="acceptTerms">He terminado apropiadamente el procedimiento</label>
+                        <label for="acceptTerms">He terminado apropiadamente el procedimiento <%=  procedure.deliver ? ("y se enviara correo de la captura a los contactos seleccionados"):("")%></label>
+                        <br><div class="hr-line-dashed"></div>
+                        <%if procedure.deliver%>
+                            <div class="form-group">
+                              <%= f.label "Destinatario", class: 'col-sm-2 control-label'%>
+                              <div class="col-sm-5">
+                                <%= select_tag :recipient, options_for_select([@cliente.contactos.select{|c| c unless c.email.nil?}[0].email, @cliente.contactos.select{|c| c.email unless c.email.nil?}[0].email], 0),
+                                             {class:"form-control m-b", style: "width:700px;", multiple: true, required: true } %>
+
+                              </div>
+                            </div>
+                      <%end%>
                       </fieldset>
                   <%end%>
                 </div>
