@@ -1,5 +1,7 @@
 Myapp::Application.routes.draw do
 
+  get "information/resend_mail/:id", to: "information#resend_mail", as: 'information_resend_mail'
+
   resources :sents
 
   get 'forms/update_procedures', as: 'update_procedures'
