@@ -47,12 +47,11 @@
                     <%fld = "field" << (index + 1).to_s%>
 
                     <div class="form-group">
-                      <%= f.label field.name, class: 'col-sm-2 control-label'%>
+                      <%type=field.data_type%>
+                      <%= (f.label field.name, class: 'col-sm-2 control-label') unless type == "Boolean"%>
                       <div class="col-sm-5">
-                        <%type=field.data_type%>
                         <%case type%>
                         <%when "Date"%>
-                            <%dt=Date.today + 4%>
                             <%= date_select fld, fld, :default => (@information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? (Date.today):((@information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1]).to_date ), class: 'form-control', :required => true  %>
                         <%when "DateTime"%>
                             <%if field.mandatory%>
@@ -72,6 +71,11 @@
                             <%else%>
                                 <%= f.text_field fld, class: 'form-control'%>
                             <%end%>
+                        <%when "Boolean"%>
+                            <div class="checkbox checkbox-success checkbox-inline">
+                              <%= f.check_box fld%>
+                              <%= f.label field.name, style:"font-weight: bold;" %>
+                            </div>
                         <%end%>
                       </div>
                     </div>
