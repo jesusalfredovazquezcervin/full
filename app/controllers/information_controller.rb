@@ -1,8 +1,7 @@
 class InformationController < ApplicationController
-  before_action :set_information, only: [:show, :edit, :update, :destroy]
+  before_action :set_information, only: [:show, :edit, :update, :destroy, :resend_mail]
 
   respond_to :html
-
   def index
     @information = Information.all
     respond_with(@information)
@@ -32,10 +31,7 @@ class InformationController < ApplicationController
     respond_to do |format|
       if @information.save
         #Enviamos correo
-        if @information.form.procedure.deliver
-          InformationMailer.daily(params[:recipient].select{|r| r unless r.empty?}.join(", "), @information.id).deliver
-          Sent.create(usuario: current_user, information: @information, recipient:params[:recipient].select{|r| r unless r.empty?}.join(", "))
-        end
+        send_mail(params[:recipient].select{|r| r unless r.empty?}.join(", "),@information,"Send") if @information.form.procedure.deliver
         format.html { redirect_to({ controller:"captures", action: 'index', id:@cliente.id }, notice: "El registro ha sido creado exitosamente") }
       else
         format.html { render action: 'new', :layout => "layout_2" }
@@ -66,6 +62,18 @@ class InformationController < ApplicationController
       format.html { redirect_to({controller: "captures" , action: 'index', id:@information.form.cliente.id}, notice: "El registro ha sido eliminado exitosamente") }
       format.json { head :no_content }
     end
+  end
+
+  def resend_mail
+    send_mail(@information.sents.first.recipient, @information, "Resend")
+    respond_to do |format|
+      format.html { redirect_to({ controller:"captures", action: 'index', id:@information.form.cliente_id}, notice: "El registro ha sido re-enviado exitosamente") }
+    end
+  end
+
+  def send_mail(recipient, information, type)
+    InformationMailer.daily(recipient, information.id).deliver
+    Sent.create(usuario: current_user, information: information, recipient: recipient, kind: type)
   end
 
   private
