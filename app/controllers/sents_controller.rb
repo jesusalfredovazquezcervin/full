@@ -42,6 +42,6 @@ class SentsController < ApplicationController
     end
 
     def sent_params
-      params.require(:sent).permit(:usuario_id, :information_id, :recipient)
+      params.require(:sent).permit(:usuario_id, :information_id, :recipient, :kind)
     end
 end
