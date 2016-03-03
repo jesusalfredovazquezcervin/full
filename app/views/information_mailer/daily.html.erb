@@ -33,11 +33,21 @@
                                     <tr style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;,Helvetica,Helvetica,Arial,sans-serif;box-sizing: border-box;font-size: 14px;">
                                         <td class="content-block" style="margin: 0;padding: 0 0 20px;font-family: &quot;Helvetica Neue&quot;,Helvetica,Helvetica,Arial,sans-serif;box-sizing: border-box;font-size: 14px;vertical-align: top;">
                                             <ul>
-                                              <% @information.form.fields.order(:id).each_with_index do |f,idx| %>
-                                                <% valor = f.data_type == "Date" ?  ((@information.attributes.each_pair.select{|k,v| k == "field" << (idx + 1).to_s }[0][1]).to_date) :(@information.attributes.each_pair.select{|k,v| k == "field" << (idx + 1).to_s }[0][1])%>
-                                                <li><%= f.name << ": " << valor %> </li>
-
-                                              <% end %>
+                                            <% @information.form.fields.order(:id).each_with_index do |field, index| %>
+                                                  <%fld = "field" << (index + 1).to_s%>
+                                                    <%type=field.data_type%>
+                                                      <%case field.data_type%>
+                                                          <%when "Date"%>
+                                                              <%valor = @information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? nil:((@information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1]).to_date %>
+                                                          <%when "Datetime"%>
+                                                              <%valor = @information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? nil:((@information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1]).to_datetime %>
+                                                          <%when "Boolean"%>
+                                                              <%valor = @information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? nil:!((@information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1]).to_i.zero?%>
+                                                          <%else%>
+                                                              <%valor = @information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? nil:((@information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1])%>
+                                                      <%end%>
+                                                    <li><%= field.name << ": " << valor.to_s %></li>
+                                             <%end%>
                                             </ul>
                                         </td>
                                     </tr>
