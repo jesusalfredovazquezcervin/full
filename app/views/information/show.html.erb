@@ -24,66 +24,26 @@
               <div class="col-sm-5">
                 <%= @information.usuario.email%>
               </div><br>
-
               <% @information.form.fields.order(:id).each_with_index do |field, index| %>
-                  <h4><%=field.name%></h4>
-                  <div class="col-sm-5">
-                    <%case index%>
-                    <%when 0%>
-                        <%=@information.field1%>
-                    <%when 1%>
-                        <%=@information.field2%>
-                    <%when 2%>
-                        <%=@information.field3%>
-                    <%when 3%>
-                        <%=@information.field4%>
-                    <%when 4%>
-                        <%=@information.field5%>
-                    <%when 5%>
-                        <%=@information.field6%>
-                    <%when 6%>
-                        <%=@information.field7%>
-                    <%when 7%>
-                        <%=@information.field8%>
-                    <%when 8%>
-                        <%=@information.field9%>
-                    <%when 9%>
-                        <%=@information.field10%>
-
-                    <%when 10%>
-                        <%=@information.field11%>
-                    <%when 11%>
-                        <%=@information.field12%>
-                    <%when 12%>
-                        <%=@information.field13%>
-                    <%when 13%>
-                        <%=@information.field14%>
-                    <%when 14%>
-                        <%=@information.field15%>
-                    <%when 15%>
-                        <%=@information.field16%>
-                    <%when 16%>
-                        <%=@information.field17%>
-                    <%when 17%>
-                        <%=@information.field18%>
-                    <%when 18%>
-                        <%=@information.field19%>
-                    <%when 19%>
-                        <%=@information.field20%>
-                    <%end%>
-                  </div>
+                  <%fld = "field" << (index + 1).to_s%>
+                    <%type=field.data_type%>
+                    <h4><%= field.name%></h4>
+                    <div class="col-sm-5">
+                      <%case field.data_type%>
+                          <%when "Date"%>
+                              <%=@information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? nil:((@information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1]).to_date %>
+                          <%when "Datetime"%>
+                              <%=@information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? nil:((@information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1]).to_datetime %>
+                          <%when "Boolean"%>
+                              <%=@information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? nil:!((@information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1]).to_i.zero?%>
+                          <%else%>
+                              <%=@information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? nil:((@information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1])%>
+                      <%end%>
+                    </div>
                   <br>
               <%end%>
-
-
-
             </div>
-
-
           </div>
-
-
-
           <div class="actions">
             <div class="form-group">
               <div class="col-sm-4 col-sm-offset-2">
