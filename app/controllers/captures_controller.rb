@@ -54,8 +54,8 @@ class CapturesController < ApplicationController
       @direccion = direcciones[0]
     end
 
-    @horario = Horario.find(@cliente.datosgenerale.horario_id)
-    @contacto = Contacto.find(@cliente.datosgenerale.contacto1_id)
+    @horario = Horario.find_by_id(@cliente.datosgenerale.try(:horario_id))
+    @contacto = Contacto.find_by_id(@cliente.datosgenerale.try(:contacto1_id))
     @sucursales = Sucursal.where(:cliente_id => id)
     @products = Product.all
     @information = Information.new
