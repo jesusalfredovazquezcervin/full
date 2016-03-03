@@ -52,99 +52,32 @@
                                   <td><%= information.created_at %></td>
                                   <td><%= Usuario.find_by_id(information.usuario_id).try(:email) %></td>
                                   <% form.fields.order(:id).each_with_index do |field, index| %>
-                                      <%a = index + 1%>
-                                      <%case a%>
-                                  <%when 1%>
-                                          <%if field.show_in_list %>
-                                              <td><%= information.field1 %></td>
-                                          <% end %>
-                                      <%when 2%>
-                                          <%if field.show_in_list %>
-                                              <td><%= information.field2 %></td>
-                                          <% end %>
-                                      <%when 3%>
-                                          <%if field.show_in_list %>
-                                              <td><%= field.data_type == "Date" ? (information.try(:field3).try(:to_date)):(information.field3) %></td>
-                                          <% end %>
-                                      <%when 4%>
-                                          <%if field.show_in_list %>
-                                              <td><%= information.field4 %></td>
-                                          <% end %>
-                                      <%when 5%>
-                                          <%if field.show_in_list %>
-                                              <td><%= information.field5 %></td>
-                                          <% end %>
-                                      <%when 6%>
-                                          <%if field.show_in_list %>
-                                              <td><%= information.field6 %></td>
-                                          <% end %>
-                                      <%when 7%>
-                                          <%if field.show_in_list %>
-                                              <td><%= information.field7 %></td>
-                                          <% end %>
-
-                                      <%when 8%>
-                                          <%if field.show_in_list %>
-                                              <td><%= information.field8 %></td>
-                                          <% end %>
-                                      <%when 9%>
-                                          <%if field.show_in_list %>
-                                              <td><%= information.field9 %></td>
-                                          <% end %>
-                                      <%when 10%>
-                                          <%if field.show_in_list %>
-                                              <td><%= information.field10 %></td>
-                                          <% end %>
-
-
-                                      <%when 11%>
-                                          <%if field.show_in_list %>
-                                              <td><%= information.field11 %></td>
-                                          <% end %>
-                                      <%when 12%>
-                                          <%if field.show_in_list %>
-                                              <td><%= information.field12 %></td>
-                                          <% end %>
-                                      <%when 13%>
-                                          <%if field.show_in_list %>
-                                              <td><%= information.field13 %></td>
-                                          <% end %>
-                                      <%when 14%>
-                                          <%if field.show_in_list %>
-                                              <td><%= information.field14 %></td>
-                                          <% end %>
-                                      <%when 15%>
-                                          <%if field.show_in_list %>
-                                              <td><%= information.field15 %></td>
-                                          <% end %>
-                                      <%when 16%>
-                                          <%if field.show_in_list %>
-                                              <td><%= information.field16 %></td>
-                                          <% end %>
-                                      <%when 17%>
-                                          <%if field.show_in_list %>
-                                              <td><%= information.field17 %></td>
-                                          <% end %>
-
-                                      <%when 18%>
-                                          <%if field.show_in_list %>
-                                              <td><%= information.field18 %></td>
-                                          <% end %>
-                                      <%when 19%>
-                                          <%if field.show_in_list %>
-                                              <td><%= information.field19 %></td>
-                                          <% end %>
-                                      <%when 20%>
-                                          <%if field.show_in_list %>
-                                              <td><%= information.field20 %></td>
-                                          <% end %>
-
+                                      <%fld = "field" << (index + 1).to_s%>
+                                      <%case field.data_type%>
+                                        <%when "Date"%>
+                                          <%valor = information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? nil:((information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1]).to_date %>
+                                        <%when "Datetime"%>
+                                          <%valor = information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? nil:((information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1]).to_datetime %>
+                                        <%when "Boolean"%>
+                                          <%valor = information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? nil:!((information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1]).to_i.zero?%>
+                                        <%else%>
+                                          <%valor = information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? nil:((information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1])%>
                                       <%end%>
+
+                                      <%if field.show_in_list %>
+                                          <td><%=valor%></td>
+                                      <% end %>
+
+
                                   <%end%>
                                   <td>
-                                    <%= link_to 'V',information,class: "btn btn-primary btn-xs", title:"Ver" %>
+                                    <%= link_to 'V', information,class: "btn btn-primary btn-xs", title:"Ver" %>
                                     <%= link_to "M", edit_information_path(information), class: "btn btn-warning btn-xs", title:"Modificar" %>
                                     <%= link_to 'E', information, method: :delete, class: "btn btn-danger btn-xs", title:"Eliminar" ,data: { confirm: '¿Está seguro?'} %>
+                                    <%if !information.sents.empty?%>
+                                        <%= link_to 'R', information_resend_mail_path(information.id), class: "btn btn-success btn-xs", title:"Reenviar email a: " << information.sents.first.try(:recipient) %>
+                                    <%end%>
+
                                   </td>
                                 </tr>
                             <%end%>
@@ -175,6 +108,7 @@
             $('.footable2').footable();
 
             $('.dataTables-example').dataTable({
+                "order": [[ 1, "desc" ]],
                 "dom": 'T<"clear">lfrtip',
                 "tableTools": {
                     "sSwfPath": "../../assets/dataTables/swf/copy_csv_xls_pdf.swf"
