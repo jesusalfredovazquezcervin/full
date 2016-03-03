@@ -63,12 +63,9 @@
                                         <%else%>
                                           <%valor = information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? nil:((information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1])%>
                                       <%end%>
-
                                       <%if field.show_in_list %>
                                           <td><%=valor%></td>
                                       <% end %>
-
-
                                   <%end%>
                                   <td>
                                     <%= link_to 'V', information,class: "btn btn-primary btn-xs", title:"Ver" %>
@@ -77,18 +74,14 @@
                                     <%if !information.sents.empty?%>
                                         <%= link_to 'R', information_resend_mail_path(information.id), class: "btn btn-success btn-xs", title:"Reenviar email a: " << information.sents.first.try(:recipient) %>
                                     <%end%>
-
                                   </td>
                                 </tr>
                             <%end%>
                             </tbody>
                           </table>
                       <%end%>
-
                 </div>
             <%end%>
-
-
           </div>
         </div>
       </div>
