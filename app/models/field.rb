@@ -1,6 +1,6 @@
 class Field < ActiveRecord::Base
   belongs_to :form, touch: true
-  DATA_TYPE = %w[String Integer Date DateTime]
+  DATA_TYPE = %w[String Integer Date DateTime Boolean]
 
   validates :form_id, :name,
             presence: true
