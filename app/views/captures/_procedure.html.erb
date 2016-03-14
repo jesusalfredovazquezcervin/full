@@ -30,12 +30,12 @@
           </ul>
           <div class="tab-content">
                 <br>
-                <% @cliente.procedures.order(:number).each_with_index do |procedure, index| %>
-                    <div id="tabprocedure-<%=index+1%>" class="tab-pane <%= index == 0 ? (" active"):("") %>">
-                        <%frm = "form-" << (index + 1).to_s%>
+                <% @cliente.procedures.order(:number).each_with_index do |procedure, pindex| %>
+                    <div id="tabprocedure-<%=pindex+1%>" class="tab-pane <%= pindex == 0 ? (" active"):("") %>">
+                        <%frm = "form-" << (pindex + 1).to_s%>
                           <%= form_for @information, html: {:id => frm, :class => "wizard-big"  } do |f| %>
                               <%= hidden_field_tag :cliente_id, @cliente.id %>
-                              <% procedure.steps.order(:number).each_with_index do |step, index| %>
+                              <% procedure.steps.order(:number).each_with_index do |step, idx| %>
                                   <h1><%=step.name%></h1>
                                   <fieldset>
                                     <%if procedure.form.nil?%>
@@ -64,39 +64,34 @@
                                               <%if procedure.form.fields.count >0 %>
                                                   <h2>Formulario de: <%=procedure.form.name%></h2>
                                                   <%= hidden_field_tag :form_id, procedure.form.id %>
-                                                  <% procedure.form.fields.order(:id).each_with_index do |field, index| %>
-                                                      <%fld = "field" << (index + 1).to_s%>
+                                                  <div class="form-group">
 
+
+                                                    <div class="i-checks"><label> <input id="<%= "rbtn_alt"<< pindex.to_s %>" type="radio" value="option1" name="<%= "a"<< pindex.to_s %>" onclick="alternos(<%=pindex%>, <%=procedure.form.fields.count%>)" > <i></i>Alternos</label></div>
+                                                    <div class="i-checks"><label> <input id="<%= "rbtn_prim"<< pindex.to_s %>" type="radio"  value="option2" checked="" name="<%= "a"<< pindex.to_s %>" onclick="primarios(<%=pindex%>, <%=procedure.form.fields.count%>)"> <i></i>Primarios</label></div>
+
+                                                  </div>
+                                                  <% procedure.form.fields.order(:id).each_with_index do |field, findex| %>
+                                                      <%fld = "field" << (findex + 1).to_s%>
                                                       <div class="col-lg-8">
-                                                        <div class="form-group">
+                                                        <div   <%= field.behave == "Alterno" ? ("hidden = 'true'"):('') %> class="form-group" id = <%=  field.behave=="Primario" ? (pindex.to_s << "ctl_prim_" << fld):(field.behave=="Alterno" ? (pindex.to_s << "ctl_alt_" << fld):(pindex.to_s << "ctl_com_" << fld))%>>
                                                           <%type=field.data_type%>
                                                           <%= (field.mandatory == true ? (f.label field.name << " *" ):(f.label field.name)) unless type == "Boolean" %>
 
                                                           <%case type%>
                                                           <%when "Date"%>
-                                                              <%if field.mandatory%>
-                                                                  <%= f.date_select fld, class: 'form-control', :required => true  %>
-                                                              <%else%>
-                                                                  <%= f.date_select fld, class: 'form-control'%>
-                                                              <%end%>
+                                                                  <%= f.date_select fld, class: 'form-control', required: field.mandatory ? (true):(false)%>
+
                                                           <%when "DateTime"%>
-                                                              <%if field.mandatory%>
-                                                                  <%= f.datetime_select fld, class: 'form-control', :required => true %>
-                                                              <%else%>
-                                                                  <%= f.datetime_select fld, class: 'form-control'%>
-                                                              <%end%>
+                                                                  <%= f.datetime_select fld, class: 'form-control', required: field.mandatory ? (true):(false) %>
+
                                                           <%when "Integer"%>
-                                                              <%if field.mandatory%>
-                                                                  <%= f.number_field fld, class: 'form-control', :required => true %>
-                                                              <%else%>
-                                                                  <%= f.number_field fld, class: 'form-control'%>
-                                                              <%end%>
+                                                                  <%= f.number_field fld, class: 'form-control', required: field.mandatory ? (true):(false) %>
+
                                                           <%when "String"%>
-                                                              <%if field.mandatory%>
-                                                                  <%= f.text_field fld, class: 'form-control', :required => true %>
-                                                              <%else%>
-                                                                  <%= f.text_field fld, class: 'form-control'%>
-                                                              <%end%>
+
+                                                                  <%= f.text_field fld, class: 'form-control', required: field.mandatory ? (true):(false) %>
+
                                                           <%when "Boolean"%>
                                                               <div class="checkbox checkbox-inline">
                                                                 <%= f.check_box fld%>
@@ -106,9 +101,10 @@
                                                         </div>
                                                       </div>
                                                   <%end%>
+
                                               <%end%>
                                             </div>
-                                        <%end%>
+                                  <%end%>
                                     <%end%>
                                   </fieldset>
                               <%end%>
@@ -144,8 +140,26 @@
 <% content_for :javascript do %>
 
     <script type="text/javascript">
+      function alternos(procedure, totalfields){
+          // # procedure + ctl_ + com (campo comum, primario, alterno) + # de campo (field1.. fieldN)
+          //1ctl_com_field1
+          //0ctl_alt_field1
+          //2ctl_prim_field1
+          for (i = 1; i <= totalfields; i++) {
+              $("#" + procedure + "ctl_" + "prim" + "_field" + i).disabl
+              $("#" + procedure + "ctl_" + "prim" + "_field" + i).hide(1000);
+              $("#" + procedure + "ctl_" + "alt" + "_field" + i).show(1000);
+          }
+      };
+      function primarios(procedure, totalfields){
+          for (i = 1; i <= totalfields; i++) {
+              $("#" + procedure + "ctl_" + "prim" + "_field" + i).show(1000);
+              $("#" + procedure + "ctl_" + "alt" + "_field" + i).hide(1000);
+          }
+      };
 
         $(function() {
+
             $("#form-1").steps({
                 bodyTag: "fieldset",
                 enableAllSteps: true,
@@ -155,6 +169,7 @@
                     // Disable validation on fields that are disabled.
                     // At this point it's recommended to do an overall check (mean ignoring only disabled fields)
                     form.validate().settings.ignore = ":disabled";
+                    form.validate().settings.ignore = ":hidden";
 
                     // Start validation; Prevent form submission if false
                     return form.valid();
@@ -180,7 +195,7 @@
                     // Disable validation on fields that are disabled.
                     // At this point it's recommended to do an overall check (mean ignoring only disabled fields)
                     form.validate().settings.ignore = ":disabled";
-
+                    form.validate().settings.ignore = ":hidden";
                     // Start validation; Prevent form submission if false
                     return form.valid();
                 },
@@ -210,7 +225,7 @@
                     // Disable validation on fields that are disabled.
                     // At this point it's recommended to do an overall check (mean ignoring only disabled fields)
                     form.validate().settings.ignore = ":disabled";
-
+                    form.validate().settings.ignore = ":hidden";
                     // Start validation; Prevent form submission if false
                     return form.valid();
                 },
@@ -242,7 +257,7 @@
                     // Disable validation on fields that are disabled.
                     // At this point it's recommended to do an overall check (mean ignoring only disabled fields)
                     form.validate().settings.ignore = ":disabled";
-
+                    form.validate().settings.ignore = ":hidden";
                     // Start validation; Prevent form submission if false
                     return form.valid();
                 },
@@ -272,7 +287,7 @@
                     // Disable validation on fields that are disabled.
                     // At this point it's recommended to do an overall check (mean ignoring only disabled fields)
                     form.validate().settings.ignore = ":disabled";
-
+                    form.validate().settings.ignore = ":hidden";
                     // Start validation; Prevent form submission if false
                     return form.valid();
                 },
@@ -302,7 +317,7 @@
                     // Disable validation on fields that are disabled.
                     // At this point it's recommended to do an overall check (mean ignoring only disabled fields)
                     form.validate().settings.ignore = ":disabled";
-
+                    form.validate().settings.ignore = ":hidden";
                     // Start validation; Prevent form submission if false
                     return form.valid();
                 },
@@ -332,7 +347,7 @@
                     // Disable validation on fields that are disabled.
                     // At this point it's recommended to do an overall check (mean ignoring only disabled fields)
                     form.validate().settings.ignore = ":disabled";
-
+                    form.validate().settings.ignore = ":hidden";
                     // Start validation; Prevent form submission if false
                     return form.valid();
                 },
@@ -362,7 +377,7 @@
                     // Disable validation on fields that are disabled.
                     // At this point it's recommended to do an overall check (mean ignoring only disabled fields)
                     form.validate().settings.ignore = ":disabled";
-
+                    form.validate().settings.ignore = ":hidden";
                     // Start validation; Prevent form submission if false
                     return form.valid();
                 },
@@ -392,7 +407,7 @@
                     // Disable validation on fields that are disabled.
                     // At this point it's recommended to do an overall check (mean ignoring only disabled fields)
                     form.validate().settings.ignore = ":disabled";
-
+                    form.validate().settings.ignore = ":hidden";
                     // Start validation; Prevent form submission if false
                     return form.valid();
                 },
@@ -422,7 +437,7 @@
                     // Disable validation on fields that are disabled.
                     // At this point it's recommended to do an overall check (mean ignoring only disabled fields)
                     form.validate().settings.ignore = ":disabled";
-
+                    form.validate().settings.ignore = ":hidden";
                     // Start validation; Prevent form submission if false
                     return form.valid();
                 },
