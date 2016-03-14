@@ -48,7 +48,7 @@
                   <%= f.label "Procedimiento", class: 'col-sm-2 control-label'%>
                   <div class="col-sm-5">
                     <%= f.select :procedure_id, options_for_select(Procedure.all.collect { |procedure|
-                                                                   [procedure.cliente.nombre << " - " << procedure.name, procedure.id] }, @step.procedure_id), {}, {class:"chosen-select", style: "width:350px;", :required => true } %>
+                                                                   ["" << procedure.cliente.nombre << " - " << procedure.name, procedure.id] }, @step.procedure_id), {}, {class:"chosen-select", style: "width:350px;", :required => true } %>
 
                   </div>
                 </div>
