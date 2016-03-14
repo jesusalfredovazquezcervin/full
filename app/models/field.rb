@@ -1,7 +1,7 @@
 class Field < ActiveRecord::Base
   belongs_to :form, touch: true
   DATA_TYPE = %w[String Integer Date DateTime Boolean]
-
+  BEHAVE = %w[Comun Primario Alterno]
   validates :form_id, :name,
             presence: true
   validates :form_id,

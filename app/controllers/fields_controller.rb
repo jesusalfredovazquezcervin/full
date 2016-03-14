@@ -66,7 +66,7 @@ class FieldsController < ApplicationController
     end
 
     def field_params
-      params.require(:field).permit(:form_id, :name, :data_type, :mandatory, :show_in_list)
+      params.require(:field).permit(:form_id, :name, :data_type, :mandatory, :show_in_list, :behave)
     end
   def dashboard_4
     render :layout => "layout_2"

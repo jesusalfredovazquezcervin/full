@@ -92,6 +92,18 @@
                   </div>
                 </div>
                 <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label "Comportamiento", class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.select :behave, options_for_select(Field::BEHAVE.collect { |behave|
+                                                                  [behave.to_s] }, @field.behave), {}, {class:"chosen-select", style: "width:350px;" } %>
+
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <br>
               </div>
 
               <div class="hr-line-dashed"></div>
