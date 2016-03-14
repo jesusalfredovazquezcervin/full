@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160301023255) do
+ActiveRecord::Schema.define(version: 20160311165235) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,23 @@ ActiveRecord::Schema.define(version: 20160301023255) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "asks", force: true do |t|
+    t.integer  "cliente_id"
+    t.integer  "usuario_id"
+    t.string   "question"
+    t.string   "asked_by"
+    t.string   "answer"
+    t.string   "answer_by"
+    t.datetime "answer_date"
+    t.integer  "voting"
+    t.string   "subject"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "asks", ["cliente_id"], name: "index_asks_on_cliente_id", using: :btree
+  add_index "asks", ["usuario_id"], name: "index_asks_on_usuario_id", using: :btree
 
   create_table "captures", force: true do |t|
     t.datetime "created_at"
@@ -258,6 +275,7 @@ ActiveRecord::Schema.define(version: 20160301023255) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "data_type"
+    t.string   "behave",       default: "Comun"
   end
 
   create_table "form10s", force: true do |t|
