@@ -31,7 +31,7 @@ class InformationController < ApplicationController
     respond_to do |format|
       if @information.save
         #Enviamos correo
-        send_mail(params[:recipient].select{|r| r unless r.empty?}.join(", "),@information,"Send") if @information.form.procedure.deliver
+        send_mail(params[:recipient].select{|r| r unless r.empty?}.join(", "),@information,"Send") if (@information.form.procedure.deliver and !params[:recipient].nil? )
         format.html { redirect_to({ controller:"captures", action: 'index', id:@cliente.id }, notice: "El registro ha sido creado exitosamente") }
       else
         format.html { render action: 'new', :layout => "layout_2" }
