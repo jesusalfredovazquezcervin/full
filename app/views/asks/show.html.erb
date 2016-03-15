@@ -1,49 +1,112 @@
+
+<div class="col-lg-10">
+  <h2>Mostrar FAQ</h2>
+</div>
 <p id="notice"><%= notice %></p>
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
 
-<p>
-  <strong>Cliente:</strong>
-  <%= @ask.cliente %>
-</p>
+    <ol class="breadcrumb">
+      <li>
+        <a href="<%= url_for home_index_path %>">Inicio</a>
+      </li>
+      <li>
+        <a>Operativo</a>
+      </li>
+      <li>
+        <a href="<%= url_for asks_path %>">FAQ</a>
+      </li>
+      <li class="active">
+        <strong>Mostrar</strong>
+      </li>
+    </ol>
+  </div>
+</div>
 
-<p>
-  <strong>Usuario:</strong>
-  <%= @ask.usuario %>
-</p>
+<div class="wrapper wrapper-content animated fadeInRight">
 
-<p>
-  <strong>Question:</strong>
-  <%= @ask.question %>
-</p>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Formulario<small> que muestra los datos de una pregunta FAQ.</small></h5>
 
-<p>
-  <strong>Asked by:</strong>
-  <%= @ask.asked_by %>
-</p>
+        </div>
+        <div class="ibox-content">
 
-<p>
-  <strong>Answer:</strong>
-  <%= @ask.answer %>
-</p>
+          <div class="form-group">
+            <div class="form-group">
+              <h4>Cliente:</h4>
+              <div class="col-sm-5">
+                <%= Cliente.find_by_id(@ask.cliente_id).try(:nombre) %>
+              </div><br>
 
-<p>
-  <strong>Answer by:</strong>
-  <%= @ask.answer_by %>
-</p>
+              <h4>Capturada por:</h4>
+              <div class="col-sm-5">
+                <%= Usuario.find_by_id(@ask.usuario_id).try(:email)%>
+              </div><br>
 
-<p>
-  <strong>Answer date:</strong>
-  <%= @ask.answer_date %>
-</p>
+              <h4>Pregunta:</h4>
+              <div class="col-sm-5">
+                <%= @ask.question%>
+              </div><br>
 
-<p>
-  <strong>Voting:</strong>
-  <%= @ask.voting %>
-</p>
+              <h4>Hecha por:</h4>
+              <div class="col-sm-5">
+                <%= @ask.asked_by%>
+              </div><br>
+              <h4>Respuesta:</h4>
+              <div class="col-sm-5">
+                <%= @ask.answer%>
+              </div><br>
+              <h4>Respondida por:</h4>
+              <div class="col-sm-5">
+                <%=@ask.answer_by%>
+              </div><br>
+              <h4>Tema:</h4>
+              <div class="col-sm-5">
+                <%=@ask.subject%>
+              </div><br>
+              <h4>Fecha respondida</h4>
+              <div class="col-sm-5">
+                <%=@ask.answer_date%>
+              </div><br>
+              <h4>Votacion:</h4>
+              <div class="col-sm-5">
+                <%=@ask.voting%>
+              </div><br>
+            </div>
+            <br>
+            <div class="hr-line-dashed"></div>
 
-<p>
-  <strong>Subject:</strong>
-  <%= @ask.subject %>
-</p>
 
-<%= link_to 'Edit', edit_ask_path(@ask) %> |
-<%= link_to 'Back', asks_path %>
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-4 col-sm-offset-2">
+              <a href="<%= url_for asks_path %>">
+                <button class="btn btn-outline btn-danger btn-rounded" type="button"><i class="fa fa-list-ol"></i>&nbsp;Listado</button>
+              </a>
+
+              <a href="<%= url_for edit_ask_path(@ask) %>">
+                <button class="btn btn-outline btn-success btn-rounded" type="button"><i class="fa fa-pencil"></i>&nbsp;Editar</button>
+              </a>
+
+              <a href="<%= url_for new_ask_path %>">
+                <button class="btn btn-outline btn-warning btn-rounded" type="button"><i class="fa fa-plus"></i>&nbsp;Nuevo</button>
+              </a>
+            </div>
+
+
+
+          </div>
+          <br><br>
+
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

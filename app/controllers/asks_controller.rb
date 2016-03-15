@@ -5,19 +5,20 @@ class AsksController < ApplicationController
 
   def index
     @asks = Ask.all
-    respond_with(@asks)
+    dashboard_4
   end
 
   def show
-    respond_with(@ask)
+    dashboard_4
   end
 
   def new
     @ask = Ask.new
-    respond_with(@ask)
+    dashboard_4
   end
 
   def edit
+    dashboard_4
   end
 
   def create
@@ -42,6 +43,12 @@ class AsksController < ApplicationController
     end
 
     def ask_params
+      fecha = Date.strptime(params[:ask][:answer_date], '%m/%d/%Y')
+      params[:ask][:answer_date]="#{fecha.year}-#{fecha.month}-#{fecha.day}"
+      params[:ask][:usuario_id] = current_user.id
       params.require(:ask).permit(:cliente_id, :usuario_id, :question, :asked_by, :answer, :answer_by, :answer_date, :voting, :subject)
+    end
+    def dashboard_4
+      render :layout => "layout_2"
     end
 end

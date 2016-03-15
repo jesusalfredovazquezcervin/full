@@ -1,53 +1,172 @@
-<%= form_for(@ask) do |f| %>
-  <% if @ask.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@ask.errors.count, "error") %> prohibited this ask from being saved:</h2>
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
 
-      <ul>
-      <% @ask.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+    <ol class="breadcrumb">
+      <li>
+        <a href="<%= url_for home_index_path %>">Inicio</a>
+      </li>
+      <li>
+        <a>Operativo</a>
+      </li>
+      <li>
+        <a href="<%= url_for asks_path%>">FAQ</a>
+
+      </li>
+      <li class="active">
+        <strong>Agregar / Modificar pregunta FAQ</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Formulario<small> para  agregar o modificar a una pregunta FAQ.</small></h5>
+
+        </div>
+        <div class="ibox-content">
+
+          <%= form_for(@ask, class: 'form-horizontal') do |f| %>
+              <% if @ask.errors.any? %>
+                  <div id="error_explanation">
+                    <h2><%= @ask.errors.count %> error(es) no permitieron guardar el registro:</h2>
+
+                    <ul>
+                      <% @ask.errors.full_messages.each do |msg| %>
+                          <li><%= msg %></li>
+                      <% end %>
+                    </ul>
+                  </div>
+              <% end %>
+
+              <div class="form-group">
+                <div class="form-group">
+                  <%= f.label :cliente, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.select :cliente_id, options_for_select(Cliente.all.collect { |cliente|
+                                                                   [cliente.nombre, cliente.id] }, @ask.cliente_id), {required: true}, { class:"chosen-select", style: "width:350px;"  } %>
+
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label "Pregunta", class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.text_field :question, class: 'form-control', required: true%>
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label "Hecha por", class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.text_field :asked_by, class: 'form-control'%>
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label "Respuesta", class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.text_field :answer, class: 'form-control'%>
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label "Respondida por", class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.text_field :answer_by, class: 'form-control'%>
+
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label "Fecha respuesta", class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <div class="form-group" id="data_1">
+                      <div class="input-group date">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        <%= f.text_field :answer_date, class: "form-control", value: @ask.answer_date.nil? ? (nil):(@ask.answer_date.to_s(:month_day_year))  %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label "Tema", class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.text_field :subject, class: 'form-control'%>
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+
+                <div class="form-group">
+                  <%= f.label "Votacion", class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.text_field :voting, class: 'form-control'%>
+                  </div>
+                </div>
+                <br>
+              </div>
+
+              <div class="hr-line-dashed"></div>
+              <div class="form-group">
+                <div class="col-sm-4 col-sm-offset-2">
+                  <a href="<%= url_for asks_path %>">
+                    <button class="btn btn-outline btn-danger btn-rounded" type="button"><i class="fa fa-list-ol"></i>&nbsp;Cancelar</button>
+                  </a>
+
+                  <%= button_tag(type: 'submit', class: "btn btn-outline btn-success btn-rounded") do %>
+                      <i class="fa fa-database"></i> Guardar
+                  <% end %>
+                </div>
+              </div>
+              <br><br>
+          <% end %>
+
+
+
+        </div>
+      </div>
     </div>
-  <% end %>
+  </div>
+</div>
 
-  <div class="field">
-    <%= f.label :cliente_id %><br>
-    <%= f.text_field :cliente_id %>
-  </div>
-  <div class="field">
-    <%= f.label :usuario_id %><br>
-    <%= f.text_field :usuario_id %>
-  </div>
-  <div class="field">
-    <%= f.label :question %><br>
-    <%= f.text_field :question %>
-  </div>
-  <div class="field">
-    <%= f.label :asked_by %><br>
-    <%= f.text_field :asked_by %>
-  </div>
-  <div class="field">
-    <%= f.label :answer %><br>
-    <%= f.text_field :answer %>
-  </div>
-  <div class="field">
-    <%= f.label :answer_by %><br>
-    <%= f.text_field :answer_by %>
-  </div>
-  <div class="field">
-    <%= f.label :answer_date %><br>
-    <%= f.datetime_select :answer_date %>
-  </div>
-  <div class="field">
-    <%= f.label :voting %><br>
-    <%= f.number_field :voting %>
-  </div>
-  <div class="field">
-    <%= f.label :subject %><br>
-    <%= f.text_field :subject %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<% content_for :javascript do %>
+
+    <script type="text/javascript">
+
+
+        var config = {
+            '.chosen-select'           : {},
+            '.chosen-select-deselect'  : {allow_single_deselect:true},
+            '.chosen-select-no-single' : {disable_search_threshold:10},
+            '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+            '.chosen-select-width'     : {width:"95%"}
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+        $('#data_1 .input-group.date').datepicker({
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: true,
+            autoclose: true
+        });
+    </script>
 <% end %>
+
+
+
+
+
