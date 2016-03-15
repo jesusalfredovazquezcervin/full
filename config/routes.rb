@@ -1,5 +1,7 @@
 Myapp::Application.routes.draw do
 
+  resources :asks
+
   get "information/resend_mail/:id", to: "information#resend_mail", as: 'information_resend_mail'
 
   resources :sents

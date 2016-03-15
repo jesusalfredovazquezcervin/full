@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Cliente:</strong>
+  <%= @ask.cliente %>
+</p>
+
+<p>
+  <strong>Usuario:</strong>
+  <%= @ask.usuario %>
+</p>
+
+<p>
+  <strong>Question:</strong>
+  <%= @ask.question %>
+</p>
+
+<p>
+  <strong>Asked by:</strong>
+  <%= @ask.asked_by %>
+</p>
+
+<p>
+  <strong>Answer:</strong>
+  <%= @ask.answer %>
+</p>
+
+<p>
+  <strong>Answer by:</strong>
+  <%= @ask.answer_by %>
+</p>
+
+<p>
+  <strong>Answer date:</strong>
+  <%= @ask.answer_date %>
+</p>
+
+<p>
+  <strong>Voting:</strong>
+  <%= @ask.voting %>
+</p>
+
+<p>
+  <strong>Subject:</strong>
+  <%= @ask.subject %>
+</p>
+
+<%= link_to 'Edit', edit_ask_path(@ask) %> |
+<%= link_to 'Back', asks_path %>

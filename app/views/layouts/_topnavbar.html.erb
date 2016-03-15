@@ -132,12 +132,13 @@
 
             </a>
         </li>
-
-            <li>
-                <a class="right-sidebar-toggle">
-                    <i class="fa fa-tasks"></i>
-                </a>
-            </li>
+            <%if !@cliente.nil?%>
+                <li>
+                    <a class="right-sidebar-toggle">
+                        <i class="fa fa-question-circle"></i>
+                    </a>
+                </li>
+            <%end%>
     </ul>
 </nav>
 </div>

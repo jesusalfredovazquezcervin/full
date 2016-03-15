@@ -9,6 +9,7 @@ class Cliente < ActiveRecord::Base
   has_many :products, :dependent => :destroy
   has_many :forms, :dependent => :destroy
   has_many :procedures, :dependent => :destroy
+  has_many :asks, :dependent => :destroy
   validates :nombre,
             presence: true,
             uniqueness: {scope: :rfc}

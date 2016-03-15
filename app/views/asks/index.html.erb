@@ -1,0 +1,41 @@
+<h1>Listing asks</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Cliente</th>
+      <th>Usuario</th>
+      <th>Question</th>
+      <th>Asked by</th>
+      <th>Answer</th>
+      <th>Answer by</th>
+      <th>Answer date</th>
+      <th>Voting</th>
+      <th>Subject</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @asks.each do |ask| %>
+      <tr>
+        <td><%= ask.cliente %></td>
+        <td><%= ask.usuario %></td>
+        <td><%= ask.question %></td>
+        <td><%= ask.asked_by %></td>
+        <td><%= ask.answer %></td>
+        <td><%= ask.answer_by %></td>
+        <td><%= ask.answer_date %></td>
+        <td><%= ask.voting %></td>
+        <td><%= ask.subject %></td>
+        <td><%= link_to 'Show', ask %></td>
+        <td><%= link_to 'Edit', edit_ask_path(ask) %></td>
+        <td><%= link_to 'Destroy', ask, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Ask', new_ask_path %>

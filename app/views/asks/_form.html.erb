@@ -1,0 +1,53 @@
+<%= form_for(@ask) do |f| %>
+  <% if @ask.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ask.errors.count, "error") %> prohibited this ask from being saved:</h2>
+
+      <ul>
+      <% @ask.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :cliente_id %><br>
+    <%= f.text_field :cliente_id %>
+  </div>
+  <div class="field">
+    <%= f.label :usuario_id %><br>
+    <%= f.text_field :usuario_id %>
+  </div>
+  <div class="field">
+    <%= f.label :question %><br>
+    <%= f.text_field :question %>
+  </div>
+  <div class="field">
+    <%= f.label :asked_by %><br>
+    <%= f.text_field :asked_by %>
+  </div>
+  <div class="field">
+    <%= f.label :answer %><br>
+    <%= f.text_field :answer %>
+  </div>
+  <div class="field">
+    <%= f.label :answer_by %><br>
+    <%= f.text_field :answer_by %>
+  </div>
+  <div class="field">
+    <%= f.label :answer_date %><br>
+    <%= f.datetime_select :answer_date %>
+  </div>
+  <div class="field">
+    <%= f.label :voting %><br>
+    <%= f.number_field :voting %>
+  </div>
+  <div class="field">
+    <%= f.label :subject %><br>
+    <%= f.text_field :subject %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
