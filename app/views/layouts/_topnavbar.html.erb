@@ -25,6 +25,13 @@
 
 
         <ul class="nav navbar-top-links navbar-right">
+          <%if !@cliente.nil?%>
+              <li>
+                <a class="right-sidebar-toggle">
+                  <i class="fa fa-question-circle"></i>
+                </a>
+              </li>
+          <%end%>
             <%if !@cliente.nil?%>
               <li class="dropdown">
                 <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
@@ -122,23 +129,11 @@
               <%end%>
           <%end%>
 
-
-
             <li>
-
-                <%=link_to "Salir",  destroy_usuario_session_path, method: :delete%>
-
-
-
+                <%=link_to "Salir",  destroy_usuario_session_path, method: :delete,data: { confirm: '¿Está seguro?'}%>
             </a>
         </li>
-            <%if !@cliente.nil?%>
-                <li>
-                    <a class="right-sidebar-toggle">
-                        <i class="fa fa-question-circle"></i>
-                    </a>
-                </li>
-            <%end%>
+
     </ul>
 </nav>
 </div>
