@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160329232714) do
+ActiveRecord::Schema.define(version: 20160329232841) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -611,6 +611,7 @@ ActiveRecord::Schema.define(version: 20160329232714) do
     t.string   "field18"
     t.string   "field19"
     t.string   "field20"
+    t.string   "field11"
   end
 
   add_index "information", ["form_id"], name: "index_information_on_form_id", using: :btree
