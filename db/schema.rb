@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20160311165235) do
   add_index "asks", ["usuario_id"], name: "index_asks_on_usuario_id", using: :btree
 
   create_table "captures", force: true do |t|
+    t.boolean  "fecha"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "ticket"
@@ -601,6 +602,7 @@ ActiveRecord::Schema.define(version: 20160311165235) do
     t.string   "field10"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "field11"
     t.string   "field12"
     t.string   "field13"
     t.string   "field14"
@@ -828,8 +830,8 @@ ActiveRecord::Schema.define(version: 20160311165235) do
     t.integer  "number"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "form"
     t.boolean  "required"
+    t.boolean  "form"
   end
 
   add_index "steps", ["procedure_id"], name: "index_steps_on_procedure_id", using: :btree

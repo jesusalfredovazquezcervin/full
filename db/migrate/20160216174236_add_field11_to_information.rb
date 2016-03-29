@@ -1,5 +1,6 @@
 class AddField11ToInformation < ActiveRecord::Migration
   def change
+    add_column :information, :field11, :string
     add_column :information, :field12, :string
     add_column :information, :field13, :string
     add_column :information, :field14, :string
