@@ -76,7 +76,8 @@
                                                       <div class="col-lg-8">
                                                         <div   <%= field.behave == "Alterno" ? ("hidden = 'true'"):('') %> class="form-group" id = <%=  field.behave=="Primario" ? (pindex.to_s << "div_prim_" << fld):(field.behave=="Alterno" ? (pindex.to_s << "div_alt_" << fld):(pindex.to_s << "div_com_" << fld))%>>
                                                           <%type=field.data_type%>
-                                                          <%= (field.mandatory == true ? (f.label field.name << " *" ):(f.label field.name)) unless type == "Boolean" %>
+                                                          <h5><%= (field.mandatory == true ? ("* " << field.name.to_s ):(field.name)) unless type == "Boolean" %></h5>
+
 
                                                           <%case type%>
                                                           <%when "Date"%>
