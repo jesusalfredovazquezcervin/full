@@ -81,13 +81,13 @@
 
                                                           <%case type%>
                                                           <%when "Date"%>
-                                                                  <%= f.date_select fld, class: 'form-control', required: field.mandatory ? (true):(false) %>
+                                                                  <%= f.date_select fld, class: 'form-control', required: field.mandatory ? (true):(false) , id: (field.behave=="Primario" ? (pindex.to_s << "ctl_prim_" << fld):(field.behave=="Alterno" ? (pindex.to_s << "ctl_alt_" << fld):(pindex.to_s << "ctl_com_" << fld))) << (field.mandatory ? "r":"o") %>
 
                                                           <%when "DateTime"%>
-                                                                  <%= f.datetime_select fld, class: 'form-control', required: field.mandatory ? (true):(false) %>
+                                                                  <%= f.datetime_select fld, class: 'form-control', required: field.mandatory ? (true):(false) , id: (field.behave=="Primario" ? (pindex.to_s << "ctl_prim_" << fld):(field.behave=="Alterno" ? (pindex.to_s << "ctl_alt_" << fld):(pindex.to_s << "ctl_com_" << fld))) << (field.mandatory ? "r":"o") %>
 
                                                           <%when "Integer"%>
-                                                                  <%= f.number_field fld, class: 'form-control', required: field.mandatory ? (true):(false) %>
+                                                                  <%= f.number_field fld, class: 'form-control', required: field.mandatory ? (true):(false) , id: (field.behave=="Primario" ? (pindex.to_s << "ctl_prim_" << fld):(field.behave=="Alterno" ? (pindex.to_s << "ctl_alt_" << fld):(pindex.to_s << "ctl_com_" << fld))) << (field.mandatory ? "r":"o") %>
 
                                                           <%when "String"%>
 
@@ -96,7 +96,7 @@
                                                           <%when "Boolean"%>
                                                               <div class="checkbox checkbox-inline">
                                                                 <%= f.check_box fld%>
-                                                                <%= f.label field.name, style:"font-weight: bold;" %>
+                                                                <%= f.label field.name, style:"font-weight: bold;" , id: (field.behave=="Primario" ? (pindex.to_s << "ctl_prim_" << fld):(field.behave=="Alterno" ? (pindex.to_s << "ctl_alt_" << fld):(pindex.to_s << "ctl_com_" << fld))) << (field.mandatory ? "r":"o") %>
                                                               </div>
                                                           <%end%>
                                                         </div>
