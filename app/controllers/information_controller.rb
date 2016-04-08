@@ -1,5 +1,5 @@
 class InformationController < ApplicationController
-  before_action :set_information, only: [:show, :edit, :update, :destroy, :resend_mail]
+  before_action :set_information, only: [:show, :edit, :update, :destroy], except: :resend_mail
 
   respond_to :html
   def index
@@ -65,9 +65,10 @@ class InformationController < ApplicationController
   end
 
   def resend_mail
-    send_mail(@information.sents.first.recipient, @information, "Resend")
+    information = Information.find_by_id params[:information][:id]
+    send_mail(params[:recipient].select{|r| r unless r.empty?}.join(", "),information,"Resend") if (information.form.procedure.deliver and !params[:recipient].nil? )
     respond_to do |format|
-      format.html { redirect_to({ controller:"captures", action: 'index', id:@information.form.cliente_id}, notice: "El registro ha sido re-enviado exitosamente") }
+      format.html { redirect_to({ controller:"captures", action: 'index', id:information.form.cliente_id}, notice: "El registro ha sido re-enviado exitosamente") }
     end
   end
 

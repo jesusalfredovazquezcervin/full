@@ -71,8 +71,9 @@
                                     <%= link_to 'V', information,class: "btn btn-primary btn-xs", title:"Ver" %>
                                     <%= link_to "M", edit_information_path(information), class: "btn btn-warning btn-xs", title:"Modificar" %>
                                     <%= link_to 'E', information, method: :delete, class: "btn btn-danger btn-xs", title:"Eliminar" ,data: { confirm: '¿Está seguro?'} %>
-                                    <%if !information.sents.empty?%>
-                                        <%= link_to 'R', information_resend_mail_path(information.id), class: "btn btn-success btn-xs", title:"Reenviar email a: " << information.sents.first.try(:recipient) %>
+
+                                    <%if form.procedure.deliver? %>
+                                        <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#myModal3" title = "Reenviar email" data-information-id="<%=information.id%>">R</button>
                                     <%end%>
                                   </td>
                                 </tr>
@@ -88,6 +89,13 @@
 
     </div>
   </div>
+</div>
+
+
+<div class="modal inmodal" id="myModal3" tabindex="-1" role="dialog" aria-hidden="true">
+
+      <%= render 'captures/form' %>
+
 </div>
 
 <% content_for :javascript do %>
