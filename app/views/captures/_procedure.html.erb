@@ -43,7 +43,11 @@
                                           <h2><%=step.name%></h2>
                                           <div class="col-lg-12">
                                             <div class="form-group">
-                                              <label><%=step.detail%></label>
+                                              <label>
+                                                <% step.detail.split(" ").each do |p|%>
+                                                    <%= p.include?("<") ? (link_to p.sub(">", "").sub("<",""), p.sub(">", "").sub("<","") , target: "_blank"):(p) %>&nbsp;
+                                                <%end%><br>
+                                              </label>
                                             </div>
                                           </div>
                                           <br>
@@ -54,7 +58,11 @@
                                               <h2><%=step.name%></h2>
                                               <div class="col-lg-12">
                                                 <div class="form-group">
-                                                  <label><%=step.detail%></label>
+                                                  <label>
+                                                    <% step.detail.split(" ").each do |p|%>
+                                                        <%= p.include?("<") ? (link_to p.sub(">", "").sub("<",""), p.sub(">", "").sub("<","") , target: "_blank"):(p) %>&nbsp;
+                                                    <%end%><br>
+                                                  </label>
                                                 </div>
                                               </div>
                                               <br>
