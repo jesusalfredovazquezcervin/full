@@ -46,6 +46,7 @@ Myapp::Application.routes.draw do
     get "usuarios", to: "usuarios/registrations#index"
     get "usuarios_desactivar/:id", to: "usuarios/registrations#desactivar", as: 'usuarios_desactivar'
     get "usuarios_activar/:id", to: "usuarios/registrations#activar", as: 'usuarios_activar'
+    patch "usuarios/update_password", to: "usuarios/registrations#update_password", as: 'update_password'
   end
 
 

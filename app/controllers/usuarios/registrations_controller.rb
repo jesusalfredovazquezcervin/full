@@ -4,10 +4,23 @@ class Usuarios::RegistrationsController < Devise::RegistrationsController
   prepend_before_filter :authenticate_scope!, only: [:edit, :update, :destroy, :desactivar, :activar]
 
   before_filter :configure_sign_up_params, only: [:create]
-  before_filter :configure_account_update_params, only: [:update]
+  before_filter :configure_account_update_params, only: [:update, :update_password]
   before_action :set_usuario, only: [:desactivar, :activar]
 
 
+  def update_password
+    @user = Usuario.find(current_user.id)
+
+    if @user.update_with_password(account_update_params)
+      # Sign in the user by passing validation in case their password changed
+      sign_in @user, :bypass => true
+      redirect_to root_path, notice: 'Contraseña actualizada correctamente!'
+    else
+      redirect_to root_path, notice: @user.errors.messages
+
+    end
+
+  end
 
   def index
     @usuarios = Usuario.all

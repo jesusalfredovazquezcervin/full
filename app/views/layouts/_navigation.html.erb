@@ -17,13 +17,12 @@
                         </span>
                     </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                        <li><a href="">Cambiar contraseña</a>
+                      <li>&nbsp;</li>
+                        <li>
+
+                          <button type="button" class="btn btn-w-m btn-sm btn-link" data-toggle="modal" data-target="#myModal4">Cambiar contraseña</button>
                         </li>
-                        <li><a href="">Configuracion</a>
-                        </li>
-                        <li><a href="">Notificaciones</a>
-                        </li>
-                        <li class="divider"></li>
+
                         <li><%=link_to "Salir", destroy_usuario_session_path, method: :delete%>
                         </li>
                     </ul>
@@ -82,3 +81,9 @@
 
     </div>
 </nav>
+
+<div class="modal inmodal" id="myModal4" tabindex="-1" role="dialog" aria-hidden="true">
+
+  <%= render 'layouts/password' %>
+
+</div>
