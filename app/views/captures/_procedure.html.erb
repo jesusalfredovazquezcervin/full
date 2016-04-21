@@ -45,7 +45,7 @@
                                             <div class="form-group">
                                               <label>
                                                 <% step.detail.split(" ").each do |p|%>
-                                                    <%= p.include?("<") ? (link_to p.sub(">", "").sub("<",""), p.sub(">", "").sub("<","") , target: "_blank"):(p) %>&nbsp;
+                                                    <%= p.include?("<") ? (link_to  "aqui", p.sub(">", "").sub("<","") , target: "_blank"):(p) %>&nbsp;
                                                 <%end%><br>
                                               </label>
                                             </div>
@@ -60,7 +60,7 @@
                                                 <div class="form-group">
                                                   <label>
                                                     <% step.detail.split(" ").each do |p|%>
-                                                        <%= p.include?("<") ? (link_to p.sub(">", "").sub("<",""), p.sub(">", "").sub("<","") , target: "_blank"):(p) %>&nbsp;
+                                                        <%= p.include?("<") ? (link_to  "aqui", p.sub(">", "").sub("<","") , target: "_blank"):(p) %>&nbsp;
                                                     <%end%><br>
                                                   </label>
                                                 </div>
