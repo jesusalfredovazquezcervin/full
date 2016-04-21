@@ -13,6 +13,7 @@ class CapturesController < ApplicationController
     end
     @captures = Capture.all
     @notification = Notification.new
+    @user = current_user
     dashofintel
 
   end
@@ -59,6 +60,7 @@ class CapturesController < ApplicationController
     @sucursales = Sucursal.where(:cliente_id => id)
     @products = Product.all
     @information = Information.new
+    @user= current_user
     dashofintel
   end
 
