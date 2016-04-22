@@ -106,6 +106,15 @@
                                                                 <%= f.check_box fld%>
                                                                 <%= f.label field.name, style:"font-weight: bold;" , id: (field.behave=="Primario" ? (pindex.to_s << "ctl_prim_" << fld):(field.behave=="Alterno" ? (pindex.to_s << "ctl_alt_" << fld):(pindex.to_s << "ctl_com_" << fld))) << (field.mandatory ? "r":"o") %>
                                                               </div>
+                                                          <%when "List"%>
+                                                              <% if field.mandatory%>
+                                                                  <%= f.select fld, options_for_select(field.list.split(",").map(&:strip).collect { |valor|
+                                                                                                         [valor] }), {:required => 'true'}, {class:"form-control m-b", style: "width:350px;", id: (field.behave=="Primario" ? (pindex.to_s << "ctl_prim_" << fld):(field.behave=="Alterno" ? (pindex.to_s << "ctl_alt_" << fld):(pindex.to_s << "ctl_com_" << fld))) << (field.mandatory ? "r":"o") } %>
+
+                                                            <%else%>
+                                                                <%= f.select fld, options_for_select(field.list.split(",").map(&:strip).collect { |valor|
+                                                                                                       [valor] }), {:include_blank => '-- Seleccione --'   }, {class:"form-control m-b", style: "width:350px;", id: (field.behave=="Primario" ? (pindex.to_s << "ctl_prim_" << fld):(field.behave=="Alterno" ? (pindex.to_s << "ctl_alt_" << fld):(pindex.to_s << "ctl_com_" << fld))) << (field.mandatory ? "r":"o") } %>
+                                                              <%end%>
                                                           <%end%>
                                                         </div>
                                                       </div>
