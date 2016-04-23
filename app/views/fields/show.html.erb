@@ -48,6 +48,12 @@
               <div class="col-sm-5">
                 <%= @field.data_type%>
               </div><br>
+              <%if @field.data_type=="List"%>
+                  <h4>Valores de Lista:</h4>
+                  <div class="col-sm-5">
+                    <%= @field.list%>
+                  </div><br>
+              <%end%>
 
               <h4>Obligatorio:</h4>
               <div class="col-sm-5">
