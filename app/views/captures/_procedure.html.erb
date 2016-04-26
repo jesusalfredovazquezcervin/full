@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" id="divprocedimientos">
   <div class="col-lg-12">
     <div class="ibox">
       <div class="ibox-title">
@@ -158,6 +158,19 @@
 <% content_for :javascript do %>
 
     <script type="text/javascript">
+
+        function agenda(){
+            $("#liagenda").addClass("active");
+            $("#licontactos").removeClass("active");
+            $("#tabagenda").addClass("active");
+            $("#tabcontactos").removeClass("active");
+        }
+        function directorio(){
+            $("#licontactos").addClass("active");
+            $("#liagenda").removeClass("active");
+            $("#tabcontactos").addClass("active");
+            $("#tabagenda").removeClass("active");
+        }
       function alternos(procedure, totalfields){
           // # procedure + ctl_ + com (campo comum, primario, alterno) + # de campo (field1.. fieldN)
           //1ctl_com_field1

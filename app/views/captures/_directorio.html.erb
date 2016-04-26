@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" id="divdirectorio">
   <div class="col-lg-12">
     <div class="ibox">
       <div class="ibox-title">
@@ -26,8 +26,8 @@
             <div class="col-sm-8">
               <div class="clients-list">
                 <ul class="nav nav-tabs">
-                  <li class="active"><a data-toggle="tab" href="#tabcontactos"><i class="fa fa-user"></i> Contactos (<%=@cliente.contactos.count%>)</a></li>
-                  <li class=""><a data-toggle="tab" href="#tabagenda"><i class="fa fa-briefcase"></i> Agenda (<%=@cliente.agendas.count%>)</a></li>
+                  <li class="active" id="licontactos"><a data-toggle="tab" href="#tabcontactos"><i class="fa fa-tty"></i> Directorio (<%=@cliente.contactos.count%>)</a></li>
+                  <li class="" id="liagenda"><a data-toggle="tab" href="#tabagenda"><i class="fa fa-book"></i> Agenda (<%=@cliente.agendas.count%>)</a></li>
                 </ul>
                 <div class="tab-content">
                   <div id="tabcontactos" class="tab-pane active">

@@ -31,51 +31,47 @@
                     IN+
                 </div>
             </li>
-            <li class="<%= is_active_controller('dashboards') %>">
-                <a href=""><i class="fa fa-th-large"></i> <span class="nav-label">Cuentas</span> <span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level <%= is_active_controller('dashboards') %>">
-                    <li class="<%= is_active_action('dashboard_1') %>"><%= link_to "Dashboard v.1", root_path %></li>
-                    <li class="<%= is_active_action('dashboard_2') %>"><%= link_to "Dashboard v.2", dashboards_dashboard_2_path %></li>
-                    <li class="<%= is_active_action('dashboard_3') %>"><%= link_to "Dashboard v.3", dashboards_dashboard_3_path %></li>
-                    <li class="<%= is_active_action('dashboard_4_1') %>"><%= link_to "Dashboard v.4", dashboards_dashboard_4_1_path %></li>
+            <li>
+                <a href=""><i class="fa fa-building"></i> <span class="nav-label">Cuentas</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                  <% @clientes.collect do |cliente|%>
+                      <li class=""><%= link_to cliente.nombreComercial, captures_consultar_path(cliente),method: :patch%></li>
+                  <%end%>
                 </ul>
             </li>
-            <li class="<%= is_active_controller('layoutsoptions') %>">
-                <%= link_to layoutsoptions_index_path do %>
-                <i class="fa fa-diamond"></i> <span class="nav-label">Directorio</span> <span class="label label-primary pull-right">NEW</span>
-                <% end %>
+
+            <%if !@cliente.nil?%>
+              <li>
+                <a href="#divdirectorio" onclick="directorio();">
+                  <i class="fa fa-tty"></i> <span class="nav-label">Directorio</span>
+                </a>
+              </li>
+
+
+            <li>
+              <a href="#divdirectorio" onclick="agenda();" >
+                <i class="fa fa-book"></i> <span class="nav-label">Agenda</span>
+              </a>
             </li>
-            <li class="<%= is_active_controller('graphs') %>">
-                <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Agenda</span><span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level is_active_controller('graphs')">
-                    <li class="<%= is_active_action('flot') %>"><%= link_to "Flot Charts", graphs_flot_path %></li>
-                    <li class="<%= is_active_action('morris') %>"><%= link_to "Morris.js Charts", graphs_morris_path %></li>
-                    <li class="<%= is_active_action('rickshaw') %>"><%= link_to "Rickshaw Charts", graphs_rickshaw_path %> </li>
-                    <li class="<%= is_active_action('chartjs') %>"><%= link_to "Chart.js", graphs_chartjs_path %></li>
-                    <li class="<%= is_active_action('chartist') %>"><%= link_to "Chartist", graphs_chartist_path %></li>
-                    <li class="<%= is_active_action('peity') %>"><%= link_to "Peity Charts", graphs_peity_path %></li>
-                    <li class="<%= is_active_action('sparkline') %>"><%= link_to "Sparkline Charts", graphs_sparkline_path %> </li>
-                </ul>
+            <li>
+                <a href="#divdatosgenerales">
+                  <i class="fa fa-newspaper-o"></i>
+                  <span class="nav-label">Datos generales</span>
+                </a>
             </li>
-            <li class="<%= is_active_controller('mailbox') %>">
-                <a href="mailbox.html"><i class="fa fa-envelope"></i> <span class="nav-label">Datos generales </span><span class="label label-warning pull-right">16/24</span></a>
-                <ul class="nav nav-second-level is_active_controller('mailbox')">
-                    <li class="<%= is_active_action('inbox') %>"><%= link_to "Inbox", mailbox_inbox_path %> </li>
-                    <li class="<%= is_active_action('email_view') %>"><%= link_to "Email view", mailbox_email_view_path %> </li>
-                    <li class="<%= is_active_action('compose_email') %>"><%= link_to "Compose email", mailbox_compose_email_path %> </li>
-                    <li class="<%= is_active_action('email_templates') %>"><%= link_to "Email templates", mailbox_email_templates_path %> </li>
-                </ul>
+            <li>
+              <a href="#divprocedimientos">
+                <i class="fa fa-list-alt"></i>
+                <span class="nav-label">Procedimientos</span>
+              </a>
             </li>
-            <li class="<%= is_active_controller('metrics') %>">
-                <%= link_to metrics_index_path do %>
-                <i class="fa fa-pie-chart"></i> <span class="nav-label">Procedimiento</span>
-                <% end %>
-            </li>
-            <li class="<%= is_active_controller('widgets') %>">
-                <%= link_to widgets_index_path do %>
-                <i class="fa fa-flask"></i> <span class="nav-label">FAQ</span>
-                <% end %>
-            </li>
+              <li>
+                <a class="right-sidebar-toggle">
+                  <i class="fa fa-question-circle"></i>
+                  <span class="nav-label">FAQ</span>
+                </a>
+              </li>
+          <%end%>
 
         </ul>
 
