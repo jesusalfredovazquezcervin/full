@@ -76,7 +76,7 @@
           <li class="divider"></li>
           <li>
             <div class="text-center link-block">
-              <strong><%=link_to "Editar", edit_usuario_registration_path%></strong>
+              <strong><%=link_to "Editar", edit_usuario_registration_path(id: current_usuario.id)%></strong>
               <i class="fa fa-edit"></i> | <strong><%=link_to "Log Out", destroy_usuario_session_path, method: :delete%></strong>
               <i class="fa fa-sign-out"></i>
             </div>
