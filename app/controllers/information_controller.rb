@@ -10,6 +10,7 @@ class InformationController < ApplicationController
   def show
     @clientes = Cliente.all
     @current_user = current_user
+    @user = current_user
     dashofintel
   end
 
@@ -21,6 +22,7 @@ class InformationController < ApplicationController
   def edit
     @clientes = Cliente.all
     @current_user = current_user
+    @user = current_user
     dashofintel
   end
 
