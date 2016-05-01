@@ -10,7 +10,7 @@
         <%= form_tag  captures_consultar_path(:id), method: "patch" do |f| %>
             <div>
             <%= select_tag :cliente_id, options_for_select(@clientes.order(:nombreComercial).collect { |c|
-                                                           [(c.nombreComercial.nil? == true ? (c.nombre):(c.nombreComercial)) << ' - ' << c.datosgenerale.frase, c.id ] }, @cliente.try(:id)),  { class:"chosen-select", style: "width:700px;", :required => true } %>    
+                                                           [(c.nombreComercial.nil? == true ? (c.nombre):(c.nombreComercial)) << ' - ' << (c.datosgenerale.nil? ? (""):(c.datosgenerale.frase)), c.id ] }, @cliente.try(:id)),  { class:"chosen-select", style: "width:700px;", :required => true } %>    
 
               <%= button_tag(type: 'submit', class: "btn btn-primary") do %>
                   <i class="fa fa-search"></i>
