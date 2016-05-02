@@ -44,6 +44,8 @@ class ContactosController < ApplicationController
     # POST /contactos
     # POST /contactos.json
     def create
+      @clientes = Cliente.all
+      @sucursales = Sucursal.where("cliente_id = ?", params[:contacto][:cliente_id])
       @contacto = Contacto.new(contacto_params)
       @contacto.cliente_id = params[:contacto][:cliente_id]
       @contacto.sucursal_id = params[:contacto][:sucursal_id]
@@ -54,17 +56,22 @@ class ContactosController < ApplicationController
       end
       respond_to do |format|
         if @contacto.save
-          format.html { redirect_to @contacto, notice: 'El Contacto ha sido creado exitosamente' }
+          format.html { redirect_to @contacto, notice: 'Contacto ha sido creado exitosamente' }
+          format.json { render action: 'show', status: :created, location: @contacto }
         else
-          format.html { render action: 'new', :layout => "layout_2" }
+          format.html { render action: 'new',  :layout => "layout_2" }
           format.json { render json: @contacto.errors, status: :unprocessable_entity }
         end
+
+
       end
     end
 
     # PATCH/PUT /contactos/1
     # PATCH/PUT /contactos/1.json
     def update
+      @clientes = Cliente.all
+      @sucursales = Sucursal.where("cliente_id = ?", params[:contacto][:cliente_id])
       respond_to do |format|
         if @contacto.update(contacto_params)
           @contacto.cliente_id = params[:contacto][:cliente_id]
