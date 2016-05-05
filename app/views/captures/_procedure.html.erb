@@ -35,6 +35,7 @@
                         <%frm = "form-" << (pindex + 1).to_s%>
                           <%= form_for @information, html: {:id => frm, :class => "wizard-big"  } do |f| %>
                               <%= hidden_field_tag :cliente_id, @cliente.id %>
+                              <%= hidden_field_tag :procs, @cliente.procedures.count %>
                               <% procedure.steps.order(:number).each_with_index do |step, idx| %>
                                   <h1><%=step.name%></h1>
                                   <fieldset>
@@ -72,6 +73,7 @@
                                               <%if procedure.form.fields.count >0 %>
                                                   <h2>Formulario de: <%=procedure.form.name%></h2>
                                                   <%= hidden_field_tag :form_id, procedure.form.id %>
+
                                                   <div class="form-group">
 
 
@@ -158,6 +160,26 @@
 <% content_for :javascript do %>
 
     <script type="text/javascript">
+
+        $(document).ready(function (){
+            //alert($("#procs").val() );
+            var totalfields = 100;
+            for (p = 0; p < $("#procs").val(); p++) {
+
+                for (i = 1; i <= totalfields; i++) {
+                    //Cambiamos los obligatorios alternos a opcionales porque si no no se puede guardar
+                    var fld = p  + "ctl_alt_field" + i + "r";
+                    //console.log ("Campo a modificar ->" + fld );
+                    var element =  document.getElementById(fld);
+                    if (typeof(element) != 'undefined' && element != null){
+                        document.getElementById(fld).required = false;
+                        //console.log ("Campo modificado a opcional->" + fld );
+
+                    }
+
+                }
+            };
+        });
 
         function agenda(){
             $("#liagenda").addClass("active");
