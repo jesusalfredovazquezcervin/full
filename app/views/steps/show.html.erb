@@ -46,11 +46,23 @@
             </div><br>
             <br>
 
-            <h4>Detalle:</h4>
-            <div class="col-sm-5">
-              <%= @step.detail%>
-            </div><br>
+            <div class="form-group">
+              <h4>Detalle:</h4>
+              <div class="col-sm-5">
+                <%= text_area_tag :detail, @step.detail, class: 'form-control', style: "height:150px;"%>
+
+
+              </div>
+            </div>
             <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <div class="hr-line-dashed"></div>
             <h4>Numero:</h4>
             <div class="col-sm-5">
               <%= @step.number%>
