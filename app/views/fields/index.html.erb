@@ -55,6 +55,7 @@
               <th>Obligatorio</th>
               <th>Mostrar en listado</th>
               <th>Tipo de dato</th>
+              <th>Posicion</th>
               <th>&nbsp;&nbsp;Acciones</th>
             </tr>
             </thead>
@@ -68,6 +69,7 @@
                   <td><%=field.mandatory%></td>
                   <td><%=field.show_in_list%></td>
                   <td><%=field.data_type%></td>
+                  <td><%=field.position%></td>
                   <td>
                     <%= link_to 'V', field,class: "btn btn-primary btn-circle", title:"Ver" %>
                     <%= link_to 'M', edit_field_path(field), class: "btn btn-warning btn-circle", title:"Modificar" %>

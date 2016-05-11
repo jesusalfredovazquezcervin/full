@@ -69,7 +69,7 @@ class FieldsController < ApplicationController
       if !(params[:field][:data_type] == "List")
         params[:field][:list]=nil
       end
-      params.require(:field).permit(:form_id, :name, :data_type, :mandatory, :show_in_list, :behave, :list)
+      params.require(:field).permit(:form_id, :name, :data_type, :mandatory, :show_in_list, :behave, :list, :position)
     end
   def dashboard_4
     render :layout => "layout_2"
