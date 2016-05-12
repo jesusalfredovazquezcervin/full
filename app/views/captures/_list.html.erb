@@ -55,9 +55,9 @@
                                       <%fld = "field" << (index + 1).to_s%>
                                       <%case field.data_type%>
                                         <%when "Date"%>
-                                          <%valor = information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? nil:((information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1]).to_date %>
+                                          <%valor = information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? nil:(((information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1]).nil? ? (nil):(((information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1]).to_date) )  %>
                                         <%when "Datetime"%>
-                                          <%valor = information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? nil:((information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1]).to_datetime %>
+                                          <%valor = information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? nil:(((information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1]).nil? ? (nil):(((information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1]).to_date) ) %>
                                         <%when "Boolean"%>
                                           <%valor = information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? nil:!((information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1]).to_i.zero?%>
                                         <%else%>
