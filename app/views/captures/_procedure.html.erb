@@ -81,8 +81,8 @@
                                                     <div class="i-checks"><label> <input id="<%= "rbtn_prim"<< pindex.to_s %>" type="radio"  value="option2" checked="" name="<%= "a"<< pindex.to_s %>" onclick="primarios(<%=pindex%>, <%=procedure.form.fields.count%>)"> <i></i>Primarios</label></div>
 
                                                   </div>
-                                                  <% procedure.form.fields.order(:id).each_with_index do |field, findex| %>
-                                                      <%fld = "field" << (findex + 1).to_s%>
+                                                  <% procedure.form.fields.order(:position).each_with_index do |field, findex| %>
+                                                      <%fld = procedure.form.fields.order(:id).each_with_index.map {|f,i| {f.position => "field" + (i+1).to_s }}.select{|f| f[field.position]}[0].each_pair.map{|k,v| v}[0]%>
                                                       <div class="col-lg-8">
                                                         <div   <%= field.behave == "Alterno" ? ("hidden = 'true'"):('') %> class="form-group" id = <%=  field.behave=="Primario" ? (pindex.to_s << "div_prim_" << fld):(field.behave=="Alterno" ? (pindex.to_s << "div_alt_" << fld):(pindex.to_s << "div_com_" << fld))%>>
                                                           <%type=field.data_type%>
@@ -92,7 +92,6 @@
                                                           <%case type%>
                                                           <%when "Date"%>
                                                                   <%= f.date_select fld, class: 'form-control', required: field.mandatory ? (true):(false) , id: (field.behave=="Primario" ? (pindex.to_s << "ctl_prim_" << fld):(field.behave=="Alterno" ? (pindex.to_s << "ctl_alt_" << fld):(pindex.to_s << "ctl_com_" << fld))) << (field.mandatory ? "r":"o") %>
-
                                                           <%when "DateTime"%>
                                                                   <%= f.datetime_select fld, class: 'form-control', required: field.mandatory ? (true):(false) , id: (field.behave=="Primario" ? (pindex.to_s << "ctl_prim_" << fld):(field.behave=="Alterno" ? (pindex.to_s << "ctl_alt_" << fld):(pindex.to_s << "ctl_com_" << fld))) << (field.mandatory ? "r":"o") %>
 
@@ -105,8 +104,8 @@
 
                                                           <%when "Boolean"%>
                                                               <div class="checkbox checkbox-inline">
-                                                                <%= f.check_box fld%>
-                                                                <%= f.label field.name, style:"font-weight: bold;" , id: (field.behave=="Primario" ? (pindex.to_s << "ctl_prim_" << fld):(field.behave=="Alterno" ? (pindex.to_s << "ctl_alt_" << fld):(pindex.to_s << "ctl_com_" << fld))) << (field.mandatory ? "r":"o") %>
+                                                                <%= f.check_box fld, id: (field.behave=="Primario" ? (pindex.to_s << "ctl_prim_" << fld):(field.behave=="Alterno" ? (pindex.to_s << "ctl_alt_" << fld):(pindex.to_s << "ctl_com_" << fld))) << (field.mandatory ? "r":"o") %>
+                                                                <%= f.label field.name, style:"font-weight: bold;"  %>
                                                               </div>
                                                           <%when "List"%>
                                                               <% if field.mandatory%>
@@ -160,6 +159,7 @@
 <% content_for :javascript do %>
 
     <script type="text/javascript">
+
 
         $(document).ready(function (){
             //alert($("#procs").val() );
@@ -246,7 +246,6 @@
       };
 
         $(function() {
-
             $("#form-1").steps({
                 bodyTag: "fieldset",
                 enableAllSteps: true,
