@@ -14,6 +14,7 @@
 //= require chosen/chosen.jquery.js
 //= require datapicker/bootstrap-datepicker.js
 //= require clockpicker/clockpicker.js
+//= require daterangepicker/daterangepicker.js
 
 
 
@@ -32,5 +33,3 @@
 //= require switchery/switchery.js
 
 //= require fullcalendar/moment.min.js
-
-//= require daterangepicker/daterangepicker.js
