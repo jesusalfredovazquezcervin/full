@@ -82,10 +82,28 @@ class InformationController < ApplicationController
   private
     def set_information
       @information = Information.find(params[:id])
+            @information.form.fields.order(:id).all.each_with_index { |f, i|
+        fld = "field" + (i+1).to_s
+        case f.data_type
+          when "Date"
+            @information.attributes.each{|a|
+              logger.debug a
+            }
+
+            @information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? nil:(@information.attributes = {fld => @information.attributes[fld].nil? ? ( nil):(@information.attributes[fld].to_date)}  )
+          when "Datetime"
+            @information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? nil:(@information.attributes = {fld => @information.attributes[fld].nil? ? ( nil):(@information.attributes[fld].to_datetime)}  )
+        end
+      }
+      @information.save
+
+
+
     end
 
     def information_params
       #Este codigo sirve para la pantalla de Edit del registro. Verifica que venga un parametro fieldX y lo agrega a params[information]
+=begin
       if !@information.nil?
         @information.attributes.count.times{|i|
           field = ("field" << i.to_s).next
@@ -94,7 +112,11 @@ class InformationController < ApplicationController
           end
         }
       end
+=end
 
+
+
+#Todo: Verificar que este codigo sirva para mas de 1 control de tipo date y que no truene cuando vienen vacios
       #Este codigo sirve para convertir una fecha que viene de la pantalla de alta
       fields=Hash.new
       fieldsDelete = []
@@ -112,7 +134,10 @@ class InformationController < ApplicationController
       }
       fields.each_pair{|k,v|
         r = v.split("-").reverse!
-        params[:information][k] = r[0] << "-" << r[1] << "-" << r[2]
+
+        params[:information][k] = (r[0] << "-" << r[1] << "-" << r[2]).to_date
+
+
       }
       fieldsDelete.each{|d|
         params[:information].delete d
@@ -121,6 +146,7 @@ class InformationController < ApplicationController
       if !params[:form_id].nil?
         params[:information][:form_id] = params[:form_id]
       end
+
       params.require(:information).permit(:form_id, :usuario_id, :field1, :field2, :field3, :field4, :field5, :field6, :field7, :field8, :field9, :field10, :field11, :field12, :field13, :field14, :field15, :field16, :field17, :field18, :field19, :field20)
     end
     def dashofintel

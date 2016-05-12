@@ -39,48 +39,45 @@
                                                                    [operador.email, operador.id] }, @information.usuario_id), {:readonly => true}, {class:"chosen-select", style: "width:350px;",:disabled => true } %>
                   </div>
                 </div>
+
                 <br>
                 <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <div class="i-checks"><label> <input id="<%= "rbtn_alt"%>" type="radio" value="option1" name="<%= "a"%>" onclick="show_alternos(true)" > <i></i>Alternos</label></div>
+                  <div class="i-checks"><label> <input id="<%= "rbtn_prim"%>" type="radio"  value="option2" checked="" name="<%= "a"%>" onclick="show_alternos(false) "> <i></i>Primarios</label></div>
+                </div>
+                <div class="hr-line-dashed"></div>
 
-
-                <% @information.form.fields.order(:id).each_with_index do |field, index| %>
-                    <%fld = "field" << (index + 1).to_s%>
-
-                    <div class="form-group">
-                      <%type=field.data_type%>
-                      <%= (f.label field.name, class: 'col-sm-2 control-label') unless type == "Boolean"%>
+                <% @information.form.fields.order(:position).each_with_index do |field, index| %>
+                    <%fld = @information.form.fields.order(:id).each_with_index.map {|f,i| {f.position => "field" + (i+1).to_s }}.select{|f| f[field.position]}[0].each_pair.map{|k,v| v}[0]%>
+                    <div   <%= field.behave == "Alterno" ? ("hidden = 'true'"):('') %> class="form-group" id = <%=  field.behave=="Primario" ? ("div_prim_" << fld):(field.behave=="Alterno" ? ("div_alt_" << fld):("div_com_" << fld))%>>
+                      <%= f.label field.mandatory? ? (field.name << " *"):(field.name) , class: 'col-sm-2 control-label'%>
                       <div class="col-sm-5">
-                        <%case type%>
+                        <%case field.data_type%>
                         <%when "Date"%>
-                            <%= date_select fld, fld, :default => (@information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? (Date.today):((@information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1]).to_date ), class: 'form-control', :required => true  %>
-                        <%when "DateTime"%>
-                            <%if field.mandatory%>
-                                <%= f.datetime_select fld, class: 'form-control', :required => true %>
-                            <%else%>
-                                <%= f.datetime_select fld, class: 'form-control'%>
-                            <%end%>
+                            <%= f.date_select fld,  {prompt: { day: 'Select day', month: 'Select month', year: 'Select year' }, start_year: Date.today.year, end_year: Date.today.year}, {required: false , id: (field.behave=="Primario" ? ("ctl_prim_" << fld):(field.behave=="Alterno" ? ("ctl_alt_" << fld):("ctl_com_" << fld))) << (field.mandatory ? "r":"o") }%>
+                      <%when "DateTime"%>
+                            <%= f.datetime_select fld, class: 'form-control', required: field.mandatory ? (true):(false) , id: (field.behave=="Primario" ? ("ctl_prim_" << fld):(field.behave=="Alterno" ? ("ctl_alt_" << fld):("ctl_com_" << fld))) << (field.mandatory ? "r":"o") %>
                         <%when "Integer"%>
-                            <%if field.mandatory%>
-                                <%= f.number_field fld, class: 'form-control', :required => true %>
-                            <%else%>
-                                <%= f.number_field fld, class: 'form-control'%>
-                            <%end%>
+                            <%= f.number_field fld, class: 'form-control', required: field.mandatory ? (true):(false) , id: (field.behave=="Primario" ? ("ctl_prim_" << fld):(field.behave=="Alterno" ? ("ctl_alt_" << fld):("ctl_com_" << fld))) << (field.mandatory ? "r":"o") %>
                         <%when "String"%>
-                            <%if field.mandatory%>
-                                <%= f.text_field fld, class: 'form-control', :required => true %>
-                            <%else%>
-                                <%= f.text_field fld, class: 'form-control'%>
-                            <%end%>
+                            <%= f.text_field fld, class: 'form-control', required: field.mandatory ? (true):(false) , id: (field.behave=="Primario" ? ("ctl_prim_" << fld):(field.behave=="Alterno" ? ("ctl_alt_" << fld):("ctl_com_" << fld))) << (field.mandatory ? "r":"o") %>
                         <%when "Boolean"%>
-                            <div class="checkbox checkbox-success checkbox-inline">
-                              <%= f.check_box fld%>
-                              <%= f.label field.name, style:"font-weight: bold;" %>
-                            </div>
+                            <%= f.check_box fld , id: (field.behave=="Primario" ? ("ctl_prim_" << fld):(field.behave=="Alterno" ? ("ctl_alt_" << fld):("ctl_com_" << fld))) << (field.mandatory ? "r":"o")%>
+                        <%when "List"%>
+                            <% if field.mandatory%>
+                                <%= f.select fld, options_for_select(field.list.split(",").map(&:strip).collect { |valor|
+                                                                       [valor] }), {:required => 'true'}, {class:"form-control m-b", style: "width:350px;", id: (field.behave=="Primario" ? ("ctl_prim_" << fld):(field.behave=="Alterno" ? ("ctl_alt_" << fld):("ctl_com_" << fld))) << (field.mandatory ? "r":"o") } %>
+                            <%else%>
+                                <%= f.select fld, options_for_select(field.list.split(",").map(&:strip).collect { |valor|
+                                                                       [valor] }), {:include_blank => '-- Seleccione --'   }, {class:"form-control m-b", style: "width:350px;", id: (field.behave=="Primario" ? ("ctl_prim_" << fld):(field.behave=="Alterno" ? ("ctl_alt_" << fld):("ctl_com_" << fld))) << (field.mandatory ? "r":"o") } %>
+                            <%end%>
                         <%end%>
                       </div>
+                      <br>
+                      <div class="hr-line-dashed"></div>
                     </div>
-                    <br>
-                    <div class="hr-line-dashed"></div>
+
                 <%end%>
               </div>
               <div class="actions">
@@ -95,6 +92,15 @@
                 </div>
               </div>
               <br><div class="hr-line-dashed"></div>
+              <div class="form-group" id="data_1">
+                <label class="font-noraml">Simple data input format</label>
+                <div class="input-group date">
+                  <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" value="03/04/2014">
+                </div>
+              </div>
+
+
+
 
 
           <%end%>
@@ -108,6 +114,63 @@
 
     <script type="text/javascript">
 
+
+        $('#data_1 .input-group.date').datepicker({
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: true,
+            autoclose: true
+        });
+
+        $(document).ready(function (){
+            //alert($("#procs").val() );
+            var totalfields = 100;
+                for (i = 1; i <= totalfields; i++) {
+                    //Cambiamos los obligatorios alternos a opcionales porque si no no se puede guardar
+                    var fld ="ctl_alt_field" + i + "r";
+                    console.log ("Campo a modificar ->" + fld );
+                    var element =  document.getElementById(fld);
+                    if (typeof(element) != 'undefined' && element != null){
+                        document.getElementById(fld).required = false;
+                        console.log ("Campo modificado a opcional->" + fld );
+                    }
+                }
+        });
+
+
+        function show_alternos(alternos) {
+
+            var totalfields =100;
+            for (i = 1; i <= totalfields; i++) {
+                if (alternos) {
+                    $("#div_prim_field" + i).hide(800);
+                    $("#div_alt_field" + i).show(1000);
+                }else{
+                    $("#div_prim_field" + i).show(1000);
+                    $("#div_alt_field" + i).hide(800);
+                }
+
+
+                //Cambiamos los obligatorios primarios a opcionales porque si no no se puede guardar
+                var fld = "ctl_prim_field" + i + "r";
+                var element = document.getElementById(fld);
+                if (typeof(element) != 'undefined' && element != null) {
+                    // document.getElementById(fld).required = false; //ori
+                    document.getElementById(fld).required = !alternos;
+                    console.log ("Campo modificado a requerido=false->" + fld );
+                }
+
+                //Ponemos los alternos que deben ser obligatorios
+                var fld = "ctl_alt_field" + i + "r";
+                var element = document.getElementById(fld);
+                if (typeof(element) != 'undefined' && element != null) {
+                    // document.getElementById(fld).required = true; //ori
+                    document.getElementById(fld).required = alternos;
+                    console.log ("Campo modificado a requerido=true->" + fld );
+                }
+            }
+        };
 
         var config = {
             '.chosen-select'           : {},
