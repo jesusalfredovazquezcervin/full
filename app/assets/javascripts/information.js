@@ -12,3 +12,7 @@
 //= require jquery-ui/jquery-ui.min.js
 //= require footable/footable.all.min.js
 //= require chosen/chosen.jquery.js
+//= require fullcalendar/moment.min.js
+//= require clockpicker/clockpicker.js
+//= require daterangepicker/daterangepicker.js
+//= require datapicker/bootstrap-datepicker.js
