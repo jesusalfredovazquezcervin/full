@@ -5,6 +5,6 @@ class Field < ActiveRecord::Base
   validates :form_id, :name,
             presence: true
   validates :form_id,
-            uniqueness:  {scope: [:name]}
+            uniqueness:  {scope: [:name], message: "La combinacion Formulario + Nombre del campo ya esta en uso"}
 
 end
