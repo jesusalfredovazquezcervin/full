@@ -51,8 +51,15 @@ class FieldsController < ApplicationController
   end
 
   def update
-    @field.update(field_params)
-    respond_with(@field)
+    respond_to do |format|
+      if @field.update(field_params)
+        format.html { redirect_to @field, :notice => 'El Campo ha sido actualizado correctamente.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit', :layout => "layout_2"}
+        format.json { render json: @@field.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def destroy
