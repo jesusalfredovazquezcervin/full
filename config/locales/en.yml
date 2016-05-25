@@ -21,3 +21,11 @@
 
 en:
   hello: "Hello world"
+  hello_world: Hello world!
+  hello_flash: Hello flash!
+
+  time:
+    formats:
+        short: "%H:%M:%S"
+        medium: "%m-%d-%Y"
+        large: "%m-%d-%Y %H:%M:%S"

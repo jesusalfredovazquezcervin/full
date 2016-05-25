@@ -1,0 +1,11 @@
+# config/locales/es.yml
+es:
+  hello_world: Hola mundo
+  hello_flash: Español Flash
+
+  time:
+      formats:
+         short: "%H:%M:%S"
+         medium: "%d/%m/%Y"
+         large: "%d/%m/%Y %H:%M:%S"
+
