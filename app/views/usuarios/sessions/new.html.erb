@@ -10,11 +10,7 @@
     <div class="hr-line-dashed"></div>
     <h2>Centro de Administracion Llamadas de Clientes</h2> <br>
     <h3>Acceso</h3>
-
-    <h3><%=t :hello_world %></h3>
-    <p><%= flash[:notice] %></p>
-    <p><%= l Time.now, format: :short %></p>
-
+    
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
         <div class="form-group">
 
