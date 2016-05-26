@@ -83,7 +83,7 @@
                 <div class="form-group">
                   <%= f.label "Numero", class: 'col-sm-2 control-label'%>
                   <div class="col-sm-5">
-                    <%= f.number_field :number, class: 'form-control', :required => true%>
+                    <%= f.number_field :number, class: 'form-control', :required => true, min: 0%>
                   </div>
                 </div>
                 <br>
