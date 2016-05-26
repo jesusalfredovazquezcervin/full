@@ -11,6 +11,9 @@
     <h2>Centro de Administracion Llamadas de Clientes</h2> <br>
     <h3>Acceso</h3>
 
+    <h3><%=t :hello_world %></h3>
+    <p><%= flash[:notice] %></p>
+    <p><%= l Time.now, format: :short %></p>
 
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
         <div class="form-group">
@@ -45,5 +48,22 @@
   </div>
 </div>
 
+<% content_for :javascript do %>
+
+    <script type="text/javascript">
+
+
+
+        jQuery(function() {
+
+            var tz = jstz.determine();
+            console.log (tz);
+            $.cookie('timezone', tz.name(), { path: '/' });
+
+        });
+    </script>
+<% end %>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jstimezonedetect/1.0.6/jstz.js"></script>
 
 
