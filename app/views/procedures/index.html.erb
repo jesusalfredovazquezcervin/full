@@ -43,6 +43,7 @@
               <th>Cliente</th>
               <th>Nombre</th>
               <th>Enviar correo</th>
+              <th>Posición</th>
               <th>Fecha creacion</th>
               <th>&nbsp;&nbsp;Acciones</th>
             </tr>
@@ -53,6 +54,7 @@
                   <td><%= Cliente.find_by_id(procedure.try(:cliente_id)).try(:nombre) %></td>
                   <td><%=procedure.name%></td>
                   <td><%=procedure.deliver%></td>
+                  <td><%=procedure.number%></td>
                   <td><%=procedure.created_at%></td>
 
                   <td>
