@@ -49,7 +49,7 @@
                             <%  form.informations.order(id: :desc).each do |information| %>
                                 <tr>
                                   <td><%= information.id %></td>
-                                  <td><%= information.created_at %></td>
+                                  <td><%= l information.created_at, format: :large  %></td>
                                   <td><%= Usuario.find_by_id(information.usuario_id).try(:email) %></td>
                                   <% form.fields.order(:id).each_with_index do |field, index| %>
                                       <%fld = "field" << (index + 1).to_s%>
