@@ -61,7 +61,7 @@ class InformationController < ApplicationController
   def destroy
     @information.destroy
     respond_to do |format|
-      format.html { redirect_to({controller: "captures" , action: 'index', id:@information.form.cliente.id}, notice: "El registro ha sido eliminado exitosamente") }
+      format.html { redirect_to({controller: "captures" , action: 'index', id:@information.form.cliente.id}, alert: "El registro ha sido eliminado exitosamente") }
       format.json { head :no_content }
     end
   end

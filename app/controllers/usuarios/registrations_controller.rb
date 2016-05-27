@@ -5,7 +5,7 @@ class Usuarios::RegistrationsController < Devise::RegistrationsController
 
   before_filter :configure_sign_up_params, only: [:create]
   before_filter :configure_account_update_params, only: [:update, :update_password]
-  before_action :set_usuario, only: [:desactivar, :activar]
+  before_action :set_usuario, only: [:desactivar, :activar, :edit]
 
 
   def update_password
