@@ -25,17 +25,23 @@
 
 
         <ul class="nav navbar-top-links navbar-right">
+          <li>
+            <%= link_to checkin_path, title: "Check-in"  do %>
+                <i class="fa fa-sign-in"></i>
+            <% end %>
+
+          </li>
           <%if !@cliente.nil?%>
               <li>
                 <a class="right-sidebar-toggle">
-                  <i class="fa fa-question-circle"></i>
+                  <i class="fa fa-question-circle" title="FAQ"></i>
                 </a>
               </li>
           <%end%>
             <%if !@cliente.nil?%>
               <li class="dropdown">
                 <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-                  <i class="fa fa-group"></i>
+                  <i class="fa fa-group" title="Notificaciones"></i>
                   <% if @cliente.notifications.active(@cliente).count > 0%>
                     <span class="label label-warning"><%=@cliente.notifications.active(@cliente).count%></span>
                   <%end%>
@@ -73,10 +79,10 @@
                             </small>
                             <small class="pull-right">
                               <%= link_to edit_notification_path(notification), class:"text-muted" do%>
-                                  <i class="fa fa-pencil"></i>
+                                  <i class="fa fa-pencil" title="Modificar"></i>
                               <% end %>
                               <%= link_to notification, method: :delete, class:"text-muted", data: { confirm: '¿Está seguro?'} do%>
-                                  <i class="fa fa-trash"></i>
+                                  <i class="fa fa-trash" title="Eliminar"></i>
                               <% end %>
                             </small>
 
@@ -108,7 +114,7 @@
                       <li>
                         <a href="#">
                           <div>
-                            <i class="fa fa-usd"></i> TC Dollar: <%=@cliente.tipoCambio%>
+                            <i class="fa fa-usd" title="Tipo de cambio"></i> TC Dollar: <%=@cliente.tipoCambio%>
                             <span class="pull-right text-muted small">
 
                               <%= @cliente.tipocambio_updated_at.nil? == true ? (""):(distance_of_time_in_words(DateTime.now,@cliente.tipocambio_updated_at).to_s)%>
@@ -130,7 +136,12 @@
           <%end%>
 
             <li>
-                <%=link_to "Salir",  destroy_usuario_session_path, method: :delete,data: { confirm: '¿Está seguro?'}%>
+
+
+              <%= link_to destroy_usuario_session_path , method: :delete,data: { confirm: '¿Está seguro?'}, title: "Salir" do %>
+                  <i class="fa fa-power-off" title="Salir"></i>
+              <% end %>
+
             </a>
         </li>
 
