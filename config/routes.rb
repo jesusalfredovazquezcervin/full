@@ -1,5 +1,10 @@
 Myapp::Application.routes.draw do
 
+  get "checkin", to: "checkins#checkin", as: 'checkin'
+  get "checkout", to: "checkins#checkout", as: 'checkout'
+
+  resources :checkins
+
   resources :asks
 
   patch "information/resend_mail", to: "information#resend_mail", as: 'information_resend_mail'
