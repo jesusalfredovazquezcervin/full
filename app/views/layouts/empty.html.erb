@@ -20,11 +20,7 @@
 </head>
 <body class="gray-bg">
 <!-- Messages -->
-<% flash.each do |key, value| %>
-    <div class="<%= flash_class(key) %>">
-      <%= value %>
-    </div>
-<% end %>
+<%= flash_messages %>
 <!-- Main view  -->
 <%= yield %>
 

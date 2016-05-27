@@ -32,13 +32,10 @@
             <!-- Page wrapper -->
             <%= render 'layouts/topnavbar' %>
           <!-- Messages -->
-          <% flash.each do |key, value| %>
-              <div class="<%= flash_class(key) %>">
-                <%= value %>
-              </div>
-          <% end %>
+          <%= flash_messages %>
 
-            <!-- Main view  -->
+
+          <!-- Main view  -->
             <%= yield %>
 
             <!-- Footer -->
