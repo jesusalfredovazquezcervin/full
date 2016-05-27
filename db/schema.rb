@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160524175005) do
+ActiveRecord::Schema.define(version: 20160527212103) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -169,6 +169,16 @@ ActiveRecord::Schema.define(version: 20160524175005) do
   add_index "captures", ["cliente_id"], name: "index_captures_on_cliente_id", using: :btree
   add_index "captures", ["sucursal_id"], name: "index_captures_on_sucursal_id", using: :btree
   add_index "captures", ["usuario_id"], name: "index_captures_on_usuario_id", using: :btree
+
+  create_table "checkins", force: true do |t|
+    t.integer  "usuario_id"
+    t.datetime "checkin"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "kind"
+  end
+
+  add_index "checkins", ["usuario_id"], name: "index_checkins_on_usuario_id", using: :btree
 
   create_table "cities", force: true do |t|
     t.string   "name"
