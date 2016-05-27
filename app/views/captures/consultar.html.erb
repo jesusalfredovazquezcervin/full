@@ -25,10 +25,12 @@
         <div class="ibox-content scrollable">
 
             <ul>
-              <li><strong>Direccion: </strong><%=@direccion.calle%> <%=@direccion.numero%>, <%=@direccion.colonia%> <%=@direccion.delegacion%> <%=@direccion.cp%></li>
-              <li><strong>Horario: </strong><small><%=@horario.horario_semana%></small>
-
-              </li>
+              <%if @direccion.nil?%>
+                  <li><strong>Direccion: </strong> No hay una direccion matriz</li>
+              <%else%>
+                  <li><strong>Direccion: </strong><%=@direccion.calle%> <%=@direccion.numero%>, <%=@direccion.colonia%> <%=@direccion.delegacion%> <%=@direccion.cp%></li>
+                  <li><strong>Horario: </strong><small><%=@horario.horario_semana%></small></li>
+              <%end%>
               <li><strong>Telefonos: </strong><%=@cliente.datosgenerale.telefono1%>
                 <%if @cliente.datosgenerale.telefono2.nil? == false%>
                     , <%=@cliente.datosgenerale.telefono2%>
