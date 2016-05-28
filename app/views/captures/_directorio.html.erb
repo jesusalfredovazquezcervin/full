@@ -5,7 +5,7 @@
         <h5>Directorio<small class="m-l-sm">Aqui tienes los empleados de:</small> <%=@cliente.nombre%>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <small class="m-l-sm">Ultima modificacion: <i class="fa fa-clock-o"></i>
-            <%= l @cliente.contactos.try(:order, "updated_at").last.try(:updated_at), format: :large  %>
+            <%= @cliente.contactos.try(:order, "updated_at").last.try(:updated_at) %>
           </small>
 
         </h5>
