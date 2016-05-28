@@ -4,7 +4,7 @@
       <div class="ibox-title">
         <h5>Procedimientos<small class="m-l-sm">Aqui tienes los procedimientos de:</small> <%=@cliente.nombre%>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <small class="m-l-sm">Ultima modificacion: <i class="fa fa-clock-o"></i> <%= l @cliente.procedures.try(:order, "updated_at").last.try(:updated_at), format: :large  %> </small>
+          <small class="m-l-sm">Ultima modificacion: <i class="fa fa-clock-o"></i> <%= @cliente.procedures.try(:order, "updated_at").last.try(:updated_at)%> </small>
 
         </h5>
         <div class="ibox-tools">
@@ -545,6 +545,9 @@
 
 
         });
+
+
+
 
     </script>
 
