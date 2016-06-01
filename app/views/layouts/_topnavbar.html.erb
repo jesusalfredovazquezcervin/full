@@ -26,7 +26,7 @@
 
         <ul class="nav navbar-top-links navbar-right">
           <li>
-            <%= link_to checkin_path, title: "Check-in"  do %>
+            <%= link_to check_in_path, title: "Check-in"  do %>
                 <i class="fa fa-sign-in"></i>
             <% end %>
 
@@ -138,7 +138,7 @@
             <li>
 
 
-              <%= link_to checkout_path, data: { confirm: '¿Está seguro de cerrar sesion?'} do %>
+              <%= link_to check_out_path, data: { confirm: '¿Está seguro de cerrar sesion?'} do %>
                   <i class="fa fa-power-off" title="Salir"></i>
               <% end %>
 

@@ -1,10 +1,8 @@
 Myapp::Application.routes.draw do
 
-  get "show_checkin", to: "checkins#show", as: 'show_checkin'
-  get "checkin", to: "checkins#checkin", as: 'checkin'
-  get "checkout", to: "checkins#checkout", as: 'checkout'
   resources :checkins
-
+  get "check-out", to: "checkins#checkout", as: 'check-out'
+  get "check-in", to: "checkins#checkin", as: 'check-in'
 
   resources :asks
 
