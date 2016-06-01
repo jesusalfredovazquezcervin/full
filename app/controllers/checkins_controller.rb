@@ -1,39 +1,44 @@
 class CheckinsController < ApplicationController
   before_action :set_checkin, only: [:show, :edit, :update, :destroy]
 
-  respond_to :html
+
+
 
   def index
     @checkins = Checkin.all
-    respond_with(@checkins)
+    dashboard_4
   end
 
   def show
-    respond_with(@checkin)
+    dashboard_4
   end
 
   def new
     @checkin = Checkin.new
-    respond_with(@checkin)
+    dashboard_4
   end
 
   def edit
+    dashboard_4
   end
 
   def create
     @checkin = Checkin.new(checkin_params)
     @checkin.save
-    respond_with(@checkin)
+    dashboard_4
   end
 
   def update
     @checkin.update(checkin_params)
-    respond_with(@checkin)
+    dashboard_4
   end
 
   def destroy
     @checkin.destroy
-    respond_with(@checkin)
+    respond_to do |format|
+      format.html { redirect_to checkins_path, notice: "Registro eliminado exitosamente" }
+      format.json { head :no_content }
+    end
   end
   def checkin
     respond_to do |format|
@@ -56,5 +61,8 @@ class CheckinsController < ApplicationController
       params[:checkin][:usuario_id] = current_user.id
       params[:checkin][:checkin] = Date.today
       params.require(:checkin).permit(:usuario_id, :checkin, :kind)
+    end
+    def dashboard_4
+      render :layout => "layout_2"
     end
 end
