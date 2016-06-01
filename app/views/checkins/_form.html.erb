@@ -1,0 +1,145 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+
+    <ol class="breadcrumb">
+      <li>
+        <a href="<%= url_for home_index_path %>">Inicio</a>
+      </li>
+      <li>
+        <a>Configuracion</a>
+      </li>
+      <li>
+        <a href="<%= url_for checkins_path%>">Checadas</a>
+      </li>
+      <li class="active">
+        <strong>Agregar / Modificar checada</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Formulario<small> para  agregar o modificar a una checada.</small></h5>
+        </div>
+        <div class="ibox-content">
+          <%= form_for(@checkin, class: 'form-horizontal') do |f| %>
+              <% if @checkin.errors.any? %>
+                  <div id="error_explanation">
+                    <h2><%= @checkin.errors.count %> error(es) no permitieron guardar el registro:</h2>
+                    <ul>
+                      <% @checkin.errors.full_messages.each do |msg| %>
+                          <li><%= msg %></li>
+                      <% end %>
+                    </ul>
+                  </div>
+              <% end %>
+              <div class="form-group">
+                <div class="form-group">
+                  <%= f.label "ID", class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= @checkin.id%>
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+
+                <div class="form-group">
+                  <%= f.label "Empleado", class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.select :usuario_id, options_for_select(Usuario.all.collect { |empleado|
+                                                                   [empleado.email, empleado.id] }, @checkin.usuario_id), {}, {class:"chosen-select", style: "width:350px;" } %>
+
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label "Fecha", class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-2">
+                    <div class="form-group" id="data_1">
+                      <div class="input-group date">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        <%if (@checkin.checkin.nil?) %>
+                            <%= f.text_field :checkin, class: "form-control", :required => true %>
+                        <%else%>
+                            <%= f.text_field :checkin, class: "form-control", value: @checkin.checkin.to_date.to_s(:month_day_year), :required => true%>
+                        <%end%>
+                      </div>
+                    </div>
+                  </div>
+                  <%= f.label " Hora ", class: 'col-sm-1 control-label', style: "width: 50px"%>
+                  <div class="col-sm-2">
+                    <div class="input-group clockpicker" data-autoclose="true" >
+                      <%if @checkin.checkin.nil?%>
+                          <%= f.text_field :checkin, class: 'form-control'%>
+                      <%else%>
+                          <%= f.text_field :checkin, class: 'form-control',value: @checkin.checkin.to_s(:time)%>
+                      <%end%>
+                      <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-time"></span>
+                    </span>
+                    </div>
+                  </div>
+
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label "Tipo", class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.select :kind, options_for_select(Checkin::KIND.collect { |kind| [kind.to_s] }, @checkin.kind), {}, {class:"chosen-select", style: "width:350px;" } %>
+
+                  </div>
+                  <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="in = Entrada, out = Salida">?</button>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+              </div>
+              <div class="hr-line-dashed"></div>
+              <div class="form-group">
+                <div class="col-sm-4 col-sm-offset-2">
+                  <a href="<%= url_for checkins_path %>">
+                    <button class="btn btn-outline btn-danger btn-rounded" type="button"><i class="fa fa-list-ol"></i>&nbsp;Cancelar</button>
+                  </a>
+                  <%= button_tag(type: 'submit', class: "btn btn-outline btn-success btn-rounded") do %>
+                      <i class="fa fa-database"></i> Guardar
+                  <% end %>
+                </div>
+              </div>
+              <br><br>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :javascript do %>
+    <script type="text/javascript">
+        $('#data_1 .input-group.date').datepicker({
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: true,
+            autoclose: true
+        });
+        $('.clockpicker').clockpicker();
+        var config = {
+            '.chosen-select'           : {},
+            '.chosen-select-deselect'  : {allow_single_deselect:true},
+            '.chosen-select-no-single' : {disable_search_threshold:10},
+            '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+            '.chosen-select-width'     : {width:"95%"}
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+    </script>
+<% end %>
+
+
+
+
