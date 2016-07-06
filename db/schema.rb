@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160527212103) do
+ActiveRecord::Schema.define(version: 20160706221858) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,9 +36,9 @@ ActiveRecord::Schema.define(version: 20160527212103) do
   create_table "asks", force: true do |t|
     t.integer  "cliente_id"
     t.integer  "usuario_id"
-    t.string   "question"
+    t.text     "question"
     t.string   "asked_by"
-    t.string   "answer"
+    t.text     "answer"
     t.string   "answer_by"
     t.date     "answer_date"
     t.integer  "voting"
@@ -249,6 +249,9 @@ ActiveRecord::Schema.define(version: 20160527212103) do
     t.boolean  "tipocambio"
     t.boolean  "pedido"
     t.string   "frase"
+    t.string   "recipient"
+    t.integer  "periodicity"
+    t.date     "start"
   end
 
   create_table "direccions", force: true do |t|
@@ -627,6 +630,17 @@ ActiveRecord::Schema.define(version: 20160527212103) do
 
   add_index "information", ["form_id"], name: "index_information_on_form_id", using: :btree
   add_index "information", ["usuario_id"], name: "index_information_on_usuario_id", using: :btree
+
+  create_table "logs", force: true do |t|
+    t.integer  "usuario_id"
+    t.string   "action"
+    t.string   "detail"
+    t.string   "field"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "logs", ["usuario_id"], name: "index_logs_on_usuario_id", using: :btree
 
   create_table "mensaje_configuracions", force: true do |t|
     t.string   "ticket"
