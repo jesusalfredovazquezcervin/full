@@ -44,7 +44,7 @@
             <% @checkins.each do |checkin| %>
                 <tr>
                   <td><%=checkin.id%></td>
-                  <td><%= Usuario.find_by_id(checkin.usuario_id).email%></td>
+                  <td><%= Usuario.find_by_id(checkin.usuario_id).try(:email)%></td>
                   <td><%=checkin.checkin%></td>
                   <td><%=checkin.kind%></td>
                   <td>
