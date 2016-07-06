@@ -4,4 +4,5 @@ class Datosgenerale < ActiveRecord::Base
             uniqueness: true
   validates :cliente_id,
             uniqueness: true
+  PERIODICITY = %w[diario semanal quincenal mensual bimestral trimestral semestral anual]
 end
