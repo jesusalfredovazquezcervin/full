@@ -250,7 +250,7 @@ ActiveRecord::Schema.define(version: 20160706221858) do
     t.boolean  "pedido"
     t.string   "frase"
     t.string   "recipient"
-    t.integer  "periodicity"
+    t.string   "periodicity"
     t.date     "start"
   end
 
