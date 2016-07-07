@@ -60,6 +60,11 @@ group :development do
   gem 'rspec', '~> 3.4'
   gem 'rspec-collection_matchers', '~> 1.1', '>= 1.1.2'
   gem 'webmock', '~> 1.24'
+
+  #dependencias de exception notification
+  gem 'appraisal', '~> 1.0.0'
+  gem 'coveralls', '~> 0.8.2'
+  gem 'mocha', '>= 0.13.0'
 end
 
 
@@ -76,6 +81,9 @@ gem 'rails-i18n', '~> 4.0', '>= 4.0.8'
 group :runtime, :test do
   gem 'css_parser', '~> 1.3', '>= 1.3.7'
   gem 'nokogiri', '~> 1.6', '>= 1.6.7.2'
+
+  #la pide exception_notification
+  #gem 'activesupport', '~> 4.2', '>= 4.2.6'
 end
 
 
@@ -84,3 +92,8 @@ end
 gem 'actionpack'
 gem 'actionmailer', '~> 4.1.2'
 gem 'roadie', '~> 3.1', '>= 3.1.1'
+gem 'exception_notification'
+
+
+
+
