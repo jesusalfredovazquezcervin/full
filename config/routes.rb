@@ -1,5 +1,7 @@
 Myapp::Application.routes.draw do
 
+  resources :logs
+
   resources :checkins
   get "check-out", to: "checkins#checkout", as: 'check-out'
   get "check-in", to: "checkins#checkin", as: 'check-in'
