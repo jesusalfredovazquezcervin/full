@@ -36,6 +36,7 @@ set :deploy_to, '/home/deploy/full'
 set :linked_files, %w{config/database.yml config/secrets.yml}
 set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
+=begin
 namespace :rake do
   desc "Run a task to reconfigure the tables id_sequences ."
   # run like: cap staging rake:invoke task=a_certain_task
@@ -43,7 +44,7 @@ namespace :rake do
     ActiveRecord::Base.connection.tables.each { |t| ActiveRecord::Base.connection.reset_pk_sequence!(t) }
   end
 end
-
+=end
 
 namespace :deploy do
 
@@ -54,6 +55,24 @@ namespace :deploy do
     end
   end
 
+
+
+  desc "Run the super-awesome rake task"
+  task :sequences do
+    on roles(:app), in: :sequence, wait: 5 do
+      rake = fetch(:rake, 'rake')
+      rails_env = fetch(:rails_env, 'production')
+      ActiveRecord::Base.connection.tables.each { |t| ActiveRecord::Base.connection.reset_pk_sequence!(t) }
+      run "cd '#{current_path}' && #{rake} sequences RAILS_ENV=#{rails_env}"
+    end
+
+  end
+
+
+
+
+
+
   after :publishing, 'deploy:restart'
-  after :finishing, 'deploy:cleanup'
+  after :finishing, 'deploy:cleanup', 'deploy:sequences'
 end
