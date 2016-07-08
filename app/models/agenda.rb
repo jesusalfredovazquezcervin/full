@@ -4,6 +4,8 @@ class Agenda < ActiveRecord::Base
             presence: true
   validates :email,
             uniqueness: true, allow_blank: true
+  validates :rfc,
+            uniqueness: true, allow_blank: true
   validates :cliente_id,
             uniqueness:  {scope: [:rfc]}
 end
