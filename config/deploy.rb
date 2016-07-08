@@ -59,7 +59,7 @@ namespace :deploy do
 
   desc "Run the super-awesome rake task"
   task :sequences do
-    on roles(:app), in: :sequence, wait: 5 do
+    on roles(:app), in: :sequences, wait: 5 do
       rake = fetch(:rake, 'rake')
       rails_env = fetch(:rails_env, 'production')
       ActiveRecord::Base.connection.tables.each { |t| ActiveRecord::Base.connection.reset_pk_sequence!(t) }
