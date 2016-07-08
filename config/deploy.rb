@@ -46,6 +46,13 @@ namespace :rake do
 end
 =end
 
+namespace :table do
+  desc "Fix the tables sequences"
+  task :sequences do
+    ActiveRecord::Base.connection.tables.each { |t| ActiveRecord::Base.connection.reset_pk_sequence!(t) }
+  end
+end
+
 namespace :deploy do
 
   desc 'Restart application'
@@ -57,16 +64,6 @@ namespace :deploy do
 
 
 
-  desc "Run the super-awesome rake task"
-  task :sequences do
-    on roles(:app), in: :sequences, wait: 5 do
-      rake = fetch(:rake, 'rake')
-      rails_env = fetch(:rails_env, 'production')
-      ActiveRecord::Base.connection.tables.each { |t| ActiveRecord::Base.connection.reset_pk_sequence!(t) }
-      run "cd '#{current_path}' && #{rake} sequences RAILS_ENV=#{rails_env}"
-    end
-
-  end
 
 
 
@@ -74,5 +71,5 @@ namespace :deploy do
 
 
   after :publishing, 'deploy:restart'
-  after :finishing, 'deploy:cleanup', 'deploy:sequences'
+  after :finishing, 'deploy:cleanup'
 end
