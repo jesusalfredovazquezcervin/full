@@ -36,12 +36,11 @@ set :deploy_to, '/home/deploy/full'
 set :linked_files, %w{config/database.yml config/secrets.yml}
 set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
-namespace :database do
-  desc "Correction of sequences id"
-  task :correction_seq_id do
-    ActiveRecord::Base.connection.tables.each do |t|
-      ActiveRecord::Base.connection.reset_pk_sequence!(t)
-    end
+namespace :rake do
+  desc "Invoke rake task"
+  task :invoke do
+    run "cd #{deploy_to}/current"
+    run "bundle exec rake #{ENV['task']} RAILS_ENV=#{rails_env}"
   end
 end
 
