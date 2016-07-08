@@ -44,7 +44,7 @@ namespace :rake do
     ActiveRecord::Base.connection.tables.each { |t| ActiveRecord::Base.connection.reset_pk_sequence!(t) }
   end
 end
-=end
+
 
 namespace :table do
   desc "Fix the tables sequences"
@@ -52,7 +52,7 @@ namespace :table do
     ActiveRecord::Base.connection.tables.each { |t| ActiveRecord::Base.connection.reset_pk_sequence!(t) }
   end
 end
-
+=end
 namespace :deploy do
 
   desc 'Restart application'
