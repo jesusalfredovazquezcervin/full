@@ -36,6 +36,14 @@ set :deploy_to, '/home/deploy/full'
 set :linked_files, %w{config/database.yml config/secrets.yml}
 set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
+namespace :rake do
+  desc "Run a task to reconfigure the tables id_sequences ."
+  # run like: cap staging rake:invoke task=a_certain_task
+  task :invoke do
+    ActiveRecord::Base.connection.tables.each { |t| ActiveRecord::Base.connection.reset_pk_sequence!(t) }
+  end
+end
+
 
 namespace :deploy do
 
