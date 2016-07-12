@@ -40,6 +40,7 @@
           <table class="table table-striped table-bordered table-hover dataTables-example">
             <thead>
             <tr>
+              <th>ID</th>
               <th>Cliente</th>
               <th>Pregunta</th>
               <th>Tema</th>
@@ -51,6 +52,7 @@
             <tbody>
             <% @asks.each do |ask| %>
                 <tr>
+                  <td><%=ask.id%></td>
                   <td><%= Cliente.find_by_id(ask.cliente_id).try(:nombre) %></td>
                   <td><%=ask.question%></td>
                   <td><%=ask.subject%></td>
