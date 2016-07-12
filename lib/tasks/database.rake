@@ -7,8 +7,8 @@ namespace :database do
     ActiveRecord::Base.establish_connection(
         :adapter  => "postgresql",
         :host     => "localhost",
-        :username => "postgres",
-        :password => "deploy",
+        :username => "deploy",
+        :password => "password",
         :database => "ofintel"
     )
 
