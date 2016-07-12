@@ -4,6 +4,9 @@ lock '3.4.0'
 set :application, 'full'
 set :repo_url, 'https://github.com/jesusalfredovazquezcervin/full.git'
 set :passenger_restart_with_touch, true
+
+load "lib/tasks/database.rake"
+
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
@@ -36,13 +39,6 @@ set :deploy_to, '/home/deploy/full'
 set :linked_files, %w{config/database.yml config/secrets.yml}
 set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
-namespace :rake do
-  desc "Invoke rake task"
-  task :invoke do
-    run "cd #{deploy_to}/current"
-    run "bundle exec rake #{ENV['task']} RAILS_ENV=#{rails_env}"
-  end
-end
 
 namespace :deploy do
 
@@ -52,14 +48,6 @@ namespace :deploy do
       execute :touch, release_path.join('tmp/restart.txt')
     end
   end
-
-
-
-
-
-
-
-
 
   after :publishing, 'deploy:restart'
   after :finishing, 'deploy:cleanup'
