@@ -7,5 +7,5 @@ class Agenda < ActiveRecord::Base
   validates :rfc,
             uniqueness: true, allow_blank: true
   validates :cliente_id,
-            uniqueness:  {scope: [:rfc]}
+            uniqueness:  {scope: [:nombre], message: "La combinacion Cliente + Nombre ya esta en uso"}
 end
