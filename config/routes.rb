@@ -1,5 +1,6 @@
 Myapp::Application.routes.draw do
 
+  get 'contactos/update_datosgenerales', as: 'update_datosgenerales'
   resources :logs
 
   resources :checkins

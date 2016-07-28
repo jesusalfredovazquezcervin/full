@@ -41,9 +41,9 @@
               <div class="col-sm-5">
                 <%= Cliente.find(@contacto.cliente_id).nombre %>
               </div><br>
-              <h4>Sucursal:</h4>
+              <h4>Cuentas:</h4>
               <div class="col-sm-5">
-                <%= Sucursal.find_by_id(@contacto.try(:sucursal_id)).try(:nombre)%>
+                <%= @contacto.datosgenerales.collect{|d| d.account}%>
               </div><br>
               <h4>Nombre:</h4>
               <div class="col-sm-5">
