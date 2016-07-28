@@ -14,10 +14,21 @@ class ProceduresController < ApplicationController
 
   def new
     @procedure = Procedure.new
+    @clientes = Cliente.all.order(:nombre)
+    @datosgenerales = Datosgenerale.where("cliente_id = ?", Cliente.order(:nombre).first.id)
     dashboard_4
   end
 
+  def update_datosgenerales
+    @datosgenerales = Cliente.find(params[:cliente_id]).datosgenerales
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def edit
+    @clientes = Cliente.order(:nombre).all
+    @datosgenerales = Datosgenerale.where("cliente_id = ?", @procedure.cliente_id )
     dashboard_4
   end
 
@@ -43,7 +54,7 @@ class ProceduresController < ApplicationController
     end
 
     def procedure_params
-      params.require(:procedure).permit(:cliente_id, :sucursal_id, :name, :deliver, :number)
+      params.require(:procedure).permit(:cliente_id, :sucursal_id, :name, :deliver, :number, :datosgenerale_id)
     end
   def dashboard_4
     render :layout => "layout_2"

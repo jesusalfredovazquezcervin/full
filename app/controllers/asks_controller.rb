@@ -14,10 +14,21 @@ class AsksController < ApplicationController
 
   def new
     @ask = Ask.new
+    @clientes = Cliente.all.order(:nombre)
+    @datosgenerales = Datosgenerale.where("cliente_id = ?", Cliente.order(:nombre).first.id)
     dashboard_4
   end
 
+  def update_datosgenerales
+    @datosgenerales = Cliente.find(params[:cliente_id]).datosgenerales
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def edit
+    @clientes = Cliente.order(:nombre).all
+    @datosgenerales = Datosgenerale.where("cliente_id = ?", @ask.cliente_id )
     dashboard_4
   end
 
@@ -46,7 +57,7 @@ class AsksController < ApplicationController
       fecha = Date.strptime(params[:ask][:answer_date], '%m/%d/%Y')
       params[:ask][:answer_date]="#{fecha.year}-#{fecha.month}-#{fecha.day}"
       params[:ask][:usuario_id] = current_user.id
-      params.require(:ask).permit(:cliente_id, :usuario_id, :question, :asked_by, :answer, :answer_by, :answer_date, :voting, :subject)
+      params.require(:ask).permit(:cliente_id, :usuario_id, :question, :asked_by, :answer, :answer_by, :answer_date, :voting, :subject, :datosgenerale_id)
     end
     def dashboard_4
       render :layout => "layout_2"

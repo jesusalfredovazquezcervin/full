@@ -47,13 +47,23 @@
                 <div class="form-group">
                   <%= f.label :cliente, class: 'col-sm-2 control-label'%>
                   <div class="col-sm-5">
-                    <%= f.select :cliente_id, options_for_select(Cliente.all.collect { |cliente|
-                                                                   [cliente.nombre, cliente.id] }, @ask.cliente_id), {required: true}, { class:"chosen-select", style: "width:350px;"  } %>
+                    <%= f.select :cliente_id, options_for_select(@clientes.collect { |cliente|
+                                                                   [cliente.nombre.titleize, cliente.id] }, @ask.cliente_id), {}, { id: 'clientes_select', class:"form-control m-b", style: "width:350px;", required: true } %>
 
                   </div>
                 </div>
                 <br>
                 <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label "Cuenta", class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.select :datosgenerale_id, options_for_select(@datosgenerales.all.collect { |account|
+                                                                         [account.account, account.id] }, @ask.datosgenerale_id), {}, {id: 'datosgenerales_select', class:"form-control m-b", style: "width:350px;", required: true } %>
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+
                 <div class="form-group">
                   <%= f.label "Pregunta", class: 'col-sm-2 control-label'%>
                   <div class="col-sm-5">
@@ -163,6 +173,27 @@
             calendarWeeks: true,
             autoclose: true
         });
+
+        $(function() {
+            return $(document).on('change', '#clientes_select', function(evt) {
+                return $.ajax({
+                    url:location.protocol + "//" + location.host + "/asks/update_datosgenerales",
+                    type: 'GET',
+                    dataType: 'script',
+                    data: {
+                        cliente_id: $("#clientes_select option:selected").val()
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log(location.protocol + "//" + location.host + "/asks/update_datosgenerales");
+                        return console.log("AJAX Error: " + textStatus);
+                    },
+                    success: function(data, textStatus, jqXHR) {
+                        return console.log("Dynamic accounts select OK!");
+                    }
+                });
+            });
+        });
+
     </script>
 <% end %>
 

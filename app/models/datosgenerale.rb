@@ -3,6 +3,7 @@ class Datosgenerale < ActiveRecord::Base
   has_many :contact_accounts, :dependent => :destroy
   has_many :contactos, :through => :contact_accounts
   has_many :procedures, :dependent => :destroy
+  has_many :asks
   validates :cliente_id, :horario_id, :alta, :clavesalida, :locacion, :did, :frase,
             presence: true
   validates :cliente_id,

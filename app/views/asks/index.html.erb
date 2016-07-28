@@ -42,6 +42,7 @@
             <tr>
               <th>ID</th>
               <th>Cliente</th>
+              <th>Cuenta</th>
               <th>Pregunta</th>
               <th>Tema</th>
               <th>Respuesta</th>
@@ -54,6 +55,7 @@
                 <tr>
                   <td><%=ask.id%></td>
                   <td><%= Cliente.find_by_id(ask.cliente_id).try(:nombre) %></td>
+                  <td><%=ask.try(:datosgenerale).try(:account)%></td>
                   <td><%=ask.question%></td>
                   <td><%=ask.subject%></td>
                   <td><%=ask.answer%></td>

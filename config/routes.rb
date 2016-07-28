@@ -1,5 +1,9 @@
 Myapp::Application.routes.draw do
 
+  get 'asks/update_datosgenerales', as: 'ask_update_datosgenerales'
+
+  get 'procedures/update_datosgenerales', as: 'procedure_update_datosgenerales'
+
   get 'contactos/update_datosgenerales', as: 'update_datosgenerales'
   resources :logs
 

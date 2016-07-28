@@ -44,6 +44,10 @@
               <div class="col-sm-5">
                 <%= @procedure.name%>
               </div><br>
+              <h4>Cuenta:</h4>
+              <div class="col-sm-5">
+                <%= @procedure.try(:datosgenerale).try(:account)%>
+              </div><br>
 
                 <h4>Enviar correo:</h4>
                 <div class="col-sm-5">

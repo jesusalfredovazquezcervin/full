@@ -40,7 +40,10 @@
               <div class="col-sm-5">
                 <%= Cliente.find_by_id(@ask.cliente_id).try(:nombre) %>
               </div><br>
-
+              <h4>Cuenta:</h4>
+              <div class="col-sm-5">
+                <%= @ask.try(:datosgenerale).try(:account) %>
+              </div><br>
               <h4>Capturada por:</h4>
               <div class="col-sm-5">
                 <%= Usuario.find_by_id(@ask.usuario_id).try(:email)%>
@@ -49,7 +52,7 @@
               <h4>Pregunta:</h4>
               <div class="col-sm-5">
                 <%= @ask.question%>
-              </div><br>
+              </div><br><br>
 
               <h4>Hecha por:</h4>
               <div class="col-sm-5">
@@ -58,7 +61,7 @@
               <h4>Respuesta:</h4>
               <div class="col-sm-5">
                 <%= @ask.answer%>
-              </div><br>
+              </div><br><br><br>
               <h4>Respondida por:</h4>
               <div class="col-sm-5">
                 <%=@ask.answer_by%>
