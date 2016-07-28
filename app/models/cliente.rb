@@ -1,7 +1,7 @@
 class Cliente < ActiveRecord::Base
   #has_one :direccion
   has_one :formapago
-  has_one :datosgenerale, :dependent => :destroy
+  has_many :datosgenerales, :dependent => :destroy
   has_many :sucursals, :dependent => :destroy
   has_many :agendas, :dependent => :destroy
   has_many :contactos, :dependent => :destroy
