@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160706221858) do
+ActiveRecord::Schema.define(version: 20160726163317) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -201,6 +201,13 @@ ActiveRecord::Schema.define(version: 20160706221858) do
     t.decimal  "tipoCambio",            precision: 6, scale: 4
   end
 
+  create_table "contact_accounts", force: true do |t|
+    t.integer  "contacto_id"
+    t.integer  "datosgenerale_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "contactos", force: true do |t|
     t.integer  "cliente_id"
     t.string   "nombre"
@@ -252,6 +259,7 @@ ActiveRecord::Schema.define(version: 20160706221858) do
     t.string   "recipient"
     t.string   "periodicity"
     t.date     "start"
+    t.string   "account"
   end
 
   create_table "direccions", force: true do |t|
