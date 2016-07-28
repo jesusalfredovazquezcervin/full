@@ -21,14 +21,14 @@ class ContactosController < ApplicationController
     # GET /contactos/new
     def new
       @contacto = Contacto.new
-      @clientes = Cliente.all
-      @sucursales = Sucursal.where("cliente_id = ?", Cliente.first.id)
-
+      @clientes = Cliente.all.order(:nombre)
+      # @sucursales = Sucursal.where("cliente_id = ?", Cliente.first.id)
+      @datosgenerales = Datosgenerale.where("cliente_id = ?", Cliente.order(:nombre).first.id)
       dashboard_4
     end
 
-    def update_sucursales
-      @sucursales = Cliente.find(params[:cliente_id]).sucursals
+    def update_datosgenerales
+      @datosgenerales = Cliente.find(params[:cliente_id]).datosgenerales
       respond_to do |format|
         format.js
       end
@@ -36,8 +36,8 @@ class ContactosController < ApplicationController
 
     # GET /contactos/1/edit
     def edit
-      @clientes = Cliente.all
-      @sucursales = @contacto.cliente.sucursals
+      @clientes = Cliente.order(:nombre).all
+      @datosgenerales = Datosgenerale.where("cliente_id = ?", @contacto.cliente_id )
       dashboard_4
     end
 
@@ -56,6 +56,7 @@ class ContactosController < ApplicationController
       end
       respond_to do |format|
         if @contacto.save
+          save_contact_accounts(@contacto.id)
           format.html { redirect_to @contacto, notice: 'Contacto ha sido creado exitosamente' }
           format.json { render action: 'show', status: :created, location: @contacto }
         else
@@ -82,6 +83,7 @@ class ContactosController < ApplicationController
             @contacto.email=nil
           end
           @contacto.save!
+          save_contact_accounts(params[:id])
           format.html { redirect_to @contacto, :notice => 'El Contacto ha sito actualizado correctamente.' }
           format.json { head :no_content }
         else
@@ -111,7 +113,14 @@ class ContactosController < ApplicationController
     def set_contacto
       @contacto = Contacto.find(params[:id])
     end
+    def save_contact_accounts(contacto_id)
 
+      ContactAccount.where(contacto_id: params[:id]).each{|c| c.destroy}
+
+      params[:accounts].each{|a|
+        ContactAccount.create(contacto_id: contacto_id, datosgenerale_id: a) unless ContactAccount.where(contacto_id: contacto_id, datosgenerale_id: a).exists?
+      }
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def contacto_params
       params.require(:contacto).permit(:cliente_id, :nombre, :telefono, :ext, :cel, :email, :puesto, :sucursal_id, :skype, :funciones)
@@ -122,3 +131,4 @@ class ContactosController < ApplicationController
 
   end
 
+# Todo: Falta reconstruir ALTA, BAJA y SHOW, Vista y controller
