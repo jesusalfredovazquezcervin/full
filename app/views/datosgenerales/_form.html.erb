@@ -9,11 +9,11 @@
         <a>Catalogos</a>
       </li>
       <li>
-        <a href="<%= url_for datosgenerales_path %>">Datos generales</a>
+        <a href="<%= url_for datosgenerales_path %>">Cuentas</a>
 
       </li>
       <li class="active">
-        <strong>Agregar / Modificar datos generales</strong>
+        <strong>Agregar / Modificar Cuentas</strong>
       </li>
     </ol>
   </div>
@@ -25,7 +25,7 @@
     <div class="col-lg-12">
       <div class="ibox float-e-margins">
         <div class="ibox-title">
-          <h5>Formulario<small> para  agregar o modificar datos generales.</small></h5>
+          <h5>Formulario<small> para  agregar o modificar Cuentas.</small></h5>
 
         </div>
         <div class="ibox-content">
@@ -55,6 +55,15 @@
                 <br>
 
                 <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label "Nombre de la Cuenta", class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.text_field :account, class: 'form-control' , :required => true%>
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+
                 <div class="form-group">
                   <%= f.label :alta, class: 'col-sm-2 control-label'%>
                   <div class="col-sm-5">

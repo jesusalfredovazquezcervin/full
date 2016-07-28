@@ -1,6 +1,6 @@
 
 <div class="col-lg-10">
-  <h2>Mostrar datos generales</h2>
+  <h2>Mostrar Cuentas</h2>
 </div>
 <p id="notice"><%= notice %></p>
 <div class="row wrapper border-bottom white-bg page-heading">
@@ -14,7 +14,7 @@
         <a>Catalogos</a>
       </li>
       <li>
-        <a href="<%= url_for :controller => 'datosgenerales', :action => 'index' %>">Datos generales</a>
+        <a href="<%= url_for :controller => 'datosgenerales', :action => 'index' %>">Cuentas</a>
 
       </li>
       <li class="active">
@@ -30,7 +30,7 @@
     <div class="col-lg-12">
       <div class="ibox float-e-margins">
         <div class="ibox-title">
-          <h5>Formulario<small> que muestra los datos generales de un cliente</small></h5>
+          <h5>Formulario<small> que muestra el detalle de una Cuenta</small></h5>
 
         </div>
         <div class="ibox-content">
@@ -40,6 +40,10 @@
               <h4>Cliente:</h4>
               <div class="col-sm-5">
                 <%= Cliente.find(@datosgenerale.cliente_id).nombre %>
+              </div><br>
+              <h4>Cuenta:</h4>
+              <div class="col-sm-5">
+                <%= @datosgenerale.account %>
               </div><br>
               <h4>Alta:</h4>
               <div class="col-sm-5">
