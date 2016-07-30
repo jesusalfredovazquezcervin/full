@@ -77,9 +77,9 @@ class DireccionsController < ApplicationController
 
     respond_to do |format|
       if @direccion.update(direccion_params)
-        @direccion.cliente_id =params[:direccion][:cliente_id]
-        @direccion.sucursal_id =params[:direccion][:sucursal_id]
-        @direccion.save!
+        #@direccion.cliente_id =params[:direccion][:cliente_id]
+        #@direccion.sucursal_id =params[:direccion][:sucursal_id]
+        @direccion.save!(validate:false)
         format.html { redirect_to @direccion, notice: 'Direccion was successfully updated.' }
         format.json { head :no_content }
       else
