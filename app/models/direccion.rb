@@ -23,7 +23,6 @@ class Direccion < ActiveRecord::Base
   belongs_to :cliente
 
 
-
 end
 
 =begin

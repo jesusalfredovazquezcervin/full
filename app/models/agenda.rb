@@ -1,5 +1,8 @@
 class Agenda < ActiveRecord::Base
   belongs_to :cliente
+  has_many :agenda_accounts, :dependent => :destroy
+  has_many :datosgenerales, :through => :agenda_accounts
+
   validates :cliente_id, :nombre, :calle, :numero, :colonia, :delegacion, :estado, :cp,
             presence: true
   validates :email,
