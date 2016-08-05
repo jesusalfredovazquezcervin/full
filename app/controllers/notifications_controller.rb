@@ -14,20 +14,33 @@ class NotificationsController < ApplicationController
 
   def new
     @notification = Notification.new
-    respond_with(@notification)
+    if params[:id]
+      @cuenta = Datosgenerale.find_by_id params[:id]
+      @notification.cliente_id = @cuenta.cliente_id
+      @notification.datosgenerale_id = params[:id]
+    else
+      @cuenta=nil
+    end
+    @user=current_user
+    dashboard_4
   end
 
   def edit
     @cliente = @notification.cliente
     @clientes = Cliente.all
-    @capture = Capture.new
+    @cuenta = Datosgenerale.find_by_id params[:cuenta_id]
+    @user = current_user
+    dashboard_4
   end
 
   def create
     @notification = Notification.new(notification_params)
+    @cuenta = Datosgenerale.find_by_id params[:cuenta_id]
+    @notification.cliente = @cuenta.cliente
+    @notification.datosgenerale = @cuenta
     respond_to do |format|
       if @notification.save
-        format.html { redirect_to({ controller:"captures",  action: 'index', id:params[:notification][:cliente_id] }, notice: "Notificacion creada exitosamente") }
+        format.html { redirect_to({ controller:"captures",  action: 'index', id:params[:cuenta_id] }, notice: "Notificacion creada exitosamente") }
       else
         format.html { render action: 'new', :layout => "layout_3" }
         format.json { render json: @notification.errors, status: :unprocessable_entity }
@@ -38,7 +51,7 @@ class NotificationsController < ApplicationController
   def update
     respond_to do |format|
       if @notification.update(notification_params)
-        format.html { redirect_to({ controller:"captures",  action: 'index', id:@notification.cliente_id }, notice: "Notificacion creada exitosamente") }
+        format.html { redirect_to({ controller:"captures",  action: 'index', id:@notification.datosgenerale_id }, notice: "Notificacion creada exitosamente") }
       end
     end
   end
@@ -46,7 +59,7 @@ class NotificationsController < ApplicationController
   def destroy
     @notification.destroy
     respond_to do |format|
-      format.html { redirect_to({ controller:"captures",  action: 'index', id:@notification.cliente_id }, notice: "Notificacion eliminada exitosamente") }
+      format.html { redirect_to({ controller:"captures",  action: 'index', id:@notification.datosgenerale_id }, notice: "Notificacion eliminada exitosamente") }
      end
   end
 
@@ -96,8 +109,9 @@ class NotificationsController < ApplicationController
       end
 
 
-      params[:notification][:cliente_id] = Contacto.find(params[:notification][:person_id]).cliente_id
-      params[:notification][:sucursal_id] = Contacto.find(params[:notification][:person_id]).sucursal_id
       params.require(:notification).permit(:cliente_id, :sucursal_id, :usuario_id, :person_id, :recipient_id, :status_id, :event_id, :notification, :startdate, :starttime, :duedate, :duetime, :startdatetime, :duedatetime)
+    end
+    def dashboard_4
+      render :layout => "layout_3"
     end
 end

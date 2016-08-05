@@ -27,14 +27,14 @@ class InformationController < ApplicationController
   end
 
   def create
-    @cliente = Cliente.find(params[:cliente_id])
+    @cuenta = Datosgenerale.find(params[:cuenta_id])
     @information = Information.new(information_params)
 
     respond_to do |format|
       if @information.save
         #Enviamos correo
         send_mail(params[:recipient].select{|r| r unless r.empty?}.join(", "),@information,"Send") if (@information.form.procedure.deliver and !params[:recipient].nil? )
-        format.html { redirect_to({ controller:"captures", action: 'index', id:@cliente.id }, notice: "El registro ha sido creado exitosamente") }
+        format.html { redirect_to({ controller:"captures", action: 'index', id:@cuenta.id }, notice: "El registro ha sido creado exitosamente") }
       else
         format.html { render action: 'new', :layout => "layout_2" }
       end
@@ -48,7 +48,7 @@ class InformationController < ApplicationController
 
     respond_to do |format|
       if @information.update(information_params)
-        format.html { redirect_to({controller: "captures" , action: 'index', id:@information.form.cliente.id }, notice: "El registro ha sido actualizado exitosamente") }
+        format.html { redirect_to({controller: "captures" , action: 'index', id:@information.datosgenerale_id }, notice: "El registro ha sido actualizado exitosamente") }
         format.json { head :no_content }
       else
         format.html { render action: 'edit', :layout => "layout_3" }
@@ -146,8 +146,10 @@ class InformationController < ApplicationController
       if !params[:form_id].nil?
         params[:information][:form_id] = params[:form_id]
       end
-
-      params.require(:information).permit(:form_id, :usuario_id, :field1, :field2, :field3, :field4, :field5, :field6, :field7, :field8, :field9, :field10, :field11, :field12, :field13, :field14, :field15, :field16, :field17, :field18, :field19, :field20)
+      if params[:action] = "update"
+        params[:information][:datosgenerale_id] = @information.datosgenerale_id
+      end
+      params.require(:information).permit(:form_id, :usuario_id, :field1, :field2, :field3, :field4, :field5, :field6, :field7, :field8, :field9, :field10, :field11, :field12, :field13, :field14, :field15, :field16, :field17, :field18, :field19, :field20, :datosgenerale_id)
     end
     def dashofintel
       render :layout => "layout_3"

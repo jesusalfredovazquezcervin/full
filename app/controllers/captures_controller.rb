@@ -5,13 +5,14 @@ class CapturesController < ApplicationController
   # GET /captures
   # GET /captures.json
   def index
-    @capture= Capture.new
+    #@capture= Capture.new
     @clientes = Cliente.all #Aqui en el futuro deberé solamente traer los clientes a los que está asociado el operador
     logger.debug @clientes.count
     if params[:id]
       @cliente = Cliente.find(params[:id])
+      @cuenta = Datosgenerale.find_by_id params[:id]
     end
-    @captures = Capture.all
+    #@captures = Capture.all
     @notification = Notification.new
     @user = current_user
     dashofintel
@@ -40,23 +41,16 @@ class CapturesController < ApplicationController
 
   # GET /captures/1/consultar
   def consultar
-    logger.debug params[:id]
-    id=params[:id]=="id" ? (params[:cliente_id]):(params[:id])
+    # logger.debug params[:id]
+      id=params[:id]=="id" ? (params[:cuenta_id]):(params[:id])
     @notification = Notification.new
-    @captures = Capture.where(:cliente_id => id)
-    @cliente = Cliente.find(id)
+    @cuenta = Datosgenerale.find_by_id(id)
+    @cliente = Datosgenerale.find_by_id(id).cliente
     @capture= Capture.new
     @clientes = Cliente.all #Aqui en el futuro deberé solamente traer los clientes a los que está asociado el operador
-    @direccion =nil
-    @horario =nil
-    @contacto=nil
-    direcciones = Direccion.where(:cliente_id => id, :matriz => true)
-    if (direcciones.size > 0)
-      @direccion = direcciones[0]
-    end
-
-    @horario = Horario.find_by_id(@cliente.datosgenerale.try(:horario_id))
-    @contacto = Contacto.find_by_id(@cliente.datosgenerale.try(:contacto1_id))
+    @direccion =@cliente.sucursals.all.select{|s| s.direccion.matriz==true}[0].direccion
+    @horario = @cliente.sucursals.all.select{|s| s.direccion.matriz==true}[0].horario
+    @contacto=@cliente.sucursals.all.select{|s| s.direccion.matriz==true}[0].main
     @sucursales = Sucursal.where(:cliente_id => id)
     @products = Product.all
     @information = Information.new

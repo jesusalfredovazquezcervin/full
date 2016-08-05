@@ -16,18 +16,23 @@ class AgendasController < ApplicationController
 
   def new
     @agenda = Agenda.new
+    @clientes = Cliente.all.order(:nombre)
+    @datosgenerales = Datosgenerale.where("cliente_id = ?", Cliente.order(:nombre).first.id)
     dashboard_4
   end
 
   def edit
+    @clientes = Cliente.order(:nombre).all
+    @datosgenerales = Datosgenerale.where("cliente_id = ?", @agenda.cliente_id )
     dashboard_4
   end
 
   def create
     @agenda = Agenda.new(agenda_params)
-    #@agenda.save
+    @clientes = Cliente.all.order(:nombre)
     respond_to do |format|
       if @agenda.save
+        save_agenda_accounts(@agenda.id )
         format.html { redirect_to @agenda, notice: 'El Cliente ha sido agregado exitosamente a la agenda' }
       else
         format.html { render action: 'new', :layout => "layout_2" }
@@ -38,12 +43,19 @@ class AgendasController < ApplicationController
 
   def update
     @agenda.update(agenda_params)
+    save_agenda_accounts(params[:id])
     respond_with(@agenda)
   end
 
   def destroy
     @agenda.destroy
     respond_with(@agenda, :layout => "layout_2")
+  end
+  def update_datosgenerales
+    @datosgenerales = Cliente.find(params[:cliente_id]).datosgenerales
+    respond_to do |format|
+      format.js
+    end
   end
 
   private
@@ -57,5 +69,12 @@ class AgendasController < ApplicationController
 
     def dashboard_4
       render :layout => "layout_2"
+    end
+
+    def save_agenda_accounts(agenda_id)
+      AgendaAccount.where(agenda_id: params[:id]).each{|c| c.destroy}
+      params[:accounts].each{|a|
+        AgendaAccount.create(agenda_id: agenda_id, datosgenerale_id: a) unless AgendaAccount.where(agenda_id: agenda_id, datosgenerale_id: a).exists?
+      }
     end
 end

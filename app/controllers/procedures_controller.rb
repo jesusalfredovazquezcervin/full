@@ -34,12 +34,22 @@ class ProceduresController < ApplicationController
 
   def create
     @procedure = Procedure.new(procedure_params)
-    @procedure.save
-    respond_with(@procedure)
+    @clientes = Cliente.all.order(:nombre)
+    respond_to do |format|
+      if @procedure.save
+        save_procedure_accounts(@procedure.id)
+        format.html { redirect_to @procedure, notice: 'Procedimiento ha sido creado exitosamente' }
+        format.json { render action: 'show', status: :created, location: @procedure }
+      else
+        format.html { render action: 'new',  :layout => "layout_2" }
+        format.json { render json: @procedure.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def update
     @procedure.update(procedure_params)
+    save_procedure_accounts(params[:id])
     respond_with(@procedure)
   end
 
@@ -49,12 +59,19 @@ class ProceduresController < ApplicationController
   end
 
   private
+    def save_procedure_accounts(procedure_id)
+      ProcedureAccount.where(procedure_id: params[:id]).each{|c| c.destroy}
+      params[:accounts].each{|a|
+        ProcedureAccount.create(procedure_id: procedure_id, datosgenerale_id: a) unless ProcedureAccount.where(procedure_id: procedure_id, datosgenerale_id: a).exists?
+      }
+    end
+
     def set_procedure
       @procedure = Procedure.find(params[:id])
     end
 
     def procedure_params
-      params.require(:procedure).permit(:cliente_id, :sucursal_id, :name, :deliver, :number, :datosgenerale_id)
+      params.require(:procedure).permit(:cliente_id, :sucursal_id, :name, :deliver, :number)
     end
   def dashboard_4
     render :layout => "layout_2"
