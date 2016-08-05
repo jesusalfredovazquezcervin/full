@@ -1,5 +1,11 @@
 Myapp::Application.routes.draw do
 
+  get "notifications/edit/:id/:cuenta_id", to: "notifications#edit", as: "edit_notification"
+
+  get 'agendas/update_datosgenerales', as: 'agenda_update_datosgenerales'
+
+  get "notifications/new/(:id)", to: "notifications#new", as: "new_notification"
+
   get 'asks/update_datosgenerales', as: 'ask_update_datosgenerales'
 
   get 'procedures/update_datosgenerales', as: 'procedure_update_datosgenerales'
