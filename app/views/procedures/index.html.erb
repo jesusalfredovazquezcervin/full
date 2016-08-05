@@ -42,7 +42,7 @@
             <tr>
               <th>ID</th>
               <th>Cliente</th>
-              <th>Cuenta</th>
+              <th>Cuentas</th>
               <th>Nombre</th>
               <th>Enviar correo</th>
               <th>Posición</th>
@@ -55,7 +55,8 @@
                 <tr>
                   <td><%=procedure.id%></td>
                   <td><%= Cliente.find_by_id(procedure.try(:cliente_id)).try(:nombre) %></td>
-                  <td><%=procedure.try(:datosgenerale).try(:account)%></td>
+                  <td><%= procedure.datosgenerales.collect{|d| d.account}%></td>
+
                   <td><%=procedure.name%></td>
                   <td><%=procedure.deliver%></td>
                   <td><%=procedure.number%></td>

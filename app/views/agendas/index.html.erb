@@ -40,8 +40,10 @@
           <table class="table table-striped table-bordered table-hover dataTables-example">
             <thead>
             <tr>
-              <th>Cliente</th>
+              <th>ID</th>
               <th>Nombre</th>
+              <th>Cliente</th>
+              <th>Cuentas</th>
               <th>Rfc</th>
               <th>Calle</th>
               <th>Numero</th>
@@ -56,7 +58,9 @@
             <tbody>
             <% @agendas.each do |agenda| %>
                 <tr>
+                  <td><%= agenda.id%></td>
                   <td><%= Cliente.find_by_id(agenda.try(:cliente_id)).try(:nombre) %></td>
+                  <td><%= agenda.datosgenerales.all.collect{|d| d.account}%>  </td>
                   <td><%= agenda.nombre%></td>
                   <td><%= agenda.rfc%></td>
                   <td><%= agenda.calle %></td>

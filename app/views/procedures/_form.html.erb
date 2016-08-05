@@ -45,10 +45,18 @@
 
               <div class="form-group">
                 <div class="form-group">
+                  <%= f.label "Nombre", class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.text_field :name, class: 'form-control', :required => true%>
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
                   <%= f.label :cliente, class: 'col-sm-2 control-label'%>
                   <div class="col-sm-5">
                     <%= f.select :cliente_id, options_for_select(@clientes.collect { |cliente|
-                                                                   [cliente.nombre.titleize, cliente.id] }, @procedure.cliente_id), {}, { id: 'clientes_select', class:"form-control m-b", style: "width:350px;", required: true } %>
+                                                                   [cliente.nombre.titleize, cliente.id] }, @procedure.cliente_id), {}, { id: 'clientes_select', class:"form-control m-b", style: "width:350px;"} %>
 
 
                   </div>
@@ -58,21 +66,16 @@
                 <div class="form-group">
                   <%= f.label "Cuenta", class: 'col-sm-2 control-label'%>
                   <div class="col-sm-5">
-                    <%= f.select :datosgenerale_id, options_for_select(@datosgenerales.all.collect { |account|
-                                                                   [account.account, account.id] }, @procedure.datosgenerale_id), {}, {id: 'datosgenerales_select', class:"form-control m-b", style: "width:350px;", required: true } %>
+                    <%= select_tag "accounts", options_for_select(@datosgenerales.all.collect{|d| [d.account, d.id] }, @procedure.datosgenerales.all.collect{|d| d.id} ), {id: 'datosgenerales_select', class:"form-control m-b", style: "width:350px;", multiple: true, required: true }  %>
+
+
+
                   </div>
                 </div>
-                <br>
+                <br><br><br><br><br>
                 <div class="hr-line-dashed"></div>
 
-                <div class="form-group">
-                  <%= f.label "Nombre", class: 'col-sm-2 control-label'%>
-                  <div class="col-sm-5">
-                    <%= f.text_field :name, class: 'form-control', :required => true%>
-                  </div>
-                </div>
-                <br>
-                <div class="hr-line-dashed"></div>
+
 
                 <div class="form-group">
                   <div class="col-sm-5">

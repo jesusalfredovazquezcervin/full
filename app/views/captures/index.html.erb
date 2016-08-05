@@ -4,7 +4,7 @@
     <h2>Call - Registro de llamadas</h2>
     <h3 class="font-bold">Bienvenido al sistema de captura de llamadas</h3>
   <%else%>
-      <h3 class="font-bold">Consulte otra cuenta o continue con: <strong></string><%=@cliente.nombre%></strong></h3>
+      <h3 class="font-bold">Consulte otra cuenta o continue con: <strong></string><%=@cuenta.try(:account)%></strong></h3>
   <%end%>
   <div class="error-desc">
     <%if @cliente.nil? %>
@@ -13,11 +13,11 @@
 
     <%= form_tag  captures_consultar_path(:id), method: "patch" do |f| %>
         <div class="form-group">
-          <%= select_tag :cliente_id, options_for_select(Datosgenerale.order(:account).collect { |account|
-                                                           [(account.account.nil? ? (account.cliente.nombre ):(account.account.to_s) << "-" << account.frase.to_s), account.id ] }, @cliente.try(:id)),  { class:"chosen-select", style: "width:400px;", :required => true } %>    
+          <%= select_tag :cuenta_id, options_for_select(Datosgenerale.order(:account).collect { |account|
+                                                           [(account.account.nil? ? (account.cliente.nombre ):(account.account.to_s) << "-" << account.frase.to_s), account.id ] }, @cuenta.try(:id)),  { class:"chosen-select", style: "width:400px;", :required => true } %>    
         </div>
         <div class="form-group">
-          <%if @cliente.nil? %>
+          <%if @cuenta.nil? %>
 
               <%= submit_tag "Consultar", class: "btn btn-primary"%>
           <%else%>

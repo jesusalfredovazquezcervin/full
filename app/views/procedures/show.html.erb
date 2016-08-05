@@ -35,18 +35,20 @@
         <div class="ibox-content">
 
           <div class="form-group">
+            <h4>Nombre:</h4>
+            <div class="col-sm-5">
+              <%= @procedure.name%>
+            </div><br>
+
               <h4>Cliente:</h4>
               <div class="col-sm-5">
                 <%= Cliente.find(@procedure.cliente_id).nombre %>
               </div><br>
 
-              <h4>Nombre:</h4>
+
+              <h4>Cuentas:</h4>
               <div class="col-sm-5">
-                <%= @procedure.name%>
-              </div><br>
-              <h4>Cuenta:</h4>
-              <div class="col-sm-5">
-                <%= @procedure.try(:datosgenerale).try(:account)%>
+                <%= @procedure.datosgenerales.collect{|d| d.account}%>
               </div><br>
 
                 <h4>Enviar correo:</h4>

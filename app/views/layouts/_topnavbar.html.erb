@@ -9,8 +9,8 @@
 
         <%= form_tag  captures_consultar_path(:id), method: "patch" do |f| %>
             <div>
-            <%= select_tag :cliente_id, options_for_select(Datosgenerale.order(:account).collect { |account|
-                                                           [(account.account.nil? ? (account.cliente.nombre ):(account.account.to_s) << "-" << account.frase), account.id ] }, @cliente.try(:id)),  { class:"chosen-select", style: "width:700px;", :required => true } %>    
+            <%= select_tag :cuenta_id, options_for_select(Datosgenerale.order(:account).collect { |account|
+                                                           [(account.account.nil? ? (account.cliente.nombre ):(account.account.to_s) << "-" << account.frase), account.id ] }, @cuenta.try(:id)),  { class:"chosen-select", style: "width:700px;", :required => true } %>    
 
               <%= button_tag(type: 'submit', class: "btn btn-primary") do %>
                   <i class="fa fa-search"></i>
@@ -31,34 +31,34 @@
             <% end %>
 
           </li>
-          <%if !@cliente.nil?%>
+          <%if !@cuenta.nil?%>
               <li>
                 <a class="right-sidebar-toggle">
                   <i class="fa fa-question-circle" title="FAQ"></i>
                 </a>
               </li>
           <%end%>
-            <%if !@cliente.nil?%>
+            <%if !@cuenta.nil?%>
               <li class="dropdown">
                 <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                   <i class="fa fa-group" title="Notificaciones"></i>
-                  <% if @cliente.notifications.active(@cliente).count > 0%>
-                    <span class="label label-warning"><%=@cliente.notifications.active(@cliente).count%></span>
+                  <% if @cuenta.notifications.active.count > 0%>
+                    <span class="label label-warning"><%=@cuenta.notifications.active.count%></span>
                   <%end%>
                 </a>
                 <ul class="dropdown-menu dropdown-messages">
-                  <%if @cliente.notifications.count >0  %>
+                  <%if @cuenta.notifications.count >0  %>
                       <li>
                           <div>
                             <i class="fa fa-info-circle"></i> Sin notificaciones
-                            <span class="pull-right text-muted small"><%= distance_of_time_in_words(DateTime.now, @cliente.notifications.last.duedatetime + DateTime.now.utc_offset*(-1).second).to_s  %>
+                            <span class="pull-right text-muted small"><%= distance_of_time_in_words(DateTime.now, @cuenta.notifications.last.duedatetime + DateTime.now.utc_offset*(-1).second).to_s  %>
 
                             </span>
                           </div>
                       </li>
                       <li class="divider"></li>
                   <%end%>
-                  <% @cliente.notifications.active(@cliente).each do |notification| %>
+                  <% @cuenta.notifications.active.each do |notification| %>
                       <li>
                         <div class="dropdown-messages-box">
                           <a href="#" class="pull-left">
@@ -78,7 +78,7 @@
 
                             </small>
                             <small class="pull-right">
-                              <%= link_to edit_notification_path(notification), class:"text-muted" do%>
+                              <%= link_to edit_notification_path(notification, @cuenta.id), target: "_blank",  class:"text-muted" do%>
                                   <i class="fa fa-pencil" title="Modificar"></i>
                               <% end %>
                               <%= link_to notification, method: :delete, class:"text-muted", data: { confirm: '¿Está seguro?'} do%>
@@ -95,17 +95,18 @@
                   <li>
                     <div class="text-center link-block">
 
-                      <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal">
-                        Crear notificacion</button>
 
+
+
+                      <%= link_to 'Crear notificacion', new_notification_path(@cuenta), class: "btn btn-primary btn-xs", target: "_blank", title:"Nueva notificacion" %>
 
                     </div>
                   </li>
                 </ul>
               </li>
             <%end%>
-          <%if !@cliente.nil?%>
-              <%if @cliente.datosgenerale.tipocambio%>
+          <%if !@cuenta.nil?%>
+              <%if @cuenta.tipocambio%>
                   <li class="dropdown">
                     <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                       <i class="fa fa-bell"></i>  <span class="label label-primary">1</span>

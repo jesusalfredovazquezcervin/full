@@ -3,7 +3,7 @@
     <div class="col-lg-8" id="divdatosgenerales">
       <div class="ibox">
         <div class="ibox-title">
-          <h5>Datos generales<small class="m-l-sm">de la cuenta:</small> <%=@cliente.nombre%> </h5>
+          <h5>Datos generales<small class="m-l-sm">de la cuenta:</small> <%=@cuenta.account%> </h5>
           <div class="ibox-tools">
             <a class="collapse-link">
               <i class="fa fa-chevron-up"></i>
@@ -31,14 +31,14 @@
                   <li><strong>Direccion: </strong><%=@direccion.calle%> <%=@direccion.numero%>, <%=@direccion.colonia%> <%=@direccion.delegacion%> <%=@direccion.cp%></li>
                   <li><strong>Horario: </strong><small><%=@horario.horario_semana%></small></li>
               <%end%>
-              <li><strong>Telefonos: </strong><%=@cliente.datosgenerale.telefono1%>
-                <%if @cliente.datosgenerale.telefono2.nil? == false%>
-                    , <%=@cliente.datosgenerale.telefono2%>
+              <li><strong>Telefonos: </strong><%=@cuenta.telefono1%>
+                <%if @cuenta.telefono2.nil? == false%>
+                    , <%=@cuenta.telefono2%>
                 <%end%>
               </li>
-              <li><strong>Website: </strong><%=@cliente.datosgenerale.paginaweb%></li>
+              <li><strong>Website: </strong><%=@cuenta.paginaweb%></li>
               <li><strong>Contacto: </strong><%=@contacto.nombre%></li>
-              <li><strong>Giro: </strong><%=@cliente.datosgenerale.giro%>&nbsp;&nbsp;&nbsp;&nbsp;<a data-toggle="collapse" href="#dg" ><small>Ver mas ...</small></a></li>
+              <li><strong>Giro: </strong><%=@cuenta.giro%>&nbsp;&nbsp;&nbsp;&nbsp;<a data-toggle="collapse" href="#dg" ><small>Ver mas ...</small></a></li>
             </ul>
 
           <div class="row">
@@ -47,21 +47,21 @@
 
                   <ul>
                     <li>
-                      <strong>Cliente desde: </strong><%=@cliente.datosgenerale.alta.to_s(:month_day_year)%>
+                      <strong>Cliente desde: </strong><%=@cuenta.alta.to_s(:month_day_year)%>
                     </li>
                     <li>
-                      <strong>Locacion: </strong><%=@cliente.datosgenerale.locacion%>
+                      <strong>Locacion: </strong><%=@cuenta.locacion%>
                     </li>
                     <li>
-                      <strong>DID: </strong><%=@cliente.datosgenerale.did%>
+                      <strong>DID: </strong><%=@cuenta.did%>
                     </li>
                     <li>
-                      <strong>Tel enrutados: </strong><%=@cliente.datosgenerale.telenrutados%>
+                      <strong>Tel enrutados: </strong><%=@cuenta.telenrutados%>
                     </li>
                     <li>
-                      <strong>FAX: </strong><%=@cliente.datosgenerale.fax%>
+                      <strong>FAX: </strong><%=@cuenta.fax%>
                     </li>
-                    <%if @cliente.datosgenerale.tipocambio%>
+                    <%if @cuenta.tipocambio%>
                         <li><%=@cliente.tipoCambio%></li>
                     <%end%>
 
@@ -74,14 +74,10 @@
                           <%else%>
                               <%= sucursal.nombre%>
                           <%end%>
-                           | Tel: <%=sucursal.telefono%>
-                          <%if !Contacto.find_by_id(sucursal.contacto_id).nil?%>
-                              | Gerente: <%=Contacto.find_by_id(sucursal.contacto_id).nombre%>
-                          <%end%>
-                          <%if !Contacto.find_by_id(sucursal.contactoprincipal_id).nil?%>
-                              | Contacto: <%=Contacto.find_by_id(sucursal.contactoprincipal_id).nombre%>
-                          <%end%>
-                              | Domicilio: <%=sucursal.direccion.calle%>, <%=sucursal.direccion.numero%>
+                          | Tel: <%=sucursal.telefono%>
+                          | Gerente: <%=sucursal.try(:contacto).try(:nombre)%>
+                          | Contacto: <%=sucursal.try(:main).try(:nombre)%>
+                          | Domicilio: <%=sucursal.direccion.calle%>, <%=sucursal.direccion.numero%>
                           <%if !sucursal.direccion.colonia.nil?%>
                               , <%=sucursal.direccion.colonia%>
                           <%end%>
@@ -142,19 +138,19 @@
                 </div>
                 <div id="collapseTwo" class="panel-collapse collapse in">
                   <div class="panel-body">
-                    <p><%=@cliente.datosgenerale.frase%> </p>
+                    <p><%=@cuenta.frase%> </p>
                   </div>
                 </div>
               </div>
               <div class="panel panel-warning">
                 <div class="panel-heading">
                   <h5 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Clave de salida: <%=@cliente.datosgenerale.clavesalida%></a>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Clave de salida: <%=@cuenta.clavesalida%></a>
                   </h5>
                 </div>
                 <div id="collapseOne" class="panel-collapse collapse">
                   <div class="panel-body">
-                    <p>La clave de salida es: <%=@cliente.datosgenerale.clavesalida%> </p>
+                    <p>La clave de salida es: <%=@cuenta.clavesalida%> </p>
                   </div>
                 </div>
               </div>

@@ -34,8 +34,15 @@
             <li>
                 <a href=""><i class="fa fa-building"></i> <span class="nav-label">Cuentas</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                  <% @clientes.collect do |cliente|%>
-                      <li class=""><%= link_to cliente.nombreComercial, captures_consultar_path(cliente),method: :patch%></li>
+                  <% Cliente.all.order(:nombre).collect do |cliente|%>
+                      <li>
+                        <a href=""><span class="nav-label"><%= cliente.nombreComercial%></span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level">
+                          <% cliente.datosgenerales.order(:account).collect do |account|%>
+                              <li class=""><%= link_to (account.account.nil? ? (account.cliente.nombre):(account.account)), captures_consultar_path(account),method: :patch%></li>
+                          <%end%>
+                        </ul>
+                      </li>
                   <%end%>
                 </ul>
             </li>

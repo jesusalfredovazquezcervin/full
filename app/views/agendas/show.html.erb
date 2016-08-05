@@ -37,16 +37,18 @@
 
           <div class="form-group">
             <div class="form-group">
-              <h4>Cliente:</h4>
-              <div class="col-sm-5">
-                <%= Cliente.find(@agenda.cliente_id).nombre %>
-              </div><br>
-
               <h4>Nombre:</h4>
               <div class="col-sm-5">
                 <%= @agenda.nombre %>
               </div><br>
-
+              <h4>Cliente:</h4>
+              <div class="col-sm-5">
+                <%= Cliente.find(@agenda.cliente_id).nombre %>
+              </div><br>
+              <h4>Cuentas:</h4>
+              <div class="col-sm-5">
+                <%= @agenda.datosgenerales.collect{|d| d.account}%>
+              </div><br>
               <h4>RFC:</h4>
               <div class="col-sm-5">
                 <%= @agenda.rfc%>
