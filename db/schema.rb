@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160728171308) do
+ActiveRecord::Schema.define(version: 20160803175758) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "agenda_accounts", force: true do |t|
+    t.integer  "agenda_id"
+    t.integer  "datosgenerale_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "agenda_accounts", ["agenda_id"], name: "index_agenda_accounts_on_agenda_id", using: :btree
+  add_index "agenda_accounts", ["datosgenerale_id"], name: "index_agenda_accounts_on_datosgenerale_id", using: :btree
 
   create_table "agendas", force: true do |t|
     t.integer  "cliente_id"
@@ -636,8 +646,10 @@ ActiveRecord::Schema.define(version: 20160728171308) do
     t.string   "field19"
     t.string   "field20"
     t.string   "field11"
+    t.integer  "datosgenerale_id"
   end
 
+  add_index "information", ["datosgenerale_id"], name: "index_information_on_datosgenerale_id", using: :btree
   add_index "information", ["form_id"], name: "index_information_on_form_id", using: :btree
   add_index "information", ["usuario_id"], name: "index_information_on_usuario_id", using: :btree
 
@@ -777,9 +789,11 @@ ActiveRecord::Schema.define(version: 20160728171308) do
     t.integer  "recipient_id"
     t.datetime "startdatetime"
     t.datetime "duedatetime"
+    t.integer  "datosgenerale_id"
   end
 
   add_index "notifications", ["cliente_id"], name: "index_notifications_on_cliente_id", using: :btree
+  add_index "notifications", ["datosgenerale_id"], name: "index_notifications_on_datosgenerale_id", using: :btree
   add_index "notifications", ["event_id"], name: "index_notifications_on_event_id", using: :btree
   add_index "notifications", ["person_id"], name: "index_notifications_on_person_id", using: :btree
   add_index "notifications", ["recipient_id"], name: "index_notifications_on_recipient_id", using: :btree
@@ -805,6 +819,16 @@ ActiveRecord::Schema.define(version: 20160728171308) do
     t.string   "breed"
     t.integer  "age"
   end
+
+  create_table "procedure_accounts", force: true do |t|
+    t.integer  "procedure_id"
+    t.integer  "datosgenerale_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "procedure_accounts", ["datosgenerale_id"], name: "index_procedure_accounts_on_datosgenerale_id", using: :btree
+  add_index "procedure_accounts", ["procedure_id"], name: "index_procedure_accounts_on_procedure_id", using: :btree
 
   create_table "procedures", force: true do |t|
     t.integer  "cliente_id"
@@ -882,8 +906,8 @@ ActiveRecord::Schema.define(version: 20160728171308) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "recepcionista_id"
-    t.integer  "contactoprincipal_id"
-    t.integer  "contactosecundario_id"
+    t.integer  "main_id"
+    t.integer  "secondary_id"
   end
 
   create_table "usuarios", force: true do |t|
