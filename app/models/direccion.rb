@@ -1,4 +1,6 @@
 class Direccion < ActiveRecord::Base
+
+=begin
   class MatrizValidator < ActiveModel::EachValidator
     def validate_each(record, attribute, value)
       if record.matriz
@@ -8,6 +10,7 @@ class Direccion < ActiveRecord::Base
       end
     end
   end
+=end
 
   has_attached_file :photo, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
 
@@ -18,7 +21,7 @@ class Direccion < ActiveRecord::Base
   validates :sucursal_id,
       uniqueness: {scope: [:cliente_id], message: "La combinacion Cliente, Sucursal ya esta en uso"}
 
-  validates :matriz, matriz: true
+  # validates :matriz, matriz: true
 
   belongs_to :cliente
 
