@@ -36,7 +36,7 @@
                               <th>ID</th>
                               <th>Fecha</th>
                               <th>Operador</th>
-                              <% procedure.try(:form).try(:fields).order(:id).each_with_index do |field, index| %>
+                              <% procedure.try(:form).try(:fields).try(order: :id).each_with_index do |field, index| %>
                                   <%fld = "field" << (index + 1).to_s%>
                                   <%if field.show_in_list %>
                                       <th> <%=field.name%> </th>
@@ -46,12 +46,12 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <%  procedure.try(:form).try(:informations).order(id: :desc).each do |information| %>
+                            <%  procedure.try(:form).try(:informations).try(order: {id: :desc}).each do |information| %>
                                 <tr>
                                   <td><%= information.id %></td>
                                   <td><%= information.created_at  %></td>
                                   <td><%= Usuario.find_by_id(information.usuario_id).try(:email) %></td>
-                                  <% procedure.try(:form).try(:fields).order(:id).each_with_index do |field, index| %>
+                                  <% procedure.try(:form).try(:fields).try(order: :id).each_with_index do |field, index| %>
                                       <%fld = "field" << (index + 1).to_s%>
                                       <%case field.data_type%>
                                         <%when "Date"%>
