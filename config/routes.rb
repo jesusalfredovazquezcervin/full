@@ -1,5 +1,7 @@
 Myapp::Application.routes.draw do
 
+  get "direccions/maps/:id", to: "direccions#maps", as: "show_maps_direccion"
+
   get "notifications/edit/:id/:cuenta_id", to: "notifications#edit", as: "edit_notification"
 
   get 'agendas/update_datosgenerales', as: 'agenda_update_datosgenerales'

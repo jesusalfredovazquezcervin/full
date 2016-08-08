@@ -99,6 +99,10 @@ class DireccionsController < ApplicationController
     end
   end
 
+  def maps
+    @sucursal = params[:id]
+    render :layout => "layout_3"
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_direccion

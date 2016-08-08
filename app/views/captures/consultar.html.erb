@@ -84,6 +84,14 @@
                               ,<%=sucursal.direccion.delegacion%>, <%=sucursal.direccion.cp%>
                               | Referencia: <%=sucursal.direccion.referencia%>
                               | Horario: <%= sucursal.horario.nil? == true ? (''):(sucursal.horario.horario_semana) %>
+
+                          <%if (!sucursal.direccion.mapsgoogle.nil? && !sucursal.direccion.mapsgoogle.empty?) || !sucursal.direccion.photo_file_name.nil? %>
+                              |<%= link_to show_maps_direccion_path(sucursal), target: "_blank"  do %>
+                                  <i class="fa fa-map-marker"></i> <strong>Mapa</strong>
+                              <% end %>
+                          <%end%>
+
+
                         </li>
                             <br>
                      <%end%>
