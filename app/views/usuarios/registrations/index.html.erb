@@ -100,6 +100,7 @@
                   </td>
 
                   <td>
+                    <%= link_to 'M', edit_usuario_registration_path(id:usuario.id), class: "btn btn-warning btn-circle", title:"Modificar" %>
                     <%if usuario.activo%>
                         <%= link_to 'D', usuarios_desactivar_path(usuario), class: "btn btn-danger btn-circle", title:"Desactivar" %>
                     <%else%>
