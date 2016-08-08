@@ -29,7 +29,7 @@
             <h5>Listados de captura <small>Aqui estan todos los registros de captura para el cliente</small></h5>
             <%  @cuenta.procedures.order(:number).each_with_index do |procedure, index| %>
                 <div id="tab-<%=index+1%>" class="tab-pane <%= index == 0 ? (" active"):("") %>">
-                      <%if procedure.try(:form).try(:fields).try(:count) >0 %>
+                      <%if !procedure.try(:form).nil? %>
                           <table class="table table-striped table-bordered table-hover dataTables-example">
                             <thead>
                             <tr>
