@@ -95,10 +95,12 @@
                   <li>
                     <div class="text-center link-block">
 
+                      <%= link_to new_notification_path(@cuenta), target: "_blank"  do %>
+                          <i class="fa fa-envelope"></i> <strong>Nueva notificaci&oacute;n</strong>
+                      <% end %>
 
 
 
-                      <%= link_to 'Crear notificacion', new_notification_path(@cuenta), class: "btn btn-primary btn-xs", target: "_blank", title:"Nueva notificacion" %>
 
                     </div>
                   </li>
