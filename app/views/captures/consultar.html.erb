@@ -37,7 +37,7 @@
                 <%end%>
               </li>
               <li><strong>Website: </strong><%=@cuenta.paginaweb%></li>
-              <li><strong>Contacto: </strong><%=@contacto.nombre%></li>
+              <li><strong>Contacto: </strong><%=@contacto.try(:nombre)%></li>
               <li><strong>Giro: </strong><%=@cuenta.giro%>&nbsp;&nbsp;&nbsp;&nbsp;<a data-toggle="collapse" href="#dg" ><small>Ver mas ...</small></a></li>
             </ul>
 

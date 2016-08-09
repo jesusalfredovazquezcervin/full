@@ -45,12 +45,12 @@ class CapturesController < ApplicationController
       id=params[:id]=="id" ? (params[:cuenta_id]):(params[:id])
     @notification = Notification.new
     @cuenta = Datosgenerale.find_by_id(id)
-    @cliente = Datosgenerale.find_by_id(id).cliente
+    @cliente = @cuenta.cliente
     @capture= Capture.new
     @clientes = Cliente.all #Aqui en el futuro deberé solamente traer los clientes a los que está asociado el operador
-    @direccion =@cliente.sucursals.all.select{|s| s.direccion.matriz==true}[0].direccion
-    @horario = @cliente.sucursals.all.select{|s| s.direccion.matriz==true}[0].horario
-    @contacto=@cliente.sucursals.all.select{|s| s.direccion.matriz==true}[0].main
+    @direccion = @cliente.sucursals.all.select{|s| s.direccion.matriz==true}.empty? ? (nil):(@cliente.sucursals.all.select{|s| s.direccion.matriz==true}[0].direccion)
+    @horario = @cliente.sucursals.all.select{|s| s.direccion.matriz==true}.empty? ? (nil):(@cliente.sucursals.all.select{|s| s.direccion.matriz==true}[0].horario)
+    @contacto = @cliente.sucursals.all.select{|s| s.direccion.matriz==true}.empty? ? (nil):(@cliente.sucursals.all.select{|s| s.direccion.matriz==true}[0].main)
     @sucursales = Sucursal.where(:cliente_id => id)
     @products = Product.all
     @information = Information.new
