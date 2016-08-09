@@ -72,6 +72,15 @@
                                             <div class="row">
                                               <%if procedure.form.fields.count >0 %>
                                                   <h2>Formulario de: <%=procedure.form.name%></h2>
+                                                  <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                      <label>
+                                                        <% step.detail.split(" ").each do |p|%>
+                                                            <%= p.include?("<") ? (link_to  "aqui", p.sub(">", "").sub("<","") , target: "_blank"):(p) %>&nbsp;
+                                                        <%end%><br>
+                                                      </label>
+                                                    </div>
+                                                  </div>
                                                   <%= hidden_field_tag :form_id, procedure.form.id %>
 
                                                   <div class="form-group">
