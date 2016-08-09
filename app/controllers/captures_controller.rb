@@ -15,6 +15,7 @@ class CapturesController < ApplicationController
     #@captures = Capture.all
     @notification = Notification.new
     @user = current_user
+    @cuentas = Datosgenerale.all.order(:account).collect{|account| [account.account << "    |    " << account.frase , account.id]}
     dashofintel
 
   end
@@ -55,6 +56,7 @@ class CapturesController < ApplicationController
     @products = Product.all
     @information = Information.new
     @user= current_user
+    @cuentas = Datosgenerale.all.order(:account).collect{|account| [account.account << "    |    " << account.frase , account.id]}
     dashofintel
   end
 

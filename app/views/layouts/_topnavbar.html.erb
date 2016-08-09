@@ -5,22 +5,29 @@
           <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
 
         </div>
-      <div class="navbar-header">
+      <%if !@cuenta.nil?%>
+          <div class="navbar-header">
 
-        <%= form_tag  captures_consultar_path(:id), method: "patch" do |f| %>
-            <div>
+            <%= form_tag  captures_consultar_path(:id), method: "patch" do |f| %>
+                <div>
 
-            <%= select_tag :cuenta_id, options_for_select(Datosgenerale.all.order(:account).collect{|account| [account.account  , account.id] }, @cuenta.try(:id)),  { class:"chosen-select", style: "width:900px;", :required => true } %>    
-
-              <%= button_tag(type: 'submit', class: "btn btn-primary") do %>
-                  <i class="fa fa-search"></i>
-              <% end %>
-              </div>
+                      <%= select_tag :cuenta_id, options_for_select(@cuentas, @cuenta.try(:id)),  { class:"chosen-select", style: "width:900px;", :required => true } %>    
 
 
 
-        <%end%> 
-      </div>
+
+                  <%= button_tag(type: 'submit', class: "btn btn-primary") do %>
+                      <i class="fa fa-search"></i>
+                  <% end %>
+                </div>
+
+
+
+            <%end%> 
+          </div>
+
+    <%end%>
+
 
 
 
