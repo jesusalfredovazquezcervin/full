@@ -6,15 +6,14 @@
   <%else%>
       <h3 class="font-bold">Consulte otra cuenta o continue con: <strong></string><%=@cuenta.try(:account)%></strong></h3>
   <%end%>
-  <div class="error-desc">
+
     <%if @cliente.nil? %>
         Para iniciar seleccione una cuenta
     <%end%>
 
     <%= form_tag  captures_consultar_path(:id), method: "patch" do |f| %>
         <div class="form-group">
-          <%= select_tag :cuenta_id, options_for_select(Datosgenerale.order(:account).collect { |account|
-                                                           [(account.account.nil? ? (account.cliente.nombre ):(account.account.to_s) << "-" << account.frase.to_s), account.id ] }, @cuenta.try(:id)),  { class:"chosen-select", style: "width:400px;", :required => true } %>    
+          <%= select_tag :cuenta_id, options_for_select(Datosgenerale.all.order(:account).collect{|account| [account.account << "     |     " << account.frase  , account.id] }, @cuenta.try(:id)),  { class:"chosen-select", style: "width:400px;", :required => true } %>    
         </div>
         <div class="form-group">
           <%if @cuenta.nil? %>
@@ -27,5 +26,5 @@
 
         </div>
     <%end%>
-  </div>
+
 </div>
