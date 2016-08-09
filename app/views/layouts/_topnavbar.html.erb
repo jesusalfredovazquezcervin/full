@@ -9,8 +9,8 @@
 
         <%= form_tag  captures_consultar_path(:id), method: "patch" do |f| %>
             <div>
-            <%= select_tag :cuenta_id, options_for_select(Datosgenerale.order(:account).collect { |account|
-                                                           [(account.account.nil? ? (account.cliente.nombre ):(account.account.to_s) << "-" << account.frase), account.id ] }, @cuenta.try(:id)),  { class:"chosen-select", style: "width:700px;", :required => true } %>    
+
+            <%= select_tag :cuenta_id, options_for_select(Datosgenerale.all.order(:account).collect{|account| [account.account  , account.id] }, @cuenta.try(:id)),  { class:"chosen-select", style: "width:900px;", :required => true } %>    
 
               <%= button_tag(type: 'submit', class: "btn btn-primary") do %>
                   <i class="fa fa-search"></i>
