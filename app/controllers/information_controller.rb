@@ -61,7 +61,7 @@ class InformationController < ApplicationController
   def destroy
     @information.destroy
     respond_to do |format|
-      format.html { redirect_to({controller: "captures" , action: 'index', id:@information.form.cliente.id}, alert: "El registro ha sido eliminado exitosamente") }
+      format.html { redirect_to({controller: "captures" , action: 'index', id:@information.datosgenerale_id}, alert: "El registro ha sido eliminado exitosamente") }
       format.json { head :no_content }
     end
   end
@@ -70,7 +70,7 @@ class InformationController < ApplicationController
     information = Information.find_by_id params[:information][:id]
     send_mail(params[:recipient].select{|r| r unless r.empty?}.join(", "),information,"Resend") if (information.form.procedure.deliver and !params[:recipient].nil? )
     respond_to do |format|
-      format.html { redirect_to({ controller:"captures", action: 'index', id:information.form.cliente_id}, notice: "El registro ha sido re-enviado exitosamente") }
+      format.html { redirect_to({ controller:"captures", action: 'index', id:information.datosgenerale_id}, notice: "El registro ha sido re-enviado exitosamente") }
     end
   end
 
