@@ -9,8 +9,8 @@ class CapturesController < ApplicationController
     @clientes = Cliente.all #Aqui en el futuro deberé solamente traer los clientes a los que está asociado el operador
     logger.debug @clientes.count
     if params[:id]
-      @cliente = Cliente.find(params[:id])
       @cuenta = Datosgenerale.find_by_id params[:id]
+      @cliente = @cuenta.cliente
     end
     #@captures = Capture.all
     @notification = Notification.new
