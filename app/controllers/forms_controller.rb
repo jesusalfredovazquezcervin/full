@@ -4,7 +4,8 @@ class FormsController < ApplicationController
   respond_to :html
 
   def update_procedures
-    @procedures = Cliente.find(params[:cliente_id]).procedures
+    #  solo debe traer procedimientos que tengan pasos con lleva formulario =true
+    @procedures = Procedure.joins(:steps).where(:steps => {form: true}, :procedures => {id: [Cliente.find(params[:cliente_id]).procedures.all.collect{|p| p.id} ]} )
     respond_to do |format|
       format.js
     end
@@ -21,12 +22,15 @@ class FormsController < ApplicationController
 
   def new
     @form = Form.new
-    @procedures= Procedure.where("cliente_id = ?", Cliente.first.id)
+    #@procedures= Procedure.where("cliente_id = ?", Cliente.first.id)
+    @procedures = Procedure.joins(:steps).where(:steps => {form: true}, :procedures => {id: [Cliente.order(:nombre).first.procedures.all.collect{|p| p.id} ]} )
+    @form.procedure = @procedures.first
     dashboard_4
   end
 
   def edit
-    @procedures= @form.cliente.procedures
+    #@procedures= @form.cliente.procedures
+    @procedures = Procedure.joins(:steps).where(:steps => {form: true}, :procedures => {id: [@form.cliente.procedures.all.collect{|p| p.id} ]} )
     dashboard_4
   end
 

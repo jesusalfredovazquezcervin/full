@@ -42,8 +42,8 @@
                 <div class="form-group">
                   <%= f.label :cliente, class: 'col-sm-2 control-label'%>
                   <div class="col-sm-5">
-                    <%= f.select :cliente_id, options_for_select(Cliente.all.collect { |cliente|
-                                                                   [cliente.nombre, cliente.id] }, @form.cliente_id), {}, {id: 'clientes_select', class:"form-control m-b", style: "width:350px;" } %>
+                    <%= f.select :cliente_id, options_for_select(Cliente.order(:nombre).all.collect { |cliente|
+                                                                   [cliente.nombre, cliente.id] }, @form.cliente_id), {}, {id: 'clientes_select', class:"form-control m-b", style: "width:350px;"} %>
 
                   </div>
                 </div>
@@ -62,7 +62,7 @@
                   <%= f.label "Procedimiento", class: 'col-sm-2 control-label'%>
                   <div class="col-sm-5">
                     <%= f.select :procedure_id, options_for_select(@procedures.all.collect { |procedure|
-                                                                   [procedure.name, procedure.id] }, @form.procedure_id), {:include_blank => true}, {id: 'procedures_select', class:"form-control m-b", style: "width:350px;" } %>
+                                                                   [procedure.name, procedure.id] }, @form.procedure_id), {}, {id: 'procedures_select', class:"form-control m-b", style: "width:350px;" } %>
 
                   </div>
 
