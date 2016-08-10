@@ -146,7 +146,7 @@ class InformationController < ApplicationController
       if !params[:form_id].nil?
         params[:information][:form_id] = params[:form_id]
       end
-      if params[:action] = "update"
+      if params[:action] == "update"
         params[:information][:datosgenerale_id] = @information.datosgenerale_id
       end
       params.require(:information).permit(:form_id, :usuario_id, :field1, :field2, :field3, :field4, :field5, :field6, :field7, :field8, :field9, :field10, :field11, :field12, :field13, :field14, :field15, :field16, :field17, :field18, :field19, :field20, :datosgenerale_id)
