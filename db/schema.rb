@@ -192,15 +192,6 @@ ActiveRecord::Schema.define(version: 20160803175758) do
 
   add_index "checkins", ["usuario_id"], name: "index_checkins_on_usuario_id", using: :btree
 
-  create_table "cities", force: true do |t|
-    t.string   "name"
-    t.integer  "country_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "cities", ["country_id"], name: "index_cities_on_country_id", using: :btree
-
   create_table "clientes", force: true do |t|
     t.string   "nombre"
     t.string   "rfc"
@@ -235,12 +226,6 @@ ActiveRecord::Schema.define(version: 20160803175758) do
     t.string   "funciones"
   end
 
-  create_table "countries", force: true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "datosgenerales", force: true do |t|
     t.date     "alta"
     t.string   "clavesalida"
@@ -268,9 +253,6 @@ ActiveRecord::Schema.define(version: 20160803175758) do
     t.boolean  "tipocambio"
     t.boolean  "pedido"
     t.string   "frase"
-    t.string   "recipient"
-    t.string   "periodicity"
-    t.date     "start"
     t.string   "account"
   end
 
