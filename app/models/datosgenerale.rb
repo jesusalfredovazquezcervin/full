@@ -15,7 +15,6 @@ class Datosgenerale < ActiveRecord::Base
             presence: true
   validates :cliente_id,
             uniqueness:  {scope: [:account]}
-  PERIODICITY = %w[diario semanal quincenal mensual bimestral trimestral semestral anual]
 
   # Si la cuenta se elimina entonces todo lo realcionado a ella debe eliminarse, como procedimientos, relaciones entre contactos y cuentas, NO los contactos.
 
