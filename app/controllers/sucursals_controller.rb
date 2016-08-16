@@ -93,7 +93,7 @@ class SucursalsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sucursal_params
-      params.require(:sucursal).permit(:cliente_id, :nombre, :telefono, :contacto_id, :recepcionista_id, :contactoprincipal_id, :contactosecundario_id)
+      params.require(:sucursal).permit(:cliente_id, :nombre, :telefono, :contacto_id, :recepcionista_id, :main_id, :secondary_id)
     end
     def dashboard_4
       render :layout => "layout_2"

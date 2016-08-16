@@ -93,7 +93,7 @@
                 <div class="form-group">
                   <%= f.label :contacto_Principal, class: 'col-sm-2 control-label'%>
                   <div class="col-sm-5">
-                    <%= f.select :contactoprincipal_id, options_for_select(@contactos.collect { |contacto|
+                    <%= f.select :main_id, options_for_select(@contactos.collect { |contacto|
                                                                          [contacto.nombre, contacto.id] }, @sucursal.contacto_id), {include_blank: true}, { id: 'contactos3_select', class:"form-control m-b", style: "width:350px;" } %>
 
                   </div>
@@ -103,7 +103,7 @@
                 <div class="form-group">
                   <%= f.label :contacto_Secundario, class: 'col-sm-2 control-label'%>
                   <div class="col-sm-5">
-                    <%= f.select :contactosecundario_id, options_for_select(@contactos.collect { |contacto|
+                    <%= f.select :secondary_id, options_for_select(@contactos.collect { |contacto|
                                                                              [contacto.nombre, contacto.id] }, @sucursal.contacto_id), {include_blank: true}, { id: 'contactos4_select', class:"form-control m-b", style: "width:350px;" } %>
                   </div>
                 </div>

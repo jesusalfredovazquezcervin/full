@@ -53,27 +53,20 @@
 
               <h4>Gerente:</h4>
               <div class="col-sm-5">
-                <% if (@sucursal.contacto_id.nil? == false) %>
-                    <%= Contacto.find(@sucursal.contacto_id).nombre%>
-                <%end%>
+                    <%= @sucursal.try(:contacto).try(:nombre)%>
               </div><br>
               <h4>Recepcionista:</h4>
               <div class="col-sm-5">
-                <% if (@sucursal.recepcionista_id.nil? == false) %>
-                    <%= Contacto.find(@sucursal.recepcionista_id).nombre%>
-                <%end%>
+                    <%= Contacto.find_by_id(@sucursal.recepcionista_id).try(:nombre)%>
               </div><br>
               <h4>Cto principal:</h4>
               <div class="col-sm-5">
-                <% if (@sucursal.contactoprincipal_id.nil? == false) %>
-                    <%= Contacto.find(@sucursal.contactoprincipal_id).nombre%>
-                <%end%>
+                <%= @sucursal.try(:main).try(:nombre)%>
               </div><br>
               <h4>Cto secundario:</h4>
               <div class="col-sm-5">
-                <% if (@sucursal.contactosecundario_id.nil? == false) %>
-                    <%= Contacto.find(@sucursal.contactosecundario_id).nombre%>
-                <%end%>
+                <%= @sucursal.try(:secondary).try(:nombre)%>
+
               </div><br>
             </div>
             <br>
