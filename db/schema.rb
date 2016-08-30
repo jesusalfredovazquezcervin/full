@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160803175758) do
+ActiveRecord::Schema.define(version: 20160829173207) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -192,6 +192,15 @@ ActiveRecord::Schema.define(version: 20160803175758) do
 
   add_index "checkins", ["usuario_id"], name: "index_checkins_on_usuario_id", using: :btree
 
+  create_table "cities", force: true do |t|
+    t.string   "name"
+    t.integer  "country_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "cities", ["country_id"], name: "index_cities_on_country_id", using: :btree
+
   create_table "clientes", force: true do |t|
     t.string   "nombre"
     t.string   "rfc"
@@ -226,6 +235,12 @@ ActiveRecord::Schema.define(version: 20160803175758) do
     t.string   "funciones"
   end
 
+  create_table "countries", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "datosgenerales", force: true do |t|
     t.date     "alta"
     t.string   "clavesalida"
@@ -255,6 +270,17 @@ ActiveRecord::Schema.define(version: 20160803175758) do
     t.string   "frase"
     t.string   "account"
   end
+
+  create_table "detail_reports", force: true do |t|
+    t.integer  "report_id"
+    t.integer  "field_id"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "detail_reports", ["field_id"], name: "index_detail_reports_on_field_id", using: :btree
+  add_index "detail_reports", ["report_id"], name: "index_detail_reports_on_report_id", using: :btree
 
   create_table "direccions", force: true do |t|
     t.integer  "sucursal_id"
@@ -848,6 +874,54 @@ ActiveRecord::Schema.define(version: 20160803175758) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "report_accounts", force: true do |t|
+    t.integer  "report_id"
+    t.integer  "datosgenerale_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "report_accounts", ["datosgenerale_id"], name: "index_report_accounts_on_datosgenerale_id", using: :btree
+  add_index "report_accounts", ["report_id"], name: "index_report_accounts_on_report_id", using: :btree
+
+  create_table "report_recipients", force: true do |t|
+    t.integer  "report_id"
+    t.integer  "contacto_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "report_recipients", ["contacto_id"], name: "index_report_recipients_on_contacto_id", using: :btree
+  add_index "report_recipients", ["report_id"], name: "index_report_recipients_on_report_id", using: :btree
+
+  create_table "report_sents", force: true do |t|
+    t.integer  "report_id"
+    t.string   "sent_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "report_sents", ["report_id"], name: "index_report_sents_on_report_id", using: :btree
+
+  create_table "reports", force: true do |t|
+    t.string   "name"
+    t.integer  "cliente_id"
+    t.string   "periodicity"
+    t.string   "schedule"
+    t.integer  "form_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "start_day"
+    t.datetime "end_day"
+    t.time     "start_time"
+    t.time     "end_time"
+    t.boolean  "send_same_day"
+    t.boolean  "enabled"
+  end
+
+  add_index "reports", ["cliente_id"], name: "index_reports_on_cliente_id", using: :btree
+  add_index "reports", ["form_id"], name: "index_reports_on_form_id", using: :btree
 
   create_table "sents", force: true do |t|
     t.integer  "usuario_id"
