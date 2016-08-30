@@ -38,7 +38,7 @@ m.every 1.day, :first_at => Time.new(2016, 8, 30, 8) + 1.day  do
   loop_reports("vespertino", "semestral")
   loop_reports("vespertino", "anual")
 end
-v.every 1.day, :first_at => Time.new(2016, 8, 30, 14,30)   do
+v.every 1.day, :first_at => Time.new(2016, 8, 30, 14,30) + 1.day   do
   loop_reports("vespertino", "matutino")
   loop_reports("vespertino", "semanal")
   loop_reports("vespertino", "quincenal")
