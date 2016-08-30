@@ -28,7 +28,7 @@ m.every 1.day, :first_at => Time.new(Date.today.year, Date.today.month, Date.tod
 end
 
 # Tarea para el turno vespertino
-v.every 1.day, :first_at => Time.new(Date.today.year, Date.today.month, Date.today.day + 1.day, 14,0,0) do
+v.every 1.day, :first_at => Time.new(Date.today.year, Date.today.month, Date.today.day, 14,0,0) do
   # Report.all.where(schedule: "vespertino",  periodicity: "semanal").each{|report|
   #   if report.end_day.day == report.send_same_day ? (Date.today.day):((Date.today - 1).day)
   #     InformationMailer.send_report(report.contactos.collect{|c| c.email }, report.id).deliver
@@ -47,7 +47,7 @@ v.every 1.day, :first_at => Time.new(Date.today.year, Date.today.month, Date.tod
 end
 
 # Tarea para el turno nocturno
-n.every 1.day, :first_at => Time.new(Date.today.year, Date.today.month, Date.today.day + 1.day, 22,0,0) do
+n.every 1.day, :first_at => Time.new(Date.today.year, Date.today.month, Date.today.day, 22,0,0) do
   loop_reports("nocturno", "matutino")
   loop_reports("nocturno", "semanal")
   loop_reports("nocturno", "quincenal")
