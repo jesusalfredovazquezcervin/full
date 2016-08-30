@@ -1,3 +1,5 @@
+<% if !@flag%>
+
 <div class="row wrapper border-bottom white-bg page-heading">
   <div class="col-lg-10">
 
@@ -101,42 +103,44 @@
     </div>
   </div>
 </div>
+    <% content_for :javascript do %>
 
-<% content_for :javascript do %>
-
-    <script type="text/javascript">
-
-
-        var config = {
-            '.chosen-select'           : {},
-            '.chosen-select-deselect'  : {allow_single_deselect:true},
-            '.chosen-select-no-single' : {disable_search_threshold:10},
-            '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
-            '.chosen-select-width'     : {width:"95%"}
-        }
-        for (var selector in config) {
-            $(selector).chosen(config[selector]);
-        }
+        <script type="text/javascript">
 
 
-        $(function() {
-            return $(document).on('change', '#clientes_select', function(evt) {
-                return $.ajax({
-                    url:location.protocol + "//" + location.host + "/forms/update_procedures",
-                    type: 'GET',
-                    dataType: 'script',
-                    data: {
-                        cliente_id: $("#clientes_select option:selected").val()
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        console.log(location.protocol + "//" + location.host + "/forms/update_procedures");
-                        return console.log("AJAX Error: " + textStatus);
-                    },
-                    success: function(data, textStatus, jqXHR) {
-                        return console.log("Dynamic procedure select OK!");
-                    }
+            var config = {
+                '.chosen-select'           : {},
+                '.chosen-select-deselect'  : {allow_single_deselect:true},
+                '.chosen-select-no-single' : {disable_search_threshold:10},
+                '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+                '.chosen-select-width'     : {width:"95%"}
+            }
+            for (var selector in config) {
+                $(selector).chosen(config[selector]);
+            }
+
+
+            $(function() {
+                return $(document).on('change', '#clientes_select', function(evt) {
+                    return $.ajax({
+                        url:location.protocol + "//" + location.host + "/forms/update_procedures",
+                        type: 'GET',
+                        dataType: 'script',
+                        data: {
+                            cliente_id: $("#clientes_select option:selected").val()
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.log(location.protocol + "//" + location.host + "/forms/update_procedures");
+                            return console.log("AJAX Error: " + textStatus);
+                        },
+                        success: function(data, textStatus, jqXHR) {
+                            return console.log("Dynamic procedure select OK!");
+                        }
+                    });
                 });
             });
-        });
-    </script>
-<% end %>
+        </script>
+    <% end %>
+<%else%>
+    <option value="<%= form.id %>"><%= form.name %></option>
+<%end%>
