@@ -11,4 +11,43 @@ class InformationMailer < ActionMailer::Base
     mail to: email,
     subject: "Ofintel::Mensaje de " << @information.form.name.capitalize
   end
+  def send_report(email, report_id)
+    @report = Report.find_by_id report_id
+    @today = @report.send_same_day ? (Date.today):(Date.today - 1.day)
+    case @report.periodicity
+      when "diario"
+        date_start = @today - 1.day
+        @ff = DateTime.new(@today.year, @today.month, @today.day, @report.end_day.hour, @report.end_day.min, @report.end_day.sec)
+        @fi = DateTime.new(@today.year , @today.month, @today.day, @report.start_day.hour, @report.start_day.min, @report.start_day.sec)
+      when "semanal"
+        date_start = @today - 1.week
+      when "quincenal"
+        date_start = @today - 2.weeks
+      when "mensual"
+        date_start = @today - 1.month
+      when "bimestral"
+        date_start = @today - 2.months
+      when "trimestral"
+        date_start = @today - 3.months
+      when "semestral"
+        date_start = @today - 6.months
+      when "anual"
+        date_start = @today - 1.year
+      when "varios_dias"
+        diff_days = (@report.end_day.to_date - @report.start_day.to_date).to_i
+        date_start = @ff - diff_days.day
+    end
+    if @report.periodicity != "diario"
+      @fi = DateTime.new(date_start.year , date_start.month, date_start.day, @report.start_day.hour, @report.start_day.min, @report.start_day.sec)
+      @ff = DateTime.new(@today.year, @today.month, @today.day, @report.end_day.hour, @report.end_day.min, @report.end_day.sec)
+    end
+
+
+
+
+    @enlace = "http://localhost:3000/reports/sent/" << @report.id.to_s << "/" << @today.strftime("%Y%m%d")
+    mail to: email.split(", "),
+    #mail to: "jesuscervin@icloud.com",
+    subject: "Ofintel::Reporte - " << @report.name.titleize
+  end
 end
