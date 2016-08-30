@@ -1,1 +1,1 @@
-<option value="<%= contacto.id %>"><%= contacto.nombre << ' ' << '<' << contacto.email << '>'%></option>
+<option value="<%= contacto.id %>"><%= contacto.nombre << ' ' << '<' << (contacto.email.nil? ? (""):(contacto.email) ) << '>'%></option>
