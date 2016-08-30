@@ -15,7 +15,5 @@ class Report < ActiveRecord::Base
   validates :cliente_id,
             uniqueness:  {scope: [ :name]}
 
-  scope :active, -> {where (active: true )}
-  #scope :published, -> { where(published: true) }
-
+  scope :activos, -> { where (active: true)}
 end
