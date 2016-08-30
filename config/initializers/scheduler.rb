@@ -10,21 +10,19 @@ def report_sent_log(report_id)
   ReportSent.create(report_id: report_id, sent_by: "scheduler")
 end
 def loop_reports(periodicity, schedule)
-=begin
   if periodicity == "diario"
-    Report.active.all.where(schedule: schedule,  periodicity: periodicity).each{|report|
+    Report.activos.all.where(schedule: schedule,  periodicity: periodicity).each{|report|
       InformationMailer.send_report(report.contactos.collect{|c| c.email }, report.id).deliver
       report_sent_log report.id
     }
   else
-    Report.active.all.where(schedule: schedule,  periodicity: periodicity).each{|report|
+    Report.activos.all.where(schedule: schedule,  periodicity: periodicity).each{|report|
       if report.end_day.day == report.send_same_day ? (Date.today.day):((Date.today - 1).day)
         InformationMailer.send_report(report.contactos.collect{|c| c.email }, report.id).deliver
         report_sent_log report.id
       end
     }
   end
-=end
 end
 
 # Tarea para el turno matutino
