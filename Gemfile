@@ -93,7 +93,7 @@ gem 'actionpack'
 gem 'actionmailer', '~> 4.1.2'
 gem 'roadie', '~> 3.1', '>= 3.1.1'
 gem 'exception_notification'
-
+gem 'rufus-scheduler', '~> 3.2', '>= 3.2.1'
 
 
 
