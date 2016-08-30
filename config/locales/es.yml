@@ -8,4 +8,22 @@ es:
          short: "%H:%M:%S"
          medium: "%d/%m/%Y"
          large: "%d/%m/%Y %H:%M:%S"
+  date:
+      day_names:
+         - Domingo
+         - Lunes
+         - Martes
+         - Miercoles
+         - Jueves
+         - Viernes
+         - Sabado
+
+      abbr_day_names:
+         - Dom
+         - Lun
+         - Mar
+         - Mier
+         - Jue
+         - Vie
+         - Sab
 
