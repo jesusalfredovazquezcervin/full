@@ -75,7 +75,7 @@
                 <div class="form-group">
                   <%= f.label "Destinatarios", class: 'col-sm-2 control-label'%>
                   <div class="col-sm-5">
-                    <%= select_tag "recipients", options_for_select(@contactos.collect{|c| [c.nombre << ' <' << c.email << '>', c.id] }, @report.report_recipients.all.collect{|r| r.contacto.id} ), {id: 'contactos_select', class:"form-control m-b", style: "width:550px;", multiple: true, required: true }  %>
+                    <%= select_tag "recipients", options_for_select(@contactos.collect{|c| [c.nombre << ' <' << c.try(:email) << '>', c.id] }, @report.report_recipients.all.collect{|r| r.contacto.id} ), {id: 'contactos_select', class:"form-control m-b", style: "width:550px;", multiple: true, required: true }  %>
                   </div>
                 </div><br><br><br><br><br>
                 <br>
