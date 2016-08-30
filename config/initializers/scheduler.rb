@@ -10,6 +10,7 @@ def report_sent_log(report_id)
   ReportSent.create(report_id: report_id, sent_by: "scheduler")
 end
 def loop_reports(periodicity, schedule)
+=begin
   if periodicity == "diario"
     Report.enabled.all.where(schedule: schedule,  periodicity: periodicity).each{|report|
       InformationMailer.send_report(report.contactos.collect{|c| c.email }, report.id).deliver
@@ -23,6 +24,7 @@ def loop_reports(periodicity, schedule)
       end
     }
   end
+=end
 end
 
 # Tarea para el turno matutino
