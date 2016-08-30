@@ -140,7 +140,7 @@ class ReportsController < ApplicationController
     datetime2 = DateTime.new fecha2.year, fecha2.month, fecha2.day, hora2.hour, hora2.min, hora2.sec
     params[:report][:end_day]= datetime2.strftime("%Y-%m-%d %H:%M:%S")
 
-    params.require(:report).permit(:id, :recipient, :periodicity, :schedule, :form_id, :cliente_id, :start_day, :end_day,:name, :send_same_day)
+    params.require(:report).permit(:id, :recipient, :periodicity, :schedule, :form_id, :cliente_id, :start_day, :end_day,:name, :send_same_day, :active)
   end
 
   def dashboard_4

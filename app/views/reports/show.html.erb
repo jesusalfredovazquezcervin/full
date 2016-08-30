@@ -80,7 +80,10 @@
               <div class="col-sm-5">
                 <%=I18n.l(@report.end_day, format: '%a')<< " " << @report.end_day.strftime("%I:%M%p") %>
               </div><br>
-
+              <h4>Activo:</h4>
+              <div class="col-sm-5">
+                <%=@report.active%>
+              </div><br>
 
             </div>
             <br>
