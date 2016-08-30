@@ -11,7 +11,9 @@ class Datosgenerale < ActiveRecord::Base
   has_many :agenda_accounts, :dependent => :destroy
   has_many :agendas, :through => :agenda_accounts
 
-  validates :cliente_id, :horario_id, :alta, :clavesalida, :locacion, :did, :frase, :account,
+  has_many :report_accounts, :dependent => :destroy
+  has_many :reports, :through => :report_accounts
+  validates :cliente_id, :alta, :clavesalida, :locacion, :did, :frase, :account,
             presence: true
   validates :cliente_id,
             uniqueness:  {scope: [:account]}
