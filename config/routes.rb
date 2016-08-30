@@ -1,5 +1,15 @@
 Myapp::Application.routes.draw do
 
+  get "reports/sent/:id/:date", to: "reports#sent", as: "sent_report"
+
+  get 'reports/update_forms', as: 'report_update_forms'
+
+  get 'reports/update_contactos', as: 'report_update_contactos'
+
+  get 'reports/update_datosgenerales', as: 'report_update_datosgenerales'
+
+  resources :reports
+
   get "direccions/maps/:id", to: "direccions#maps", as: "show_maps_direccion"
 
   get "notifications/edit/:id/:cuenta_id", to: "notifications#edit", as: "edit_notification"
