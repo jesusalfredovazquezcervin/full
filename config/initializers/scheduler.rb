@@ -39,16 +39,21 @@ m.every 1.day, :first_at => Time.new(2016, 8, 31, 8) + 1.day  do
   loop_reports("anual", "matutino")
   loop_reports("varios_dias", "matutino")
 end
-v.every 1.day, :first_at => Time.new(2016, 8, 31, 17, 30)   do
-  loop_reports("diario", "vespertino")
-  loop_reports("semanal", "vespertino")
-  loop_reports("quincenal", "matutino")
-  loop_reports("mensual", "vespertino")
-  loop_reports("bimestral", "vespertino")
-  loop_reports("trimestral", "vespertino")
-  loop_reports("semestral", "vespertino")
-  loop_reports("anual", "vespertino")
-  loop_reports("varios_dias", "vespertino")
+v.every 1.day, :first_at => Time.new(2016, 8, 31, 17, 45)   do
+  Rails.logger.info "vespertino, it's #{Time.now}"
+  Rails.logger.debugger  "vespertino, it's #{Time.now}"
+  InformationMailer.send_report("jesuscervin@icloud.com",Report.first.id ).deliver
+
+  # loop_reports("diario", "vespertino")
+  # loop_reports("semanal", "vespertino")
+  # loop_reports("quincenal", "matutino")
+  # loop_reports("mensual", "vespertino")
+  # loop_reports("bimestral", "vespertino")
+  # loop_reports("trimestral", "vespertino")
+  # loop_reports("semestral", "vespertino")
+  # loop_reports("anual", "vespertino")
+  # loop_reports("varios_dias", "vespertino")
+
 end
 n.every 1.day, :first_at => Time.new(2016, 8, 31, 22)   do
   loop_reports("diario", "nocturno")
