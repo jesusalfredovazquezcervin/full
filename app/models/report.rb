@@ -14,6 +14,4 @@ class Report < ActiveRecord::Base
       :presence => true
   validates :cliente_id,
             uniqueness:  {scope: [ :name]}
-
-  scope :activos, where(:active => true)
 end
