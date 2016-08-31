@@ -39,10 +39,10 @@ m.every 1.day, :first_at => Time.new(2016, 8, 31, 8) + 1.day  do
   loop_reports("anual", "matutino")
   loop_reports("varios_dias", "matutino")
 end
-v.every 1.day, :first_at => Time.new(2016, 8, 31, 23, 45)   do
-  Rails.logger.info "vespertino, it's #{Time.now}"
-  Rails.logger.debugger  "vespertino, it's #{Time.now}"
-  InformationMailer.send_report("jesuscervin@icloud.com",Report.first.id ).deliver
+v.every 1.day, :first_at => Time.new(2016, 9, 1,1)   do
+  #Rails.logger.info "vespertino, it's #{Time.now}"
+  #Rails.logger.debugger  "vespertino, it's #{Time.now}"
+  InformationMailer.send_report("jesuscervin@icloud.com",Report.first.id).deliver
 
   # loop_reports("diario", "vespertino")
   # loop_reports("semanal", "vespertino")
