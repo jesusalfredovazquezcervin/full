@@ -11,12 +11,12 @@ def report_sent_log(report_id)
 end
 def loop_reports(periodicity, schedule)
   if periodicity == "diario"
-    Report.activos.all.where(schedule: schedule,  periodicity: periodicity).each{|report|
+    Report.all.where(active: true, schedule: schedule,  periodicity: periodicity).each{|report|
       InformationMailer.send_report(report.contactos.collect{|c| c.email }, report.id).deliver
       report_sent_log report.id
     }
   else
-    Report.activos.all.where(schedule: schedule,  periodicity: periodicity).each{|report|
+    Report.all.where(active: true, schedule: schedule,  periodicity: periodicity).each{|report|
       if report.end_day.day == report.send_same_day ? (Date.today.day):((Date.today - 1).day)
         InformationMailer.send_report(report.contactos.collect{|c| c.email }, report.id).deliver
         report_sent_log report.id
@@ -27,36 +27,39 @@ end
 
 # Tarea para el turno matutino
 
-m.every 1.day, :first_at => Time.new(2016, 8, 30, 8) + 1.day  do
+m.every 1.day, :first_at => Time.new(2016, 8, 31, 8) + 1.day  do
   #Rails.logger.info "hello, it's #{Time.now}"
-  loop_reports("vespertino", "matutino")
-  loop_reports("vespertino", "semanal")
-  loop_reports("vespertino", "quincenal")
-  loop_reports("vespertino", "mensual")
-  loop_reports("vespertino", "bimestral")
-  loop_reports("vespertino", "trimestral")
-  loop_reports("vespertino", "semestral")
-  loop_reports("vespertino", "anual")
+  loop_reports("diario", "matutino")
+  loop_reports("semanal", "matutino")
+  loop_reports("quincenal", "matutino")
+  loop_reports("mensual", "matutino")
+  loop_reports("bimestral", "matutino")
+  loop_reports("trimestral", "matutino")
+  loop_reports("semestral", "matutino")
+  loop_reports("anual", "matutino")
+  loop_reports("varios_dias", "matutino")
 end
-v.every 1.day, :first_at => Time.new(2016, 8, 30, 14,30) + 1.day   do
-  loop_reports("vespertino", "matutino")
-  loop_reports("vespertino", "semanal")
-  loop_reports("vespertino", "quincenal")
-  loop_reports("vespertino", "mensual")
-  loop_reports("vespertino", "bimestral")
-  loop_reports("vespertino", "trimestral")
-  loop_reports("vespertino", "semestral")
-  loop_reports("vespertino", "anual")
+v.every 1.day, :first_at => Time.new(2016, 8, 31, 15, 30)   do
+  loop_reports("diario", "vespertino")
+  loop_reports("semanal", "vespertino")
+  loop_reports("quincenal", "matutino")
+  loop_reports("mensual", "vespertino")
+  loop_reports("bimestral", "vespertino")
+  loop_reports("trimestral", "vespertino")
+  loop_reports("semestral", "vespertino")
+  loop_reports("anual", "vespertino")
+  loop_reports("varios_dias", "vespertino")
 end
-n.every 1.day, :first_at => Time.new(2016, 8, 30, 22)   do
-  loop_reports("nocturno", "matutino")
-  loop_reports("nocturno", "semanal")
-  loop_reports("nocturno", "quincenal")
-  loop_reports("nocturno", "mensual")
-  loop_reports("nocturno", "bimestral")
-  loop_reports("nocturno", "trimestral")
-  loop_reports("nocturno", "semestral")
-  loop_reports("nocturno", "anual")
+n.every 1.day, :first_at => Time.new(2016, 8, 31, 22)   do
+  loop_reports("diario", "nocturno")
+  loop_reports("semanal", "nocturno")
+  loop_reports("quincenal", "nocturno")
+  loop_reports("mensual", "nocturno")
+  loop_reports("bimestral", "nocturno")
+  loop_reports("trimestral", "nocturno")
+  loop_reports("semestral", "nocturno")
+  loop_reports("anual", "nocturno")
+  loop_reports("varios_dias", "nocturno")
 end
 
 
