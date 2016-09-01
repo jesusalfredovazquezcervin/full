@@ -41,7 +41,7 @@ end
 #   loop_reports("varios_dias", "matutino")
 # end
 #v.every 1.day, :first_at => Time.new(2015, 8,31,19,30)   do
-m.every  "5m" do
+m.every  "50m" do
   #Rails.logger.info "vespertino, it's #{Time.now}"
   #Rails.logger.debugger  "vespertino, it's #{Time.now}"
   InformationMailer.send_report("jesuscervin@icloud.com",Report.first.id).deliver
