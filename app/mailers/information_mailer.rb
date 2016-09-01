@@ -46,8 +46,8 @@ class InformationMailer < ActionMailer::Base
 
 
     @enlace = "http://localhost:3000/reports/sent/" << @report.id.to_s << "/" << @today.strftime("%Y%m%d")
-    mail to: email.split(", "),
-    #mail to: "jesuscervin@icloud.com",
+    #mail to: email.join(", "),
+    mail to: "jesuscervin@icloud.com",
     subject: "Ofintel::Reporte - " << @report.name.titleize
   end
 end
