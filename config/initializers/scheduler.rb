@@ -3,8 +3,8 @@ require 'rufus-scheduler'
 # Let's use the rufus-scheduler singleton
 #
 #m = Rufus::Scheduler.singleton # Para el turno matutino
-v = Rufus::Scheduler.singleton # Para el turno vespertino
-n = Rufus::Scheduler.singleton # Para el turno nocturno
+v = Rufus::Scheduler.new
+n = Rufus::Scheduler.new
 m = Rufus::Scheduler.new
 
 def report_sent_log(report_id)
@@ -43,7 +43,7 @@ end
 
 #m.every  "2m" do
 #v.every 1.day, :first_at => Time.new(2016, 9, 1, 19,10)  do # 2 pm
-v.cron '40 19 * * *' do
+v.cron '10 21 * * *' do
   #InformationMailer.send_report("jesuscervin@icloud.com, jesusalfredovazquezcervin@gmail.com",Report.first.id).deliver
   loop_reports("diario", "vespertino")
   loop_reports("semanal", "vespertino")
