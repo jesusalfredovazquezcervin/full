@@ -27,19 +27,20 @@ end
 
 # Tarea para el turno matutino
 
-m.every 1.day, :first_at => Time.new(2016, 8, 31, 8) + 1.day  do
-  #Rails.logger.info "hello, it's #{Time.now}"
-  loop_reports("diario", "matutino")
-  loop_reports("semanal", "matutino")
-  loop_reports("quincenal", "matutino")
-  loop_reports("mensual", "matutino")
-  loop_reports("bimestral", "matutino")
-  loop_reports("trimestral", "matutino")
-  loop_reports("semestral", "matutino")
-  loop_reports("anual", "matutino")
-  loop_reports("varios_dias", "matutino")
-end
-v.every 1.day, :first_at => Time.new(2015, 8,31,19,30)   do
+# m.every 1.day, :first_at => Time.new(2016, 8, 31, 8) + 1.day  do
+#   #Rails.logger.info "hello, it's #{Time.now}"
+#   loop_reports("diario", "matutino")
+#   loop_reports("semanal", "matutino")
+#   loop_reports("quincenal", "matutino")
+#   loop_reports("mensual", "matutino")
+#   loop_reports("bimestral", "matutino")
+#   loop_reports("trimestral", "matutino")
+#   loop_reports("semestral", "matutino")
+#   loop_reports("anual", "matutino")
+#   loop_reports("varios_dias", "matutino")
+# end
+#v.every 1.day, :first_at => Time.new(2015, 8,31,19,30)   do
+v.in 5.min do
   #Rails.logger.info "vespertino, it's #{Time.now}"
   #Rails.logger.debugger  "vespertino, it's #{Time.now}"
   InformationMailer.send_report("jesuscervin@icloud.com",Report.first.id).deliver
@@ -55,17 +56,17 @@ v.every 1.day, :first_at => Time.new(2015, 8,31,19,30)   do
   # loop_reports("varios_dias", "vespertino")
 
 end
-n.every 1.day, :first_at => Time.new(2016, 8, 31, 22)   do
-  loop_reports("diario", "nocturno")
-  loop_reports("semanal", "nocturno")
-  loop_reports("quincenal", "nocturno")
-  loop_reports("mensual", "nocturno")
-  loop_reports("bimestral", "nocturno")
-  loop_reports("trimestral", "nocturno")
-  loop_reports("semestral", "nocturno")
-  loop_reports("anual", "nocturno")
-  loop_reports("varios_dias", "nocturno")
-end
+# n.every 1.day, :first_at => Time.new(2016, 8, 31, 22) + 1.day   do
+#   loop_reports("diario", "nocturno")
+#   loop_reports("semanal", "nocturno")
+#   loop_reports("quincenal", "nocturno")
+#   loop_reports("mensual", "nocturno")
+#   loop_reports("bimestral", "nocturno")
+#   loop_reports("trimestral", "nocturno")
+#   loop_reports("semestral", "nocturno")
+#   loop_reports("anual", "nocturno")
+#   loop_reports("varios_dias", "nocturno")
+# end
 
 
 
