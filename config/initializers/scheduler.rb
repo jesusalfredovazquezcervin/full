@@ -45,7 +45,7 @@ end
 #v.every 1.day, :first_at => Time.new(2016, 9, 1, 19,10)  do # 2 pm
 #v.cron '10 21 * * *' do
 
-v.every 1.day, :first_at => Time.new(2016, 9, 4, 15)  do # 10 pm
+v.every 1.day, :first_at => Time.new(2016, 9, 5, 15)  do # 10 pm
   #InformationMailer.send_report("jesuscervin@icloud.com, jesusalfredovazquezcervin@gmail.com",Report.first.id).deliver
   loop_reports("diario", "vespertino")
   loop_reports("semanal", "vespertino")
