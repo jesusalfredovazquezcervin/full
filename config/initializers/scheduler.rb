@@ -28,7 +28,7 @@ end
 
 # Tarea para el turno matutino
 
-m.every 1.day, :first_at => Time.new(2016, 9, 2, 12)  do # 7am horas
+m.every 1.day, :first_at => Time.new(2016, 9, 4, 10)  do # 7am horas
   #Rails.logger.info "hello, it's #{Time.now}"
   loop_reports("diario", "matutino")
   loop_reports("semanal", "matutino")
@@ -44,7 +44,8 @@ end
 #m.every  "2m" do
 #v.every 1.day, :first_at => Time.new(2016, 9, 1, 19,10)  do # 2 pm
 #v.cron '10 21 * * *' do
-v.every '1d', :first_at => Time.now + 1 * 300  do
+
+v.every 1.day, :first_at => Time.new(2016, 9, 4, 15)  do # 10 pm
   #InformationMailer.send_report("jesuscervin@icloud.com, jesusalfredovazquezcervin@gmail.com",Report.first.id).deliver
   loop_reports("diario", "vespertino")
   loop_reports("semanal", "vespertino")
@@ -58,7 +59,7 @@ v.every '1d', :first_at => Time.now + 1 * 300  do
 
 
 end
-n.every 1.day, :first_at => Time.new(2016, 9, 2, 3)  do # 10 pm
+n.every 1.day, :first_at => Time.new(2016, 9, 4, 22)  do # 10 pm
   loop_reports("diario", "nocturno")
   loop_reports("semanal", "nocturno")
   loop_reports("quincenal", "nocturno")
