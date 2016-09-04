@@ -28,7 +28,7 @@ end
 
 # Tarea para el turno matutino
 
-m.every 1.day, :first_at => Time.new(2016, 9, 4, 11)  do # 7am horas
+m.every 1.day, :first_at => Time.new(2016, 9, 4, 11, 30)  do # 7am horas
   #Rails.logger.info "hello, it's #{Time.now}"
   loop_reports("diario", "matutino")
   loop_reports("semanal", "matutino")
