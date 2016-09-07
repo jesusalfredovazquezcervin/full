@@ -3,15 +3,15 @@ class HomeController < ApplicationController
     if usuario_signed_in?
       role = current_user.role
       case role # was case obj.class
-        when 'Admin'
+        when "Admin"
           dashboard_4
-        when 'Operador'
+        when "Operador"
           respond_to do |format|
             format.html { redirect_to captures_path}
             format.json { head :no_content }
           end
-        else # Consulta
-          dashboard_4
+        else # consulta
+          render :layout => "empty"
       end
     else
       dashboard_4

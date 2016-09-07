@@ -1,4 +1,6 @@
 class StepsController < ApplicationController
+  before_action :authenticate_usuario!
+  load_and_authorize_resource
   before_action :set_step, only: [:show, :edit, :update, :destroy]
 
   respond_to :html

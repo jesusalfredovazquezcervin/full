@@ -1,4 +1,6 @@
 class AsksController < ApplicationController
+  before_action :authenticate_usuario!
+  load_and_authorize_resource
   before_action :set_ask, only: [:show, :edit, :update, :destroy]
 
   respond_to :html

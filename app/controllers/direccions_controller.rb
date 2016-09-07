@@ -1,7 +1,7 @@
 class DireccionsController < ApplicationController
-  before_action :set_direccion, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_usuario!
-  #load_and_authorize_resource
+  load_and_authorize_resource
+  before_action :set_direccion, only: [:show, :edit, :update, :destroy]
 
   # GET /direccions
   # GET /direccions.json

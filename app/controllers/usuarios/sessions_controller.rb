@@ -25,8 +25,8 @@ class Usuarios::SessionsController < Devise::SessionsController
              respond_with resource, location: after_sign_in_path_for(resource)
            when "Operador"
              respond_with resource, location: captures_path
-           else # Consulta
-             respond_with resource, location: pages_invoice_path
+           when "Consulta"
+             respond_with resource , location: after_sign_in_path_for(resource)
          end
        else
          respond_to do |format|

@@ -1,11 +1,9 @@
 
 class ClientesController < ApplicationController
-  #before_filter :require_login
-  before_action :set_cliente, only: [:show, :edit, :update, :destroy], except: [:update_tipocambio]
-  #skip_before_action :set_cliente, :only => [:show, :edit, :update, :destroy]
-
   before_action :authenticate_usuario!
-  #load_and_authorize_resource
+  load_and_authorize_resource
+  before_action :set_cliente, only: [:show, :edit, :update, :destroy], except: [:update_tipocambio]
+
 
   # GET /clientes
   # GET /clientes.json

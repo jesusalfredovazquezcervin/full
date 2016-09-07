@@ -1,8 +1,9 @@
 
 class SucursalsController < ApplicationController
-  before_action :set_sucursal, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_usuario!
-  #load_and_authorize_resource
+  load_and_authorize_resource
+  before_action :set_sucursal, only: [:show, :edit, :update, :destroy]
+
 
   # GET /sucursals
   # GET /sucursals.json
