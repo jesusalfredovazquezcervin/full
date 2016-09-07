@@ -245,7 +245,7 @@ DEPENDENCIES
   actionpack
   appraisal (~> 1.0.0)
   bootstrap-sass (= 3.3.0.0)
-  cancan (~> 1.6, >= 1.6.10)
+  cancan
   capistrano (~> 3.4.0)
   capistrano-figaro-yml (~> 1.0.2)
   capistrano-passenger

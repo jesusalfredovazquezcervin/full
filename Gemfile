@@ -75,7 +75,7 @@ gem 'devise', '~> 3.5.6'
 gem 'figaro', '~> 1.1.1'
 
 #Authentication with roles
-gem 'cancan', '~> 1.6', '>= 1.6.10'
+gem 'cancan'
 gem 'rails-i18n', '~> 4.0', '>= 4.0.8'
 
 group :runtime, :test do
