@@ -27,8 +27,21 @@ def loop_reports(periodicity, schedule)
 end
 
 # Tarea para el turno matutino
-
-m.every 1.day, :first_at => Time.new(2016, 9, 5, 7)  do # 7am horas
+today = Time.new(Date.today.year, Date.today.month, Date.today.day)
+mat=Time.new(Date.today.year, Date.today.month, Date.today.day, 7)
+vesp=Time.new(Date.today.year, Date.today.month, Date.today.day, 15)
+noct=Time.new(Date.today.year, Date.today.month, Date.today.day, 22)
+if Time.now > mat
+  mat=Time.new((today + 1.day).year, (today + 1.day).month, (today + 1.day).day, 7)
+end
+if Time.now > vesp
+  vesp=Time.new((today + 1.day).year, (today + 1.day).month, (today + 1.day).day, 15)
+end
+if Time.now > noct
+  noct=Time.new((today + 1.day).year, (today + 1.day).month, (today + 1.day).day, 22)
+end
+#m.every 1.day, :first_at => Time.new(2016, 10, 5, 7)  do # 7am horas
+m.every 1.day, :first_at => mat do
   #Rails.logger.info "hello, it's #{Time.now}"
   loop_reports("diario", "matutino")
   loop_reports("semanal", "matutino")
@@ -45,7 +58,8 @@ end
 #v.every 1.day, :first_at => Time.new(2016, 9, 1, 19,10)  do # 2 pm
 #v.cron '10 21 * * *' do
 
-v.every 1.day, :first_at => Time.new(2016, 9, 5, 15)  do # 10 pm
+#v.every 1.day, :first_at => Time.new(2016, 10, 5, 15)  do # 10 pm
+v.every 1.day, :first_at => vesp  do
   #InformationMailer.send_report("jesuscervin@icloud.com, jesusalfredovazquezcervin@gmail.com",Report.first.id).deliver
   loop_reports("diario", "vespertino")
   loop_reports("semanal", "vespertino")
@@ -59,7 +73,8 @@ v.every 1.day, :first_at => Time.new(2016, 9, 5, 15)  do # 10 pm
 
 
 end
-n.every 1.day, :first_at => Time.new(2016, 9, 5, 22)  do # 10 pm
+#n.every 1.day, :first_at => Time.new(2016, 10, 5, 22)  do # 10 pm
+n.every 1.day, :first_at => noct  do
   loop_reports("diario", "nocturno")
   loop_reports("semanal", "nocturno")
   loop_reports("quincenal", "nocturno")
