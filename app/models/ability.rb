@@ -38,18 +38,41 @@ class Ability
     #
     # end
 
-    role = user.role
-    case role # was case obj.class
-      when 'Admin'
-        can :manage, :all
-        can :create, Horario
-      when 'Operador'
-        can :manage, Capture
-        can :consultar, Capture
-      else # Consulta
-        # can :read, :all
-    end
+    # role = user.role
+    # case role # was case obj.class
+    #   when 'Admin'
+    #     can :manage, :all
+    #     #can :create, Horario
+    #   when 'Operador'
+    #     #can :manage, Report
+    #     can :manage, Capture
+    #     can :manage, Information
+    #     can :manage, InformationMailer
+    #   else # Consulta
+    #     # can :read, :all
+    # end
 
+    if user.role == "Admin"
+      can :manage, :all
+    else
+      # can :read, :all
+      # can :create, Comment
+      # can :update, Comment do |comment|
+      #   comment.try(:user) == user || user.role?(:moderator)
+      # end
+      if user.role == "Consulta"
+        can :sent, Report
+        # can :update, Article do |article|
+        #   article.try(:user) == user
+        # end
+      end
+      if user.role == "Operador"
+        can :manage, Capture
+        can :manage, InformationMailer
+        can :manage, Information
+        can :manage, Notification
+      end
+    end
 
 =begin
       can :update, Article
