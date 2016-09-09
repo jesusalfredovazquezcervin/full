@@ -28,7 +28,7 @@
             <%= f.label "Destinatario", class: 'col-sm-2 control-label'%>
             <div class="col-sm-5">
               <%= select_tag :recipient, options_for_select(@cliente.contactos.where.not(email: nil).order(:nombre).collect { |c|
-                                                              [c.nombre, c.email] }, 0),  { class:"form-control m-b", style: "width:500px;",multiple: true, required:true} %>    
+                                                              [c.nombre << ' <' << (c.email.nil? ? (""):(c.email))  << '>', c.id] }, 0),  { class:"form-control m-b", style: "width:500px;",multiple: true, required:true} %>    
 
 
 
