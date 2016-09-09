@@ -1,6 +1,7 @@
 class CapturesController < ApplicationController
   before_action :authenticate_usuario!
-  #load_and_authorize_resource
+  before_action :load_captures, only: [:create, :consultar]
+  load_and_authorize_resource
   before_action :set_capture, only: [:show, :edit, :update, :destroy]
 
   # GET /captures
@@ -129,6 +130,10 @@ class CapturesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def capture_params
+      if !params[:capture].nil?
+
+
+
       if !params[:capture][:avisoFecha].nil?
         fecha = Date.strptime(params[:capture][:avisoFecha], '%m/%d/%Y')
         params[:capture][:avisoFecha]="#{fecha.year}-#{fecha.month}-#{fecha.day}"
@@ -153,7 +158,7 @@ class CapturesController < ApplicationController
         fecha = Date.strptime(params[:capture][:fechaProcedimiento], '%m/%d/%Y')
         params[:capture][:fechaProcedimiento]="#{fecha.year}-#{fecha.month}-#{fecha.day}"
       end
-      #params[:capture][:duracionLlamada]='1 12:59:10'
+
       params.require(:capture).permit(:ticket, :compania, :polizaContrato, :descripcionEmergencia, :identificarSistema, :referencia, :comentariosExtra,
                                       :avisoNombre, :avisoFecha,:avisoHora, :notificoNombre, :notificoFecha, :notificoHora,
                                       :rllsOperador, :rllsFecha, :rllsHora, :tiempoRespuesta, :notificacionLlegadaSitio, :rteOperador,
@@ -170,9 +175,13 @@ class CapturesController < ApplicationController
                                       :equipoDetenido, :fianza, :inclusion, :codigoSeguridad, :numeroControl, :lineaValidacion, :tipoPoliza,
                                       :telefonoFiado, :direccionFiado, :lugarFianza, :vendedorFianza, :formaPagoFianza, :audioconferenciaReporta,
                                       :sucursal_id, :cliente_id, :usuario_id, :status)
+      end
     end
 
     def dashofintel
       render :layout => "layout_3"
+    end
+    def load_captures
+      @capture = Capture.new(capture_params)
     end
 end

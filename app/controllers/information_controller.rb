@@ -1,7 +1,9 @@
 class InformationController < ApplicationController
   before_action :authenticate_usuario!
+  before_action :load_information, only: :create
   load_and_authorize_resource
   before_action :set_information, only: [:show, :edit, :update, :destroy], except: :resend_mail
+
 
   respond_to :html
   def index
@@ -155,5 +157,8 @@ class InformationController < ApplicationController
     end
     def dashofintel
       render :layout => "layout_3"
+    end
+    def load_information
+      @information = Information.new(information_params)
     end
 end
