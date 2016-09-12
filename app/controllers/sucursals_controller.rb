@@ -1,6 +1,7 @@
 
 class SucursalsController < ApplicationController
   before_action :authenticate_usuario!
+  before_action :load_sucursal, only: [:create]
   load_and_authorize_resource
   before_action :set_sucursal, only: [:show, :edit, :update, :destroy]
 
@@ -98,5 +99,8 @@ class SucursalsController < ApplicationController
     end
     def dashboard_4
       render :layout => "layout_2"
+    end
+    def load_sucursal
+      @sucursal = Sucursal.new(sucursal_params)
     end
 end
