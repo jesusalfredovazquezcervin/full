@@ -1,6 +1,7 @@
 
 class ClientesController < ApplicationController
   before_action :authenticate_usuario!
+  before_action :load_cliente, only: [:create]
   load_and_authorize_resource
   before_action :set_cliente, only: [:show, :edit, :update, :destroy], except: [:update_tipocambio]
 
@@ -108,6 +109,8 @@ class ClientesController < ApplicationController
     def dashboard_4
       render :layout => "layout_2"
     end
-
+    def load_cliente
+      @cliente = Cliente.new(cliente_params)
+    end
 end
 
