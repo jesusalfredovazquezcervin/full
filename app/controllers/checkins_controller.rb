@@ -1,5 +1,6 @@
 class CheckinsController < ApplicationController
   before_action :authenticate_usuario!
+  before_action :load_checkin, only: [:create]
   load_and_authorize_resource
   before_action :set_checkin, only: [:show, :edit, :update, :destroy]
 
@@ -60,11 +61,16 @@ class CheckinsController < ApplicationController
     end
 
     def checkin_params
-      params[:checkin][:usuario_id] = current_user.id
-      params[:checkin][:checkin] = Date.today
-      params.require(:checkin).permit(:usuario_id, :checkin, :kind)
+      if !params[:checkin].nil?
+        params[:checkin][:usuario_id] = current_user.id
+        params[:checkin][:checkin] = Date.today
+        params.require(:checkin).permit(:usuario_id, :checkin, :kind)
+      end
     end
     def dashboard_4
       render :layout => "layout_2"
+    end
+    def load_checkin
+      @checkin = Checkin.new(checkin_params)
     end
 end
