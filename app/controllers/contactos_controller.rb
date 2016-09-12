@@ -1,6 +1,6 @@
 class ContactosController < ApplicationController
-
   before_action :authenticate_usuario!
+  before_action :load_contacto, only: [:create]
   load_and_authorize_resource
   before_action :set_contacto, only: [:show, :edit, :update, :destroy]
 
@@ -48,6 +48,7 @@ class ContactosController < ApplicationController
       @contacto = Contacto.new(contacto_params)
       @contacto.cliente_id = params[:contacto][:cliente_id]
       @contacto.sucursal_id = params[:contacto][:sucursal_id]
+      @datosgenerales = Datosgenerale.where("cliente_id = ?", Cliente.find_by_id(params[:contacto][:cliente_id]) )
       if(params[:email] != "")
         @contacto.email=params[:email]
       else
@@ -106,6 +107,25 @@ class ContactosController < ApplicationController
 
     end
 
+    # Metodo que crea un usuario asociado al contacto
+    def crear_usuario
+      require 'keepass/password'
+      contacto = Contacto.find_by_id params[:id]
+      password = KeePass::Password.generate('uullA{8}')
+      respond_to do |format|
+        if !Usuario.find_by_email(contacto.email)
+          Usuario.create(email: contacto.email, password: password, password_confirmation: password, role: "Consulta").send_reset_password_instructions
+          format.html { redirect_to contactos_path, notice: 'El usuario ha sido creado exitosamente.'  }
+          format.json { head :no_content }
+        else
+          Usuario.find_by_email(contacto.email).usuario.send_reset_password_instructions
+          format.html { redirect_to contactos_path, notice: 'Se han enviado instrucciones al usuario'  }
+          format.json { head :no_content }
+        end
+
+
+      end
+    end
 
     private
     # Use callbacks to share common setup or constraints between actions.
@@ -127,5 +147,7 @@ class ContactosController < ApplicationController
     def dashboard_4
       render :layout => "layout_2"
     end
-
+    def load_contacto
+      @contacto = Contacto.new(contacto_params)
+    end
   end
