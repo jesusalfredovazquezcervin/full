@@ -1,4 +1,5 @@
 class DireccionsController < ApplicationController
+  before_action :authenticate_usuario!
   before_action :load_direccion, only: [:create]
   load_and_authorize_resource
   before_action :set_direccion, only: [:show, :edit, :update, :destroy]
