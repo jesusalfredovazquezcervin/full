@@ -1,5 +1,5 @@
 class DireccionsController < ApplicationController
-  before_action :authenticate_usuario!
+  before_action :load_direccion, only: [:create]
   load_and_authorize_resource
   before_action :set_direccion, only: [:show, :edit, :update, :destroy]
 
@@ -55,7 +55,7 @@ class DireccionsController < ApplicationController
     @clientes = Cliente.all
     @sucursales = Sucursal.where("cliente_id = ?", params[:direccion][:cliente_id])
 
-    @direccion = Direccion.new(direccion_params)
+    #@direccion = Direccion.new(direccion_params)
     @direccion.sucursal_id =params[:direccion][:sucursal_id]
     @direccion.cliente_id =params[:direccion][:cliente_id]
     respond_to do |format|
@@ -115,5 +115,8 @@ class DireccionsController < ApplicationController
     end
     def dashboard_4
       render :layout => "layout_2"
+    end
+    def load_direccion
+      @direccion = Direccion.new(direccion_params)
     end
 end
