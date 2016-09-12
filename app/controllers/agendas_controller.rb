@@ -1,5 +1,6 @@
 class AgendasController < ApplicationController
   before_action :authenticate_usuario!
+  before_action :load_agenda, only: [:create]
   load_and_authorize_resource
   before_action :set_agenda, only: [:show, :edit, :update, :destroy]
 
@@ -28,7 +29,7 @@ class AgendasController < ApplicationController
   end
 
   def create
-    @agenda = Agenda.new(agenda_params)
+    #@agenda = Agenda.new(agenda_params)
     @clientes = Cliente.all.order(:nombre)
     respond_to do |format|
       if @agenda.save
@@ -76,5 +77,8 @@ class AgendasController < ApplicationController
       params[:accounts].each{|a|
         AgendaAccount.create(agenda_id: agenda_id, datosgenerale_id: a) unless AgendaAccount.where(agenda_id: agenda_id, datosgenerale_id: a).exists?
       }
+    end
+    def load_agenda
+      @agenda = Agenda.new(agenda_params)
     end
 end
