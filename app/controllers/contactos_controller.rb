@@ -129,5 +129,3 @@ class ContactosController < ApplicationController
     end
 
   end
-
-# Todo: Falta reconstruir ALTA, BAJA y SHOW, Vista y controller
