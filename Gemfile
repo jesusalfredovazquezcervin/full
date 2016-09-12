@@ -95,5 +95,5 @@ gem 'roadie', '~> 3.1', '>= 3.1.1'
 gem 'exception_notification'
 gem 'rufus-scheduler', '~> 3.2', '>= 3.2.1'
 
-
-
+#Generador de contraseñas
+gem 'keepass-password-generator', '~> 0.1.1'
