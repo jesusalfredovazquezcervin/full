@@ -1,5 +1,6 @@
 class HorariosController < ApplicationController
   before_action :authenticate_usuario!
+  before_action :load_horario, only: [:create]
   load_and_authorize_resource
   before_action :set_horario, only: [:show, :edit, :update, :destroy]
 
@@ -42,7 +43,7 @@ class HorariosController < ApplicationController
   # POST /horarios
   # POST /horarios.json
   def create
-    @horario = Horario.new(horario_params)
+    #@horario = Horario.new(horario_params)
     @horario.cliente_id = params[:horario][:cliente_id]
     @horario.sucursal_id= params[:horario][:sucursal_id]
     respond_to do |format|
@@ -95,5 +96,8 @@ class HorariosController < ApplicationController
     end
   def dashboard_4
     render :layout => "layout_2"
+  end
+  def load_horario
+    @horario = Horario.new(horario_params)
   end
 end
