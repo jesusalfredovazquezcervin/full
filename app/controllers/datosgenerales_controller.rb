@@ -1,5 +1,6 @@
 class DatosgeneralesController < ApplicationController
   before_action :authenticate_usuario!
+  before_action :load_datosgenerale, only: [:create]
   load_and_authorize_resource
   before_action :set_datosgenerale, only: [:show, :edit, :update, :destroy]
 
@@ -72,7 +73,7 @@ class DatosgeneralesController < ApplicationController
     @clientes = Cliente.all
     @contactos = Contacto.where("cliente_id = ?", Cliente.first.id)
     @horarios = Horario.where("cliente_id = ?", Cliente.first.id)
-    @datosgenerale = Datosgenerale.new(datosgenerale_params)
+    #@datosgenerale = Datosgenerale.new(datosgenerale_params)
     @datosgenerale.cliente_id = params[:datosgenerale][:cliente_id]
 
     @datosgenerale.contacto1_id = nil
@@ -191,12 +192,17 @@ class DatosgeneralesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def datosgenerale_params
-      fecha = Date.strptime(params[:datosgenerale][:alta], '%m/%d/%Y')
-      params[:datosgenerale][:alta]="#{fecha.year}-#{fecha.month}-#{fecha.day}"
-
-      params.require(:datosgenerale).permit(:alta, :actualizacion, :clavesalida, :locacion, :did, :telenrutados, :contacto1_id, :contacto2_id, :contacto3_id, :contacto4_id, :contacto5_id, :telefono1, :telefono2, :telefono3, :telefono4, :telefono5, :fax, :giro, :procedimiento, :paginaweb, :cliente_id, :horario_id, :tipocambio, :pedido, :frase, :account)
+      if !params[:datosgenerale].nil?
+        fecha = Date.strptime(params[:datosgenerale][:alta], '%m/%d/%Y')
+        params[:datosgenerale][:alta]="#{fecha.year}-#{fecha.month}-#{fecha.day}"
+        params.require(:datosgenerale).permit(:alta, :actualizacion, :clavesalida, :locacion, :did, :telenrutados, :contacto1_id, :contacto2_id, :contacto3_id, :contacto4_id, :contacto5_id, :telefono1, :telefono2, :telefono3, :telefono4, :telefono5, :fax, :giro, :procedimiento, :paginaweb, :cliente_id, :horario_id, :tipocambio, :pedido, :frase, :account)
+      end
     end
     def dashboard_4
       render :layout => "layout_2"
+    end
+    def load_datosgenerale
+      @datosgenerale = Datosgenerale.new(datosgenerale_params)
+
     end
 end
