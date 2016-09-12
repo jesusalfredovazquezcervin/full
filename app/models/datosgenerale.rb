@@ -18,6 +18,5 @@ class Datosgenerale < ActiveRecord::Base
   validates :cliente_id,
             uniqueness:  {scope: [:account]}
 
-  # Si la cuenta se elimina entonces todo lo realcionado a ella debe eliminarse, como procedimientos, relaciones entre contactos y cuentas, NO los contactos.
 
 end
