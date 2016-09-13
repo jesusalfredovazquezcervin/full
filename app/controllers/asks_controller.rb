@@ -1,5 +1,6 @@
 class AsksController < ApplicationController
   before_action :authenticate_usuario!
+  before_action :load_ask, only: [:create]
   load_and_authorize_resource
   before_action :set_ask, only: [:show, :edit, :update, :destroy]
 
@@ -35,7 +36,7 @@ class AsksController < ApplicationController
   end
 
   def create
-    @ask = Ask.new(ask_params)
+    #@ask = Ask.new(ask_params)
     @ask.save
     respond_with(@ask)
   end
@@ -56,12 +57,17 @@ class AsksController < ApplicationController
     end
 
     def ask_params
-      fecha = Date.strptime(params[:ask][:answer_date], '%m/%d/%Y')
-      params[:ask][:answer_date]="#{fecha.year}-#{fecha.month}-#{fecha.day}"
-      params[:ask][:usuario_id] = current_user.id
-      params.require(:ask).permit(:cliente_id, :usuario_id, :question, :asked_by, :answer, :answer_by, :answer_date, :voting, :subject, :datosgenerale_id)
+      if !params[:ask].nil?
+        fecha = Date.strptime(params[:ask][:answer_date], '%m/%d/%Y')
+        params[:ask][:answer_date]="#{fecha.year}-#{fecha.month}-#{fecha.day}"
+        params[:ask][:usuario_id] = current_user.id
+        params.require(:ask).permit(:cliente_id, :usuario_id, :question, :asked_by, :answer, :answer_by, :answer_date, :voting, :subject, :datosgenerale_id)
+      end
     end
     def dashboard_4
       render :layout => "layout_2"
     end
+  def load_ask
+    @ask = Ask.new ask_params
+  end
 end
