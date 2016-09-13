@@ -26,7 +26,7 @@ class CheckinsController < ApplicationController
   end
 
   def create
-    @checkin = Checkin.new(checkin_params)
+    #@checkin = Checkin.new(checkin_params)
     @checkin.save
     dashboard_4
   end
