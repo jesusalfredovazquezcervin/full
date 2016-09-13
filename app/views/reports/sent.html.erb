@@ -129,9 +129,9 @@
                         <%else%>
                             <%valor = information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? nil:((information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1])%>
                         <%end%>
-                        <%if field.show_in_list %>
+
                             <td><%=valor%></td>
-                        <% end %>
+
                     <%end%>
 
                   </tr>
