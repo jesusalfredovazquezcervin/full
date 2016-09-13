@@ -68,9 +68,16 @@ class Ability
       end
       if user.role == "Operador"
         can :manage, Capture
-        can :manage, InformationMailer
-        can :manage, Information
-        can :manage, Notification
+        can :daily, InformationMailer
+        can :send_mail, Information
+        can :resend_mail, Information
+        can :new, Notification
+        can :edit, Notification
+        can :update, Notification
+        can :destroy, Notification
+        can :create, Notification
+        can :checkin, Checkin
+        can :checkout, Checkin
       end
     end
 
