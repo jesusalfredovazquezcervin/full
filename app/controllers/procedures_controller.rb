@@ -1,5 +1,6 @@
 class ProceduresController < ApplicationController
   before_action :authenticate_usuario!
+  before_action :load_procedure, only: [:create]
   load_and_authorize_resource
   before_action :set_procedure, only: [:show, :edit, :update, :destroy]
 
@@ -35,7 +36,7 @@ class ProceduresController < ApplicationController
   end
 
   def create
-    @procedure = Procedure.new(procedure_params)
+    #@procedure = Procedure.new(procedure_params)
     @clientes = Cliente.all.order(:nombre)
     respond_to do |format|
       if @procedure.save
@@ -77,5 +78,8 @@ class ProceduresController < ApplicationController
     end
   def dashboard_4
     render :layout => "layout_2"
+  end
+  def load_procedure
+    @procedure = Procedure.new procedure_params
   end
 end
