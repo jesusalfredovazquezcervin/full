@@ -1,5 +1,6 @@
 class StepsController < ApplicationController
   before_action :authenticate_usuario!
+  before_action :load_step, only: [:create]
   load_and_authorize_resource
   before_action :set_step, only: [:show, :edit, :update, :destroy]
 
@@ -24,7 +25,7 @@ class StepsController < ApplicationController
   end
 
   def create
-    @step = Step.new(step_params)
+    #@step = Step.new(step_params)
     @step.save
     respond_with(@step)
   end
@@ -57,5 +58,8 @@ class StepsController < ApplicationController
     end
   def dashboard_4
     render :layout => "layout_2"
+  end
+  def load_step
+    @step = Step.new step_params
   end
 end
