@@ -71,6 +71,8 @@ class Ability
         can :daily, InformationMailer
         can :send_mail, Information
         can :resend_mail, Information
+        can :new, Information
+        can :create, Information
         can :new, Notification
         can :edit, Notification
         can :update, Notification
