@@ -1,5 +1,6 @@
 class FormsController < ApplicationController
   before_action :authenticate_usuario!
+  before_action :load_form, only: [:create]
   load_and_authorize_resource
   before_action :set_form, only: [:show, :edit, :update, :destroy]
 
@@ -37,7 +38,7 @@ class FormsController < ApplicationController
   end
 
   def create
-    @form = Form.new(form_params)
+    #@form = Form.new(form_params)
     @procedures= Procedure.where("cliente_id = ?", params[:form][:cliente_id])
     respond_to do |format|
       if @form.save
@@ -84,5 +85,8 @@ class FormsController < ApplicationController
     end
   def dashboard_4
     render :layout => "layout_2"
+  end
+  def load_form
+    @form = Form.new form_params
   end
 end

@@ -1,5 +1,6 @@
 class FieldsController < ApplicationController
   before_action :authenticate_usuario!
+  before_action :load_field, only: [:create]
   load_and_authorize_resource
   before_action :set_field, only: [:show, :edit, :update, :destroy]
 
@@ -41,7 +42,7 @@ class FieldsController < ApplicationController
   end
 
   def create
-    @field = Field.new(field_params)
+    #@field = Field.new(field_params)
     respond_to do |format|
       if @field.save
         format.html { redirect_to @field, notice: 'El Campo ha sido creado exitosamente' }
@@ -75,12 +76,17 @@ class FieldsController < ApplicationController
     end
 
     def field_params
-      if !(params[:field][:data_type] == "List")
-        params[:field][:list]=nil
+      if !params[:field].nil?
+        if !(params[:field][:data_type] == "List")
+          params[:field][:list]=nil
+        end
+        params.require(:field).permit(:form_id, :name, :data_type, :mandatory, :show_in_list, :behave, :list, :position)
       end
-      params.require(:field).permit(:form_id, :name, :data_type, :mandatory, :show_in_list, :behave, :list, :position)
     end
   def dashboard_4
     render :layout => "layout_2"
+  end
+  def load_field
+    @field = Field.new field_params
   end
 end
