@@ -1,7 +1,8 @@
 class Usuarios::RegistrationsController < Devise::RegistrationsController
-  before_action :authenticate_scope!
-  prepend_before_filter :require_no_authentication, only: [:cancel]
   prepend_before_filter :authenticate_scope!, only: [:edit, :update, :destroy, :desactivar, :activar]
+  #before_action :load_usuario, only: [:create]
+  prepend_before_filter :require_no_authentication, only: [:cancel]
+
 
   before_filter :configure_sign_up_params, only: [:create]
   before_filter :configure_account_update_params, only: [:update, :update_password]
@@ -24,6 +25,7 @@ class Usuarios::RegistrationsController < Devise::RegistrationsController
 
   def index
     @usuarios = Usuario.all
+    authorize! :read, Usuario
     dashboard_4
   end
   def desactivar
@@ -50,6 +52,7 @@ class Usuarios::RegistrationsController < Devise::RegistrationsController
   # GET /resource/sign_up
    def new
      @usuario = Usuario.new
+     authorize! :read, Usuario
      dashboard_4
    end
 
@@ -62,7 +65,7 @@ class Usuarios::RegistrationsController < Devise::RegistrationsController
      #   end
      #
      #  end
-
+     authorize! :read, Usuario
      build_resource(sign_up_params)
 
      resource.save
@@ -75,11 +78,13 @@ class Usuarios::RegistrationsController < Devise::RegistrationsController
 
   # GET /resource/edit
    def edit
+     authorize! :read, Usuario
      render :edit, :layout => "layout_2"
    end
 
   # PUT /resource
    def update
+     authorize! :read, Usuario
      self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
      prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
 
@@ -106,6 +111,7 @@ class Usuarios::RegistrationsController < Devise::RegistrationsController
 
   # DELETE /resource
    def destroy
+     authorize! :read, Usuario
      super
    end
 
@@ -144,5 +150,8 @@ class Usuarios::RegistrationsController < Devise::RegistrationsController
   # Use callbacks to share common setup or constraints between actions.
   def set_usuario
     @usuario = Usuario.find(params[:id])
+  end
+  def load_usuario
+    @usuario = Usuario.new(configure_sign_up_params)
   end
 end
