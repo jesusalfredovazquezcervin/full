@@ -1,5 +1,6 @@
 class ReportsController < ApplicationController
   before_action :authenticate_usuario!
+  before_action :load_report, only: [:create]
   load_and_authorize_resource
   before_action :set_report, only: [:show, :edit, :update, :destroy, :sent]
 
@@ -75,7 +76,7 @@ class ReportsController < ApplicationController
   end
 
   def create
-    @report = Report.new(report_params)
+    #@report = Report.new(report_params)
     @clientes = Cliente.all.order(:nombre)
     cliente = Cliente.all.order(:nombre).first
     @contactos = cliente.contactos
@@ -133,17 +134,21 @@ class ReportsController < ApplicationController
   end
 
   def report_params
-    fecha1 = Date.strptime(params[:report][:start_day], '%m/%d/%Y')
-    hora1 = Time.parse(params[:report][:start_time])
-    datetime1 = DateTime.new fecha1.year, fecha1.month, fecha1.day, hora1.hour, hora1.min, hora1.sec
-    params[:report][:start_day]= datetime1.strftime("%Y-%m-%d %H:%M:%S")
+    if ! params[:report].nil?
+      fecha1 = Date.strptime(params[:report][:start_day], '%m/%d/%Y')
+      hora1 = Time.parse(params[:report][:start_time])
+      datetime1 = DateTime.new fecha1.year, fecha1.month, fecha1.day, hora1.hour, hora1.min, hora1.sec
+      params[:report][:start_day]= datetime1.strftime("%Y-%m-%d %H:%M:%S")
 
-    fecha2 = Date.strptime(params[:report][:end_day], '%m/%d/%Y')
-    hora2 = Time.parse(params[:report][:end_time])
-    datetime2 = DateTime.new fecha2.year, fecha2.month, fecha2.day, hora2.hour, hora2.min, hora2.sec
-    params[:report][:end_day]= datetime2.strftime("%Y-%m-%d %H:%M:%S")
+      fecha2 = Date.strptime(params[:report][:end_day], '%m/%d/%Y')
+      hora2 = Time.parse(params[:report][:end_time])
+      datetime2 = DateTime.new fecha2.year, fecha2.month, fecha2.day, hora2.hour, hora2.min, hora2.sec
+      params[:report][:end_day]= datetime2.strftime("%Y-%m-%d %H:%M:%S")
 
-    params.require(:report).permit(:id, :recipient, :periodicity, :schedule, :form_id, :cliente_id, :start_day, :end_day,:name, :send_same_day, :active)
+      params.require(:report).permit(:id, :recipient, :periodicity, :schedule, :form_id, :cliente_id, :start_day, :end_day,:name, :send_same_day, :active)
+
+    end
+
   end
 
   def dashboard_4
@@ -160,5 +165,8 @@ class ReportsController < ApplicationController
     params[:recipients].each{|r|
       ReportRecipient.create(report_id: report_id, contacto_id: r) unless ReportRecipient.where(report_id: report_id, contacto_id: r).exists?
     }
+  end
+  def load_report
+    @report = Report.new report_params
   end
 end
