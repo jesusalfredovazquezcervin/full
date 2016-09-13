@@ -29,7 +29,7 @@
                   <li><strong>Direccion: </strong> No hay una direccion matriz</li>
               <%else%>
                   <li><strong>Direccion: </strong><%=@direccion.calle%> <%=@direccion.numero%>, <%=@direccion.colonia%> <%=@direccion.delegacion%> <%=@direccion.cp%></li>
-                  <li><strong>Horario: </strong><small><%=@horario.horario_semana%></small></li>
+                  <li><strong>Horario: </strong><small><%=@horario.try(:horario_semana)%></small></li>
               <%end%>
               <li><strong>Telefonos: </strong><%=@cuenta.telefono1%>
                 <%if @cuenta.telefono2.nil? == false%>
@@ -69,7 +69,7 @@
                       <strong>Sucursales:</strong>
                       <ul>
                       <% @cliente.sucursals.each do |sucursal| %>
-                        <li><%if sucursal.direccion.matriz%>
+                        <li><%if sucursal.direccion.try(:matriz)%>
                              <strong> Matriz: <%= sucursal.nombre%> </strong>
                           <%else%>
                               <%= sucursal.nombre%>
@@ -77,15 +77,15 @@
                           | Tel: <%=sucursal.telefono%>
                           | Gerente: <%=sucursal.try(:contacto).try(:nombre)%>
                           | Contacto: <%=sucursal.try(:main).try(:nombre)%>
-                          | Domicilio: <%=sucursal.direccion.calle%>, <%=sucursal.direccion.numero%>
-                          <%if !sucursal.direccion.colonia.nil?%>
+                          | Domicilio: <%=sucursal.try(:direccion).try(:calle)%>, <%=sucursal.try(:direccion).try(:numero)%>
+                          <%if !sucursal.try(:direccion).try(:colonia).nil?%>
                               , <%=sucursal.direccion.colonia%>
                           <%end%>
-                              ,<%=sucursal.direccion.delegacion%>, <%=sucursal.direccion.cp%>
-                              | Referencia: <%=sucursal.direccion.referencia%>
+                              ,<%=sucursal.try(:direccion).try(:delegacion)%>, <%=sucursal.try(:direccion).try(:cp)%>
+                              | Referencia: <%=sucursal.try(:direccion).try(:referencia)%>
                               | Horario: <%= sucursal.horario.nil? == true ? (''):(sucursal.horario.horario_semana) %>
 
-                          <%if (!sucursal.direccion.mapsgoogle.nil? && !sucursal.direccion.mapsgoogle.empty?) || !sucursal.direccion.photo_file_name.nil? %>
+                          <%if (!sucursal.try(:direccion).try(:mapsgoogle).nil? && !sucursal.try(:direccion).try(:mapsgoogle).empty?) || !sucursal.try(:direccion).try(:photo_file_name).nil? %>
                               |<%= link_to show_maps_direccion_path(sucursal), target: "_blank"  do %>
                                   <i class="fa fa-map-marker"></i> <strong>Mapa</strong>
                               <% end %>
