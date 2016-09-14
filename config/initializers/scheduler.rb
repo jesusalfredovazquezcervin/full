@@ -40,8 +40,8 @@ end
 if Time.now > noct
   noct=Time.new((today + 1.day).year, (today + 1.day).month, (today + 1.day).day, 22)
 end
-#m.every 1.day, :first_at => Time.new(2016, 9, 7, 7)  do # 7am horas
-m.every 1.day, :first_at => mat do
+m.every 1.day, :first_at => Time.new(2016, 9, 14, 7)  do # 7am horas
+#m.every 1.day, :first_at => mat do
   #Rails.logger.info "hello, it's #{Time.now}"
   loop_reports("diario", "matutino")
   loop_reports("semanal", "matutino")
@@ -58,8 +58,8 @@ end
 #v.every 1.day, :first_at => Time.new(2016, 9, 1, 19,10)  do # 2 pm
 #v.cron '10 21 * * *' do
 
-#v.every 1.day, :first_at => Time.new(2016, 9, 7, 15)  do # 10 pm
-v.every 1.day, :first_at => vesp  do
+v.every 1.day, :first_at => Time.new(2016, 9, 14, 15)  do # 10 pm
+#v.every 1.day, :first_at => vesp  do
   #InformationMailer.send_report("jesuscervin@icloud.com, jesusalfredovazquezcervin@gmail.com",Report.first.id).deliver
   loop_reports("diario", "vespertino")
   loop_reports("semanal", "vespertino")
@@ -73,8 +73,8 @@ v.every 1.day, :first_at => vesp  do
 
 
 end
-#n.every 1.day, :first_at => Time.new(2016, 9, 6, 22)  do # 10 pm
-n.every 1.day, :first_at => noct  do
+n.every 1.day, :first_at => Time.new(2016, 9, 14, 22)  do # 10 pm
+#n.every 1.day, :first_at => noct  do
   loop_reports("diario", "nocturno")
   loop_reports("semanal", "nocturno")
   loop_reports("quincenal", "nocturno")
