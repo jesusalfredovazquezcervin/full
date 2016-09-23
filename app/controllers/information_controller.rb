@@ -32,7 +32,7 @@ class InformationController < ApplicationController
 
   def create
     @cuenta = Datosgenerale.find(params[:cuenta_id])
-    @information = Information.new(information_params)
+    #@information = Information.new(information_params)
 
     respond_to do |format|
       if @information.save
@@ -152,6 +152,9 @@ class InformationController < ApplicationController
       end
       if params[:action] == "update"
         params[:information][:datosgenerale_id] = @information.datosgenerale_id
+      end
+      if params[:action] == "create"
+        params[:information][:datosgenerale_id] = params[:cuenta_id]
       end
       params.require(:information).permit(:form_id, :usuario_id, :field1, :field2, :field3, :field4, :field5, :field6, :field7, :field8, :field9, :field10, :field11, :field12, :field13, :field14, :field15, :field16, :field17, :field18, :field19, :field20, :datosgenerale_id)
     end

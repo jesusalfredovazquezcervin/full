@@ -73,6 +73,9 @@ class Ability
         can :resend_mail, Information
         can :new, Information
         can :create, Information
+        can :new, Information
+        can :edit, Information
+        can :update, Information
         can :new, Notification
         can :edit, Notification
         can :update, Notification
