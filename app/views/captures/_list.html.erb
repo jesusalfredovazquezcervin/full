@@ -75,9 +75,17 @@
                                     <%= link_to edit_information_path(information) do %>
                                         <i class="fa fa-pencil" title="Modificar"></i>
                                     <% end %>&nbsp;
-                                    <%= link_to information, method: :delete,  data: { confirm: '¿Está seguro?'} do %>
-                                        <i class="fa fa-trash-o" title="Eliminar"></i>
-                                    <% end %>&nbsp;
+
+
+
+
+                                    <% if can? :destroy, information %>
+                                        <%= link_to information, method: :delete,  data: { confirm: '¿Está seguro?'} do %>
+                                            <i class="fa fa-trash-o" title="Eliminar"></i>
+                                        <% end %>&nbsp;
+                                    <% end %>
+
+
                                     <a data-toggle="modal" data-target="#myModal3" title = "Reenviar email" data-information-id="<%=information.id%>">
                                       <i class="fa fa-envelope-o" title="Reenviar email"></i>
                                     </a>
