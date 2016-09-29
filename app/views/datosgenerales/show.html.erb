@@ -138,7 +138,7 @@
               </div><br>
               <h4>Horario:</h4>
               <div class="col-sm-5">
-                <%= Horario.find(@datosgenerale.horario_id).nombre %>
+                <%= @datosgenerale.try(:horario).try(:nombre) %>
               </div><br>
               <h4>Tipo de cambio:</h4>
               <div class="col-sm-5">
