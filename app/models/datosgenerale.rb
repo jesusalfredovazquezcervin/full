@@ -13,6 +13,7 @@ class Datosgenerale < ActiveRecord::Base
 
   has_many :report_accounts, :dependent => :destroy
   has_many :reports, :through => :report_accounts
+  belongs_to :horario
   validates :cliente_id, :alta, :clavesalida, :locacion, :did, :frase, :account,
             presence: true
   validates :cliente_id,

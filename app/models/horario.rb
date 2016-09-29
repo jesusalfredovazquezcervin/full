@@ -6,7 +6,7 @@ class Horario < ActiveRecord::Base
   validates :lunhini, :lunhfin, :marhini, :marhfin, :miehini, :miehfin, :juehini, :juehfin, :viehini, :viehfin, :sabhini, :sabhfin, :domhini, :domhfin,
             presence:true, allow_blank: true
   belongs_to :cliente
-
+  has_many :datosgenerales
   def horario_semana
     horario_semana = "L "
     if(lunhini.nil? || lunhfin.nil? )
