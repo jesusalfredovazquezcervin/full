@@ -33,6 +33,14 @@
 
         <ul class="nav navbar-top-links navbar-right">
           <li>
+            <% if current_usuario.role == "Admin" %>
+                <%= link_to root_path, title: "Inicio"  do %>
+                    <i class="fa fa-undo"></i>
+                <% end %>
+            <% end %>
+          </li>
+
+          <li>
             <%= link_to check_in_path, title: "Check-in"  do %>
                 <i class="fa fa-sign-in"></i>
             <% end %>
