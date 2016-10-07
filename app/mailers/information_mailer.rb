@@ -45,7 +45,7 @@ class InformationMailer < ActionMailer::Base
 
 
     @enlace = url_for(controller: "reports", action: "sent", id: @report.id.to_s, date: @today.strftime("%Y%m%d"))
-    @enlace = @enlace.sub(/ofintel.tk/,'ofintel.ml')
+    #@enlace = @enlace.sub(/ofintel.tk/,'ofintel.ml')
     mail to: email.join(", "),
     #mail to: email,
     subject: "Ofintel::Reporte - " << @report.name.titleize
