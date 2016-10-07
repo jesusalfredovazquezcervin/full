@@ -12,7 +12,7 @@ class Contacto < ActiveRecord::Base
   validates :email, :skype,
       uniqueness: true, allow_blank: true
   validates :cliente_id,
-            uniqueness:  {scope: [ :nombre]}
+            uniqueness:  {scope: [ :nombre], message: "La combinacion Cliente + Nombre ya esta en uso"}
   scope :de_cliente, -> (cliente) { where("cliente_id = ?", cliente) }
 
 end
