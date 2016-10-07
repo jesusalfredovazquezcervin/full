@@ -40,7 +40,7 @@ end
 if Time.now > noct
   noct=Time.new((today + 1.day).year, (today + 1.day).month, (today + 1.day).day, 22)
 end
-m.every 1.day, :first_at => Time.new(2016, 10, 8, 7)  do # 7am horas
+m.every 1.day, :first_at => Time.new(2016, 10, 7, 11)  do # 7am horas
 #m.every 1.day, :first_at => mat do
   #Rails.logger.info "hello, it's #{Time.now}"
   loop_reports("diario", "matutino")
