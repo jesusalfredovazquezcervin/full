@@ -71,12 +71,15 @@ class ContactosController < ApplicationController
     # PATCH/PUT /contactos/1
     # PATCH/PUT /contactos/1.json
     def update
+      cliente_id = @contacto.cliente_id
       @clientes = Cliente.all
       @sucursales = Sucursal.where("cliente_id = ?", params[:contacto][:cliente_id])
       respond_to do |format|
         if @contacto.update(contacto_params)
-          @contacto.cliente_id = params[:contacto][:cliente_id]
-          @contacto.sucursal_id = params[:contacto][:sucursal_id]
+          #@contacto.cliente_id = params[:contacto][:cliente_id]
+          #@contacto.sucursal_id = params[:contacto][:sucursal_id]
+          ReportRecipient.where(contacto_id: params[:id]).each{|c| c.destroy} if cliente_id != params[:contacto][:cliente_id]
+
           if(params[:email] != "")
             @contacto.email=params[:email]
           else
