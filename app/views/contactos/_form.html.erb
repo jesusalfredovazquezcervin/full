@@ -73,7 +73,7 @@
                   <%= f.label "Cuentas", class: 'col-sm-2 control-label'%>
                   <div class="col-sm-5">
 
-                    <%= select_tag "accounts", options_for_select(@datosgenerales.all.collect{|d| [d.account, d.id] }, @contacto.datosgenerales ), {id: 'datosgenerales_select', class:"form-control m-b", style: "width:350px;", multiple: true }  %>
+                    <%= select_tag "accounts", options_for_select(@datosgenerales.all.collect{|d| [d.account, d.id] }, @contacto.datosgenerales.collect{|d| d.id} ), {id: 'datosgenerales_select', class:"form-control m-b", style: "width:350px;", multiple: true, required: true }  %>
 
 
 
@@ -134,7 +134,7 @@
                 <div class="form-group">
                   <%= f.label :email, class: 'col-sm-2 control-label'%>
                   <div class="col-sm-5">
-                    <%= email_field_tag :email, '', class: 'form-control', placeholder: 'email@dom.com'%>
+                    <%= email_field_tag :email, @contacto.email, class: 'form-control', placeholder: 'email@dom.com'%>
                   </div>
                 </div>
                 <br>
@@ -203,13 +203,15 @@
 
         $(function() {
             return $(document).on('change', '#clientes_select', function(evt) {
-                return $.ajax('update_datosgenerales', {
+                return $.ajax({
+                    url:location.protocol + "//" + location.host + "/contactos/update_datosgenerales",
                     type: 'GET',
                     dataType: 'script',
                     data: {
                         cliente_id: $("#clientes_select option:selected").val()
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
+                        console.log(location.protocol + "//" + location.host + "/contactos/update_datosgenerales");
                         return console.log("AJAX Error: " + textStatus);
                     },
                     success: function(data, textStatus, jqXHR) {
@@ -218,6 +220,9 @@
                 });
             });
         });
+
+
+
 
     </script>
 <% end %>
