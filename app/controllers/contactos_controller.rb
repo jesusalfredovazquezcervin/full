@@ -121,7 +121,7 @@ class ContactosController < ApplicationController
           format.html { redirect_to contactos_path, notice: 'El usuario ha sido creado exitosamente.'  }
           format.json { head :no_content }
         else
-          Usuario.find_by_email(contacto.email).usuario.send_reset_password_instructions
+          Usuario.find_by_email(contacto.email).send_reset_password_instructions
           format.html { redirect_to contactos_path, notice: 'Se han enviado instrucciones al usuario'  }
           format.json { head :no_content }
         end
