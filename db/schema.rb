@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161020185819) do
+ActiveRecord::Schema.define(version: 20160830185500) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -643,8 +643,6 @@ ActiveRecord::Schema.define(version: 20161020185819) do
     t.string   "field20"
     t.string   "field11"
     t.integer  "datosgenerale_id"
-    t.datetime "start_call"
-    t.datetime "end_call"
   end
 
   add_index "information", ["datosgenerale_id"], name: "index_information_on_datosgenerale_id", using: :btree
