@@ -3,6 +3,7 @@ class Information < ActiveRecord::Base
   belongs_to :usuario
   has_many :sents
   belongs_to :datosgenerale
+  has_one :call
   validates :form_id, :usuario_id,
             presence: true
 
