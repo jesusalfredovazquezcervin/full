@@ -76,6 +76,7 @@ class Ability
         can :new, Information
         can :edit, Information
         can :update, Information
+        can :read, Information
         can :new, Notification
         can :edit, Notification
         can :update, Notification
