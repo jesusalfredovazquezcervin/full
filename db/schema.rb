@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160830185500) do
+ActiveRecord::Schema.define(version: 20161020185819) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -192,15 +192,6 @@ ActiveRecord::Schema.define(version: 20160830185500) do
 
   add_index "checkins", ["usuario_id"], name: "index_checkins_on_usuario_id", using: :btree
 
-  create_table "cities", force: true do |t|
-    t.string   "name"
-    t.integer  "country_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "cities", ["country_id"], name: "index_cities_on_country_id", using: :btree
-
   create_table "clientes", force: true do |t|
     t.string   "nombre"
     t.string   "rfc"
@@ -235,12 +226,6 @@ ActiveRecord::Schema.define(version: 20160830185500) do
     t.string   "funciones"
   end
 
-  create_table "countries", force: true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "datosgenerales", force: true do |t|
     t.date     "alta"
     t.string   "clavesalida"
@@ -268,6 +253,9 @@ ActiveRecord::Schema.define(version: 20160830185500) do
     t.boolean  "tipocambio"
     t.boolean  "pedido"
     t.string   "frase"
+    t.string   "recipient"
+    t.string   "periodicity"
+    t.date     "start"
     t.string   "account"
   end
 
@@ -655,6 +643,8 @@ ActiveRecord::Schema.define(version: 20160830185500) do
     t.string   "field20"
     t.string   "field11"
     t.integer  "datosgenerale_id"
+    t.datetime "start_call"
+    t.datetime "end_call"
   end
 
   add_index "information", ["datosgenerale_id"], name: "index_information_on_datosgenerale_id", using: :btree
