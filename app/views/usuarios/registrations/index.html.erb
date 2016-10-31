@@ -47,6 +47,7 @@
               <th>Creado</th>
               <th>Activo</th>
               <th>Perfil</th>
+              <th>Contacto asociado</th>
               <th>Acciones</th>
             </tr>
             </thead>
@@ -104,6 +105,19 @@
                         <%=usuario.role%>
                     <%else%>
                         <p class="text-danger"><%=usuario.role%></p>
+                    <%end%>
+                  </td>
+                  <td>
+                    <%if usuario.activo%>
+                        <% if !usuario.contacto.nil? %>
+                            <%=usuario.try(:contacto).try(:nombre)%> (<%= usuario.try(:contacto).try(:id)%>)
+                        <% end%>
+                    <%else%>
+                        <p class="text-danger">
+                          <% if !usuario.contacto.nil? %>
+                              <%=usuario.try(:contacto).try(:nombre)%> (<%= usuario.try(:contacto).try(:id)%>)
+                          <% end%>
+                        </p>
                     <%end%>
                   </td>
 

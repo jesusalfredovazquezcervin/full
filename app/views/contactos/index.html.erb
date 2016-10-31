@@ -48,6 +48,7 @@
               <th>Cel</th>
               <th>Email</th>
               <th>Puesto</th>
+              <th>Usuario asociado</th>
 
               <th>&nbsp;&nbsp;Acciones</th>
             </tr>
@@ -71,6 +72,12 @@
                   <td><%= contacto.cel %></td>
                   <td><%= contacto.email %></td>
                   <td><%= contacto.puesto %></td>
+                  <td>
+                      <% if !contacto.usuario.nil? %>
+                          <%=contacto.try(:usuario).try(:email)%>(<%= contacto.try(:usuario).try(:id)%>)
+                      <% end%>
+                  </td>
+
 
                   <td>
                     <%= link_to 'V', contacto,class: "btn btn-primary btn-circle", title:"Ver" %>
