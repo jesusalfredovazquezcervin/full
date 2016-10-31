@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161020193729) do
+ActiveRecord::Schema.define(version: 20161031185427) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 20161020193729) do
   add_index "asks", ["usuario_id"], name: "index_asks_on_usuario_id", using: :btree
 
   create_table "calls", force: true do |t|
-    t.datetime "start"
+    t.datetime "start",          default: '2016-10-21 16:55:53'
     t.datetime "end"
     t.integer  "information_id"
     t.datetime "created_at"
@@ -979,8 +979,10 @@ ActiveRecord::Schema.define(version: 20161020193729) do
     t.datetime "updated_at",                            null: false
     t.boolean  "activo",                 default: true
     t.string   "role"
+    t.integer  "contacto_id"
   end
 
+  add_index "usuarios", ["contacto_id"], name: "index_usuarios_on_contacto_id", using: :btree
   add_index "usuarios", ["email"], name: "index_usuarios_on_email", unique: true, using: :btree
   add_index "usuarios", ["reset_password_token"], name: "index_usuarios_on_reset_password_token", unique: true, using: :btree
 
