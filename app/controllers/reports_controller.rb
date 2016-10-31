@@ -11,40 +11,51 @@ class ReportsController < ApplicationController
     #PERIODICITY = %w[diario semanal quincenal mensual bimestral trimestral semestral anual]
     #SCHEDULE = %w[matutino verspertino nocturno]
     #@today = @report.send_same_day ? (Date.strptime(params[:date], "%Y%m%d")):(Date.strptime(params[:date], "%Y%m%d") - 1.day)
-    @today = Date.strptime(params[:date], "%Y%m%d")
-    case @report.periodicity
-      when "diario"
-        date_start = @today - 1.day
-        @ff = DateTime.new(@today.year, @today.month, @today.day, @report.end_day.hour, @report.end_day.min, @report.end_day.sec)
-        @fi = DateTime.new(@today.year , @today.month, @today.day, @report.start_day.hour, @report.start_day.min, @report.start_day.sec)
-      when "semanal"
-        date_start = @today - 1.week
-      when "quincenal"
-        date_start = @today - 2.weeks
-      when "mensual"
-        date_start = @today - 1.month
-      when "bimestral"
-        date_start = @today - 2.months
-      when "trimestral"
-        date_start = @today - 3.months
-      when "semestral"
-        date_start = @today - 6.months
-      when "anual"
-        date_start = @today - 1.year
-      when "varios_dias"
-        diff_days = (@report.end_day.to_date - @report.start_day.to_date).to_i
-        date_start = @ff - diff_days.day
-    end
-    if @report.periodicity != "diario"
-      #if today.day == @report.end_day.day
-        @fi = DateTime.new(date_start.year , date_start.month, date_start.day, @report.start_day.hour, @report.start_day.min, @report.start_day.sec)
-        @ff = DateTime.new(@today.year, @today.month, @today.day, @report.end_day.hour, @report.end_day.min, @report.end_day.sec)
-      #end
-    end
-    #@information = @report.form.informations.where("created_at >= ? AND created_at <= ?", @fi, @ff)
-    @information = @report.form.informations.created_between(@fi, @ff)
 
-    render :layout => "empty"
+    #revisamos si el usuario esta asociado al reporte
+
+
+    if @report.contactos.select{|x| x == current_usuario.contacto }.count > 0
+
+      @today = Date.strptime(params[:date], "%Y%m%d")
+      case @report.periodicity
+        when "diario"
+          date_start = @today - 1.day
+          @ff = DateTime.new(@today.year, @today.month, @today.day, @report.end_day.hour, @report.end_day.min, @report.end_day.sec)
+          @fi = DateTime.new(@today.year , @today.month, @today.day, @report.start_day.hour, @report.start_day.min, @report.start_day.sec)
+        when "semanal"
+          date_start = @today - 1.week
+        when "quincenal"
+          date_start = @today - 2.weeks
+        when "mensual"
+          date_start = @today - 1.month
+        when "bimestral"
+          date_start = @today - 2.months
+        when "trimestral"
+          date_start = @today - 3.months
+        when "semestral"
+          date_start = @today - 6.months
+        when "anual"
+          date_start = @today - 1.year
+        when "varios_dias"
+          diff_days = (@report.end_day.to_date - @report.start_day.to_date).to_i
+          date_start = @ff - diff_days.day
+      end
+      if @report.periodicity != "diario"
+        #if today.day == @report.end_day.day
+          @fi = DateTime.new(date_start.year , date_start.month, date_start.day, @report.start_day.hour, @report.start_day.min, @report.start_day.sec)
+          @ff = DateTime.new(@today.year, @today.month, @today.day, @report.end_day.hour, @report.end_day.min, @report.end_day.sec)
+        #end
+      end
+      #@information = @report.form.informations.where("created_at >= ? AND created_at <= ?", @fi, @ff)
+      @information = @report.form.informations.created_between(@fi, @ff)
+      render :layout => "empty"
+    else
+
+      sign_out_and_redirect(current_usuario)
+      flash[:alert] = "No tiene acceso a este reporte"
+    end
+
   end
 
   def index
