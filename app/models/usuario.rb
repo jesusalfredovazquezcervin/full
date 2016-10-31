@@ -9,9 +9,5 @@ class Usuario < ActiveRecord::Base
 
   ROLES = %w[admin operador consulta]
 
-  # def role_symbols
-  #   roles.map do |role|
-  #     role.name.underscore.to_sym
-  #   end
-  # end
+  belongs_to :contacto
 end

@@ -7,6 +7,7 @@ class Contacto < ActiveRecord::Base
   has_many :direccions, :class_name => "Direccion", :foreign_key => "secondary_id"
   has_many :reports, :through => :report_recipients
   has_many :report_recipients, :dependent => :destroy
+  has_one :usuario
   validates :cliente_id, :nombre, :telefono, :puesto,
       presence: true
   validates :email, :skype,
