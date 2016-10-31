@@ -117,11 +117,14 @@ class ContactosController < ApplicationController
       password = KeePass::Password.generate('uullA{8}')
       respond_to do |format|
         if !Usuario.find_by_email(contacto.email)
-          Usuario.create(email: contacto.email, password: password, password_confirmation: password, role: "Consulta").send_reset_password_instructions
+          Usuario.create(email: contacto.email, password: password, password_confirmation: password, role: "Consulta", contacto_id: contacto.id).send_reset_password_instructions
           format.html { redirect_to contactos_path, notice: 'El usuario ha sido creado exitosamente.'  }
           format.json { head :no_content }
         else
-          Usuario.find_by_email(contacto.email).send_reset_password_instructions
+          user = Usuario.find_by_email(contacto.email)
+          user.contacto_id = contacto.id
+          user.save
+          user.send_reset_password_instructions
           format.html { redirect_to contactos_path, notice: 'Se han enviado instrucciones al usuario'  }
           format.json { head :no_content }
         end
