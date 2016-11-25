@@ -87,7 +87,7 @@ class ContactosController < ApplicationController
           end
           @contacto.save!
           save_contact_accounts(params[:id])
-          format.html { redirect_to @contacto, :notice => 'El Contacto ha sito actualizado correctamente.' }
+          format.html { redirect_to @contacto, :notice => 'El Contacto ha sido actualizado correctamente.' }
           format.json { head :no_content }
         else
           format.html { render action: 'edit', :layout => "layout_2"}
