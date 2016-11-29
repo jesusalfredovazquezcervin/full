@@ -1,5 +1,7 @@
 Myapp::Application.routes.draw do
 
+  resources :calls
+
   get "contactos/crear_usuario/:id", to: "contactos#crear_usuario", as: 'contactos_crear_usuario'
 
   get "reports/sent/:id/:date", to: "reports#sent", as: "sent_report"
