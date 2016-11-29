@@ -1,0 +1,152 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+
+    <h2>Listado de Llamadas</h2>
+    <ol class="breadcrumb">
+      <li>
+        <a href="<%= url_for :controller => 'home', :action => 'index' %>">Inicio</a>
+      </li>
+      <li>
+        <a>Operativo</a>
+      </li>
+      <li class="active">
+        <strong>Llamadas</strong>
+      </li>
+    </ol>
+  </div>
+  <div class="col-lg-2">
+
+  </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+
+
+          <div class="ibox-tools">
+            Total records: <%= @calls.count %>
+            <a >
+              <i class="fa fa-bars"></i>
+            </a>
+          </div>
+        </div>
+        <div class="ibox-content">
+
+          <table class="table table-striped table-bordered table-hover dataTables-example">
+            <thead>
+            <tr>
+              <th>ID</th>
+              <th>Inicio</th>
+              <th>Fin</th>
+              <th>Intervalo</th>
+              <th>Registro Capturado</th>
+              <th>Hecha por</th>
+              <th>Fecha llamada</th>
+              <th>&nbsp;&nbsp;Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @calls.each do |call| %>
+                <tr>
+                  <td><%=call.id%> </td>
+                  <td><%= call.try(:start) %></td>
+                  <td><%= call.try(:end)%> </td>
+
+                  <td><%if !call.start.nil? and !call.end.nil? %>
+                        <%= distance_of_time_in_words(call.start, call.end, include_seconds: true ).to_s%>
+                    <%end%>
+                  </td>
+
+                  <td>
+                    <%if !call.information_id.nil? %>
+                        <%= link_to call.information_id, information_path(call.information), target: "_blank"%>
+                    <%end%>
+                  </td>
+                  <td><%= call.try(:information).try(:usuario).try(:email)%></td>
+                  <td><%= call.created_at %></td>
+
+
+
+                  <td>
+                    <%= link_to 'V', call,class: "btn btn-primary btn-circle", title:"Ver" %>
+                  </td>
+                </tr>
+            <% end %>
+
+
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+<% content_for :javascript do %>
+
+    <script type="text/javascript">
+
+
+        $(function() {
+
+            $('.dataTables-example').dataTable({
+                "dom": 'T<"clear">lfrtip',
+                "tableTools": {
+                    "sSwfPath": "../assets/dataTables/swf/copy_csv_xls_pdf.swf"
+                }
+            });
+
+            /* Init DataTables */
+            var oTable = $('#editable').dataTable();
+
+            /* Apply the jEditable handlers to the table */
+            oTable.$('td').editable( '../example_ajax.php', {
+                "callback": function( sValue, y ) {
+                    var aPos = oTable.fnGetPosition( this );
+                    oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+                },
+                "submitdata": function ( value, settings ) {
+                    return {
+                        "row_id": this.parentNode.getAttribute('id'),
+                        "column": oTable.fnGetPosition( this )[2]
+                    };
+                },
+
+                "width": "90%",
+                "height": "100%"
+            } );
+
+
+        });
+
+    </script>
+
+
+
+<% end %>
+
+
+
+
