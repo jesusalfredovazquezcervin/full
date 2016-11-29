@@ -15,7 +15,7 @@ class InformationController < ApplicationController
     @clientes = Cliente.all
     @current_user = current_user
     @user = current_user
-    dashofintel
+    dashboard
   end
 
   def new
@@ -27,7 +27,7 @@ class InformationController < ApplicationController
     @clientes = Cliente.all
     @current_user = current_user
     @user = current_user
-    dashofintel
+    dashboard
   end
 
   def create
@@ -36,6 +36,11 @@ class InformationController < ApplicationController
 
     respond_to do |format|
       if @information.save
+        #asociamos llamada con informacion
+        call = Call.find params[:information][:call_id]
+        call.information_id = @information.id
+        call.end = DateTime.now
+        call.save!
         #Enviamos correo
         send_mail(params[:recipient].select{|r| r unless r.empty?}.join(", "),@information,"Send") if (@information.form.procedure.deliver and !params[:recipient].nil? )
         format.html { redirect_to({ controller:"captures", action: 'index', id:@cuenta.id }, notice: "El registro ha sido creado exitosamente") }
@@ -52,10 +57,20 @@ class InformationController < ApplicationController
 
     respond_to do |format|
       if @information.update(information_params)
-        format.html { redirect_to({controller: "captures" , action: 'index', id:@information.datosgenerale_id }, notice: "El registro ha sido actualizado exitosamente") }
-        format.json { head :no_content }
+        if current_usuario.role='admin'
+          format.html { redirect_to @information, notice: 'El registro capturado fue modificado correctamente.' }
+          format.json { head :no_content }
+        else
+          format.html { redirect_to({controller: "captures" , action: 'index', id:@information.datosgenerale_id }, notice: "El registro ha sido actualizado exitosamente") }
+          format.json { head :no_content }
+        end
+
       else
-        format.html { render action: 'edit', :layout => "layout_3" }
+        if current_usuario.role = 'admin'
+          format.html { render action: 'edit', :layout => "layout_2" }
+        else
+          format.html { render action: 'edit', :layout => "layout_3" }
+        end
         format.json { render json: @information.errors, status: :unprocessable_entity }
       end
     end
@@ -158,9 +173,16 @@ class InformationController < ApplicationController
       end
       params.require(:information).permit(:form_id, :usuario_id, :field1, :field2, :field3, :field4, :field5, :field6, :field7, :field8, :field9, :field10, :field11, :field12, :field13, :field14, :field15, :field16, :field17, :field18, :field19, :field20, :datosgenerale_id)
     end
-    def dashofintel
-      render :layout => "layout_3"
+
+    def dashboard
+      if current_usuario.role = 'admin'
+        render :layout => "layout_2"
+      else
+        render :layout => "layout_3"
+      end
+
     end
+
     def load_information
       @information = Information.new(information_params)
     end
