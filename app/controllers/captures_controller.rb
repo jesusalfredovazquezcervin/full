@@ -18,6 +18,7 @@ class CapturesController < ApplicationController
     @notification = Notification.new
     @user = current_user
     @cuentas = Datosgenerale.all.order(:account).collect{|account| [" " << account.cliente.nombre << "   |    " << account.account << "    |    " << account.frase , account.id]}.sort
+    @call = Call.new
     dashofintel
 
   end
@@ -59,6 +60,7 @@ class CapturesController < ApplicationController
     @information = Information.new
     @user= current_user
     @cuentas = Datosgenerale.all.order(:account).collect{|account| [" " << account.cliente.nombre << "   |    " << account.account << "    |    " << account.frase , account.id]}.sort
+    @call = Call.create(start: DateTime.now)
     dashofintel
   end
 
