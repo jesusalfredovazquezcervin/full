@@ -84,6 +84,8 @@ class Ability
         can :create, Notification
         can :checkin, Checkin
         can :checkout, Checkin
+        can :read, Call
+        can :new, Call
       end
     end
 
