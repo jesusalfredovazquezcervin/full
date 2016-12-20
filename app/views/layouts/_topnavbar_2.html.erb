@@ -58,6 +58,11 @@
         <% end %>
 
       </li>
+      <li>
+      <%= link_to check_in_path, title: "Check-in"  do %>
+          <i class="fa fa-sign-in"></i>
+      <% end %>
+      </li>
       <li class="dropdown">
         <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
           <i class="fa fa-user"></i>  <span class="label label-warning"></span>
@@ -85,7 +90,8 @@
           <li>
             <div class="text-center link-block">
               <strong><%=link_to "Editar", edit_usuario_registration_path(id: current_usuario.id)%></strong>
-              <i class="fa fa-edit"></i> | <strong><%=link_to "Log Out", destroy_usuario_session_path, method: :delete%></strong>
+              <i class="fa fa-edit"></i> | <strong><%=link_to "Log Out", check_out_path%></strong>
+
               <i class="fa fa-sign-out"></i>
             </div>
           </li>
