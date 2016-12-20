@@ -41,11 +41,12 @@ Myapp::Application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.default_url_options = { :host => ENV['hostname'] }
   config.action_mailer.smtp_settings = {
-      address: "smtp.gmail.com",
-      port: 587,
-      domain: 'gmail.com',
+      address: "ofintel.com.mx",
+      port: 26,
+      domain: "ofintel.com.mx",
       authentication: "plain",
-      enable_starttls_auto: true,
+      enable_starttls_auto: false,
+      openssl_verify_mode: "none",
       user_name: ENV['username'],
       password: ENV['password']
   }
