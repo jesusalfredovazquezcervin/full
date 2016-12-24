@@ -75,6 +75,7 @@ Myapp::Application.configure do
   # config.autoflush_log = false
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
+  config.mailer_sender = 'operaciones@ofintel.com.mx'
   config.log_formatter = ::Logger::Formatter.new
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
