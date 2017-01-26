@@ -5,7 +5,7 @@ class CallsController < ApplicationController
     before_action :set_call, only: [:show]
 
     def index
-      @calls = Call.all
+      @calls = Call.where.not(information_id: nil)
       dashboard_4
     end
 
