@@ -37,11 +37,19 @@
               <li><a href="<%= url_for forms_path%>">Formularios</a></li>
               <li><a href="<%= url_for fields_path%>">Formulario - Campos</a></li>
               <li><a href="<%= url_for asks_path%>">FAQ</a></li>
-              <li><a href="<%= url_for reports_path %>">Reportes</a></li>
               <li><a href="<%= url_for calls_path %>">Llamadas</a></li>
 
             </ul>
         </li>
+          <li class="dropdown">
+            <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Reportes <span class="caret"></span></a>
+            <ul role="menu" class="dropdown-menu">
+              <li><a href="<%= url_for reports_path %>">Listado</a></li>
+              <li><a href="<%= url_for report_generate_path%>">Generar informacion</a></li>
+
+
+            </ul>
+          </li>
         <li class="dropdown">
             <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Configuracion <span class="caret"></span></a>
             <ul role="menu" class="dropdown-menu">
