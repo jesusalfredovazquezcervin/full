@@ -62,6 +62,7 @@ class Ability
       # end
       if user.role == "Consulta"
         can :sent, Report
+        can :query, Report
         # can :update, Article do |article|
         #   article.try(:user) == user
         # end
