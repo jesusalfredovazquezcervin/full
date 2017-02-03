@@ -1,10 +1,21 @@
 Myapp::Application.routes.draw do
 
+  patch "reports/send_query_report", to: "reports#send_query_report", as: 'send_query_report'
+
+
+  get "reports/query/:id/", to: "reports#query", as: "query_report"
+
+  patch "reports/generate", to: "reports#generate", as: "reports_generate"
+
+  get 'reports/new_query', as: 'report_new_query'
+
+  get 'reports/update_reports', as: 'report_update_reports'
+
   resources :calls
 
   get "contactos/crear_usuario/:id", to: "contactos#crear_usuario", as: 'contactos_crear_usuario'
 
-  get "reports/sent/:id/:date", to: "reports#sent", as: "sent_report"
+  get "reports/sent/:id/:date/(:days)", to: "reports#sent", as: "sent_report"
 
   get 'reports/update_forms', as: 'report_update_forms'
 
