@@ -35,7 +35,7 @@ class InformationMailer < ActionMailer::Base
         date_start = @today - 1.year
       when "varios_dias"
         diff_days = (@report.end_day.to_date - @report.start_day.to_date).to_i
-        date_start = @ff - diff_days.day
+        date_start = @today  - diff_days.day
     end
     if @report.periodicity != "diario"
       @fi = DateTime.new(date_start.year , date_start.month, date_start.day, @report.start_day.hour, @report.start_day.min, @report.start_day.sec)
@@ -49,5 +49,13 @@ class InformationMailer < ActionMailer::Base
     mail to: email.join(", "),
     #mail to: email,
     subject: "Ofintel::Reporte - " << @report.name.titleize
+  end
+
+
+  def send_query_report(email, report_id)
+    @report = Report.find_by_id report_id
+    @enlace = url_for(controller: "reports", action: "query", id: @report.id.to_s)
+    mail to: email,
+         subject: "Ofintel::Reporte - " << @report.name.titleize
   end
 end
