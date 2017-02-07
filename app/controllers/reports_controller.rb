@@ -2,7 +2,7 @@ class ReportsController < ApplicationController
   before_action :authenticate_usuario!
   before_action :load_report, only: [:create]
   load_and_authorize_resource
-  before_action :set_report, only: [:show, :edit, :update, :destroy, :sent]
+  before_action :set_report, only: [:show, :edit, :update, :destroy, :sent, :query, :send_query_report]
 
 
   respond_to :html
@@ -15,7 +15,7 @@ class ReportsController < ApplicationController
     #revisamos si el usuario esta asociado al reporte
 
 
-    if @report.contactos.select{|x| x == current_usuario.contacto }.count > 0
+    if (@report.contactos.select{|x| x == current_usuario.contacto }.count > 0) or current_usuario.role == 'Admin'
 
       @today = Date.strptime(params[:date], "%Y%m%d")
       case @report.periodicity
@@ -38,8 +38,13 @@ class ReportsController < ApplicationController
         when "anual"
           date_start = @today - 1.year
         when "varios_dias"
-          diff_days = (@report.end_day.to_date - @report.start_day.to_date).to_i
-          date_start = @ff - diff_days.day
+          if params[:days].nil?
+            diff_days = (@report.end_day.to_date - @report.start_day.to_date).to_i
+          else
+            diff_days = params[:days].to_i
+          end
+          date_start = @today - diff_days.day
+
       end
       if @report.periodicity != "diario"
         #if today.day == @report.end_day.day
@@ -58,11 +63,37 @@ class ReportsController < ApplicationController
 
   end
 
-  def index
-    @reports = Report.all
-    dashboard_4
+
+
+  def query
+
+    if (@report.cliente.contactos.select{|x| x == current_usuario.contacto }.count > 0) or current_usuario.role == 'Admin'
+
+
+      @fi = @report.start_day
+      @ff = @report.end_day
+      @information = @report.form.informations.created_between(@fi, @ff)
+      if current_usuario.role == 'Admin'
+        render :layout => 'layout_2'
+      else
+        render :layout => 'empty'
+      end
+    else
+
+      sign_out_and_redirect(current_usuario)
+      flash[:alert] = "No tiene acceso a este reporte"
+    end
+
   end
 
+  def index
+    @reports = Report.no_temp
+    dashboard_4
+  end
+  def customize
+    @reports = Report.temp
+    dashboard_4
+  end
   def show
     dashboard_4
   end
@@ -136,6 +167,32 @@ class ReportsController < ApplicationController
     @flag = true
     respond_to do |format|
       format.js
+    end
+  end
+  def new_query
+    @report= Report.new
+    @clientes = Cliente.all.order(:nombre)
+    cliente = Cliente.all.order(:nombre).first
+    @datosgenerales = Datosgenerale.where("cliente_id = ?", cliente.id)
+    @contactos = cliente.contactos
+    @forms = cliente.procedures.all.collect{|p| p.form }
+    dashboard_4
+  end
+  def generate
+    @report = Report.new(report_params)
+    @report.temp= true
+    @report.periodicity = 'varios_dias'
+    @report.schedule = 'nocturno'
+    @report.save!
+    respond_to do |format|
+      format.html { redirect_to({ controller:'reports', action: 'query',  id: @report.id }) }
+    end
+  end
+  def send_query_report
+    InformationMailer.send_query_report(params[:recipient].join(',') , @report).deliver
+    ReportSent.create(report_id: @report.id, sent_by: current_usuario.email)
+    respond_to do |format|
+      format.html { redirect_to({ controller:'reports', action: 'query',  id: @report.id },notice: "El reporte ha sido enviado exitosamente") }
     end
   end
 
