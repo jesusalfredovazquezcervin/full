@@ -12,6 +12,7 @@ class Report < ActiveRecord::Base
   SCHEDULE = %w[matutino vespertino nocturno]
   validates :name, :cliente_id, :periodicity, :schedule, :form_id, :start_day, :end_day,
       :presence => true
-  validates :cliente_id,
-            uniqueness:  {scope: [ :name]}
+
+  scope :no_temp, -> {where(temp: nil)}
+  scope :temp, -> {where(temp: true)}
 end
