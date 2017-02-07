@@ -1,0 +1,243 @@
+
+<% if current_usuario.role == 'Consulta' %>
+
+
+    <div class="row border-bottom white-bg">
+      <!-- <nav class="navbar navbar-static-top" role="navigation"> -->
+      <nav class="navbar navbar-fixed-top" role="navigation">
+        <div class="navbar-collapse collapse" id="navbar">
+          <ul class="nav navbar-top-links navbar-right">
+            <li class="dropdown">
+              <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                <i class="fa fa-user"></i>  <span class="label label-warning"></span>
+              </a>
+              <ul class="dropdown-menu dropdown-messages">
+                <li>
+                  <div class="dropdown-messages-box">
+
+                    <a href="#" class="pull-left">
+                      <img alt="image" class="img-circle" src="<%= image_path('a7.jpg') %>" />
+                    </a>
+                    <div class="media-body">
+
+                      <strong>Firmado</strong> como: <strong>
+                      <%= current_usuario.email%>
+                    </strong><br/>
+                      <small class="text-muted">Ultima sesion: <%=current_usuario.last_sign_in_at%></small>
+
+
+                    </div>
+
+                  </div>
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <div class="text-center link-block">
+                    <strong><%=link_to "Editar", edit_usuario_registration_path(id: current_usuario.id)%></strong>
+                    <i class="fa fa-edit"></i> | <strong><%=link_to "Log Out", destroy_usuario_session_path, method: :delete%></strong>
+                    <i class="fa fa-sign-out"></i>
+                  </div>
+                </li>
+              </ul>
+            </li>
+
+
+
+
+
+          </ul>
+
+
+
+        </div>
+      </nav>
+    </div>
+<% end %>
+
+
+
+
+<section class="container features">
+  <div class="row">
+    <div class="col-lg-12 text-center">
+      <div class="navy-line"></div>
+      <h1><%= @report.name.titleize %> | <span class="navy"> <%= @report.cliente.nombre %> </span></h1>
+    </div>
+  </div>
+
+
+  <div class="col-lg-10 features-text fadeInLeft">
+    <address>
+      <strong><span class="navy">Fecha reporte: </span> <%= @report.created_at.strftime("%Y-%m-%d") %> </strong><br/>
+      <strong><span class="navy">Informaci&oacute;n presentada: </span> <%= @fi.strftime("%Y-%m-%d %H:%M") %>
+        al <%= @ff.strftime("%Y-%m-%d %H:%M") %></strong>
+      <% if current_usuario.role == 'Admin' %>
+
+
+          | <a data-toggle="modal" data-target="#myModal" title = "Enviar reporte" data-information-id="<%=@report.id%>">
+      <button class="btn btn-danger btn-sm" type="button"><i class="fa fa-envelope"></i>&nbsp;Enviar</button>
+    </a>
+      <% end %>
+      <br/><strong><span class="navy">Informacion de: </span> <%= @report.form.name  %> </strong><br/>
+    </address>
+
+
+  </div>
+
+
+</section>
+<section id="contact" class="features">
+
+
+  <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+          <div class="ibox-title">
+
+
+            <div class="ibox-tools">
+              Total registros: <%= @information.count %>
+              <a>
+                <i class="fa fa-bars"></i>
+              </a>
+            </div>
+
+          </div>
+          <div class="ibox-content" style="overflow-x: auto">
+
+            <table class="table table-striped table-bordered table-hover dataTables-example">
+              <thead>
+              <tr>
+                <th>ID</th>
+                <th>Fecha</th>
+                <th>Operador</th>
+                <% @report.form.fields.order(:id).each_with_index do |field, index| %>
+                    <% fld = "field" << (index + 1).to_s %>
+                    <th> <%= field.name %> </th>
+
+                <% end %>
+
+              </tr>
+              </thead>
+              <tbody>
+              <% @information.order(id: :desc).each do |information| %>
+                  <tr>
+                    <td><%= information.id %></td>
+                    <td><%= information.created_at %></td>
+                    <td><%= Usuario.find_by_id(information.usuario_id).try(:email) %></td>
+                    <% @report.form.fields.order(:id).each_with_index do |field, index| %>
+                        <% fld = "field" << (index + 1).to_s %>
+                        <% case field.data_type %>
+                    <% when "Date" %>
+                            <% valor = information.attributes.each_key.select { |k| k.to_s == fld }.empty? ? nil : (((information.attributes.each_pair.select { |k, v| k.to_s == fld })[0][1]).nil? ? (nil) : (((information.attributes.each_pair.select { |k, v| k.to_s == fld })[0][1]).to_date)) %>
+                        <% when "Datetime" %>
+                            <% valor = information.attributes.each_key.select { |k| k.to_s == fld }.empty? ? nil : (((information.attributes.each_pair.select { |k, v| k.to_s == fld })[0][1]).nil? ? (nil) : (((information.attributes.each_pair.select { |k, v| k.to_s == fld })[0][1]).to_date)) %>
+                        <% when "Boolean" %>
+                            <% valor = information.attributes.each_key.select { |k| k.to_s == fld }.empty? ? nil : !((information.attributes.each_pair.select { |k, v| k.to_s == fld })[0][1]).to_i.zero? %>
+                        <% else %>
+                            <% valor = information.attributes.each_key.select { |k| k.to_s == fld }.empty? ? nil : ((information.attributes.each_pair.select { |k, v| k.to_s == fld })[0][1]) %>
+                        <% end %>
+
+                        <td><%= valor %></td>
+
+                    <% end %>
+
+                  </tr>
+              <% end %>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+
+</section>
+
+
+
+<div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+
+  <%= render 'reports/sendquery' %>
+
+</div>
+
+
+
+<% content_for :javascript do %>
+
+    <script type="text/javascript">
+        $(function () {
+            $('.dataTables-example').dataTable({
+                "order": [[0, "desc"]],
+                "dom": 'T<"clear">lfrtip',
+                "tableTools": {
+                    "sSwfPath": "/assets/dataTables/swf/copy_csv_xls_pdf.swf"
+                }
+            });
+        });
+
+        $(function () {
+
+            $('body').addClass('landing-page');
+            $('body').attr('id', 'page-top');
+
+            $('body').scrollspy({
+                target: '.navbar-fixed-top',
+                offset: 80
+            });
+
+            // Page scrolling feature
+            $('a.page-scroll').bind('click', function (event) {
+                var link = $(this);
+                $('html, body').stop().animate({
+                    scrollTop: $(link.attr('href')).offset().top - 50
+                }, 500);
+                event.preventDefault();
+            });
+
+            var cbpAnimatedHeader = (function () {
+                var docElem = document.documentElement,
+                        header = document.querySelector('.navbar-default'),
+                        didScroll = false,
+                        changeHeaderOn = 200;
+
+                function init() {
+                    window.addEventListener('scroll', function (event) {
+                        if (!didScroll) {
+                            didScroll = true;
+                            setTimeout(scrollPage, 250);
+                        }
+                    }, false);
+                }
+
+                function scrollPage() {
+                    var sy = scrollY();
+                    if (sy >= changeHeaderOn) {
+                        $(header).addClass('navbar-scroll')
+                    }
+                    else {
+                        $(header).removeClass('navbar-scroll')
+                    }
+                    didScroll = false;
+                }
+
+                function scrollY() {
+                    return window.pageYOffset || docElem.scrollTop;
+                }
+
+                init();
+
+            })();
+
+
+        });
+
+    </script>
+
+<% end %>
