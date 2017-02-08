@@ -154,7 +154,16 @@ class InformationController < ApplicationController
       fields.each_pair{|k,v|
         r = v.split("-").reverse!
 
-        params[:information][k] = (r[0] << "-" << r[1] << "-" << r[2]).to_date
+        #params[:information][k] = (r[0] << "-" << r[1] << "-" << r[2]).to_date
+        case r.size
+          when 5
+            params[:information][k] = DateTime.new(r[2].to_i, r[3].to_i, r[4].to_i, r[1].to_i, r[0].to_i,0)
+          when 3
+            params[:information][k] = Date.new(r[0].to_i, r[1].to_i, r[2].to_i)
+
+        end
+
+
 
 
       }
