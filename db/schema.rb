@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170203163742) do
+ActiveRecord::Schema.define(version: 20170208203703) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 20170203163742) do
   add_index "asks", ["usuario_id"], name: "index_asks_on_usuario_id", using: :btree
 
   create_table "calls", force: true do |t|
-    t.datetime "start",          default: '2016-10-21 16:55:53'
+    t.datetime "start"
     t.datetime "end"
     t.integer  "information_id"
     t.datetime "created_at"
@@ -202,6 +202,15 @@ ActiveRecord::Schema.define(version: 20170203163742) do
 
   add_index "checkins", ["usuario_id"], name: "index_checkins_on_usuario_id", using: :btree
 
+  create_table "cities", force: true do |t|
+    t.string   "name"
+    t.integer  "country_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "cities", ["country_id"], name: "index_cities_on_country_id", using: :btree
+
   create_table "clientes", force: true do |t|
     t.string   "nombre"
     t.string   "rfc"
@@ -234,6 +243,12 @@ ActiveRecord::Schema.define(version: 20170203163742) do
     t.integer  "sucursal_id"
     t.string   "skype"
     t.string   "funciones"
+  end
+
+  create_table "countries", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "datosgenerales", force: true do |t|
@@ -630,29 +645,31 @@ ActiveRecord::Schema.define(version: 20170203163742) do
   create_table "information", force: true do |t|
     t.integer  "form_id"
     t.integer  "usuario_id"
-    t.string   "field1"
-    t.string   "field2"
-    t.string   "field3"
-    t.string   "field4"
-    t.string   "field5"
-    t.string   "field6"
-    t.string   "field7"
-    t.string   "field8"
-    t.string   "field9"
-    t.string   "field10"
+    t.text     "field1"
+    t.text     "field2"
+    t.text     "field3"
+    t.text     "field4"
+    t.text     "field5"
+    t.text     "field6"
+    t.text     "field7"
+    t.text     "field8"
+    t.text     "field9"
+    t.text     "field10"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "field12"
-    t.string   "field13"
-    t.string   "field14"
-    t.string   "field15"
-    t.string   "field16"
-    t.string   "field17"
-    t.string   "field18"
-    t.string   "field19"
-    t.string   "field20"
-    t.string   "field11"
+    t.text     "field12"
+    t.text     "field13"
+    t.text     "field14"
+    t.text     "field15"
+    t.text     "field16"
+    t.text     "field17"
+    t.text     "field18"
+    t.text     "field19"
+    t.text     "field20"
+    t.text     "field11"
     t.integer  "datosgenerale_id"
+    t.datetime "start_call"
+    t.datetime "end_call"
   end
 
   add_index "information", ["datosgenerale_id"], name: "index_information_on_datosgenerale_id", using: :btree
