@@ -64,8 +64,8 @@
                 <div class="form-group">
                   <%= f.label "Tipo de dato", class: 'col-sm-2 control-label'%>
                   <div class="col-sm-5">
-                    <%= f.select :data_type, options_for_select(Field::DATA_TYPE.collect { |type|
-                                                                  [type.to_s] }, @field.data_type), {}, {id: "data_type", class:"chosen-select", style: "width:350px;", onchange: "hide_list();" } %>
+                    <%= f.select :data_type, options_for_select(Field::DATA_TYPE.collect { |k,v|
+                                                                  [v,k] }, @field.data_type), {}, {id: "data_type", class:"chosen-select", style: "width:350px;", onchange: "hide_list();" } %>
 
                   </div>
                 </div>

@@ -46,7 +46,7 @@
 
               <h4>Tipo de dato:</h4>
               <div class="col-sm-5">
-                <%= @field.data_type%>
+                <%= Field::DATA_TYPE[@field.data_type.to_s.to_sym]%> &nbsp;(<%= @field.data_type.to_s.to_sym%>)
               </div><br>
               <%if @field.data_type=="List"%>
                   <h4>Valores de Lista:</h4>
