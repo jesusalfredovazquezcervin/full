@@ -113,7 +113,7 @@
 
                                                           <%when "Text"%>
 
-                                                              <%= f.text_area fld, class: 'form-control', required: field.mandatory ? (true):(false) , id: (field.behave=="Primario" ? (pindex.to_s << "ctl_prim_" << fld):(field.behave=="Alterno" ? (pindex.to_s << "ctl_alt_" << fld):(pindex.to_s << "ctl_com_" << fld))) << (field.mandatory ? "r":"o"), maxlength:2500%>
+                                                              <%= f.text_area fld, class: 'form-control', required: field.mandatory ? (true):(false) , id: (field.behave=="Primario" ? (pindex.to_s << "ctl_prim_" << fld):(field.behave=="Alterno" ? (pindex.to_s << "ctl_alt_" << fld):(pindex.to_s << "ctl_com_" << fld))) << (field.mandatory ? "r":"o")%>
 
                                                           <%when "Boolean"%>
                                                               <div class="checkbox checkbox-inline">
