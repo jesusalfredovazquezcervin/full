@@ -1,6 +1,6 @@
 class Field < ActiveRecord::Base
   belongs_to :form, touch: true
-  DATA_TYPE = %w[String Integer Date DateTime Boolean List]
+  DATA_TYPE = {String: 'Caracteres (max 255)', Text:'Caracteres (max 2500)', Integer: 'Numeros enteros', Date: 'Fecha', DateTime:'Fecha y Hora', Boolean: 'Si/No', List:'Lista de valores'}
   BEHAVE = %w[Comun Primario Alterno]
   validates :form_id, :name,
             presence: true
