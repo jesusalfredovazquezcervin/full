@@ -102,7 +102,7 @@
                 <div class="hr-line-dashed"></div>
                 <div class="form-group">
                   <%= f.label "Formulario", class: 'col-sm-2 control-label'%>
-                  <%= f.select :form_id, options_for_select(@forms.collect { |form|
+                  <%= f.select :form_id, options_for_select(@forms.all.collect{ |form|
                                                                   [form.name, form.id] }, @report.form_id), {required: true}, {id: 'forms_select', class:"form-control m-b", style: "width:550px;"}  %>
                 </div>
                 <br>
