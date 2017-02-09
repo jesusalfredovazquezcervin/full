@@ -23,5 +23,15 @@ module Myapp
     config.assets.precompile += [ 'appviews.css', 'cssanimations.css', 'dashboards.css', 'forms.css', 'gallery.css', 'graphs.css', 'mailbox.css', 'miscellaneous.css', 'pages.css', 'tables.css', 'uielements.css', 'widgets.css' ]
     config.assets.precompile += [ 'appviews.js', 'cssanimations.js', 'dashboards.js', 'forms.js', 'gallery.js', 'graphs.js', 'mailbox.js', 'miscellaneous.js', 'pages.js', 'tables.js', 'uielements.js', 'widgets.js', ]
     #config.i18n.default_locale = :es
+    # Only attempt update on local machine
+    if Rails.env.development?
+      # Update version file from latest git tag
+      File.open('config/version', 'w') do |file|
+        file.write `git describe --tags --always` # or equivalent
+      end
+    end
+
+    config.version = File.read('config/version')
   end
+
 end
