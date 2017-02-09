@@ -104,7 +104,7 @@ class ReportsController < ApplicationController
     cliente = Cliente.all.order(:nombre).first
     @datosgenerales = Datosgenerale.where("cliente_id = ?", cliente.id)
     @contactos = cliente.contactos
-    @forms = cliente.procedures.all.collect{|p| p.form }
+    @forms = Form.where(procedure_id: cliente.procedures.collect{|p| p.id})
     dashboard_4
   end
 
@@ -113,7 +113,7 @@ class ReportsController < ApplicationController
     cliente = Cliente.find_by_id @report.cliente_id
     @datosgenerales = Datosgenerale.where("cliente_id = ?", cliente.id )
     @contactos = cliente.contactos
-    @forms = cliente.procedures.all.collect{|p| p.form }
+    @forms = Form.where(procedure_id: cliente.procedures.collect{|p| p.id})
     dashboard_4
   end
 
@@ -122,7 +122,7 @@ class ReportsController < ApplicationController
     @clientes = Cliente.all.order(:nombre)
     cliente = Cliente.all.order(:nombre).first
     @contactos = cliente.contactos
-    @forms = cliente.procedures.all.collect{|p| p.form }
+    @forms = Form.where(procedure_id: cliente.procedures.collect{|p| p.id})
     respond_to do |format|
       if @report.save
         save_report_accounts @report.id
@@ -175,7 +175,7 @@ class ReportsController < ApplicationController
     cliente = Cliente.all.order(:nombre).first
     @datosgenerales = Datosgenerale.where("cliente_id = ?", cliente.id)
     @contactos = cliente.contactos
-    @forms = cliente.procedures.all.collect{|p| p.form }
+    @forms = Form.where(procedure_id: cliente.procedures.collect{|p| p.id})
     dashboard_4
   end
   def generate
