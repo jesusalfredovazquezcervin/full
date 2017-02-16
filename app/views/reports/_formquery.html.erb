@@ -1,0 +1,264 @@
+
+
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+
+    <ol class="breadcrumb">
+      <li>
+        <a href="<%= url_for home_index_path %>">Inicio</a>
+      </li>
+      <li>
+        <a>Operativo</a>
+      </li>
+      <li>
+        <a href="<%= url_for report_customize_path%>">Reportes</a>
+
+      </li>
+      <li class="active">
+        <strong>Agregar / Modificar reporte</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Formulario<small> para generar un reporte.</small></h5>
+
+        </div>
+        <div class="ibox-content">
+
+          <%= form_for @report, url: { action: "generate" }, method: "patch" do |f| %>
+
+              <% if @report.errors.any? %>
+                  <div id="error_explanation">
+                    <h2><%= @report.errors.count %> error(es) no permitieron guardar el registro:</h2>
+
+                    <ul>
+                      <% @report.errors.full_messages.each do |msg| %>
+                          <li><%= msg %></li>
+                      <% end %>
+                    </ul>
+                  </div>
+              <% end %>
+
+              <div class="form-group">
+                <div class="form-group">
+                  <%= f.label "Nombre", class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.text_field :name, class: 'form-control', required: true%>
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label :cliente, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.select :cliente_id, options_for_select(Cliente.all.collect { |cliente|
+                                                                   [cliente.nombre, cliente.id] }, @report.cliente_id), {required: true}, { id: 'clientes_select', class:"form-control m-b", style: "width:350px;" } %>
+
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label "Cuentas", class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= select_tag "accounts", options_for_select(@datosgenerales.all.collect{|d| [d.account, d.id] }, @report.report_accounts.all.collect{|r| r.datosgenerale.id } ), {id: 'datosgenerales_select',class:"form-control m-b", style: "width:350px;",  required: true }  %>
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+
+
+
+
+
+
+                <div class="form-group">
+                  <%= f.label "Informacion proveniente de", class: 'col-sm-2 control-label'%>
+                  <%= f.select :form_id, options_for_select(@forms.collect { |form|
+                                                              [form.name, form.id] }, @report.form_id), {required: true}, {id: 'forms_select', class:"form-control m-b", style: "width:550px;"}  %>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+
+
+                <div class="form-group">
+                  <div class="col-sm-4">
+                    <%= f.label "Dia inicial", class: 'col-sm-2 control-label'%>
+
+                    <div class="form-group" id="data_1">
+                      <div class="input-group date">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        <%= f.text_field :start_day, class: "form-control", value: @report.start_day.nil? ? (Date.today.strftime("%m/%d/%Y")):(@report.start_day.strftime("%m/%d/%Y")), :required => true%>
+                      </div>
+                    </div>
+                  </div>
+                  <%= f.label "Hora inicial", class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-3" style="width: 100px">
+                    <div class="input-group clockpicker" data-autoclose="true" >
+                      <%= f.text_field :start_time, value: @report.start_day.nil? ? (Time.now.strftime("%H:%M")):(@report.start_day.strftime("%H:%M")), :required => true%>
+                      <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-time"></span>
+                            </span>
+                    </div>
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <div class="col-sm-4">
+                    <%= f.label "Fecha final", class: 'col-sm-2 control-label'%>
+                    <div class="form-group" id="data_1">
+                      <div class="input-group date">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        <%= f.text_field :end_day, class: "form-control", value: @report.end_day.nil? ? (Date.today.strftime("%m/%d/%Y")):(@report.end_day.strftime("%m/%d/%Y")), :required => true%>
+                      </div>
+                    </div>
+                  </div>
+                  <%= f.label "Hora final", class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-3" style="width: 100px">
+                    <div class="input-group clockpicker" data-autoclose="true" >
+                      <%= f.text_field :end_time,  value: @report.end_day.nil? ? (Time.now.strftime("%H:%M")):(@report.end_day.strftime("%H:%M")), :required => true%>
+                      <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-time"></span>
+                            </span>
+                    </div>
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+
+
+              </div>
+              <br><br><br><br><br><br><br><br>
+              <div class="hr-line-dashed"></div>
+              <div class="form-group">
+                <div class="col-sm-4 col-sm-offset-2">
+                  <a href="<%= url_for reports_path %>">
+                    <button class="btn btn-outline btn-danger btn-rounded" type="button"><i class="fa fa-list-ol"></i>&nbsp;Cancelar</button>
+                  </a>
+
+                  <%= button_tag(type: 'submit', class: "btn btn-outline btn-success btn-rounded") do %>
+                      <i class="fa fa-database"></i> Generar
+                  <% end %>
+                </div>
+
+
+
+              </div>
+              <br><br>
+          <% end %>
+
+
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :javascript do %>
+
+    <script type="text/javascript">
+        $('.clockpicker').clockpicker();
+
+        var config = {
+            '.chosen-select'           : {},
+            '.chosen-select-deselect'  : {allow_single_deselect:true},
+            '.chosen-select-no-single' : {disable_search_threshold:10},
+            '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+            '.chosen-select-width'     : {width:"95%"}
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+
+        $(function() {
+            return $(document).on('change', '#clientes_select', function(evt) {
+                return $.ajax({
+                    url:location.protocol + "//" + location.host + "/reports/update_datosgenerales",
+                    type: 'GET',
+                    dataType: 'script',
+                    data: {
+                        cliente_id: $("#clientes_select option:selected").val()
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log(location.protocol + "//" + location.host + "/reports/update_datosgenerales");
+                        return console.log("AJAX Error: " + textStatus);
+                    },
+                    success: function(data, textStatus, jqXHR) {
+                        return console.log("Dynamic accounts select OK!");
+                    }
+                });
+            });
+        });
+
+
+
+        $(function() {
+            return $(document).on('change', '#clientes_select', function(evt) {
+                return $.ajax({
+                    url:location.protocol + "//" + location.host + "/reports/update_contactos",
+                    type: 'GET',
+                    dataType: 'script',
+                    data: {
+                        cliente_id: $("#clientes_select option:selected").val()
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log(location.protocol + "//" + location.host + "/reports/update_contactos");
+                        return console.log("AJAX Error: " + textStatus);
+                    },
+                    success: function(data, textStatus, jqXHR) {
+                        return console.log("Dynamic contactos select OK!");
+                    }
+                });
+            });
+        });
+
+        $(function() {
+            return $(document).on('change', '#clientes_select', function(evt) {
+                return $.ajax({
+                    url:location.protocol + "//" + location.host + "/reports/update_forms",
+                    type: 'GET',
+                    dataType: 'script',
+                    data: {
+                        cliente_id: $("#clientes_select option:selected").val()
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log(location.protocol + "//" + location.host + "/reports/update_forms");
+                        return console.log("AJAX Error: " + textStatus);
+                    },
+                    success: function(data, textStatus, jqXHR) {
+                        return console.log("Dynamic forms select OK!");
+                    }
+                });
+            });
+        });
+        $('#data_1 .input-group.date').datepicker({
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: true,
+            autoclose: true
+        });
+
+        $('#data_2 .input-group.date').datepicker({
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: true,
+            autoclose: true
+        });
+
+    </script>
+<% end %>
+
+
