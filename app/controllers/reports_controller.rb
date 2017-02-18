@@ -2,7 +2,7 @@ class ReportsController < ApplicationController
   before_action :authenticate_usuario!
   before_action :load_report, only: [:create]
   load_and_authorize_resource
-  before_action :set_report, only: [:show, :edit, :update, :destroy, :sent, :query, :send_query_report]
+  before_action :set_report, only: [:show, :edit, :update, :destroy, :sent, :query, :send_query_report, :edit_query, :show_query]
 
 
   respond_to :html
@@ -178,6 +178,18 @@ class ReportsController < ApplicationController
     @forms = Form.where(procedure_id: cliente.procedures.collect{|p| p.id})
     dashboard_4
   end
+  def edit_query
+    @clientes = Cliente.all.order(:nombre)
+    cliente = Cliente.find_by_id @report.cliente_id
+    @datosgenerales = Datosgenerale.where("cliente_id = ?", cliente.id)
+    @contactos = cliente.contactos
+    @forms = Form.where(procedure_id: cliente.procedures.collect{|p| p.id})
+    dashboard_4
+  end
+  def show_query
+    dashboard_4
+  end
+
   def generate
     @report = Report.new(report_params)
     @report.temp= true
@@ -190,9 +202,14 @@ class ReportsController < ApplicationController
   end
   def send_query_report
     InformationMailer.send_query_report(params[:recipient].join(',') , @report).deliver
-    ReportSent.create(report_id: @report.id, sent_by: current_usuario.email)
+    ReportSent.create(report_id: @report.id, sent_by: current_usuario.email, sent_to: params[:recipient].join(','))
     respond_to do |format|
-      format.html { redirect_to({ controller:'reports', action: 'query',  id: @report.id },notice: "El reporte ha sido enviado exitosamente") }
+      if params[:listado] == 'true'
+        format.html { redirect_to(report_customize_path ,notice: "El reporte ha sido enviado exitosamente") }
+      else
+        format.html { redirect_to({ controller:'reports', action: 'query',  id: @report.id },notice: "El reporte ha sido enviado exitosamente") }
+      end
+
     end
   end
 
