@@ -44,11 +44,11 @@
               <th>Nombre</th>
               <th>Cliente</th>
               <th>Cuentas</th>
-              <th>Destinatarios</th>
-              <th>Periodicidad</th>
-              <th>Horario</th>
-              <th>Formulario</th>
-              <th>Informacion a enviar</th>
+              <th>Veces enviado</th>
+              <th>Enviado a</th>
+              <th>Enviado por</th>
+              <th>Informacion de</th>
+              <th>Rango de fechas</th>
               <th>Ultimo envio</th>
               <th>&nbsp;&nbsp;Acciones</th>
             </tr>
@@ -60,17 +60,60 @@
                   <td><%=report.name%></td>
                   <td><%= report.cliente.nombre %></td>
                   <td><%= report.datosgenerales.all.collect{|d| d.account}%></td>
-                  <td><%= report.report_recipients.all.collect{|r| r.contacto.email}%></td>
-                  <td><%=report.periodicity%></td>
-                  <td><%=report.schedule%></td>
+                  <td><%=report.report_sents.count %></td>
+                  <td><%=report.report_sents.collect{|r| r.sent_to}.count == 0 ? ('Sin enviar'):(report.report_sents.collect{|r| r.sent_to}) %></td>
+                  <td><%=report.report_sents.collect{|r| r.sent_by}.count == 0 ? ('Sin enviar'):(report.report_sents.collect{|r| r.sent_by})%></td>
                   <td><%=report.form.name%></td>
-                  <td><%=I18n.l(report.start_day, format: '%a') << " " << report.start_day.strftime("%I:%M%p")    << ' - ' << I18n.l(report.end_day, format: '%a')<< " " << report.end_day.strftime("%I:%M%p") %></td>
-                  <td><%=report.report_sents.last.try(:created_at)%></td>
+                  <td><%=I18n.l(report.start_day, format: '%Y-%m-%d') << " " << report.start_day.strftime("%I:%M%p")    << ' - ' << I18n.l(report.end_day, format: '%Y-%m-%d')<< " " << report.end_day.strftime("%I:%M%p") %></td>
+                  <td><%=report.report_sents.last.nil? ? ('Sin enviar'):(I18n.l(report.report_sents.last.try(:created_at), format: '%Y-%m-%d') << ' ' << I18n.l(report.report_sents.last.try(:created_at), format: '%I:%M%p'))%></td>
                   <td>
-                    <%= link_to 'V', report,class: "btn btn-primary btn-circle", title:"Ver" %>
-                    <%= link_to 'M', edit_report_path(report), class: "btn btn-warning btn-circle", title:"Modificar" %>
+                    <%= link_to 'V', report_show_query_path(report),class: "btn btn-primary btn-circle", title:"Ver" %>
+                    <%= link_to 'M', report_edit_query_path(report), class: "btn btn-warning btn-circle", title:"Modificar" %>
                     <%= link_to 'E', report, method: :delete, class: "btn btn-danger btn-circle", title:"Eliminar" ,data: { confirm: '¿Está seguro?'} %>
+                    <%= link_to 'G', query_report_path(report), class: "btn btn-success btn-circle", title:"Generar reporte" %>
+                    <a data-toggle="modal" data-target="#myModal<%=report.id%>" title = "Enviar reporte" data-information-id="<%=report.id%>">
+                      <button class="btn btn-danger btn-circle" type="button"><i class="fa fa-envelope"></i></button>
+                    </a>
                   </td>
+                  <div class="modal inmodal" id="myModal<%=report.id%>" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content animated flipInX">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+                        <h4 class="modal-title">Enviar email</h4>
+                      </div>
+                      <div class="modal-body">
+                        <%= form_for report, url: send_query_report_path, method: "patch", class: 'form-horizontal'  do |f| %>
+                            <%= hidden_field_tag 'id', report.id%>
+                            <%= hidden_field_tag 'listado', true%>
+                            <div class="form-group">
+                              <div class="hr-line-dashed"></div>
+                              <%= f.label "Destinatario", class: 'col-sm-2 control-label'%>
+                              <div class="col-sm-5">
+                                <%= select_tag :recipient, options_for_select(report.cliente.contactos.where.not(email: nil).order(:nombre).collect { |c|
+                                                                                [c.nombre << ' <' << (c.email.nil? ? (""):(c.email))  << '>', c.email] }, 0),  { class:"form-control m-b", style: "width:500px;",multiple: true, required:true} %>    
+
+
+
+                              </div>
+                            </div>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <div class="hr-line-dashed"></div>
+                            <div class="modal-footer">
+                              <button id='btnMyModal<%=report.id%>' type="button" class="btn btn-white" data-dismiss="modal">Cerrar</button>
+                              <%= button_tag(type: 'submit', class: "btn btn-primary") do %>
+                                  <i class="fa fa-envelope"></i> Enviar
+                              <% end %>
+                            </div>
+                        <% end %>
+                      </div>
+                    </div>
+                    </div>
+                  </div>
                 </tr>
             <% end %>
 
@@ -85,6 +128,8 @@
 
 
 </div>
+
+
 
 <% content_for :javascript do %>
     <script type="text/javascript">
