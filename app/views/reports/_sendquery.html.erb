@@ -2,11 +2,12 @@
   <div class="modal-content animated flipInX">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-      <h4 class="modal-title">Enviar email</h4>
+      <h4 class="modal-title">Enviar reporte</h4>
     </div>
     <div class="modal-body">
       <%= form_for @report, url: send_query_report_path, method: "patch", class: 'form-horizontal'  do |f| %>
           <%= hidden_field_tag 'id', @report.id%>
+          <%= hidden_field_tag 'listado', false%>
           <div class="form-group">
             <div class="hr-line-dashed"></div>
             <%= f.label "Destinatario", class: 'col-sm-2 control-label'%>
