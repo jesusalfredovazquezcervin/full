@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170208203703) do
+ActiveRecord::Schema.define(version: 20170210204244) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -915,6 +915,7 @@ ActiveRecord::Schema.define(version: 20170208203703) do
     t.string   "sent_by"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "sent_to"
   end
 
   add_index "report_sents", ["report_id"], name: "index_report_sents_on_report_id", using: :btree
