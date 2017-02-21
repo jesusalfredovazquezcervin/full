@@ -40,3 +40,9 @@ config/application.yml
 /log/migration.log
 /public/system/direccions/photos/*
 /tmp/cache/assets/development/sprockets/*
+ofintel.bkp
+ofintel_09082016.bkp
+ofintel_09092016.bkp
+public/assets/
+tmp/cache/
+vendor/assets/
