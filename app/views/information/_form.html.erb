@@ -55,16 +55,34 @@
                       <div class="col-sm-5">
                         <%case field.data_type%>
                         <%when "Date"%>
-                            <%= f.date_select fld,  {prompt: { day: 'Select day', month: 'Select month', year: 'Select year' }, start_year: Date.today.year, end_year: Date.today.year}, {required: false , id: (field.behave=="Primario" ? ("ctl_prim_" << fld):(field.behave=="Alterno" ? ("ctl_alt_" << fld):("ctl_com_" << fld))) << (field.mandatory ? "r":"o") }%>
-                      <%when "DateTime"%>
-                            <%= f.datetime_select fld, class: 'form-control', required: field.mandatory ? (true):(false) , id: (field.behave=="Primario" ? ("ctl_prim_" << fld):(field.behave=="Alterno" ? ("ctl_alt_" << fld):("ctl_com_" << fld))) << (field.mandatory ? "r":"o") %>
-                        <%when "Integer"%>
+                            <div class="form-group">
+                              <div class="col-sm-9">
+
+                                <div class="form-group" id="data_1">
+                                  <div class="input-group date">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    <%= f.text_field fld, class: "form-control", value: @information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? (Date.today.strftime("%Y-%m-%d")):((@information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1]).to_date.strftime("%Y-%m-%d"),
+                                                     required: true,
+                                                     id: (field.behave=="Primario" ? ("ctl_prim_" << fld):(field.behave=="Alterno" ? ("ctl_alt_" << fld):("ctl_com_" << fld))) << (field.mandatory ? "r":"o")%>
+
+
+
+                                  </div>
+                                </div>
+                              </div>
+
+                            </div>
+
+
+                        <%when "DateTime"%>
+                            <%= f.datetime_select fld, fld %>
+
+
+                      <%when "Integer"%>
                             <%= f.number_field fld, class: 'form-control', required: field.mandatory ? (true):(false) , id: (field.behave=="Primario" ? ("ctl_prim_" << fld):(field.behave=="Alterno" ? ("ctl_alt_" << fld):("ctl_com_" << fld))) << (field.mandatory ? "r":"o") %>
                         <%when "String"%>
                             <%= f.text_field fld, class: 'form-control', required: field.mandatory ? (true):(false) , id: (field.behave=="Primario" ? ("ctl_prim_" << fld):(field.behave=="Alterno" ? ("ctl_alt_" << fld):("ctl_com_" << fld))) << (field.mandatory ? "r":"o") %>
-                        <%when "Text"%>
 
-                            <%= f.text_area fld, class: 'form-control', required: field.mandatory ? (true):(false) , id: (field.behave=="Primario" ? (pindex.to_s << "ctl_prim_" << fld):(field.behave=="Alterno" ? (pindex.to_s << "ctl_alt_" << fld):(pindex.to_s << "ctl_com_" << fld))) << (field.mandatory ? "r":"o")%>
 
                         <%when "Boolean"%>
                             <%= f.check_box fld , id: (field.behave=="Primario" ? ("ctl_prim_" << fld):(field.behave=="Alterno" ? ("ctl_alt_" << fld):("ctl_com_" << fld))) << (field.mandatory ? "r":"o")%>
@@ -119,7 +137,8 @@
             keyboardNavigation: false,
             forceParse: false,
             calendarWeeks: true,
-            autoclose: true
+            autoclose: true,
+            format: "yyyy-mm-dd"
         });
 
         $(document).ready(function (){
