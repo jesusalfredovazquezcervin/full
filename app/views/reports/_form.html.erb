@@ -133,7 +133,7 @@
                   <%= f.label "Hora inicial", class: 'col-sm-2 control-label'%>
                   <div class="col-sm-3" style="width: 100px">
                     <div class="input-group clockpicker" data-autoclose="true" >
-                      <%= f.text_field :start_time, value: @report.start_day.nil? ? (Time.now):(@report.start_day.strftime("%H:%M")), :required => true%>
+                      <%= f.text_field :start_time, value: @report.start_day.nil? ? (Time.now.strftime("%H:%M")):(@report.start_day.strftime("%H:%M")), :required => true%>
                       <span class="input-group-addon">
                             <span class="glyphicon glyphicon-time"></span>
                             </span>
@@ -155,7 +155,7 @@
                   <%= f.label "Hora final", class: 'col-sm-2 control-label'%>
                   <div class="col-sm-3" style="width: 100px">
                     <div class="input-group clockpicker" data-autoclose="true" >
-                      <%= f.text_field :end_time,  value: @report.end_day.nil? ? (Time.now):(@report.end_day.strftime("%H:%M")), :required => true%>
+                      <%= f.text_field :end_time,  value: @report.end_day.nil? ? (Time.now.strftime("%H:%M")):(@report.end_day.strftime("%H:%M")), :required => true%>
                       <span class="input-group-addon">
                             <span class="glyphicon glyphicon-time"></span>
                             </span>
