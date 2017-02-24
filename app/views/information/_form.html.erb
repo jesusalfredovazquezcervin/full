@@ -57,12 +57,13 @@
                         <%when "Date"%>
                             <div class="form-group">
                               <div class="col-sm-9">
-
+<%=fld%>
+                                <%=((@information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1])%>
                                 <div class="form-group" id="data_1">
                                   <div class="input-group date">
                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                     <%= f.text_field fld, class: "form-control", value: @information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? (Date.today.strftime("%Y-%m-%d")):((@information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1]).to_date.strftime("%Y-%m-%d"),
-                                                     required: true,
+                                                     required: field.mandatory ? (true):(false),
                                                      id: (field.behave=="Primario" ? ("ctl_prim_" << fld):(field.behave=="Alterno" ? ("ctl_alt_" << fld):("ctl_com_" << fld))) << (field.mandatory ? "r":"o")%>
 
 
@@ -70,12 +71,36 @@
                                   </div>
                                 </div>
                               </div>
-
                             </div>
 
 
                         <%when "DateTime"%>
-                            <%= f.datetime_select fld, fld %>
+                            <div class="form-group">
+                              <div class="col-sm-9">
+                                <div class="form-group" id="data_1">
+                                  <div class="input-group date">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    <%= f.text_field fld, class: "form-control", value: @information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? (Date.today.strftime("%Y-%m-%d")):((@information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1]).to_date.strftime("%Y-%m-%d"),
+                                                     required: field.mandatory ? (true):(false),
+                                                     id: (field.behave=="Primario" ? ("ctl_prim_" << fld):(field.behave=="Alterno" ? ("ctl_alt_" << fld):("ctl_com_" << fld))) << (field.mandatory ? "r":"o")%>
+
+
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="col-sm-3" style="width: 100px">
+                                <div class="input-group clockpicker" data-autoclose="true" >
+                                  <%= f.text_field (fld + '_time'),
+                                                   value: @information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? (DateTime.now.strftime("%H:%M")):((@information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1]).to_datetime.strftime('%H:%M'),
+                                                   required: field.mandatory ? (true):(false),
+                                                   id: (field.behave=="Primario" ? ("ctl_prim_" << fld):(field.behave=="Alterno" ? ("ctl_alt_" << fld):("ctl_com_" << fld))) << (field.mandatory ? "r":"o")%>
+                                  <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-time"></span>
+                            </span>
+                                </div>
+                              </div>
+                            </div>
 
 
                       <%when "Integer"%>
@@ -130,7 +155,7 @@
 <% content_for :javascript do %>
 
     <script type="text/javascript">
-
+        $('.clockpicker').clockpicker();
 
         $('#data_1 .input-group.date').datepicker({
             todayBtn: "linked",

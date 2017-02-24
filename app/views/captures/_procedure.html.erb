@@ -2,9 +2,12 @@
   <div class="col-lg-12">
     <div class="ibox">
       <div class="ibox-title">
-        <h5>Procedimientos<small class="m-l-sm">Aqui tienes los procedimientos de:</small> <%=@cuenta.account%>
+        <h5>Procedimientos
+          <small class="m-l-sm">Aqui tienes los procedimientos de:</small> <%= @cuenta.account %>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <small class="m-l-sm">Ultima modificacion: <i class="fa fa-clock-o"></i> <%= @cuenta.procedures.try(:order, "updated_at").last.try(:updated_at)%> </small>
+          <small class="m-l-sm">Ultima modificacion:
+            <i class="fa fa-clock-o"></i> <%= @cuenta.procedures.try(:order, "updated_at").last.try(:updated_at) %>
+          </small>
 
         </h5>
         <div class="ibox-tools">
@@ -25,143 +28,194 @@
         <div>
           <ul class="nav nav-tabs">
             <% @cuenta.procedures.order(:number).each_with_index do |p, index| %>
-                <li class="<%= index == 0 ? ("active"):("") %>"><a data-toggle="tab" href="#tabprocedure-<%=index+1%>"><%=p.name%></a></li>
-            <%end%>
+                <li class="<%= index == 0 ? ("active") : ("") %>">
+                  <a data-toggle="tab" href="#tabprocedure-<%= index+1 %>"><%= p.name %></a></li>
+            <% end %>
           </ul>
           <div class="tab-content">
-                <br>
-                <% @cuenta.procedures.order(:number).each_with_index do |procedure, pindex| %>
-                    <div id="tabprocedure-<%=pindex+1%>" class="tab-pane <%= pindex == 0 ? (" active"):("") %>">
-                        <%frm = "form-" << (pindex + 1).to_s%>
-                          <%= form_for @information, html: {:id => frm, :class => "wizard-big"  } do |f| %>
-                              <%= hidden_field_tag :cuenta_id, @cuenta.id %>
-                              <%= hidden_field_tag :procs, @cuenta.procedures.count %>
-                              <% procedure.steps.order(:number).each_with_index do |step, idx| %>
-                                  <h1><%=step.name%></h1>
-                                  <fieldset>
-                                    <%if procedure.form.nil?%>
-                                        <fieldset>
-                                          <h2><%=step.name%></h2>
+            <br>
+            <% @cuenta.procedures.order(:number).each_with_index do |procedure, pindex| %>
+                <div id="tabprocedure-<%= pindex+1 %>" class="tab-pane <%= pindex == 0 ? (" active") : ("") %>">
+                  <% frm = "form-" << (pindex + 1).to_s %>
+                  <%= form_for @information, html: {:id => frm, :class => "wizard-big"} do |f| %>
+                      <%= hidden_field_tag :cuenta_id, @cuenta.id %>
+                      <%= hidden_field_tag :procs, @cuenta.procedures.count %>
+                      <% procedure.steps.order(:number).each_with_index do |step, idx| %>
+                          <h1><%= step.name %></h1>
+                          <fieldset>
+                            <% if procedure.form.nil? %>
+                                <fieldset>
+                                  <h2><%= step.name %></h2>
+
+                                  <div class="col-lg-12">
+                                    <div class="form-group">
+                                      <label>
+                                        <% step.detail.split(" ").each do |p| %>
+                                            <%= p.include?("<") ? (link_to "aqui", p.sub(">", "").sub("<", ""), target: "_blank") : (p) %>&nbsp;
+                                        <% end %><br>
+                                      </label>
+                                    </div>
+                                  </div>
+                                  <br>
+                                </fieldset>
+                            <% else %>
+                                <% if !step.form %>
+                                    <fieldset>
+                                      <h2><%= step.name %></h2>
+
+                                      <div class="col-lg-12">
+                                        <div class="form-group">
+                                          <label>
+                                            <% step.detail.split(" ").each do |p| %>
+                                                <%= p.include?("<") ? (link_to "aqui", p.sub(">", "").sub("<", ""), target: "_blank") : (p) %>&nbsp;
+                                            <% end %><br>
+                                          </label>
+                                        </div>
+                                      </div>
+                                      <br>
+                                    </fieldset>
+                                <% else %>
+                                    <div class="row">
+                                      <% if procedure.form.fields.count >0 %>
+                                          <h2>Formulario de: <%= procedure.form.name %></h2>
+
                                           <div class="col-lg-12">
                                             <div class="form-group">
                                               <label>
-                                                <% step.detail.split(" ").each do |p|%>
-                                                    <%= p.include?("<") ? (link_to  "aqui", p.sub(">", "").sub("<","") , target: "_blank"):(p) %>&nbsp;
-                                                <%end%><br>
+                                                <% step.detail.split(" ").each do |p| %>
+                                                    <%= p.include?("<") ? (link_to "aqui", p.sub(">", "").sub("<", ""), target: "_blank") : (p) %>&nbsp;
+                                                <% end %><br>
                                               </label>
                                             </div>
                                           </div>
-                                          <br>
-                                        </fieldset>
-                                    <%else%>
-                                        <%if !step.form%>
-                                            <fieldset>
-                                              <h2><%=step.name%></h2>
-                                              <div class="col-lg-12">
-                                                <div class="form-group">
-                                                  <label>
-                                                    <% step.detail.split(" ").each do |p|%>
-                                                        <%= p.include?("<") ? (link_to  "aqui", p.sub(">", "").sub("<","") , target: "_blank"):(p) %>&nbsp;
-                                                    <%end%><br>
-                                                  </label>
-                                                </div>
-                                              </div>
-                                              <br>
-                                            </fieldset>
-                                        <%else%>
-                                            <div class="row">
-                                              <%if procedure.form.fields.count >0 %>
-                                                  <h2>Formulario de: <%=procedure.form.name%></h2>
-                                                  <div class="col-lg-12">
-                                                    <div class="form-group">
-                                                      <label>
-                                                        <% step.detail.split(" ").each do |p|%>
-                                                            <%= p.include?("<") ? (link_to  "aqui", p.sub(">", "").sub("<","") , target: "_blank"):(p) %>&nbsp;
-                                                        <%end%><br>
-                                                      </label>
-                                                    </div>
-                                                  </div>
-                                                  <%= hidden_field_tag :form_id, procedure.form.id %>
-                                                  <%= f.hidden_field :call_id, :value => @call.try(:id) %>
-                                                  <div class="form-group">
+                                          <%= hidden_field_tag :form_id, procedure.form.id %>
+                                          <%= f.hidden_field :call_id, :value => @call.try(:id) %>
+                                          <div class="form-group">
 
 
-                                                    <div class="i-checks"><label> <input id="<%= "rbtn_alt"<< pindex.to_s %>" type="radio" value="option1" name="<%= "a"<< pindex.to_s %>" onclick="alternos(<%=pindex%>, <%=procedure.form.fields.count%>)" > <i></i>Alternos</label></div>
-                                                    <div class="i-checks"><label> <input id="<%= "rbtn_prim"<< pindex.to_s %>" type="radio"  value="option2" checked="" name="<%= "a"<< pindex.to_s %>" onclick="primarios(<%=pindex%>, <%=procedure.form.fields.count%>)"> <i></i>Primarios</label></div>
+                                            <div class="i-checks"><label>
+                                              <input id="<%= "rbtn_alt"<< pindex.to_s %>" type="radio" value="option1" name="<%= "a"<< pindex.to_s %>" onclick="alternos(<%=pindex%>, <%=procedure.form.fields.count%>)">
+                                              <i></i>Alternos</label></div>
+                                            <div class="i-checks"><label>
+                                              <input id="<%= "rbtn_prim"<< pindex.to_s %>" type="radio" value="option2" checked="" name="<%= "a"<< pindex.to_s %>" onclick="primarios(<%=pindex%>, <%=procedure.form.fields.count%>)">
+                                              <i></i>Primarios</label></div>
 
-                                                  </div>
-                                                  <% procedure.form.fields.order(:position).each_with_index do |field, findex| %>
-                                                      <%fld = procedure.form.fields.order(:id).each_with_index.map {|f,i| {f.position => "field" + (i+1).to_s }}.select{|f| f[field.position]}[0].each_pair.map{|k,v| v}[0]%>
-                                                      <div class="col-lg-8">
-                                                        <div   <%= field.behave == "Alterno" ? ("hidden = 'true'"):('') %> class="form-group" id = <%=  field.behave=="Primario" ? (pindex.to_s << "div_prim_" << fld):(field.behave=="Alterno" ? (pindex.to_s << "div_alt_" << fld):(pindex.to_s << "div_com_" << fld))%>>
-                                                          <%type=field.data_type%>
-                                                          <h5><%= (field.mandatory == true ? ("* " << field.name.to_s ):(field.name)) unless type == "Boolean" %></h5>
+                                          </div>
+                                          <% procedure.form.fields.order(:position).each_with_index do |field, findex| %>
+                                              <% fld = procedure.form.fields.order(:id).each_with_index.map { |f, i| {f.position => "field" + (i+1).to_s} }.select { |f| f[field.position] }[0].each_pair.map { |k, v| v }[0] %>
+                                              <div class="col-lg-8">
+                                                <div   <%= field.behave == "Alterno" ? ("hidden = 'true'") : ('') %> class="form-group" id= <%= field.behave=="Primario" ? (pindex.to_s << "div_prim_" << fld) : (field.behave=="Alterno" ? (pindex.to_s << "div_alt_" << fld) : (pindex.to_s << "div_com_" << fld)) %>>
+                                                  <% type=field.data_type %>
+                                                  <h5><%= (field.mandatory == true ? ("* " << field.name.to_s) : (field.name)) unless type == "Boolean" %></h5>
 
 
-                                                          <%case type%>
-                                                          <%when "Date"%>
-                                                                  <%= f.date_select fld, class: 'form-control', required: field.mandatory ? (true):(false) , id: (field.behave=="Primario" ? (pindex.to_s << "ctl_prim_" << fld):(field.behave=="Alterno" ? (pindex.to_s << "ctl_alt_" << fld):(pindex.to_s << "ctl_com_" << fld))) << (field.mandatory ? "r":"o") %>
-                                                          <%when "DateTime"%>
-                                                                  <%= f.datetime_select fld, class: 'form-control', required: field.mandatory ? (true):(false) , id: (field.behave=="Primario" ? (pindex.to_s << "ctl_prim_" << fld):(field.behave=="Alterno" ? (pindex.to_s << "ctl_alt_" << fld):(pindex.to_s << "ctl_com_" << fld))) << (field.mandatory ? "r":"o") %>
+                                                  <% case type %>
+                                                  <% when "Date" %>
+                                                      <div class="form-group">
+                                                        <div class="col-sm-9">
 
-                                                          <%when "Integer"%>
-                                                                  <%= f.number_field fld, class: 'form-control', required: field.mandatory ? (true):(false) , id: (field.behave=="Primario" ? (pindex.to_s << "ctl_prim_" << fld):(field.behave=="Alterno" ? (pindex.to_s << "ctl_alt_" << fld):(pindex.to_s << "ctl_com_" << fld))) << (field.mandatory ? "r":"o") %>
+                                                          <div class="form-group" id="data_1">
+                                                            <div class="input-group date">
+                                                              <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                              <%= f.text_field fld, class: "form-control", value: Date.today.strftime("%Y-%m-%d"),
+                                                                               required: field.mandatory ? (true) : (false),
+                                                                               id: (field.behave=="Primario" ? (pindex.to_s << "ctl_prim_" << fld) : (field.behave=="Alterno" ? (pindex.to_s << "ctl_alt_" << fld) : (pindex.to_s << "ctl_com_" << fld))) << (field.mandatory ? "r" : "o") %>
 
-                                                          <%when "String"%>
 
-                                                                  <%= f.text_field fld, class: 'form-control', required: field.mandatory ? (true):(false) , id: (field.behave=="Primario" ? (pindex.to_s << "ctl_prim_" << fld):(field.behave=="Alterno" ? (pindex.to_s << "ctl_alt_" << fld):(pindex.to_s << "ctl_com_" << fld))) << (field.mandatory ? "r":"o"), maxlength:255%>
-
-                                                          <%when "Text"%>
-
-                                                              <%= f.text_area fld, class: 'form-control', required: field.mandatory ? (true):(false) , id: (field.behave=="Primario" ? (pindex.to_s << "ctl_prim_" << fld):(field.behave=="Alterno" ? (pindex.to_s << "ctl_alt_" << fld):(pindex.to_s << "ctl_com_" << fld))) << (field.mandatory ? "r":"o")%>
-
-                                                          <%when "Boolean"%>
-                                                              <div class="checkbox checkbox-inline">
-                                                                <%= f.check_box fld, id: (field.behave=="Primario" ? (pindex.to_s << "ctl_prim_" << fld):(field.behave=="Alterno" ? (pindex.to_s << "ctl_alt_" << fld):(pindex.to_s << "ctl_com_" << fld))) << (field.mandatory ? "r":"o") %>
-                                                                <%= f.label field.name, style:"font-weight: bold;"  %>
-                                                              </div>
-                                                          <%when "List"%>
-                                                              <% if field.mandatory%>
-                                                                  <%= f.select fld, options_for_select(field.list.split(",").map(&:strip).collect { |valor|
-                                                                                                         [valor] }), {:required => 'true'}, {class:"form-control m-b", style: "width:350px;", id: (field.behave=="Primario" ? (pindex.to_s << "ctl_prim_" << fld):(field.behave=="Alterno" ? (pindex.to_s << "ctl_alt_" << fld):(pindex.to_s << "ctl_com_" << fld))) << (field.mandatory ? "r":"o") } %>
-
-                                                            <%else%>
-                                                                <%= f.select fld, options_for_select(field.list.split(",").map(&:strip).collect { |valor|
-                                                                                                       [valor] }), {:include_blank => '-- Seleccione --'   }, {class:"form-control m-b", style: "width:350px;", id: (field.behave=="Primario" ? (pindex.to_s << "ctl_prim_" << fld):(field.behave=="Alterno" ? (pindex.to_s << "ctl_alt_" << fld):(pindex.to_s << "ctl_com_" << fld))) << (field.mandatory ? "r":"o") } %>
-                                                              <%end%>
-                                                          <%end%>
+                                                            </div>
+                                                          </div>
                                                         </div>
                                                       </div>
-                                                  <%end%>
-
-                                              <%end%>
-                                            </div>
-                                  <%end%>
-                                    <%end%>
-                                  </fieldset>
-                              <%end%>
-                              <h1>Terminar</h1>
-                              <fieldset>
-                                <h2>Pulsa finalizar para capturar y terminar</h2>
-                                <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required">
-                                <label for="acceptTerms">He terminado apropiadamente el procedimiento <%=  procedure.deliver ? ("y se enviara correo de la captura a los contactos seleccionados"):("")%></label>
-                                <br><div class="hr-line-dashed"></div>
-                                <%if procedure.deliver%>
-                                    <div class="form-group">
-                                      <%= f.label "Destinatario", class: 'col-sm-2 control-label'%>
-                                      <div class="col-sm-5">
-                                        <%= select_tag :recipient, options_for_select(@cuenta.contactos.where.not(email: nil).order(:nombre).collect { |c|
-                                                                                        [c.nombre  << ' - ' << c.email, c.email] }, 0),  { class:"form-control m-b", style: "width:700px;",multiple: true} %>    
+                                                  <% when "DateTime" %>
+                                                      <div class="form-group">
+                                                        <div class="col-sm-9">
+                                                          <div class="form-group" id="data_1">
+                                                            <div class="input-group date">
+                                                              <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                              <%= f.text_field fld, class: "form-control", value: Date.today.strftime("%Y-%m-%d"),
+                                                                               required: field.mandatory ? (true) : (false),
+                                                                               id: (field.behave=="Primario" ? (pindex.to_s << "ctl_prim_" << fld) : (field.behave=="Alterno" ? (pindex.to_s << "ctl_alt_" << fld) : (pindex.to_s << "ctl_com_" << fld))) << (field.mandatory ? "r" : "o") %>
 
 
+                                                            </div>
+                                                          </div>
+                                                        </div>
 
-                                      </div>
+                                                        <div class="col-sm-3" style="width: 100px">
+                                                          <div class="input-group clockpicker" data-autoclose="true">
+                                                            <%= f.text_field (fld + '_time'),
+                                                                             value: DateTime.now.strftime("%H:%M"),
+                                                                             required: field.mandatory ? (true) : (false),
+                                                                             id: (field.behave=="Primario" ? (pindex.to_s << "ctl_prim_" << fld) : (field.behave=="Alterno" ? (pindex.to_s << "ctl_alt_" << fld) : (pindex.to_s << "ctl_com_" << fld))) << (field.mandatory ? "r" : "o") %>
+                                                            <span class="input-group-addon">
+                                                              <span class="glyphicon glyphicon-time"></span>
+                                                            </span>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+
+
+                                                  <% when "Integer" %>
+                                                      <%= f.number_field fld, class: 'form-control', required: field.mandatory ? (true) : (false), id: (field.behave=="Primario" ? (pindex.to_s << "ctl_prim_" << fld) : (field.behave=="Alterno" ? (pindex.to_s << "ctl_alt_" << fld) : (pindex.to_s << "ctl_com_" << fld))) << (field.mandatory ? "r" : "o") %>
+
+                                                  <% when "String" %>
+
+                                                      <%= f.text_field fld, class: 'form-control', required: field.mandatory ? (true) : (false), id: (field.behave=="Primario" ? (pindex.to_s << "ctl_prim_" << fld) : (field.behave=="Alterno" ? (pindex.to_s << "ctl_alt_" << fld) : (pindex.to_s << "ctl_com_" << fld))) << (field.mandatory ? "r" : "o"), maxlength: 255 %>
+
+                                                  <% when "Text" %>
+
+                                                      <%= f.text_area fld, class: 'form-control', required: field.mandatory ? (true) : (false), id: (field.behave=="Primario" ? (pindex.to_s << "ctl_prim_" << fld) : (field.behave=="Alterno" ? (pindex.to_s << "ctl_alt_" << fld) : (pindex.to_s << "ctl_com_" << fld))) << (field.mandatory ? "r" : "o") %>
+
+                                                  <% when "Boolean" %>
+                                                      <div class="checkbox checkbox-inline">
+                                                        <%= f.check_box fld, id: (field.behave=="Primario" ? (pindex.to_s << "ctl_prim_" << fld) : (field.behave=="Alterno" ? (pindex.to_s << "ctl_alt_" << fld) : (pindex.to_s << "ctl_com_" << fld))) << (field.mandatory ? "r" : "o") %>
+                                                        <%= f.label field.name, style: "font-weight: bold;" %>
+                                                      </div>
+                                                  <% when "List" %>
+                                                      <% if field.mandatory %>
+                                                          <%= f.select fld, options_for_select(field.list.split(",").map(&:strip).collect { |valor|
+                                                                                                 [valor] }), {:required => 'true'}, {class: "form-control m-b", style: "width:350px;", id: (field.behave=="Primario" ? (pindex.to_s << "ctl_prim_" << fld) : (field.behave=="Alterno" ? (pindex.to_s << "ctl_alt_" << fld) : (pindex.to_s << "ctl_com_" << fld))) << (field.mandatory ? "r" : "o")} %>
+
+                                                      <% else %>
+                                                          <%= f.select fld, options_for_select(field.list.split(",").map(&:strip).collect { |valor|
+                                                                                                 [valor] }), {:include_blank => '-- Seleccione --'}, {class: "form-control m-b", style: "width:350px;", id: (field.behave=="Primario" ? (pindex.to_s << "ctl_prim_" << fld) : (field.behave=="Alterno" ? (pindex.to_s << "ctl_alt_" << fld) : (pindex.to_s << "ctl_com_" << fld))) << (field.mandatory ? "r" : "o")} %>
+                                                      <% end %>
+                                                  <% end %>
+                                                </div>
+                                              </div>
+                                          <% end %>
+
+                                      <% end %>
                                     </div>
-                                <%end%>
-                              </fieldset>
-                          <%end%>
-                    </div>
-                <%end%>
+                                <% end %>
+                            <% end %>
+                          </fieldset>
+                      <% end %>
+                      <h1>Terminar</h1>
+                      <fieldset>
+                        <h2>Pulsa finalizar para capturar y terminar</h2>
+                        <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required">
+                        <label for="acceptTerms">He terminado apropiadamente el
+                          procedimiento <%= procedure.deliver ? ("y se enviara correo de la captura a los contactos seleccionados") : ("") %></label>
+                        <br>
+
+                        <div class="hr-line-dashed"></div>
+                        <% if procedure.deliver %>
+                            <div class="form-group">
+                              <%= f.label "Destinatario", class: 'col-sm-2 control-label' %>
+                              <div class="col-sm-5">
+                                <%= select_tag :recipient, options_for_select(@cuenta.contactos.where.not(email: nil).order(:nombre).collect { |c|
+                                                                                [c.nombre << ' - ' << c.email, c.email] }, 0), {class: "form-control m-b", style: "width:700px;", multiple: true} %>
+                                    
+
+
+                              </div>
+                            </div>
+                        <% end %>
+                      </fieldset>
+                  <% end %>
+                </div>
+            <% end %>
           </div>
         </div>
       </div>
@@ -171,94 +225,110 @@
 
 <% content_for :javascript do %>
 
+
     <script type="text/javascript">
+        function init() {
+            // Put your code here
+            $('#data_1 .input-group.date').datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true,
+                format: "yyyy-mm-dd"
+            });
+            $('.clockpicker').clockpicker();
+        }
+        window.onload = init;
 
+        $(document).ready(function () {
 
-        $(document).ready(function (){
-            //alert($("#procs").val() );
             var totalfields = 100;
             for (p = 0; p < $("#procs").val(); p++) {
 
                 for (i = 1; i <= totalfields; i++) {
                     //Cambiamos los obligatorios alternos a opcionales porque si no no se puede guardar
-                    var fld = p  + "ctl_alt_field" + i + "r";
+                    var fld = p + "ctl_alt_field" + i + "r";
                     //console.log ("Campo a modificar ->" + fld );
-                    var element =  document.getElementById(fld);
-                    if (typeof(element) != 'undefined' && element != null){
+                    var element = document.getElementById(fld);
+                    if (typeof(element) != 'undefined' && element != null) {
                         document.getElementById(fld).required = false;
                         //console.log ("Campo modificado a opcional->" + fld );
 
                     }
 
                 }
-            };
+            }
+            ;
+
         });
 
-        function agenda(){
+        function agenda() {
             $("#liagenda").addClass("active");
             $("#licontactos").removeClass("active");
             $("#tabagenda").addClass("active");
             $("#tabcontactos").removeClass("active");
         }
-        function directorio(){
+        function directorio() {
             $("#licontactos").addClass("active");
             $("#liagenda").removeClass("active");
             $("#tabcontactos").addClass("active");
             $("#tabagenda").removeClass("active");
         }
-      function alternos(procedure, totalfields){
-          // # procedure + ctl_ + com (campo comum, primario, alterno) + # de campo (field1.. fieldN)
-          //1ctl_com_field1
-          //0ctl_alt_field1
-          //2ctl_prim_field1
-          for (i = 1; i <= totalfields; i++) {
-              $("#" + procedure + "div_" + "prim_field" + i).hide(1000);
-              $("#" + procedure + "div_" + "alt_field" + i).show(1000);
+        function alternos(procedure, totalfields) {
+            // # procedure + ctl_ + com (campo comum, primario, alterno) + # de campo (field1.. fieldN)
+            //1ctl_com_field1
+            //0ctl_alt_field1
+            //2ctl_prim_field1
+            for (i = 1; i <= totalfields; i++) {
+                $("#" + procedure + "div_" + "prim_field" + i).hide(1000);
+                $("#" + procedure + "div_" + "alt_field" + i).show(1000);
 
-              //Cambiamos los obligatorios primarios a opcionales porque si no no se puede guardar
-              var fld = procedure  + "ctl_prim_field" + i + "r";
-              var element =  document.getElementById(fld);
-              if (typeof(element) != 'undefined' && element != null){
-                  document.getElementById(fld).required = false;
-              }
+                //Cambiamos los obligatorios primarios a opcionales porque si no no se puede guardar
+                var fld = procedure + "ctl_prim_field" + i + "r";
+                var element = document.getElementById(fld);
+                if (typeof(element) != 'undefined' && element != null) {
+                    document.getElementById(fld).required = false;
+                }
 
-              //Ponemos los alternos que deben ser obligatorios
-              var fld = procedure  + "ctl_alt_field" + i + "r";
-              var element =  document.getElementById(fld);
-              if (typeof(element) != 'undefined' && element != null){
-                  document.getElementById(fld).required = true;
-              }
+                //Ponemos los alternos que deben ser obligatorios
+                var fld = procedure + "ctl_alt_field" + i + "r";
+                var element = document.getElementById(fld);
+                if (typeof(element) != 'undefined' && element != null) {
+                    document.getElementById(fld).required = true;
+                }
 
 
 //document.getElementById(fld).required = false;
 //document.getElementById("myText").required
-          }
-      };
-      function primarios(procedure, totalfields){
-          for (i = 1; i <= totalfields; i++) {
-              $("#" + procedure + "div_" + "prim" + "_field" + i).show(1000);
-              $("#" + procedure + "div_" + "alt" + "_field" + i).hide(1000);
+            }
+        }
+        ;
+        function primarios(procedure, totalfields) {
+            for (i = 1; i <= totalfields; i++) {
+                $("#" + procedure + "div_" + "prim" + "_field" + i).show(1000);
+                $("#" + procedure + "div_" + "alt" + "_field" + i).hide(1000);
 
-              //Cambiamos los obligatorios alternos a opcionales porque si no no se puede guardar
-              var fld = procedure  + "ctl_alt_field" + i + "r";
-              var element =  document.getElementById(fld);
-              if (typeof(element) != 'undefined' && element != null){
-                  document.getElementById(fld).required = false;
-              }
+                //Cambiamos los obligatorios alternos a opcionales porque si no no se puede guardar
+                var fld = procedure + "ctl_alt_field" + i + "r";
+                var element = document.getElementById(fld);
+                if (typeof(element) != 'undefined' && element != null) {
+                    document.getElementById(fld).required = false;
+                }
 
-              //Ponemos los primarios que deben ser obligatorios
-              var fld = procedure  + "ctl_prim_field" + i + "r";
-              var element =  document.getElementById(fld);
-              if (typeof(element) != 'undefined' && element != null){
-                  document.getElementById(fld).required = true;
-              }
+                //Ponemos los primarios que deben ser obligatorios
+                var fld = procedure + "ctl_prim_field" + i + "r";
+                var element = document.getElementById(fld);
+                if (typeof(element) != 'undefined' && element != null) {
+                    document.getElementById(fld).required = true;
+                }
 
 
+            }
+        }
+        ;
 
-          }
-      };
-
-        $(function() {
+        $(function () {
             $("#form-1").steps({
                 bodyTag: "fieldset",
                 enableAllSteps: true,
@@ -283,6 +353,7 @@
                     element.before(error);
                 }
             });
+
 
             $("#form-2").steps({
                 bodyTag: "fieldset",
@@ -343,7 +414,6 @@
                     }
                 }
             });
-
 
 
             $("#form-4").steps({
@@ -558,8 +628,6 @@
 
 
         });
-
-
 
 
     </script>
