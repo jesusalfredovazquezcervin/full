@@ -110,8 +110,7 @@ class InformationController < ApplicationController
             }
 
             @information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? nil:(@information.attributes = {fld => @information.attributes[fld].nil? ? ( nil):(@information.attributes[fld].to_date)}  )
-          when "Datetime"
-            @information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? nil:(@information.attributes = {fld => @information.attributes[fld].nil? ? ( nil):(@information.attributes[fld].to_datetime)}  )
+
         end
       }
       @information.save
@@ -121,55 +120,16 @@ class InformationController < ApplicationController
     end
 
     def information_params
-      #Este codigo sirve para la pantalla de Edit del registro. Verifica que venga un parametro fieldX y lo agrega a params[information]
-=begin
-      if !@information.nil?
-        @information.attributes.count.times{|i|
-          field = ("field" << i.to_s).next
-          if !params[field.to_sym].nil?
-            params[:information][field.to_sym] = params[:field3]["field3(1i)".to_sym] << "-" << params[:field3]["field3(2i)".to_sym] << "-" << params[:field3]["field3(3i)".to_sym]
-          end
-        }
-      end
-=end
+      #Barremos los parametros de information para buscar tiempo, si lo hay entonces se lo agregamos al field correspondiente
+      params[:information].each{|p|
+        if !(/field\d{1,2}_time/ =~ p.to_s).nil?
 
-
-
-#Todo: Verificar que este codigo sirva para mas de 1 control de tipo date y que no truene cuando vienen vacios
-      #Este codigo sirve para convertir una fecha que viene de la pantalla de alta
-      fields=Hash.new
-      fieldsDelete = []
-      params[:information].each_with_index { |p, i|
-        if !(/(\di)/ =~ p.to_s).nil?
-          fieldsDelete.push p[0]
-          key=p[0].slice(0,p[0].length-4)
-          if fields[key.to_sym].nil?
-            fields[key.to_sym] = p[1]
-          else
-            fields[key.to_sym] = fields[key.to_sym] << "-" << p[1]
-          end
-
+          time = p[1]
+          fld = p[0][0.. p[0].length-6]
+          params[:information][fld.to_sym] = params[:information][fld.to_sym] << ' ' << time
         end
       }
-      fields.each_pair{|k,v|
-        r = v.split("-").reverse!
 
-        #params[:information][k] = (r[0] << "-" << r[1] << "-" << r[2]).to_date
-        case r.size
-          when 5
-            params[:information][k] = DateTime.new(r[2].to_i, r[3].to_i, r[4].to_i, r[1].to_i, r[0].to_i,0)
-          when 3
-            params[:information][k] = Date.new(r[0].to_i, r[1].to_i, r[2].to_i)
-
-        end
-
-
-
-
-      }
-      fieldsDelete.each{|d|
-        params[:information].delete d
-      }
       params[:information][:usuario_id] = current_user.id
       if !params[:form_id].nil?
         params[:information][:form_id] = params[:form_id]
