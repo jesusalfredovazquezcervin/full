@@ -29,7 +29,7 @@ end
 
 # Tarea para el turno matutino
 today = Time.new(Date.today.year, Date.today.month, Date.today.day)
-mat=Time.new(Date.today.year, Date.today.month, Date.today.day, 7)
+mat=Time.new(Date.today.year, Date.today.month, Date.today.day, 12,30)
 vesp=Time.new(Date.today.year, Date.today.month, Date.today.day, 15)
 noct=Time.new(Date.today.year, Date.today.month, Date.today.day, 22)
 if Time.now > mat
