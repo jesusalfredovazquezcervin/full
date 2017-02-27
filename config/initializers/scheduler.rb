@@ -8,7 +8,8 @@ n = Rufus::Scheduler.new
 m = Rufus::Scheduler.new
 
 def report_sent_log(report_id)
-  ReportSent.create(report_id: report_id, sent_by: "scheduler", sent_to:report.contactos.collect{|c| c.email }.join(','))
+
+  ReportSent.create(report_id: report_id, sent_by: "scheduler", sent_to:Report.find(report_id).contactos.collect{|c| c.email }.join(','))
 end
 def loop_reports(periodicity, schedule)
   if periodicity == "diario"
