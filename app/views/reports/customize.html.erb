@@ -43,7 +43,7 @@
               <th>ID</th>
               <th>Nombre</th>
               <th>Cliente</th>
-              <th>Cuentas</th>
+
               <th>Veces enviado</th>
               <th>Enviado a</th>
               <th>Enviado por</th>
@@ -59,7 +59,7 @@
                   <td><%=report.id%></td>
                   <td><%=report.name%></td>
                   <td><%= report.cliente.nombre %></td>
-                  <td><%= report.datosgenerales.all.collect{|d| d.account}%></td>
+
                   <td><%=report.report_sents.count %></td>
                   <td><%=report.report_sents.collect{|r| r.sent_to}.count == 0 ? ('Sin enviar'):(report.report_sents.collect{|r| r.sent_to}) %></td>
                   <td><%=report.report_sents.collect{|r| r.sent_by}.count == 0 ? ('Sin enviar'):(report.report_sents.collect{|r| r.sent_by})%></td>
