@@ -1,5 +1,9 @@
 Myapp::Application.routes.draw do
 
+  patch "reports/send_report", to: "reports#send_report", as: 'send_report'
+
+  get 'reports/show_report/:id', to: "reports#show_report", as: 'report_show_report'
+
   get "reports/customize", to: "reports#customize", as: "report_customize"
 
   patch "reports/send_query_report", to: "reports#send_query_report", as: 'send_query_report'

@@ -5,7 +5,7 @@
       <h4 class="modal-title">Enviar reporte</h4>
     </div>
     <div class="modal-body">
-      <%= form_for @report, url: send_report_path, method: "patch", class: 'form-horizontal'  do |f| %>
+      <%= form_for @report, url: send_query_report_path(cambiar el path por uno nuevo), method: "patch", class: 'form-horizontal'  do |f| %>
           <%= hidden_field_tag 'id', @report.id%>
           <%= hidden_field_tag 'listado', false%>
           <div class="form-group">

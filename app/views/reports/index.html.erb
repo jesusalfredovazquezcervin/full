@@ -1,3 +1,4 @@
+
 <div class="row wrapper border-bottom white-bg page-heading">
   <div class="col-lg-10">
 
@@ -70,7 +71,50 @@
                     <%= link_to 'V', report,class: "btn btn-primary btn-circle", title:"Ver" %>
                     <%= link_to 'M', edit_report_path(report), class: "btn btn-warning btn-circle", title:"Modificar" %>
                     <%= link_to 'E', report, method: :delete, class: "btn btn-danger btn-circle", title:"Eliminar" ,data: { confirm: '¿Está seguro?'} %>
+                    <%= link_to 'G', report_show_report_path(report), class: "btn btn-success btn-circle", title:"Generar reporte" %>
+                    <a data-toggle="modal" data-target="#myModal<%=report.id%>" title = "Enviar reporte" data-information-id="<%=report.id%>">
+                      <button class="btn btn-danger btn-circle" type="button"><i class="fa fa-envelope"></i></button>
+                    </a>
                   </td>
+                  <div class="modal inmodal" id="myModal<%=report.id%>" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content animated flipInX">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+                          <h4 class="modal-title">Enviar email</h4>
+                        </div>
+                        <div class="modal-body">
+                          <%= form_for report, url: send_report_path, method: "patch", class: 'form-horizontal'  do |f| %>
+                              <%= hidden_field_tag 'id', report.id%>
+                              <%= hidden_field_tag 'listado', true%>
+                              <div class="form-group">
+                                <div class="hr-line-dashed"></div>
+                                <%= f.label "Destinatario", class: 'col-sm-2 control-label'%>
+                                <div class="col-sm-5">
+                                  <%= select_tag :recipient, options_for_select(report.cliente.contactos.where.not(email: nil).order(:nombre).collect { |c|
+                                                                                  [c.nombre << ' <' << (c.email.nil? ? (""):(c.email))  << '>', c.email] }, 0),  { class:"form-control m-b", style: "width:500px;",multiple: true, required:true} %>    
+
+
+
+                                </div>
+                              </div>
+                              <br>
+                              <br>
+                              <br>
+                              <br>
+                              <br>
+                              <div class="hr-line-dashed"></div>
+                              <div class="modal-footer">
+                                <button id='btnMyModal<%=report.id%>' type="button" class="btn btn-white" data-dismiss="modal">Cerrar</button>
+                                <%= button_tag(type: 'submit', class: "btn btn-primary") do %>
+                                    <i class="fa fa-envelope"></i> Enviar
+                                <% end %>
+                              </div>
+                          <% end %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </tr>
             <% end %>
 
@@ -88,6 +132,8 @@
 
 <% content_for :javascript do %>
     <script type="text/javascript">
+
+
         $(function() {
             $('.dataTables-example').dataTable({
                 "order": [[ 1, "desc" ]],

@@ -3,7 +3,7 @@ class HomeController < ApplicationController
     if usuario_signed_in?
       role = current_user.role
       case role # was case obj.class
-        when "Admin"
+        when "Admin", 'Supervisor'
           dashboard_4
         when "Operador"
           respond_to do |format|
