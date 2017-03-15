@@ -15,48 +15,54 @@
             <li class="active">
                 <a aria-expanded="false" role="button" href="#"> Centro de administracion de llamadas</a>
             </li>
+          <% if current_usuario.role == 'Admin' %>
+            <li class="dropdown">
+                <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Catalogos <span class="caret"></span></a>
+                <ul role="menu" class="dropdown-menu">
+                  <li><a href="<%= url_for clientes_path%> ">Clientes</a></li>
+                  <li><a href="<%= url_for horarios_path%>">Horarios</a></li>
+                  <li><a href="<%= url_for datosgenerales_path%>">Cuentas</a></li>
+                  <li><a href="<%= url_for sucursals_path%> ">Sucursales</a></li>
+                  <li><a href="<%= url_for contactos_path%>">Contactos</a></li>
+                  <li><a href="<%= url_for direccions_path%>">Direcciones</a></li>
+                  <li><a href="<%= url_for agendas_path%>">Agenda</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Operativo <span class="caret"></span></a>
+                <ul role="menu" class="dropdown-menu">
+                  <li><a href="<%= url_for products_path%>">Productos</a></li>
+                  <li><a href="<%= url_for procedures_path%>">Procedimientos</a></li>
+                  <li><a href="<%= url_for steps_path%>">Procedimientos - Pasos</a></li>
+                  <li><a href="<%= url_for forms_path%>">Formularios</a></li>
+                  <li><a href="<%= url_for fields_path%>">Formulario - Campos</a></li>
+                  <li><a href="<%= url_for asks_path%>">FAQ</a></li>
+                  <li><a href="<%= url_for calls_path %>">Llamadas</a></li>
 
-        <li class="dropdown">
-            <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Catalogos <span class="caret"></span></a>
-            <ul role="menu" class="dropdown-menu">
-              <li><a href="<%= url_for clientes_path%> ">Clientes</a></li>
-              <li><a href="<%= url_for horarios_path%>">Horarios</a></li>
-              <li><a href="<%= url_for datosgenerales_path%>">Cuentas</a></li>
-              <li><a href="<%= url_for sucursals_path%> ">Sucursales</a></li>
-              <li><a href="<%= url_for contactos_path%>">Contactos</a></li>
-              <li><a href="<%= url_for direccions_path%>">Direcciones</a></li>
-              <li><a href="<%= url_for agendas_path%>">Agenda</a></li>
-            </ul>
-        </li>
-        <li class="dropdown">
-            <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Operativo <span class="caret"></span></a>
-            <ul role="menu" class="dropdown-menu">
-              <li><a href="<%= url_for products_path%>">Productos</a></li>
-              <li><a href="<%= url_for procedures_path%>">Procedimientos</a></li>
-              <li><a href="<%= url_for steps_path%>">Procedimientos - Pasos</a></li>
-              <li><a href="<%= url_for forms_path%>">Formularios</a></li>
-              <li><a href="<%= url_for fields_path%>">Formulario - Campos</a></li>
-              <li><a href="<%= url_for asks_path%>">FAQ</a></li>
-              <li><a href="<%= url_for calls_path %>">Llamadas</a></li>
-
-            </ul>
-        </li>
-          <li class="dropdown">
-            <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Reportes <span class="caret"></span></a>
-            <ul role="menu" class="dropdown-menu">
-              <li><a href="<%= url_for reports_path %>">Programados</a></li>
-              <li><a href="<%= url_for report_customize_path%>">Personalizados</a></li>
+                </ul>
+            </li>
+          <%end%>
+          <% if current_usuario.role == 'Supervisor' or current_usuario.role == 'Admin'%>
+              <li class="dropdown">
+                <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Reportes <span class="caret"></span></a>
+                <ul role="menu" class="dropdown-menu">
+                  <li><a href="<%= url_for reports_path %>">Programados</a></li>
+                  <li><a href="<%= url_for report_customize_path%>">Personalizados</a></li>
 
 
-            </ul>
-          </li>
-        <li class="dropdown">
-            <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Configuracion <span class="caret"></span></a>
-            <ul role="menu" class="dropdown-menu">
-              <li><a href="<%= url_for usuarios_path%>">Usuarios</a></li>
-              <li><a href="<%= url_for checkins_path%>">Checadas</a></li>
-            </ul>
-        </li>
+                </ul>
+              </li>
+          <%end%>
+          <% if current_usuario.role == 'Admin' %>
+              <li class="dropdown">
+                <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Configuracion <span class="caret"></span></a>
+                <ul role="menu" class="dropdown-menu">
+                  <li><a href="<%= url_for usuarios_path%>">Usuarios</a></li>
+                  <li><a href="<%= url_for checkins_path%>">Checadas</a></li>
+                </ul>
+              </li>
+          <%end%>
+
     </ul>
 
     <ul class="nav navbar-top-links navbar-right">
