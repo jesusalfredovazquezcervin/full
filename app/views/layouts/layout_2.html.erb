@@ -38,7 +38,18 @@
           <%= flash_messages %>
 
           <!-- Main view  -->
+          <br>
             <%= yield %>
+          <% content_for :javascript do %>
+              <script type="text/javascript">
+                  $(function () {
+                      $('body').addClass('landing-page');
+                  });
+
+
+
+              </script>
+          <% end %>
 
             <!-- Footer -->
             <%= render 'layouts/footer' %>
@@ -57,4 +68,6 @@
     <%= yield :javascript %>
 
 </body>
+
+
 </html>
