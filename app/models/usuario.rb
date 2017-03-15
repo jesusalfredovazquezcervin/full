@@ -7,7 +7,7 @@ class Usuario < ActiveRecord::Base
             presence: true
 
 
-  ROLES = %w[admin operador consulta]
+  ROLES = %w[admin operador consulta supervisor]
 
   belongs_to :contacto
 end

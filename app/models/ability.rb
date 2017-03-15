@@ -88,6 +88,28 @@ class Ability
         can :read, Call
         can :new, Call
       end
+      if user.role == "Supervisor"
+        can :manage, Capture
+        can :daily, InformationMailer
+        can :send_mail, Information
+        can :resend_mail, Information
+        can :new, Information
+        can :create, Information
+        can :new, Information
+        can :edit, Information
+        can :update, Information
+        can :read, Information
+        can :new, Notification
+        can :edit, Notification
+        can :update, Notification
+        can :destroy, Notification
+        can :create, Notification
+        can :checkin, Checkin
+        can :checkout, Checkin
+        can :read, Call
+        can :new, Call
+        can :manage, Report
+      end
     end
 
 =begin
