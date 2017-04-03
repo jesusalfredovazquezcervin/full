@@ -2,8 +2,6 @@ class Usuarios::RegistrationsController < Devise::RegistrationsController
   prepend_before_filter :authenticate_scope!, only: [:edit, :update, :destroy, :desactivar, :activar]
   #before_action :load_usuario, only: [:create]
   prepend_before_filter :require_no_authentication, only: [:cancel]
-
-
   before_filter :configure_sign_up_params, only: [:create]
   before_filter :configure_account_update_params, only: [:update, :update_password]
   before_action :set_usuario, only: [:desactivar, :activar, :edit]
@@ -81,6 +79,31 @@ class Usuarios::RegistrationsController < Devise::RegistrationsController
      authorize! :read, Usuario
      render :edit, :layout => "layout_2"
    end
+
+
+  def update_role
+    logger.debug ' '
+    logger.debug '----------------------'
+    logger.debug 'entrando a update_role'
+    logger.debug '----------------------'
+
+    logger.debug ' '
+    user = Usuario.find_by_id params[:usuario][:id]
+    user.role = params[:usuario][:role]
+
+
+    respond_to do |format|
+      if user.save!
+        format.html { redirect_to usuarios_path, notice: 'El usuario ha sido modificado exitosamente' }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit', :layout => "layout_2"}
+        format.json { render json: @cliente.errors, status: :unprocessable_entity }
+      end
+
+    end
+  end
+
 
   # PUT /resource
    def update
