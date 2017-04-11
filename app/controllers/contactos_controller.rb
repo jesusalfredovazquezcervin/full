@@ -27,7 +27,14 @@ class ContactosController < ApplicationController
     end
 
     def update_datosgenerales
-      @datosgenerales = Cliente.find(params[:cliente_id]).datosgenerales
+      logger.debug '--------------------'
+      logger.debug '  '
+      logger.debug 'Entrando a update_datosgenerales'
+      logger.debug params
+      logger.debug '  '
+      logger.debug '--------------------'
+      #@datosgenerales = Cliente.find(params[:cliente_id]).datosgenerales
+      @datosgenerales = Datosgenerale.where(cliente_id: params[:cliente_id])
       respond_to do |format|
         format.js
       end
@@ -36,7 +43,7 @@ class ContactosController < ApplicationController
     # GET /contactos/1/edit
     def edit
       @clientes = Cliente.order(:nombre).all
-      @datosgenerales = Datosgenerale.where("cliente_id = ?", @contacto.cliente_id )
+      @datosgenerales = Datosgenerale.where("cliente_id = ?", @contacto.clientes.collect{|c| c.id})
       dashboard_4
     end
 
@@ -46,9 +53,10 @@ class ContactosController < ApplicationController
       @clientes = Cliente.all
       @sucursales = Sucursal.where("cliente_id = ?", params[:contacto][:cliente_id])
       @contacto = Contacto.new(contacto_params)
-      @contacto.cliente_id = params[:contacto][:cliente_id]
+      #@contacto.cliente_id = params[:contacto][:cliente_id]
       @contacto.sucursal_id = params[:contacto][:sucursal_id]
-      @datosgenerales = Datosgenerale.where("cliente_id = ?", Cliente.find_by_id(params[:contacto][:cliente_id]) )
+      #@datosgenerales = Datosgenerale.where("cliente_id = ?", Cliente.find_by_id(params[:contacto][:cliente_id]) )
+      @datosgenerales = Datosgenerale.where(cliente_id: params[:cliente_id])
       if(params[:email] != "")
         @contacto.email=params[:email]
       else
@@ -57,6 +65,7 @@ class ContactosController < ApplicationController
       respond_to do |format|
         if @contacto.save
           save_contact_accounts(@contacto.id)
+          save_contact_clients @contacto.id
           format.html { redirect_to @contacto, notice: 'Contacto ha sido creado exitosamente' }
           format.json { render action: 'show', status: :created, location: @contacto }
         else
@@ -87,6 +96,7 @@ class ContactosController < ApplicationController
           end
           @contacto.save!
           save_contact_accounts(params[:id])
+          save_contact_clients params[:id]
           format.html { redirect_to @contacto, :notice => 'El Contacto ha sido actualizado correctamente.' }
           format.json { head :no_content }
         else
@@ -99,8 +109,8 @@ class ContactosController < ApplicationController
     # DELETE /contactos/1
     # DELETE /contactos/1.json
     def destroy
-
-
+      #ContactAccount.where(contacto_id: @contacto.id).each{|c| c.destroy}
+      #ContactClient.where(contacto_id: @contacto.id).each{|c| c.destroy}
       @contacto.destroy
       respond_to do |format|
         format.html { redirect_to contactos_url, notice: 'El Contacto ha sido eliminado exitosamente.'  }
@@ -139,11 +149,15 @@ class ContactosController < ApplicationController
       @contacto = Contacto.find(params[:id])
     end
     def save_contact_accounts(contacto_id)
-
       ContactAccount.where(contacto_id: params[:id]).each{|c| c.destroy}
-
       params[:accounts].each{|a|
         ContactAccount.create(contacto_id: contacto_id, datosgenerale_id: a) unless ContactAccount.where(contacto_id: contacto_id, datosgenerale_id: a).exists?
+      }
+    end
+    def save_contact_clients(contacto_id)
+      ContactClient.where(contacto_id: params[:id]).each{|c| c.destroy}
+      params[:cliente_id].each{|c|
+        ContactClient.create(contacto_id: contacto_id, cliente_id: c) unless ContactClient.where(contacto_id: contacto_id, cliente_id: c).exists?
       }
     end
     # Never trust parameters from the scary internet, only allow the white list through.
