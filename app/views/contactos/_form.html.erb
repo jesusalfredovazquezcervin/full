@@ -59,8 +59,11 @@
                   <%= f.label :cliente, class: 'col-sm-2 control-label'%>
 
                   <div class="col-sm-5">
-                    <%= f.select :cliente_id, options_for_select(@clientes.collect { |cliente|
-                                                                   [cliente.nombre.titleize, cliente.id] }, @contacto.cliente_id), {}, { id: 'clientes_select', class:"form-control m-b", style: "width:350px;" } %>
+
+
+                    <%= select_tag "cliente_id", options_for_select(@clientes.collect{|cliente| ['(' + cliente.id.to_s + ') ' + cliente.nombre.titleize, cliente.id] }, @contacto.clientes.count == 0 ?  (Cliente.order(:nombre).first.id):(@contacto.clientes.collect{|c| c.id})   ), {id: 'clientes_select', class:"form-control m-b", style: "width:450px;", multiple: true, required: true }  %>
+
+
 
 
 
@@ -68,12 +71,16 @@
                   </div>
                 </div>
                 <br>
+                <br>
+                <br>
+                <br>
+                <br>
                 <div class="hr-line-dashed"></div>
                 <div class="form-group">
                   <%= f.label "Cuentas", class: 'col-sm-2 control-label'%>
                   <div class="col-sm-5">
 
-                    <%= select_tag "accounts", options_for_select(@datosgenerales.all.collect{|d| [d.account, d.id] }, @contacto.datosgenerales.collect{|d| d.id} ), {id: 'datosgenerales_select', class:"form-control m-b", style: "width:350px;", multiple: true, required: true }  %>
+                    <%= select_tag "accounts", options_for_select(@datosgenerales.all.collect{|d| [d.account + ' (' + d.cliente.id.to_s + ')', d.id] }, @contacto.datosgenerales.count==0 ? (@datosgenerales.first.id):(@contacto.datosgenerales.collect{|d| d.id})  ), {id: 'datosgenerales_select', class:"form-control m-b", style: "width:450px;", multiple: true, required: true }  %>
 
 
 
@@ -208,7 +215,7 @@
                     type: 'GET',
                     dataType: 'script',
                     data: {
-                        cliente_id: $("#clientes_select option:selected").val()
+                        cliente_id: $("#clientes_select").val()
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         console.log(location.protocol + "//" + location.host + "/contactos/update_datosgenerales");
