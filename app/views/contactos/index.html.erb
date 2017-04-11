@@ -41,7 +41,7 @@
             <thead>
             <tr>
               <th>ID</th>
-              <th>Cliente</th>
+              <th>Clientes</th>
               <th>Cuentas</th>
               <th>Nombre</th>
               <th>Telefono</th>
@@ -57,7 +57,7 @@
             <% @contactos.each do |contacto| %>
                 <tr>
                   <td><%=contacto.id%> </td>
-                  <td><%= Cliente.find_by_id(contacto.try(:cliente_id)).try(:nombre) %></td>
+                  <td><%= contacto.clientes.all.collect{|c| c.nombre}%> </td>
                   <td><%= contacto.datosgenerales.all.collect{|d| d.account }%> </td>
                   <td><%= contacto.nombre%></td>
                   <td>
