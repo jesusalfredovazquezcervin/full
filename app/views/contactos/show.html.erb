@@ -38,13 +38,13 @@
           <div class="form-group">
             <div class="form-group">
               <h4>Clientes:</h4>
-              <div class="col-sm-5">
+              <div class="col-sm-12">
                 <%= @contacto.clientes.collect{|c| c.nombre}%>
-              </div><br>
+              </div><br><br>
               <h4>Cuentas:</h4>
-              <div class="col-sm-5">
+              <div class="col-sm-12">
                 <%= @contacto.datosgenerales.collect{|d| d.account}%>
-              </div><br>
+              </div><br><br>
               <h4>Nombre:</h4>
               <div class="col-sm-5">
                 <%= @contacto.nombre %>
