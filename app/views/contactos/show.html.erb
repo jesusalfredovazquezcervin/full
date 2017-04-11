@@ -37,9 +37,9 @@
 
           <div class="form-group">
             <div class="form-group">
-              <h4>Cliente:</h4>
+              <h4>Clientes:</h4>
               <div class="col-sm-5">
-                <%= Cliente.find(@contacto.cliente_id).nombre %>
+                <%= @contacto.clientes.collect{|c| c.nombre}%>
               </div><br>
               <h4>Cuentas:</h4>
               <div class="col-sm-5">
