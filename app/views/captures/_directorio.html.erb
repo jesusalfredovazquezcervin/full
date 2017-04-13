@@ -148,15 +148,14 @@
 
                           <ul class="list-group clear-list">
                             <li class="list-group-item fist-item">
-                              <span class="pull-right"> <%=contacto.cliente.nombre%> </span>
+                              <span class="pull-right"> <%=contacto.clientes.collect{|c| c.nombre} %> </span>
                               <h3><i class="fa fa-institution"></i></h3>
                             </li>
-                            <%if !contacto.cliente.nombreComercial.nil? and contacto.cliente.nombreComercial!=''%>
                                 <li class="list-group-item">
-                                  <span class="pull-right"> <%=contacto.cliente.nombreComercial%> </span>
+                                  <span class="pull-right"> <%=contacto.clientes.collect{|c| c.nombreComercial}%> </span>
                                   Nombre comercial
                                 </li>
-                            <%end%>
+
 
                             <li class="list-group-item">
                               <span class="pull-right"> <%=Sucursal.find_by_id(contacto.sucursal_id).try(:nombre)%> </span>
