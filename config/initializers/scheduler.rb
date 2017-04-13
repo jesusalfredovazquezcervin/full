@@ -74,7 +74,7 @@ v.every 1.day, :first_at => Time.new(2017, 4, 13, 15)  do # 3 pm#
 
 
 end
-n.every 1.day, :first_at => Time.new(2017, 4, 12, 22)  do # 10 pm
+n.every 1.day, :first_at => Time.new(2017, 4, 13, 22)  do # 10 pm
 #n.every 1.day, :first_at => noct  do
   loop_reports("diario", "nocturno")
   loop_reports("semanal", "nocturno")
