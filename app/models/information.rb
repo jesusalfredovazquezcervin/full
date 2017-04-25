@@ -3,7 +3,7 @@ class Information < ActiveRecord::Base
   belongs_to :usuario
   has_many :sents
   belongs_to :datosgenerale
-  has_one :call
+  has_one :call, :dependent => :destroy
   validates :form_id, :usuario_id,
             presence: true
 
