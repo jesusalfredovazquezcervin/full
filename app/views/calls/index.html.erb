@@ -60,7 +60,9 @@
               <th>Intervalo</th>
               <th>Registro Capturado</th>
               <th>Hecha por</th>
-              <th>Fecha llamada</th>
+              <th>Fecha</th>
+              <th>Modificado por</th>
+              <th>Fecha</th>
               <th>&nbsp;&nbsp;Acciones</th>
             </tr>
             </thead>
@@ -83,6 +85,8 @@
                   </td>
                   <td><%= call.try(:information).try(:usuario).try(:email)%></td>
                   <td><%= call.created_at %></td>
+                  <td><%= call.try(:information).try(:userupdate).try(:email)%></td>
+                  <td><%= call.try(:information).try(:updated_at )%></td>
 
 
 
