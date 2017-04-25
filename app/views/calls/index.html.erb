@@ -78,7 +78,7 @@
 
                   <td>
                     <%if !call.information_id.nil? %>
-                        <%= link_to call.information_id, information_path(call.information), target: "_blank"%>
+                        <%= link_to call.information_id, information_path(call.information_id), target: "_blank"%>
                     <%end%>
                   </td>
                   <td><%= call.try(:information).try(:usuario).try(:email)%></td>
