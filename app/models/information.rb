@@ -1,6 +1,7 @@
 class Information < ActiveRecord::Base
   belongs_to :form
   belongs_to :usuario
+  belongs_to :userupdate, class_name: "Usuario"
   has_many :sents
   belongs_to :datosgenerale
   has_one :call, :dependent => :destroy

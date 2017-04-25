@@ -10,4 +10,5 @@ class Usuario < ActiveRecord::Base
   ROLES = %w[admin operador consulta supervisor]
 
   belongs_to :contacto
+  has_one :information, foreign_key: :userupdate_id
 end
