@@ -8,6 +8,10 @@
                     FAQ
                 </a>
             </li>
+            <li><a data-toggle="tab" href="#tab-2">
+                  Escalamiento
+                </a>
+            </li>
 
         </ul>
 
@@ -18,14 +22,14 @@
 
                 <div class="sidebar-title">
                     <h3> <i class="fa fa-comments-o"></i> Frequently Asked Questions</h3>
-                    <small><i class="fa fa-tim"></i> Existen <%=@cliente.asks.count%> Preguntas</small>
+                    <small><i class="fa fa-tim"></i> Existen <%=@cuenta.asks.count%> Preguntas</small>
                 </div>
 
                 <div>
 
                     <div class="sidebar-message">
 
-                      <% @cliente.asks.order(voting: :desc).each_with_index do |ask, index| %>
+                      <% @cuenta.asks.order(voting: :desc).each_with_index do |ask, index| %>
                           <div class="faq-item">
                             <div class="row">
                               <div class="col-md-7">
@@ -61,7 +65,49 @@
 
             </div>
 
+          <div id="tab-2" class="tab-pane">
 
+            <div class="sidebar-title">
+              <h3> <i class="fa fa-cube"></i> Imagenes de escalamiento</h3>
+              <small><i class="fa fa-tim"></i> Existen <%=@cuenta.scalings.count%> imagenes</small>
+            </div>
+
+            <ul class="sidebar-list">
+              <% @cuenta.scalings.order(:id).each_with_index do |scaling, index| %>
+                  <li>
+                    <a href="#">
+                      <h4><%=scaling.name%></h4>
+                      <div class="lightBoxGallery">
+                        <a href="<%= image_path(scaling.image1.url) %>" data-gallery="">
+                          <img src="<%= image_path(scaling.image1.url(:thumb)) %>"></a>
+
+                        <a href="<%= image_path(scaling.image1.url) %>" data-gallery="">
+                          <img src="<%= image_path(scaling.image1.url(:thumb)) %>"></a>
+                        <a href="<%= image_path(scaling.image1.url) %>" data-gallery="">
+                          <img src="<%= image_path(scaling.image1.url(:thumb)) %>"></a>
+
+                        <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
+                        <div id="blueimp-gallery" class="blueimp-gallery">
+                          <div class="slides"></div>
+                          <h3 class="title"></h3>
+                          <a class="prev">‹</a>
+                          <a class="next">›</a>
+                          <a class="close">×</a>
+                          <a class="play-pause"></a>
+                          <ol class="indicator"></ol>
+                        </div>
+                      </div>
+                    </a>
+
+                  </li>
+
+              <%end%>
+
+
+
+            </ul>
+
+          </div>
         </div>
 
     </div>

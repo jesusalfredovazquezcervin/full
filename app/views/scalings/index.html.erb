@@ -1,0 +1,90 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+
+    <h2>Listado de Escalamientos</h2>
+    <ol class="breadcrumb">
+      <li>
+        <a href="<%= url_for root_path %>">Inicio</a>
+      </li>
+      <li>
+        <a>Catalogos</a>
+      </li>
+      <li class="active">
+        <strong>Escalamientos</strong>
+      </li>
+    </ol>
+  </div>
+  <div class="col-lg-2">
+
+  </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          &nbsp;<a href="<%= url_for new_scaling_path %>">
+          <button class="btn btn-outline btn-warning btn-rounded" type="button"><i class="fa fa-plus"></i>&nbsp;Nuevo</button>
+        </a>
+
+          <div class="ibox-tools">
+            Total records: <%= @scalings.count %>
+            <a >
+              <i class="fa fa-bars"></i>
+            </a>
+          </div>
+
+        </div>
+        <div class="ibox-content">
+
+          <table class="table table-striped table-bordered table-hover dataTables-example">
+            <thead>
+            <tr>
+              <th>ID</th>
+              <th>Cliente</th>
+              <th>Cuenta</th>
+              <th>Nombre</th>
+              <th>&nbsp;&nbsp;Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @scalings.each do |scaling| %>
+                <tr>
+                  <td><%=scaling.id%></td>
+                  <td><%= scaling.cliente.nombre%></td>
+                  <td><%= scaling.datosgenerale.account%></td>
+                  <td><%=scaling.name%></td>
+                  <td>
+                    <%= link_to 'V', scaling,class: "btn btn-primary btn-circle", title:"Ver" %>
+                    <%= link_to 'M', edit_scaling_path(scaling), class: "btn btn-warning btn-circle", title:"Modificar" %>
+                    <%= link_to 'E', scaling, method: :delete, class: "btn btn-danger btn-circle", title:"Eliminar" ,data: { confirm: '¿Está seguro?'} %>
+                  </td>
+                </tr>
+            <% end %>
+
+
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+<% content_for :javascript do %>
+    <script type="text/javascript">
+        $(function() {
+            $('.dataTables-example').dataTable({
+                "order": [[ 1, "desc" ]],
+                "dom": 'T<"clear">lfrtip',
+                "tableTools": {
+                    "sSwfPath": "../assets/dataTables/swf/copy_csv_xls_pdf.swf"
+                }
+            });
+        });
+    </script>
+<% end %>
+

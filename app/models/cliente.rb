@@ -12,6 +12,7 @@ class Cliente < ActiveRecord::Base
   has_many :asks, :dependent => :destroy
   has_many :contact_clients, :dependent => :destroy
   has_many :contactos, :through => :contact_clients
+  has_many :scalings
   validates :nombre,
             presence: true,
             uniqueness: {scope: :rfc}

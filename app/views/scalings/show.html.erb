@@ -1,0 +1,116 @@
+
+<div class="col-lg-10">
+  <h2>Mostrar escalamiento</h2>
+</div>
+<p id="notice"><%= notice %></p>
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+
+    <ol class="breadcrumb">
+      <li>
+        <a href="<%= url_for :controller => 'home', :action => 'index' %>">Inicio</a>
+      </li>
+      <li>
+        <a>Catalogos</a>
+      </li>
+      <li>
+        <a href="<%= url_for scalings_path %>">Escalamientos</a>
+
+      </li>
+      <li class="active">
+        <strong>Mostrar</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Formulario<small> que muestra los datos de un escalamiento.</small></h5>
+
+        </div>
+        <div class="ibox-content">
+
+          <div class="form-group">
+            <div class="form-group">
+              <h4>Cliente:</h4>
+              <div class="col-sm-5">
+                <%= @scaling.try(:cliente).try(:nombre) %>
+              </div><br>
+
+              <h4>Cuenta:</h4>
+              <div class="col-sm-5">
+                <%= @scaling.try(:datosgenerale).try(:account) %>
+              </div><br>
+
+
+
+              <h4>Imagen 1:</h4>
+              <div class="col-sm-2 center-block">
+                <div class="lightBoxGallery">
+                  <a href="<%= image_path(@scaling.image1.url) %>" data-gallery="">
+                    <img src="<%= image_path(@scaling.image1.url(:thumb)) %>"></a>
+
+                  <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
+                  <div id="blueimp-gallery" class="blueimp-gallery">
+                    <div class="slides"></div>
+                    <h3 class="title"></h3>
+                    <a class="prev">‹</a>
+                    <a class="next">›</a>
+                    <a class="close">×</a>
+                    <a class="play-pause"></a>
+                    <ol class="indicator"></ol>
+                  </div>
+                </div>
+              </div>
+
+
+
+
+
+            </div>
+            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+            <br>
+            <div class="hr-line-dashed"></div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-4 col-sm-offset-2">
+              <a href="<%= url_for scalings_path%>">
+                <button class="btn btn-outline btn-danger btn-rounded" type="button"><i class="fa fa-list-ol"></i>&nbsp;Listado</button>
+              </a>
+
+              <a href="<%= url_for edit_scaling_path(@scaling) %>">
+                <button class="btn btn-outline btn-success btn-rounded" type="button"><i class="fa fa-pencil"></i>&nbsp;Editar</button>
+              </a>
+
+              <a href="<%= url_for new_scaling_path%>">
+                <button class="btn btn-outline btn-warning btn-rounded" type="button"><i class="fa fa-plus"></i>&nbsp;Nuevo</button>
+              </a>
+            </div>
+          </div>
+          <br><br>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+</div>
+
+
+<% content_for :javascript do %>
+
+
+
+
+<% end %>
+
+
+

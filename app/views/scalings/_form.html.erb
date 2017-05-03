@@ -1,0 +1,146 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+
+    <ol class="breadcrumb">
+      <li>
+        <a href="<%= url_for :controller => 'home', :action => 'index' %>">Inicio</a>
+      </li>
+      <li>
+        <a>Catalogos</a>
+      </li>
+      <li>
+        <a href="<%= url_for scalings_path %>">Escalamientos</a>
+
+      </li>
+      <li class="active">
+        <strong>Agregar / Modificar escalamiento</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Formulario<small> para  agregar o modificar a un escalamiento.</small></h5>
+
+        </div>
+        <div class="ibox-content">
+
+          <%= form_for @scaling, html: { multipart: true } do |f| %>
+              <% if @scaling.errors.any? %>
+                  <div id="error_explanation">
+                    <h2><%= @scaling.errors.count %> error(es) no permitieron guardar el registro:</h2>
+
+                    <ul>
+                      <% @scaling.errors.full_messages.each do |msg| %>
+                          <li><%= msg %></li>
+                      <% end %>
+                    </ul>
+                  </div>
+              <% end %>
+
+              <div class="form-group">
+                <div class="form-group">
+                  <%= f.label :cliente, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= select_tag "cliente_id", options_for_select(Cliente.all.order(:nombre).collect{|cliente| ['(' + cliente.id.to_s + ') ' + cliente.nombre.titleize, cliente.id] },
+                                                                    @scaling.cliente_id),
+                                   {id: 'clientes_select', class:"form-control m-b", style: "width:450px;", required: true }  %>
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label "Cuentas", class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= select_tag "datosgenerale_id", options_for_select(@datosgenerales.all.collect{|d| [d.account + ' (' + d.cliente.id.to_s + ')', d.id] }, @scaling.datosgenerale_id),
+                                   {id: 'datosgenerales_select', class:"form-control m-b", style: "width:450px;", required: true }  %>
+
+
+
+
+
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+
+                <div class="form-group">
+                  <%= f.label :nombre, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.text_field :name, class: 'form-control', :required => true %>
+
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <%= f.label :Imagen1, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.text_field :image1_file_name , class: 'form-control', readonly: true %>
+                  </div>
+
+                </div>
+                <br><br>
+                <div class="form-group">
+                  <%= f.label " ", class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.file_field :image1, class: 'form-control' %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="hr-line-dashed"></div><br><br>
+              <div class="form-group">
+                <div class="col-sm-4 col-sm-offset-2">
+                  <a href="<%= url_for scalings_path%>">
+                    <button class="btn btn-outline btn-danger btn-rounded" type="button"><i class="fa fa-list-ol"></i>&nbsp;Cancelar</button>
+                  </a>
+
+                  <%= button_tag(type: 'submit', class: "btn btn-outline btn-success btn-rounded") do %>
+                      <i class="fa fa-database"></i> Guardar
+                  <% end %>
+                </div>
+
+
+
+              </div>
+              <br><br>
+          <% end %>
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :javascript do %>
+
+    <script type="text/javascript">
+        $(function() {
+            return $(document).on('change', '#clientes_select', function(evt) {
+                return $.ajax({
+                    url:location.protocol + "//" + location.host + "/scalings/update_datosgenerales",
+                    type: 'GET',
+                    dataType: 'script',
+                    data: {
+                        cliente_id: $("#clientes_select").val()
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log(location.protocol + "//" + location.host + "/scalings/update_datosgenerales");
+                        return console.log("AJAX Error: " + textStatus);
+                    },
+                    success: function(data, textStatus, jqXHR) {
+                        return console.log("Dynamic accounts select OK!");
+                    }
+                });
+            });
+        });
+    </script>
+<% end %>
