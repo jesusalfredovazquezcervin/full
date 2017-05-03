@@ -78,14 +78,23 @@
                     <a href="#">
                       <h4><%=scaling.name%></h4>
                       <div class="lightBoxGallery">
-                        <a href="<%= image_path(scaling.image1.url) %>" data-gallery="">
-                          <img src="<%= image_path(scaling.image1.url(:thumb)) %>"></a>
+                        <%if scaling.image1.url != '/images/original/missing.png'%>
+                            <a href="<%= image_path(scaling.image1.url) %>" data-gallery="">
+                              <img src="<%= image_path(scaling.image1.url(:thumb)) %>"></a>
+                        <%end%>
+                        <%if scaling.image2.url != '/images/original/missing.png'%>
+                            <a href="<%= image_path(scaling.image2.url) %>" data-gallery="">
+                              <img src="<%= image_path(scaling.image2.url(:thumb)) %>"></a>
+                        <%end%>
+                        <%if scaling.image3.url != '/images/original/missing.png'%>
+                            <a href="<%= image_path(scaling.image3.url) %>" data-gallery="">
+                              <img src="<%= image_path(scaling.image3.url(:thumb)) %>"></a>
+                        <%end%>
 
-                        <a href="<%= image_path(scaling.image2.url) %>" data-gallery="">
-                          <img src="<%= image_path(scaling.image2.url(:thumb)) %>"></a>
 
-                        <a href="<%= image_path(scaling.image3.url) %>" data-gallery="">
-                          <img src="<%= image_path(scaling.image3.url(:thumb)) %>"></a>
+
+
+
 
 
                         <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
