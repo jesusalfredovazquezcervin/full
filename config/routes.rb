@@ -1,5 +1,7 @@
 Myapp::Application.routes.draw do
 
+  get 'scalings/update_datosgenerales', as: 'scaling_update_datosgenerales'
+  resources :scalings
   patch "reports/send_report", to: "reports#send_report", as: 'send_report'
 
   get 'reports/show_report/:id', to: "reports#show_report", as: 'report_show_report'
