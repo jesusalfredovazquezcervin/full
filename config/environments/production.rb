@@ -90,4 +90,6 @@ Myapp::Application.configure do
       user_name: ENV['username'],
       password: ENV['password']
   }
+  Paperclip.options[:image_magick_path] = "/opt/ImageMagick/bin"
+  Paperclip.options[:command_path] = "/usr/local/bin/"
 end
