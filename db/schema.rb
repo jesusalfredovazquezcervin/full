@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170425143501) do
+ActiveRecord::Schema.define(version: 20170427142714) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -951,6 +951,21 @@ ActiveRecord::Schema.define(version: 20170425143501) do
   add_index "reports", ["cliente_id"], name: "index_reports_on_cliente_id", using: :btree
   add_index "reports", ["form_id"], name: "index_reports_on_form_id", using: :btree
 
+  create_table "scalings", force: :cascade do |t|
+    t.integer  "datosgenerale_id"
+    t.string   "name"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.string   "image1_file_name"
+    t.string   "image1_content_type"
+    t.integer  "image1_file_size"
+    t.datetime "image1_updated_at"
+    t.integer  "cliente_id"
+  end
+
+  add_index "scalings", ["cliente_id"], name: "index_scalings_on_cliente_id", using: :btree
+  add_index "scalings", ["datosgenerale_id"], name: "index_scalings_on_datosgenerale_id", using: :btree
+
   create_table "sents", force: :cascade do |t|
     t.integer  "usuario_id"
     t.integer  "information_id"
@@ -1018,4 +1033,6 @@ ActiveRecord::Schema.define(version: 20170425143501) do
 
   add_foreign_key "contact_clients", "clientes"
   add_foreign_key "contact_clients", "contactos"
+  add_foreign_key "scalings", "clientes"
+  add_foreign_key "scalings", "datosgenerales"
 end
