@@ -75,7 +75,7 @@ class ScalingsController < ApplicationController
     def scaling_params
       params[:scaling][:cliente_id] = params[:cliente_id]
       params[:scaling][:datosgenerale_id] = params[:datosgenerale_id]
-      params.require(:scaling).permit(:datosgenerale_id, :name, :cliente_id, :image1)
+      params.require(:scaling).permit(:datosgenerale_id, :name, :cliente_id, :image1, :image2, :image3)
     end
     def dashboard_4
       render :layout => "layout_2"

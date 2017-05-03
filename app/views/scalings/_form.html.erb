@@ -92,9 +92,46 @@
                     <%= f.file_field :image1, class: 'form-control' %>
                   </div>
                 </div>
+                <br><div class="hr-line-dashed"></div><br>
+                <div class="form-group">
+                  <%= f.label :Imagen2, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.text_field :image2_file_name , class: 'form-control', readonly: true %>
+                  </div>
+
+                </div>
+                <br><br>
+                <div class="form-group">
+                  <%= f.label " ", class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.file_field :image2, class: 'form-control' %>
+                  </div>
+                </div>
+                <br><div class="hr-line-dashed"></div><br>
+                <div class="form-group">
+                  <%= f.label :Imagen3, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.text_field :image3_file_name , class: 'form-control', readonly: true %>
+                  </div>
+
+                </div>
+                <br><br>
+                <div class="form-group">
+                  <%= f.label " ", class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.file_field :image3, class: 'form-control' %>
+                  </div>
+                </div>
+
+
+
+
+
+
               </div>
 
-              <div class="hr-line-dashed"></div><br><br>
+              <br><div class="hr-line-dashed"></div><br>
+              <br>
               <div class="form-group">
                 <div class="col-sm-4 col-sm-offset-2">
                   <a href="<%= url_for scalings_path%>">
