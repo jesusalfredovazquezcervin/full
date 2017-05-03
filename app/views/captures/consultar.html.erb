@@ -1,4 +1,4 @@
-<div class="wrapper wrapper-content animated fadeIn">
+<div class="wrapper wrapper-content">
   <div class="row">
     <div class="col-lg-8" id="divdatosgenerales">
       <div class="ibox">
@@ -194,7 +194,23 @@
     <%end%>
 
 
+    <div class="col-sm-2 center-block">
+      <div class="lightBoxGallery">
+        <a href="<%= image_path(@cuenta.scalings.first.image1.url) %>" data-gallery="">
+          <img src="<%= image_path(@cuenta.scalings.first.image1.url(:thumb)) %>"></a>
 
+        <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
+        <div id="blueimp-gallery" class="blueimp-gallery">
+          <div class="slides"></div>
+          <h3 class="title"></h3>
+          <a class="prev">‹</a>
+          <a class="next">›</a>
+          <a class="close">×</a>
+          <a class="play-pause"></a>
+          <ol class="indicator"></ol>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
