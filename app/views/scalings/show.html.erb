@@ -48,67 +48,76 @@
               </div><br>
 
 
+              <%if @scaling.image1.url != '/images/original/missing.png'%>
+                  <h4>Imagen 1:</h4>
+                  <div class="col-sm-2 center-block">
+                    <div class="lightBoxGallery">
+                      <a href="<%= image_path(@scaling.image1.url) %>" data-gallery="">
+                        <img src="<%= image_path(@scaling.image1.url(:thumb)) %>"></a>
 
-              <h4>Imagen 1:</h4>
-              <div class="col-sm-2 center-block">
-                <div class="lightBoxGallery">
-                  <a href="<%= image_path(@scaling.image1.url) %>" data-gallery="">
-                    <img src="<%= image_path(@scaling.image1.url(:thumb)) %>"></a>
-
-                  <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
-                  <div id="blueimp-gallery" class="blueimp-gallery">
-                    <div class="slides"></div>
-                    <h3 class="title"></h3>
-                    <a class="prev">‹</a>
-                    <a class="next">›</a>
-                    <a class="close">×</a>
-                    <a class="play-pause"></a>
-                    <ol class="indicator"></ol>
+                      <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
+                      <div id="blueimp-gallery" class="blueimp-gallery">
+                        <div class="slides"></div>
+                        <h3 class="title"></h3>
+                        <a class="prev">‹</a>
+                        <a class="next">›</a>
+                        <a class="close">×</a>
+                        <a class="play-pause"></a>
+                        <ol class="indicator"></ol>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-              <br>
-              <br><br><br>
+                  <br>
+                  <br><br><br>
+              <%end%>
+
+
+
+
               <h4>Imagen 2:</h4>
-              <div class="col-sm-2 center-block">
-                <div class="lightBoxGallery">
-                  <a href="<%= image_path(@scaling.image2.url) %>" data-gallery="">
-                    <img src="<%= image_path(@scaling.image2.url(:thumb)) %>"></a>
+              <%if @scaling.image3.url != '/images/original/missing.png'%>
 
-                  <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
-                  <div id="blueimp-gallery" class="blueimp-gallery">
-                    <div class="slides"></div>
-                    <h3 class="title"></h3>
-                    <a class="prev">‹</a>
-                    <a class="next">›</a>
-                    <a class="close">×</a>
-                    <a class="play-pause"></a>
-                    <ol class="indicator"></ol>
+                  <div class="col-sm-2 center-block">
+                    <div class="lightBoxGallery">
+                      <a href="<%= image_path(@scaling.image2.url) %>" data-gallery="">
+                        <img src="<%= image_path(@scaling.image2.url(:thumb)) %>"></a>
+
+                      <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
+                      <div id="blueimp-gallery" class="blueimp-gallery">
+                        <div class="slides"></div>
+                        <h3 class="title"></h3>
+                        <a class="prev">‹</a>
+                        <a class="next">›</a>
+                        <a class="close">×</a>
+                        <a class="play-pause"></a>
+                        <ol class="indicator"></ol>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
 
-              <br>
-              <br><br><br>
+                  <br>
+                  <br><br><br>
+              <%end%>
               <h4>Imagen 3:</h4>
-              <div class="col-sm-2 center-block">
-                <div class="lightBoxGallery">
-                  <a href="<%= image_path(@scaling.image3.url) %>" data-gallery="">
-                    <img src="<%= image_path(@scaling.image3.url(:thumb)) %>"></a>
+              <%if @scaling.image3.url != '/images/original/missing.png'%>
+                  <div class="col-sm-2 center-block">
+                    <div class="lightBoxGallery">
+                      <a href="<%= image_path(@scaling.image3.url) %>" data-gallery="">
+                        <img src="<%= image_path(@scaling.image3.url(:thumb)) %>"></a>
 
-                  <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
-                  <div id="blueimp-gallery" class="blueimp-gallery">
-                    <div class="slides"></div>
-                    <h3 class="title"></h3>
-                    <a class="prev">‹</a>
-                    <a class="next">›</a>
-                    <a class="close">×</a>
-                    <a class="play-pause"></a>
-                    <ol class="indicator"></ol>
+                      <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
+                      <div id="blueimp-gallery" class="blueimp-gallery">
+                        <div class="slides"></div>
+                        <h3 class="title"></h3>
+                        <a class="prev">‹</a>
+                        <a class="next">›</a>
+                        <a class="close">×</a>
+                        <a class="play-pause"></a>
+                        <ol class="indicator"></ol>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-
+              <%end%>
 
 
 
