@@ -33,3 +33,4 @@
 //= require switchery/switchery.js
 
 //= require fullcalendar/moment.min.js
+//= require blueimp/jquery.blueimp-gallery.min.js
