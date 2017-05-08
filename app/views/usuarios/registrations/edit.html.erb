@@ -36,7 +36,7 @@
         <div class="ibox-content">
 
 
-          <%= form_for(resource, as: resource_name, url: {action: 'update_role'}, html: { method: :patch}) do |f| %>
+          <%= form_for(resource, as: resource_name, url: {action: 'update'}, html: { method: :patch}) do |f| %>
               <%= devise_error_messages! %>
               <div class="form-group">
                 <div class="form-group">
@@ -48,6 +48,15 @@
                   <br>
                   <div class="hr-line-dashed"></div>
                 <div class="form-group">
+                  <%= f.label :email, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.email_field :email,class: 'form-control' %>
+                  </div>
+                </div>
+                <br>
+                <div class="hr-line-dashed"></div>
+
+                <div class="form-group">
                   <%= f.label :perfil, class: 'col-sm-2 control-label'%>
                   <div class="col-sm-5">
                     <%= f.select :role, options_for_select(Usuario::ROLES.collect { |role|
@@ -55,9 +64,43 @@
 
                   </div>
                 </div>
-                <br>
                 <div class="hr-line-dashed"></div>
+
+                <br><br>
+                <div class="form-group">
+                  <%= f.label 'Foto', class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.text_field :avatar_file_name , class: 'form-control', readonly: true %>
+                  </div>
+
+                </div>
+                <br><br>
+                <div class="form-group">
+                  <%= f.label " ", class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.file_field :avatar, class: 'form-control' %>
+                  </div>
+                </div>
+                <br><div class="hr-line-dashed"></div><br>
+                <div class="col-sm-2 center-block">
+                  <div class="lightBoxGallery">
+                    <a href="<%= image_path(resource.avatar.url) %>" data-gallery="">
+                      <img src="<%= image_path(resource.avatar.url(:thumb)) %>"></a>
+
+                    <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
+                    <div id="blueimp-gallery" class="blueimp-gallery">
+                      <div class="slides"></div>
+                      <h3 class="title"></h3>
+                      <a class="prev">‹</a>
+                      <a class="next">›</a>
+                      <a class="close">×</a>
+                      <a class="play-pause"></a>
+                      <ol class="indicator"></ol>
+                    </div>
+                  </div>
+                </div>
                 <br>
+                <br><br><br>
               </div>
 
               <div class="hr-line-dashed"></div>

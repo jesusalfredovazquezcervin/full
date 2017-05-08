@@ -2,9 +2,9 @@ class Usuarios::RegistrationsController < Devise::RegistrationsController
   prepend_before_filter :authenticate_scope!, only: [:edit, :update, :destroy, :desactivar, :activar]
   #before_action :load_usuario, only: [:create]
   prepend_before_filter :require_no_authentication, only: [:cancel]
-  before_filter :configure_sign_up_params, only: [:create]
-  before_filter :configure_account_update_params, only: [:update, :update_password]
-  before_action :set_usuario, only: [:desactivar, :activar, :edit]
+  before_filter :sign_up_params, only: [:create]
+  before_filter :account_update_params, only: [:update, :update_password]
+  before_action :set_usuario, only: [:desactivar, :activar, :edit, :show]
 
 
   def update_password
@@ -90,7 +90,7 @@ class Usuarios::RegistrationsController < Devise::RegistrationsController
     logger.debug ' '
     user = Usuario.find_by_id params[:usuario][:id]
     user.role = params[:usuario][:role]
-
+    user.email= params[:usuario][:email]
 
     respond_to do |format|
       if user.save!
@@ -108,7 +108,8 @@ class Usuarios::RegistrationsController < Devise::RegistrationsController
   # PUT /resource
    def update
      authorize! :read, Usuario
-     self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
+     #self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
+     self.resource = Usuario.find_by_id params[:usuario][:id]
      prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
 
      resource_updated = update_resource(resource, account_update_params)
@@ -119,8 +120,10 @@ class Usuarios::RegistrationsController < Devise::RegistrationsController
              :update_needs_confirmation : :updated
          set_flash_message :notice, flash_key
        end
-       sign_in resource_name, resource, bypass: true
-       respond_with resource, location: after_update_path_for(resource)
+       #sign_in resource_name, resource, bypass: true
+       #respond_with resource, location: after_update_path_for(resource)
+       redirect_to usuarios_path, notice: 'Usuario actualizado exitosamente!'
+
      else
        clean_up_passwords resource
        respond_to do |format|
@@ -131,7 +134,9 @@ class Usuarios::RegistrationsController < Devise::RegistrationsController
 
      end
    end
-
+  def show
+    dashboard_4
+  end
   # DELETE /resource
    def destroy
      authorize! :read, Usuario
@@ -150,15 +155,19 @@ class Usuarios::RegistrationsController < Devise::RegistrationsController
   # protected
 
   # If you have extra params to permit, append them to the sanitizer.
-   def configure_sign_up_params
-     devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:email, :password, :password_confirmation, :role) }
-   end
-
+  #  def configure_sign_up_params
+  #    devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:email, :password, :password_confirmation, :role, :avatar, :avatar_file_name) }
+  #  end
+  def sign_up_params
+    params.require(:usuario).permit(:email, :password, :password_confirmation, :role, :avatar)
+  end
   # If you have extra params to permit, append them to the sanitizer.
-   def configure_account_update_params
-     devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:email, :password, :password_confirmation, :role, :current_password) }
-   end
-
+  #  def configure_account_update_params
+  #    devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:email, :password, :password_confirmation, :role, :current_password, :avatar, :avatar_file_name) }
+  #  end
+  def account_update_params
+    params.require(:usuario).permit(:role, :avatar, :email)
+  end
   # The path used after sign up.
    def after_sign_up_path_for(resource)
      super(resource)
@@ -175,6 +184,9 @@ class Usuarios::RegistrationsController < Devise::RegistrationsController
     @usuario = Usuario.find(params[:id])
   end
   def load_usuario
-    @usuario = Usuario.new(configure_sign_up_params)
+    @usuario = Usuario.new(sign_up_params)
+  end
+  def update_resource(resource, params)
+    resource.update_without_password(params)
   end
 end

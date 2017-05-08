@@ -99,6 +99,7 @@ Myapp::Application.routes.draw do
   resources :agendas
 
   devise_scope :usuario do
+    get "usuario/:id", to: "usuarios/registrations#show", as: 'usuario_show'
     get "usuarios", to: "usuarios/registrations#index"
     get "usuarios_desactivar/:id", to: "usuarios/registrations#desactivar", as: 'usuarios_desactivar'
     get "usuarios_activar/:id", to: "usuarios/registrations#activar", as: 'usuarios_activar'

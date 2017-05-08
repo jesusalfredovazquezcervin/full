@@ -11,4 +11,7 @@ class Usuario < ActiveRecord::Base
 
   belongs_to :contacto
   has_one :information, foreign_key: :userupdate_id
+
+  has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/avatar_empty.png"
+  validates_attachment_content_type :avatar, :content_type => ["image/jpeg", "image/gif", "image/png", "image/jpg"]
 end

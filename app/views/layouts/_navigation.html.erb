@@ -5,9 +5,7 @@
             <li class="nav-header">
                 <div class="dropdown profile-element">
                     <span>
-
-                        <img alt="image" class="img-circle" src="<%= image_path('profile_small.jpg') %>">
-
+                      <img src="<%= image_path(current_usuario.avatar.url(:thumb)) %>" height="50px" width="50px">
                     </span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <span class="clear">
