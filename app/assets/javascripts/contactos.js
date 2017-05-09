@@ -13,3 +13,4 @@
 //= require jquery-ui/jquery-ui.min.js
 //= require footable/footable.all.min.js
 //= require chosen/chosen.jquery.js
+//= require blueimp/jquery.blueimp-gallery.min.js

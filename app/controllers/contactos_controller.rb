@@ -162,7 +162,7 @@ class ContactosController < ApplicationController
     end
     # Never trust parameters from the scary internet, only allow the white list through.
     def contacto_params
-      params.require(:contacto).permit(:cliente_id, :nombre, :telefono, :ext, :cel, :email, :puesto, :sucursal_id, :skype, :funciones)
+      params.require(:contacto).permit(:cliente_id, :nombre, :telefono, :ext, :cel, :email, :puesto, :sucursal_id, :skype, :funciones, :avatar)
     end
     def dashboard_4
       render :layout => "layout_2"

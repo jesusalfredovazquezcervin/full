@@ -163,7 +163,26 @@
                 </div>
 
 
-                <br>
+                <br><div class="hr-line-dashed"></div>
+
+                <div class="form-group">
+                  <%= f.label :avatar, class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.text_field :avatar_file_name , class: 'form-control', readonly: true %>
+                  </div>
+
+                </div>
+                <br><br>
+                <div class="form-group">
+                  <%= f.label " ", class: 'col-sm-2 control-label'%>
+                  <div class="col-sm-5">
+                    <%= f.file_field :avatar, class: 'form-control' %>
+                  </div>
+                </div>
+                <br><div class="hr-line-dashed"></div><br>
+
+
+
               </div>
 
               <div class="hr-line-dashed"></div>

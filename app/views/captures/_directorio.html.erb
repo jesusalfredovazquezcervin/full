@@ -46,7 +46,14 @@
                         <tbody>
                         <% @cuenta.contactos.each do |contacto| %>
                             <tr>
-                              <td class="client-avatar"><img alt="image" src="<%= image_path('a2.jpg') %>"> </td>
+                              <td class="client-avatar">
+
+                                <%if contacto.avatar.url == '/images/original/avatar_empty.png'%>
+                                    <img alt="image" src="<%= image_path('avatar_empty.png') %>" >
+                                <%else%>
+                                    <img src="<%= image_path(contacto.avatar.url(:thumb)) %>" >
+                                <%end%>
+                              </td>
                               <td><a data-toggle="tab" href="#contact-<%=contacto.id%>" class="client-link"><%=contacto.nombre%></a></td>
                               <td class="contact-type"><i class="fa fa-phone"> </i></td>
                               <td> <%=contacto.telefono%></td>
@@ -125,8 +132,11 @@
                           <h2><%=contacto.nombre%></h2>
 
                           <div class="m-b-sm">
-                            <img alt="image" class="img-circle" src="<%= image_path('a2.jpg') %>"
-                                 style="width: 62px">
+                            <%if contacto.avatar.url == '/images/original/avatar_empty.png'%>
+                                <img alt="image" src="<%= image_path('avatar_empty.png') %>" style="width: 62px">
+                            <%else%>
+                                <img src="<%= image_path(contacto.avatar.url(:thumb)) %>" style="width: 62px">
+                            <%end%>
                           </div>
                         </div>
                         <div class="col-lg-8">
