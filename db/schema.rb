@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170504150149) do
+ActiveRecord::Schema.define(version: 20170508193332) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -242,17 +242,21 @@ ActiveRecord::Schema.define(version: 20170504150149) do
 
   create_table "contactos", force: :cascade do |t|
     t.integer  "cliente_id"
-    t.string   "nombre",      limit: 255
-    t.string   "telefono",    limit: 255
-    t.string   "ext",         limit: 255
-    t.string   "cel",         limit: 255
-    t.string   "email",       limit: 255
-    t.string   "puesto",      limit: 255
+    t.string   "nombre",              limit: 255
+    t.string   "telefono",            limit: 255
+    t.string   "ext",                 limit: 255
+    t.string   "cel",                 limit: 255
+    t.string   "email",               limit: 255
+    t.string   "puesto",              limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "sucursal_id"
-    t.string   "skype",       limit: 255
-    t.string   "funciones",   limit: 255
+    t.string   "skype",               limit: 255
+    t.string   "funciones",           limit: 255
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
   create_table "countries", force: :cascade do |t|
