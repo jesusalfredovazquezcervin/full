@@ -85,7 +85,12 @@
                 <div class="col-sm-2 center-block">
                   <div class="lightBoxGallery">
                     <a href="<%= image_path(resource.avatar.url) %>" data-gallery="">
-                      <img src="<%= image_path(resource.avatar.url(:thumb)) %>"></a>
+                      <%if resource.avatar.url == '/images/original/avatar_empty.png'%>
+                          <img alt="image" src="<%= image_path('avatar_empty.png') %>" >
+                      <%else%>
+                          <img src="<%= image_path(resource.avatar.url(:thumb)) %>" height="50px" width="50px">
+                      <%end%>
+                    </a>
 
                     <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
                     <div id="blueimp-gallery" class="blueimp-gallery">
