@@ -65,7 +65,7 @@ class AgendasController < ApplicationController
     end
 
     def agenda_params
-      params.require(:agenda).permit(:cliente_id, :nombre, :rfc, :calle, :numero, :colonia, :delegacion, :estado, :cp, :email, :telefono, :cel)
+      params.require(:agenda).permit(:cliente_id, :nombre, :rfc, :calle, :numero, :colonia, :delegacion, :estado, :cp, :email, :telefono, :cel, :avatar)
     end
 
     def dashboard_4

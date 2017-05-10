@@ -98,6 +98,32 @@
               <div class="col-sm-5">
                 <%= @agenda.cel%>
               </div><br>
+              <h4>Avatar:</h4>
+              <div class="col-sm-2 center-block">
+                <div class="lightBoxGallery">
+                  <a href="<%= image_path(@agenda.avatar.url) %>" data-gallery="">
+                    <%if @agenda.avatar.url == '/images/original/avatar_empty.png'%>
+                        <img alt="image" src="<%= image_path('avatar_empty.png') %>" >
+                    <%else%>
+                        <img src="<%= image_path(@agenda.avatar.url(:thumb)) %>" >
+                    <%end%>
+
+                  </a>
+
+                  <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
+                  <div id="blueimp-gallery" class="blueimp-gallery">
+                    <div class="slides"></div>
+                    <h3 class="title"></h3>
+                    <a class="prev">‹</a>
+                    <a class="next">›</a>
+                    <a class="close">×</a>
+                    <a class="play-pause"></a>
+                    <ol class="indicator"></ol>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <br><br><br>
 
             </div>
             <br>
