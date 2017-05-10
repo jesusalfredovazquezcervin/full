@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170508193332) do
+ActiveRecord::Schema.define(version: 20170510144537) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,19 +28,23 @@ ActiveRecord::Schema.define(version: 20170508193332) do
 
   create_table "agendas", force: :cascade do |t|
     t.integer  "cliente_id"
-    t.string   "nombre",     limit: 255
-    t.string   "rfc",        limit: 255
-    t.string   "calle",      limit: 255
-    t.string   "numero",     limit: 255
-    t.string   "colonia",    limit: 255
-    t.string   "delegacion", limit: 255
-    t.string   "estado",     limit: 255
-    t.string   "cp",         limit: 255
-    t.string   "email",      limit: 255
-    t.string   "telefono",   limit: 255
-    t.string   "cel",        limit: 255
+    t.string   "nombre",              limit: 255
+    t.string   "rfc",                 limit: 255
+    t.string   "calle",               limit: 255
+    t.string   "numero",              limit: 255
+    t.string   "colonia",             limit: 255
+    t.string   "delegacion",          limit: 255
+    t.string   "estado",              limit: 255
+    t.string   "cp",                  limit: 255
+    t.string   "email",               limit: 255
+    t.string   "telefono",            limit: 255
+    t.string   "cel",                 limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
   create_table "asks", force: :cascade do |t|
