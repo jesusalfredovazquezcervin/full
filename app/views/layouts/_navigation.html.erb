@@ -5,7 +5,11 @@
             <li class="nav-header">
                 <div class="dropdown profile-element">
                     <span>
-                      <img src="<%= image_path(current_usuario.avatar.url(:thumb)) %>" height="50px" width="50px">
+                      <%if current_usuario.avatar.url == '/images/original/avatar_empty.png'%>
+                        <img alt="image" src="<%= image_path('avatar_empty.png') %>" >
+                      <%else%>
+                        <img src="<%= image_path(current_usuario.avatar.url(:thumb)) %>" height="50px" width="50px">
+                      <%end%>
                     </span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <span class="clear">
