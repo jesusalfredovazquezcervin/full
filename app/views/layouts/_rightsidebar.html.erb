@@ -68,55 +68,11 @@
           <div id="tab-2" class="tab-pane">
 
             <div class="sidebar-title">
-              <h3> <i class="fa fa-cube"></i> Imagenes de escalamientoO</h3>
-              <small><i class="fa fa-tim"></i> Existen <%=@cuenta.scalings.count%> imagenes</small>
+              <h3> <i class="fa fa-cube"></i> Imagenes de escalamiento</h3>
+
             </div>
 
-            <ul class="sidebar-list">
-              <% @cuenta.scalings.order(:id).each_with_index do |scaling, index| %>
-                  <li>
-                    <a href="#">
-                      <h4><%=scaling.name%></h4>
-                      <div class="lightBoxGallery">
-                        <%if scaling.image1.url != '/images/original/missing.png'%>
-                            <a href="<%= image_path(scaling.image1.url) %>" data-gallery="">
-                              <img src="<%= image_path(scaling.image1.url(:thumb)) %>"></a>
-                        <%end%>
-                        <%if scaling.image2.url != '/images/original/missing.png'%>
-                            <a href="<%= image_path(scaling.image2.url) %>" data-gallery="">
-                              <img src="<%= image_path(scaling.image2.url(:thumb)) %>"></a>
-                        <%end%>
-                        <%if scaling.image3.url != '/images/original/missing.png'%>
-                            <a href="<%= image_path(scaling.image3.url) %>" data-gallery="">
-                              <img src="<%= image_path(scaling.image3.url(:thumb)) %>"></a>
-                        <%end%>
 
-
-
-
-
-
-
-                        <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
-                        <div id="blueimp-gallery" class="blueimp-gallery">
-                          <div class="slides"></div>
-                          <h3 class="title"></h3>
-                          <a class="prev">‹</a>
-                          <a class="next">›</a>
-                          <a class="close">×</a>
-                          <a class="play-pause"></a>
-                          <ol class="indicator"></ol>
-                        </div>
-                      </div>
-                    </a>
-
-                  </li>
-
-              <%end%>
-
-
-
-            </ul>
 
           </div>
         </div>
