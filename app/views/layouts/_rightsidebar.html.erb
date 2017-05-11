@@ -22,44 +22,14 @@
 
                 <div class="sidebar-title">
                     <h3> <i class="fa fa-comments-o"></i> Frequently Asked Questions</h3>
-                    <small><i class="fa fa-tim"></i> Existen <%=@cuenta.asks.count%> Preguntas</small>
+
                 </div>
 
                 <div>
 
                     <div class="sidebar-message">
 
-                      <% @cuenta.asks.order(voting: :desc).each_with_index do |ask, index| %>
-                          <div class="faq-item">
-                            <div class="row">
-                              <div class="col-md-7">
-                                <a data-toggle="collapse" href="#faq-<%=index.to_s%>" class="faq-question">¿<%=ask.question%>?</a>
-                                <small>Preguntada by <strong><%=ask.asked_by%></strong> <i class="fa fa-clock-o"></i> <%=ask.created_at.to_s%></small>
-                              </div>
-                              <div class="col-md-2">
-                                <span class="small font-bold"><%=ask.answer_by%></span>
-                                <div class="tag-list">
-                                  <span class="tag-item"><%=ask.subject%></span>
-                                </div>
-                              </div>
-                              <div class="col-md-2 text-right">
-                                <span class="small font-bold">Preguntado </span><br/>
-                                <%=ask.voting%>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col-lg-11">
-                                <div id="faq-<%=index.to_s%>" class="panel-collapse collapse">
-                                  <div class="faq-answer">
-                                    <p>
-                                      <%=ask.answer%>
-                                    </p>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                      <%end%>
+
                     </div>
                 </div>
 
