@@ -21,14 +21,14 @@
         <div>
           <ul class="nav nav-tabs">
             <%  @cuenta.procedures.order(:number).each_with_index do |procedure, index| %>
-                <li class="<%= index == 0 ? ("active"):("") %>"><a data-toggle="tab" href="#tab-<%=index+1%>"><%=procedure.try(:form).try(:name)%></a></li>
+                <li class="<%= index == 0 ? ("active"):("") %>"><a data-toggle="tab" href="#tab-list_<%=index+1%>"><%=procedure.try(:form).try(:name)%></a></li>
             <%end%>
           </ul>
           <div class="tab-content">
             <br>
             <h5>Listados de captura <small>Aqui estan todos los registros de captura para el cliente</small></h5>
             <%  @cuenta.procedures.order(:number).each_with_index do |procedure, index| %>
-                <div id="tab-<%=index+1%>" class="tab-pane <%= index == 0 ? (" active"):("") %>">
+                <div id="tab-list_<%=index+1%>" class="tab-pane <%= index == 0 ? (" active"):("") %>">
                       <%if !procedure.form.nil? %>
                           <table class="table table-striped table-bordered table-hover dataTables-example">
                             <thead>
