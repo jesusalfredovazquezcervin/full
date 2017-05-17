@@ -2,13 +2,16 @@
   <div class="sidebar-container">
 
     <ul class="nav nav-tabs navs-3">
-
-      <li class="active" id="lifaq">
-        <a data-toggle="tab" href="#tabfaq">
+      <li class="active"><a data-toggle="tab" href="#tab-data">
+        Dat Gral
+      </a>
+      </li>
+      <li id="lifaq">
+        <a data-toggle="tab" href="#tab-faq">
           FAQ
         </a>
       </li>
-      <li><a data-toggle="tab" href="#tab-2">
+      <li><a data-toggle="tab" href="#tab-scaling">
         Escalamiento
       </a>
       </li>
@@ -16,9 +19,163 @@
     </ul>
 
     <div class="tab-content">
+      <div id="tab-data" class="tab-pane active">
+
+        <div class="sidebar-title">
+          <h3> <i class="fa fa-list-ul"></i> Datos generales  &nbsp;&nbsp;&nbsp;&nbsp;  Clave salida: <%=@cuenta.clavesalida%></h3>
 
 
-      <div id="tabfaq" class="tab-pane active">
+          <small><i class="fa fa-tim"></i> Existen <%=@cliente.sucursals.count%> sucursales</small>
+        </div>
+
+
+        <div>
+
+          <div class="sidebar-message">
+            <ul>
+              <%if @direccion.nil?%>
+                  <li><strong>Direccion: </strong> No hay una direccion matriz</li>
+              <%else%>
+                  <li><strong>Direccion: </strong><%=@direccion.calle%> <%=@direccion.numero%>, <%=@direccion.colonia%> <%=@direccion.delegacion%> <%=@direccion.cp%></li>
+                  <li><strong>Horario: </strong><small><%=@horario.try(:horario_semana)%></small></li>
+              <%end%>
+              <li><strong>Telefonos: </strong><%=@cuenta.telefono1%>
+                <%if @cuenta.telefono2.nil? == false%>
+                    , <%=@cuenta.telefono2%>
+                <%end%>
+              </li>
+              <li><strong>Website: </strong><%=@cuenta.paginaweb%></li>
+              <li><strong>Contacto: </strong><%=@contacto.try(:nombre)%></li>
+              <li><strong>Giro: </strong><%=@cuenta.giro%></li>
+
+                <li>
+                  <strong>Cliente desde: </strong><%=@cuenta.alta.to_s(:month_day_year)%>
+                </li>
+                <li>
+                  <strong>Locacion: </strong><%=@cuenta.locacion%>
+                </li>
+                <li>
+                  <strong>DID: </strong><%=@cuenta.did%>
+                </li>
+                <li>
+                  <strong>Tel enrutados: </strong><%=@cuenta.telenrutados%>
+                </li>
+                <li>
+                  <strong>FAX: </strong><%=@cuenta.fax%>
+                </li>
+                <%if @cuenta.tipocambio%>
+                    <li><%=@cliente.tipoCambio%></li>
+                <%end%>
+
+                <li>
+                  <strong>Sucursales:</strong>
+                  <ul>
+                    <% @cliente.sucursals.each do |sucursal| %>
+                        <li><%if sucursal.direccion.try(:matriz)%>
+                              <strong> Matriz: <%= sucursal.nombre%> </strong>
+                          <%else%>
+                              <%= sucursal.nombre%>
+                          <%end%>
+                          | Tel: <%=sucursal.telefono%>
+                          | Gerente: <%=sucursal.try(:contacto).try(:nombre)%>
+                          | Contacto: <%=sucursal.try(:main).try(:nombre)%>
+                          | Domicilio: <%=sucursal.try(:direccion).try(:calle)%>, <%=sucursal.try(:direccion).try(:numero)%>
+                          <%if !sucursal.try(:direccion).try(:colonia).nil?%>
+                              , <%=sucursal.direccion.colonia%>
+                          <%end%>
+                          ,<%=sucursal.try(:direccion).try(:delegacion)%>, <%=sucursal.try(:direccion).try(:cp)%>
+                          | Referencia: <%=sucursal.try(:direccion).try(:referencia)%>
+                          | Horario: <%= sucursal.horario.nil? == true ? (''):(sucursal.horario.horario_semana) %>
+
+                          <%if (!sucursal.try(:direccion).try(:mapsgoogle).nil? && !sucursal.try(:direccion).try(:mapsgoogle).empty?) || !sucursal.try(:direccion).try(:photo_file_name).nil? %>
+                              |<%= link_to show_maps_direccion_path(sucursal), target: "_blank"  do %>
+                                  <i class="fa fa-map-marker"></i> <strong>Mapa</strong>
+                              <% end %>
+                          <%end%>
+
+
+                        </li>
+                        <br>
+                    <%end%>
+                  </ul>
+                </li>
+
+
+              </ul>
+
+            <div class="row">
+              <div class="col-lg-12">
+                <div id="dg" class="panel-collapse collapse ">
+
+                  <ul>
+                    <li>
+                      <strong>Cliente desde: </strong><%=@cuenta.alta.to_s(:month_day_year)%>
+                    </li>
+                    <li>
+                      <strong>Locacion: </strong><%=@cuenta.locacion%>
+                    </li>
+                    <li>
+                      <strong>DID: </strong><%=@cuenta.did%>
+                    </li>
+                    <li>
+                      <strong>Tel enrutados: </strong><%=@cuenta.telenrutados%>
+                    </li>
+                    <li>
+                      <strong>FAX: </strong><%=@cuenta.fax%>
+                    </li>
+                    <%if @cuenta.tipocambio%>
+                        <li><%=@cliente.tipoCambio%></li>
+                    <%end%>
+
+                    <li>
+                      <strong>Sucursales:</strong>
+                      <ul>
+                        <% @cliente.sucursals.each do |sucursal| %>
+                            <li><%if sucursal.direccion.try(:matriz)%>
+                                  <strong> Matriz: <%= sucursal.nombre%> </strong>
+                              <%else%>
+                                  <%= sucursal.nombre%>
+                              <%end%>
+                              | Tel: <%=sucursal.telefono%>
+                              | Gerente: <%=sucursal.try(:contacto).try(:nombre)%>
+                              | Contacto: <%=sucursal.try(:main).try(:nombre)%>
+                              | Domicilio: <%=sucursal.try(:direccion).try(:calle)%>, <%=sucursal.try(:direccion).try(:numero)%>
+                              <%if !sucursal.try(:direccion).try(:colonia).nil?%>
+                                  , <%=sucursal.direccion.colonia%>
+                              <%end%>
+                              ,<%=sucursal.try(:direccion).try(:delegacion)%>, <%=sucursal.try(:direccion).try(:cp)%>
+                              | Referencia: <%=sucursal.try(:direccion).try(:referencia)%>
+                              | Horario: <%= sucursal.horario.nil? == true ? (''):(sucursal.horario.horario_semana) %>
+
+                              <%if (!sucursal.try(:direccion).try(:mapsgoogle).nil? && !sucursal.try(:direccion).try(:mapsgoogle).empty?) || !sucursal.try(:direccion).try(:photo_file_name).nil? %>
+                                  |<%= link_to show_maps_direccion_path(sucursal), target: "_blank"  do %>
+                                      <i class="fa fa-map-marker"></i> <strong>Mapa</strong>
+                                  <% end %>
+                              <%end%>
+
+
+                            </li>
+                            <br>
+                        <%end%>
+                      </ul>
+                    </li>
+
+
+                  </ul>
+
+
+                </div>
+              </div>
+            </div>
+
+
+
+          </div>
+        </div>
+
+      </div>
+
+      <div id="tab-faq" class="tab-pane">
 
         <div class="sidebar-title">
           <h3> <i class="fa fa-comments-o"></i> Frequently Asked Questions</h3>
@@ -65,7 +222,7 @@
 
       </div>
 
-      <div id="tab-2" class="tab-pane">
+      <div id="tab-scaling" class="tab-pane">
 
         <div class="sidebar-title">
           <h3> <i class="fa fa-cube"></i> Imagenes de escalamiento</h3>
