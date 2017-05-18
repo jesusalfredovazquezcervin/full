@@ -3,7 +3,9 @@
     <div class="sidebar-collapse">
         <ul class="nav metismenu" id="side-menu">
           <li class="landing_link">
+            <%if !@cliente.nil?%>
             <a  href="#"><i class="fa fa-phone"></i> <span class="nav-label">Clave de salida: &nbsp; <%=@cuenta.clavesalida%></a>
+                <%end%>
           </li>
 
             <li class="nav-header">
