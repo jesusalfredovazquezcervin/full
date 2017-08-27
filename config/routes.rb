@@ -95,6 +95,7 @@ Myapp::Application.routes.draw do
   #get "captures/consultar", to: "captures#consultar", as: 'captures_consultar_cliente'
   #post "captures/consultar"
   patch "captures/consultar/:id", to: "captures#consultar", as: "captures_consultar"
+  patch "captures/listados/:id", to: "captures#listados", as: "captures_listados"
 
   resources :agendas
 
