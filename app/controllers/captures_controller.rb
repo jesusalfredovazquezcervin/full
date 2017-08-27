@@ -63,6 +63,24 @@ class CapturesController < ApplicationController
     @call = Call.create(start: DateTime.now)
     dashofintel
   end
+  def listados
+    id=params[:id]=="id" ? (params[:cuenta_id]):(params[:id])
+    @notification = Notification.new
+    @cuenta = Datosgenerale.find_by_id(id)
+    @cliente = @cuenta.cliente
+    @capture= Capture.new
+    @clientes = Cliente.all
+    @direccion = @cliente.sucursals.all.select{|s| s.direccion.try(:matriz)==true}.empty? ? (nil):(@cliente.sucursals.all.select{|s| s.direccion.try(:matriz)==true}[0].direccion)
+    @horario = @cliente.sucursals.all.select{|s| s.direccion.try(:matriz)==true}.empty? ? (nil):(@cliente.sucursals.all.select{|s| s.direccion.try(:matriz)==true}[0].horario)
+    @contacto = @cliente.sucursals.all.select{|s| s.direccion.try(:matriz)==true}.empty? ? (nil):(@cliente.sucursals.all.select{|s| s.direccion.try(:matriz)==true}[0].main)
+    @sucursales = Sucursal.where(:cliente_id => id)
+    @products = Product.all
+    @information = Information.new
+    @user= current_user
+    @cuentas = Datosgenerale.all.order(:account).collect{|account| [" " << account.cliente.nombre << "   |    " << account.account << "    |    " << account.frase , account.id]}.sort
+    @call = Call.create(start: DateTime.now)
+    dashofintel
+  end
 
   # POST /captures
   # POST /captures.json

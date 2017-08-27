@@ -9,13 +9,6 @@
     <%end%>
 
 
-    <!--  LISTADOS DE CAPTURAS -->
-
-    <%if @cliente.forms.count > 0%>
-        <%= render 'list' %>
-    <%else%>
-        <H3>No hay formas de captura de este cliente</H3>
-    <%end%>
 
     <!--  DIRECTORIO -->
     <%if @cliente.contactos.count > 0%>

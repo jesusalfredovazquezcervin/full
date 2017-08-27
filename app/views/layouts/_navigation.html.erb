@@ -80,6 +80,12 @@
                   <span class="nav-label">FAQ</span>
                 </a>
             </li>
+            <li>
+                <%= link_to(captures_listados_path(@cuenta),{method: :patch, target: '_blank' }) do%>
+
+                    <i class="fa fa-envelope"></i> <strong>Listados</strong>
+                <% end %>
+            </li>
           <%end%>
 
         </ul>

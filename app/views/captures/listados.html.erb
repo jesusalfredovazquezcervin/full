@@ -1,0 +1,16 @@
+<div class="wrapper wrapper-content">
+  <div class="row">
+
+
+    <!--  LISTADOS DE CAPTURAS -->  
+    <%if @cliente.forms.count > 0%> 
+        <%= render 'list' %>
+     <%else%> 
+        <H3>No hay listados para éste cliente</H3> 
+    <%end%> 
+
+
+
+  </div>
+</div>
+
