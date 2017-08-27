@@ -113,12 +113,15 @@
                             <%= f.check_box fld , id: (field.behave=="Primario" ? ("ctl_prim_" << fld):(field.behave=="Alterno" ? ("ctl_alt_" << fld):("ctl_com_" << fld))) << (field.mandatory ? "r":"o")%>
                         <%when "List"%>
                             <% if field.mandatory%>
-                                <%= f.select fld, options_for_select(field.list.split(",").map(&:strip).collect { |valor|
-                                                                       [valor] }), {:required => 'true'}, {class:"form-control m-b", style: "width:350px;", id: (field.behave=="Primario" ? ("ctl_prim_" << fld):(field.behave=="Alterno" ? ("ctl_alt_" << fld):("ctl_com_" << fld))) << (field.mandatory ? "r":"o") } %>
+                                <%= f.select(fld, field.list.split(",").map(&:strip).collect { |valor|[valor]},
+                                             {required: true}, {class:"form-control m-b", style: "width:350px;", id: (field.behave=="Primario" ? ("ctl_prim_" << fld):(field.behave=="Alterno" ? ("ctl_alt_" << fld):("ctl_com_" << fld))) << (field.mandatory ? "r":"o")} )%>
+
+
                             <%else%>
-                                <%= f.select fld, options_for_select(field.list.split(",").map(&:strip).collect { |valor|
-                                                                       [valor] }), {:include_blank => '-- Seleccione --'   }, {class:"form-control m-b", style: "width:350px;", id: (field.behave=="Primario" ? ("ctl_prim_" << fld):(field.behave=="Alterno" ? ("ctl_alt_" << fld):("ctl_com_" << fld))) << (field.mandatory ? "r":"o") } %>
+                                <%= f.select(fld, options_for_select(field.list.split(",").map(&:strip).collect { |valor|
+                                                                       [valor]}), {:include_blank => '-- Seleccione --'   }, {class:"form-control m-b", style: "width:350px;", id: (field.behave=="Primario" ? ("ctl_prim_" << fld):(field.behave=="Alterno" ? ("ctl_alt_" << fld):("ctl_com_" << fld))) << (field.mandatory ? "r":"o") } )%>
                             <%end%>
+
                         <%end%>
                       </div>
                       <br>
