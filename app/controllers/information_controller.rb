@@ -11,10 +11,26 @@ class InformationController < ApplicationController
     respond_with(@information)
   end
 
+
   def show
+    logger.debug params[:id]
     @clientes = Cliente.all
     @current_user = current_user
     @user = current_user
+    @notification = Notification.new
+    @cuenta = @information.datosgenerale
+    @cliente = @cuenta.cliente
+    @capture= Capture.new
+    @clientes = Cliente.all #Aqui en el futuro deberé solamente traer los clientes a los que está asociado el operador
+    @direccion = @cliente.sucursals.all.select{|s| s.direccion.try(:matriz)==true}.empty? ? (nil):(@cliente.sucursals.all.select{|s| s.direccion.try(:matriz)==true}[0].direccion)
+    @horario = @cliente.sucursals.all.select{|s| s.direccion.try(:matriz)==true}.empty? ? (nil):(@cliente.sucursals.all.select{|s| s.direccion.try(:matriz)==true}[0].horario)
+    @contacto = @cliente.sucursals.all.select{|s| s.direccion.try(:matriz)==true}.empty? ? (nil):(@cliente.sucursals.all.select{|s| s.direccion.try(:matriz)==true}[0].main)
+    @sucursales = Sucursal.where(:cliente_id => @cliente.id)
+    @products = Product.all
+
+    @user= current_user
+    @cuentas = Datosgenerale.all.order(:account).collect{|account| [" " << account.cliente.nombre << "   |    " << account.account << "    |    " << account.frase , account.id]}.sort
+    @call = Call.create(start: DateTime.now)
     dashboard
   end
 
@@ -80,7 +96,7 @@ class InformationController < ApplicationController
   def destroy
     @information.destroy
     respond_to do |format|
-      format.html { redirect_to({controller: "captures" , action: 'index', id:@information.datosgenerale_id}, alert: "El registro ha sido eliminado exitosamente") }
+      format.html { redirect_to({controller: "captures" , action: 'listados', cuenta:@information.datosgenerale_id}, alert: "El registro ha sido eliminado exitosamente") }
       format.json { head :no_content }
     end
   end
