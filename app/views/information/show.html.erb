@@ -17,7 +17,7 @@
         <dd><%=@information.usuario.email%>  <%=@information.created_at%></dd>
 
         <dt>Actualizado por:</dt>
-        <dd><%=@information.userupdate.email%>  <%=@information.updated_at%></dd>
+        <dd><%=@information.try(:userupdate).try(:email)%>  <%=@information.try(:updated_at)%></dd>
         <dt>Formulario:</dt>
         <dd><%=@information.form.name.titleize%></dd>
       </dl>
