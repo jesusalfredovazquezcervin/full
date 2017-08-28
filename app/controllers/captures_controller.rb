@@ -64,16 +64,17 @@ class CapturesController < ApplicationController
     dashofintel
   end
   def listados
-    id=params[:id]=="id" ? (params[:cuenta_id]):(params[:id])
+    logger.debug params[:cuenta]
+
     @notification = Notification.new
-    @cuenta = Datosgenerale.find_by_id(id)
+    @cuenta = Datosgenerale.find_by_id(params[:cuenta])
     @cliente = @cuenta.cliente
     @capture= Capture.new
-    @clientes = Cliente.all
+    @clientes = Cliente.all #Aqui en el futuro deberé solamente traer los clientes a los que está asociado el operador
     @direccion = @cliente.sucursals.all.select{|s| s.direccion.try(:matriz)==true}.empty? ? (nil):(@cliente.sucursals.all.select{|s| s.direccion.try(:matriz)==true}[0].direccion)
     @horario = @cliente.sucursals.all.select{|s| s.direccion.try(:matriz)==true}.empty? ? (nil):(@cliente.sucursals.all.select{|s| s.direccion.try(:matriz)==true}[0].horario)
     @contacto = @cliente.sucursals.all.select{|s| s.direccion.try(:matriz)==true}.empty? ? (nil):(@cliente.sucursals.all.select{|s| s.direccion.try(:matriz)==true}[0].main)
-    @sucursales = Sucursal.where(:cliente_id => id)
+    @sucursales = Sucursal.where(:cliente_id => @cliente.id)
     @products = Product.all
     @information = Information.new
     @user= current_user
