@@ -81,9 +81,9 @@
                 </a>
             </li>
             <li>
-                <%= link_to(captures_listados_path(@cuenta),{method: :patch, target: '_blank' }) do%>
+                <%= link_to(captures_listados_path(@cuenta),{method: 'get', target: '_blank' }) do%>
 
-                    <i class="fa fa-envelope"></i> <strong>Listados</strong>
+                    <i class="fa fa-list-ul"></i> <strong>Listados</strong>
                 <% end %>
             </li>
           <%end%>
