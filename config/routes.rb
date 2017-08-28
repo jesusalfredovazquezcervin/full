@@ -1,4 +1,7 @@
 Myapp::Application.routes.draw do
+  get "information/:id", to: "information#show", as: "information_show"
+
+  get "captures/listados/:cuenta", to: "captures#listados", as: "captures_listados"
 
   get 'scalings/update_datosgenerales', as: 'scaling_update_datosgenerales'
   resources :scalings
@@ -95,7 +98,6 @@ Myapp::Application.routes.draw do
   #get "captures/consultar", to: "captures#consultar", as: 'captures_consultar_cliente'
   #post "captures/consultar"
   patch "captures/consultar/:id", to: "captures#consultar", as: "captures_consultar"
-  patch "captures/listados/:id", to: "captures#listados", as: "captures_listados"
 
   resources :agendas
 
