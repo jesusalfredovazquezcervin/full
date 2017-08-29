@@ -1,279 +1,256 @@
-<div class="row" id="divdirectorio">
-  <div class="col-lg-12">
-    <div class="ibox">
-      <div class="ibox-title">
-        <h5>Directorio<small class="m-l-sm">Aqui tienes los empleados de:</small> <%=@cuenta.account%>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <small class="m-l-sm">Ultima modificacion: <i class="fa fa-clock-o"></i>
-            <%= @cuenta.contactos.try(:order, "updated_at").last.try(:updated_at) %>
-          </small>
 
-        </h5>
+<div class="wrapper wrapper-content  animated fadeInRight">
+  <div class="row">
+    <div class="col-sm-8">
+      <div class="ibox">
+        <div class="ibox-content">
+          <span class="text-muted small pull-right">Ultima modificacion: <i class="fa fa-clock-o"></i> <%= @cuenta.contactos.try(:order, "updated_at").last.try(:updated_at) %></span>
+          <h2>Directorio</h2>
+          <p>
+            Aqui tienes los empleados de: <%=@cuenta.account%>
+          </p>
 
-        <div class="ibox-tools">
-          <a class="collapse-link">
-            <i class="fa fa-chevron-up"></i>
-          </a>
-          <a class="fullscreen-link">
-            <i class="fa fa-expand"></i>
-          </a>
-          <a class="close-link">
-            <i class="fa fa-times"></i>
-          </a>
-        </div>
-      </div>
-      <div class="ibox-content">
-        <div class="wrapper wrapper-content  animated fadeInRight">
-          <div class="row">
-            <div class="col-sm-8">
-              <div class="clients-list">
-                <ul class="nav nav-tabs">
-                  <li class="active" id="licontactos"><a data-toggle="tab" href="#tabcontactos"><i class="fa fa-tty"></i> Directorio (<%=@cuenta.contactos.count%>)</a></li>
-                  <li class="" id="liagenda"><a data-toggle="tab" href="#tabagenda"><i class="fa fa-book"></i> Agenda (<%=@cuenta.agendas.count%>)</a></li>
-                </ul>
-                <div class="tab-content">
-                  <div id="tabcontactos" class="tab-pane active">
-                    <div class="ibox-content">
-                      <div class="input-group" >
-                        <input type="text" class="form-control input-sm m-b-xs" id="filter"
-                               placeholder="Buscar en directorio">
+          <div class="clients-list">
+            <ul class="nav nav-tabs">
+              <li class="active" id="licontactos"><a data-toggle="tab" href="#tabcontactos"><i class="fa fa-tty"></i> Directorio (<%=@cuenta.contactos.count%>)</a></li>
+              <li class="" id="liagenda"><a data-toggle="tab" href="#tabagenda"><i class="fa fa-book"></i> Agenda (<%=@cuenta.agendas.count%>)</a></li>
+            </ul>
+            <div class="tab-content">
+              <div id="tabcontactos" class="tab-pane active">
+                <div class="full-height-scroll">
+                  <div class="table-responsive">
+                    <div class="input-group" >
+                      <input type="text" class="form-control input-sm m-b-xs" id="filter"
+                             placeholder="Buscar en directorio">
                                 <span class="input-group-addon">
                                     <span class="fa fa-search"></span>
                                 </span>
-                      </div>
+                    </div>
+                    <table class="table table-striped table-hover" data-page-size="8" data-filter=#filter>
+                      <tbody>
+                      <% @cuenta.contactos.each do |contacto| %>
+                          <tr>
+                            <td class="client-avatar">
 
-                      <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
-                        <tbody>
-                        <% @cuenta.contactos.each do |contacto| %>
-                            <tr>
-                              <td class="client-avatar">
+                              <%if contacto.avatar.url == '/images/original/avatar_empty.png'%>
+                                  <img alt="image" src="<%= image_path('avatar_empty.png') %>" >
+                              <%else%>
+                                  <img src="<%= image_path(contacto.avatar.url(:thumb)) %>" >
+                              <%end%>
+                            </td>
+                            <td><a data-toggle="tab" href="#contact-<%=contacto.id%>" class="client-link"><%=contacto.nombre%></a></td>
+                            <td class="contact-type"><i class="fa fa-phone"> </i></td>
+                            <td> <%=contacto.telefono%></td>
+                            <td class="contact-type"><i class="fa fa-envelope"> </i></td>
+                            <td> <%=contacto.email%></td>
 
-                                <%if contacto.avatar.url == '/images/original/avatar_empty.png'%>
-                                    <img alt="image" src="<%= image_path('avatar_empty.png') %>" >
-                                <%else%>
-                                    <img src="<%= image_path(contacto.avatar.url(:thumb)) %>" >
-                                <%end%>
-                              </td>
-                              <td><a data-toggle="tab" href="#contact-<%=contacto.id%>" class="client-link"><%=contacto.nombre%></a></td>
-                              <td class="contact-type"><i class="fa fa-phone"> </i></td>
-                              <td> <%=contacto.telefono%></td>
-                              <td class="contact-type"><i class="fa fa-envelope"> </i></td>
-                              <td> <%=contacto.email%></td>
-
-                              <td class="client-status">
-                                <% if contacto.notifications.active.count > 0 %>
+                            <td class="client-status">
+                              <% if contacto.notifications.active.count > 0 %>
                               <span class="label label-danger">
                                   <%= 'Notificacion (' << contacto.notifications.active.count.to_s << ')'%>
                               </span>
-                                <%end%>
+                              <%end%>
 
-                              </td>
-                            </tr>
-                        <%end%>
-                        </tbody>
-                        <tfoot>
-                        <tr>
-                          <td colspan="8">
-                            <ul class="pagination pull-right"></ul>
-                          </td>
-                        </tr>
-                        </tfoot>
-                      </table>
-                    </div>
+                            </td>
+                          </tr>
+                      <%end%>
+                      </tbody>
+                      <tfoot>
+                      <tr>
+                        <td colspan="8">
+                          <ul class="pagination pull-right"></ul>
+                        </td>
+                      </tr>
+                      </tfoot>
+                    </table>
                   </div>
-                  <div id="tabagenda" class="tab-pane">
-                    <div class="ibox-content">
-                      <div class="input-group" >
-                        <input type="text" class="form-control input-sm m-b-xs" id="filter2"
-                               placeholder="Buscar en agenda">
+                </div>
+              </div>
+              <div id="tabagenda" class="tab-pane">
+                <div class="full-height-scroll">
+                  <div class="table-responsive">
+                    <div class="input-group" >
+                      <input type="text" class="form-control input-sm m-b-xs" id="filter2"
+                             placeholder="Buscar en agenda">
                                 <span class="input-group-addon">
                                     <span class="fa fa-search"></span>
                                 </span>
-                      </div>
-
-                      <table class="footable table table-stripped" data-page-size="8" data-filter=#filter2>
-                        <tbody>
-                        <% @cuenta.agendas.each do |agenda| %>
-                            <tr>
-                              <td class="client-avatar">
-
-                                <%if agenda.avatar.url == '/images/original/avatar_empty.png'%>
-                                    <img alt="image" src="<%= image_path('avatar_empty.png') %>" >
-                                <%else%>
-                                    <img src="<%= image_path(agenda.avatar.url(:thumb)) %>" >
-                                <%end%>
-                              </td>
-                              <td><a data-toggle="tab" href="#agenda-<%=agenda.id%>" class="client-link"><%=agenda.nombre%></a></td>
-                              <td> <%=agenda.rfc%></td>
-                              <td class="contact-type"><i class="fa fa-phone"> </i></td>
-                              <td> <%=agenda.telefono%></td>
-                              <td class="contact-type"><i class="fa fa-envelope"> </i></td>
-                              <td> <%=agenda.email%></td>
-                            </tr>
-                        <%end%>
-                        </tbody>
-                        <tfoot>
-                        <tr>
-                          <td colspan="8">
-                            <ul class="pagination pull-right"></ul>
-                          </td>
-                        </tr>
-                        </tfoot>
-                      </table>
                     </div>
+                    <table class="table table-striped table-hover" data-page-size="8" data-filter=#filter2>
+                      <tbody>
+                      <% @cuenta.agendas.each do |agenda| %>
+                          <tr>
+                            <td class="client-avatar">
+
+                              <%if agenda.avatar.url == '/images/original/avatar_empty.png'%>
+                                  <img alt="image" src="<%= image_path('avatar_empty.png') %>" >
+                              <%else%>
+                                  <img src="<%= image_path(agenda.avatar.url(:thumb)) %>" >
+                              <%end%>
+                            </td>
+                            <td><a data-toggle="tab" href="#agenda-<%=agenda.id%>" class="client-link"><%=agenda.nombre%></a></td>
+                            <td> <%=agenda.rfc%></td>
+                            <td class="contact-type"><i class="fa fa-phone"> </i></td>
+                            <td> <%=agenda.telefono%></td>
+                            <td class="contact-type"><i class="fa fa-envelope"> </i></td>
+                            <td> <%=agenda.email%></td>
+                          </tr>
+                      <%end%>
+                      </tbody>
+                      <tfoot>
+                      <tr>
+                        <td colspan="8">
+                          <ul class="pagination pull-right"></ul>
+                        </td>
+                      </tr>
+                      </tfoot>
+                    </table>
                   </div>
                 </div>
               </div>
             </div>
 
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="ibox ">
 
+        <div class="ibox-content">
+          <div class="tab-content">
+            <% @cuenta.contactos.each do |contacto| %>
+                <div id="contact-<%=contacto.id%>" class="tab-pane <%=@cuenta.contactos.first.id.equal?(contacto.id) ? ('active'):('')%>">
+                  <div class="row m-b-lg">
+                    <div class="col-lg-4 text-center">
+                      <h2><%=contacto.nombre%></h2>
 
-            <!--  Panel lateral der del direc -->
-            <div class="col-sm-4">
-
-              <div class="tab-content">
-                <% @cuenta.contactos.each do |contacto| %>
-                    <div id="contact-<%=contacto.id%>" class="tab-pane <%=@cuenta.contactos.first.id.equal?(contacto.id) ? ('active'):('')%>">
-                      <div class="row m-b-lg">
-                        <div class="col-lg-4 text-center">
-                          <h2><%=contacto.nombre%></h2>
-
-                          <div class="m-b-sm">
-                            <%if contacto.avatar.url == '/images/original/avatar_empty.png'%>
-                                <img alt="image" src="<%= image_path('avatar_empty.png') %>" style="width: 62px">
-                            <%else%>
-                                <img src="<%= image_path(contacto.avatar.url(:thumb)) %>" style="width: 62px">
-                            <%end%>
-                          </div>
-                        </div>
-                        <div class="col-lg-8">
-                          <p>
-                            Mi puesto es: <strong><%=contacto.puesto%></strong>
-                            <%if !contacto.funciones.nil? and contacto.funciones!=''%>
-                                y mis funciones: <strong><%=contacto.funciones%></strong>
-                            <%end%>
-                          </p>
-                          <button type="button" class="btn btn-primary btn-sm btn-block">
-                            <i class="fa fa-envelope"></i> Enviar correo
-                          </button>
-                        </div>
-                      </div>
-                      <div class="client-detail">
-                        <div class="full-height-scroll">
-
-                          <strong>Datos completos</strong>
-
-                          <ul class="list-group clear-list">
-                            <li class="list-group-item fist-item">
-                              <span class="pull-right"> <%=contacto.clientes.collect{|c| c.nombre} %> </span>
-                              <h3><i class="fa fa-institution"></i></h3>
-                            </li>
-                                <li class="list-group-item">
-                                  <span class="pull-right"> <%=contacto.clientes.collect{|c| c.nombreComercial}%> </span>
-                                  Nombre comercial
-                                </li>
-
-
-                            <li class="list-group-item">
-                              <span class="pull-right"> <%=Sucursal.find_by_id(contacto.sucursal_id).try(:nombre)%> </span>
-                              <h3><i class="fa fa-building"></i></h3>
-                            </li>
-                            <%if !contacto.ext.nil? and contacto.ext!=''%>
-                                <li class="list-group-item">
-                                  <span class="pull-right"> <%=contacto.ext%> </span>
-                                  Ext
-                                </li>
-                            <%end%>
-
-                            <%if !contacto.cel.nil? and contacto.cel!=''%>
-                                <li class="list-group-item">
-                                  <span class="pull-right"> <%=contacto.cel%> </span>
-                                  <h2><i class="fa fa-mobile-phone"></i></h2>
-                                </li>
-                            <%end%>
-                            <%if !contacto.skype.nil? and contacto.skype!=''%>
-                                <li class="list-group-item">
-                                  <span class="pull-right"> <%=contacto.skype%> </span>
-                                  <h2><i class="fa fa-skype"></i></h2>
-                                </li>
-                            <%end%>
-                          </ul>
-
-                        </div>
+                      <div class="m-b-sm">
+                        <%if contacto.avatar.url == '/images/original/avatar_empty.png'%>
+                            <img alt="image" src="<%= image_path('avatar_empty.png') %>" style="width: 62px">
+                        <%else%>
+                            <img src="<%= image_path(contacto.avatar.url(:thumb)) %>" style="width: 62px">
+                        <%end%>
                       </div>
                     </div>
-                <%end%>
+                    <div class="col-lg-8">
+                      <p>
+                        Mi puesto es: <strong><%=contacto.puesto%></strong>
+                        <%if !contacto.funciones.nil? and contacto.funciones!=''%>
+                            y mis funciones: <strong><%=contacto.funciones%></strong>
+                        <%end%>
+                      </p>
+                      <button type="button" class="btn btn-primary btn-sm btn-block">
+                        <i class="fa fa-envelope"></i> Enviar correo
+                      </button>
+                    </div>
+                  </div>
+                  <div class="client-detail">
+                    <div class="full-height-scroll">
+
+                      <strong>Datos completos</strong>
+
+                      <ul class="list-group clear-list">
+                        <li class="list-group-item fist-item">
+                          <span class="pull-right"> <%=contacto.clientes.collect{|c| c.nombre} %> </span>
+                          <h3><i class="fa fa-institution"></i></h3>
+                        </li>
+                        <li class="list-group-item">
+                          <span class="pull-right"> <%=contacto.clientes.collect{|c| c.nombreComercial}%> </span>
+                          Nombre comercial
+                        </li>
 
 
-                <% @cuenta.agendas.each do |agenda| %>
-                    <div id="agenda-<%=agenda.id%>" class="tab-pane">
-                      <div class="row m-b-lg">
-                        <div class="col-lg-4 text-center">
-                          <h2><%=agenda.nombre.titleize%></h2>
-                        </div>
-                        <div class="col-lg-8">
+                        <li class="list-group-item">
+                          <span class="pull-right"> <%=Sucursal.find_by_id(contacto.sucursal_id).try(:nombre)%> </span>
+                          <h3><i class="fa fa-building"></i></h3>
+                        </li>
+                        <%if !contacto.ext.nil? and contacto.ext!=''%>
+                            <li class="list-group-item">
+                              <span class="pull-right"> <%=contacto.ext%> </span>
+                              Ext
+                            </li>
+                        <%end%>
+
+                        <%if !contacto.cel.nil? and contacto.cel!=''%>
+                            <li class="list-group-item">
+                              <span class="pull-right"> <%=contacto.cel%> </span>
+                              <h2><i class="fa fa-mobile-phone"></i></h2>
+                            </li>
+                        <%end%>
+                        <%if !contacto.skype.nil? and contacto.skype!=''%>
+                            <li class="list-group-item">
+                              <span class="pull-right"> <%=contacto.skype%> </span>
+                              <h2><i class="fa fa-skype"></i></h2>
+                            </li>
+                        <%end%>
+                      </ul>
+
+                    </div>
+                  </div>
+                </div>
+            <%end%>
+
+
+            <% @cuenta.agendas.each do |agenda| %>
+                <div id="agenda-<%=agenda.id%>" class="tab-pane">
+                  <div class="row m-b-lg">
+                    <div class="col-lg-4 text-center">
+                      <h2><%=agenda.nombre.titleize%></h2>
+                    </div>
+                    <div class="col-lg-8">
                         <span class="pull-right">
                           <strong><%=agenda.rfc.upcase%></strong>
                         </span>
-                        </div>
-                      </div>
-                      <div class="client-detail">
-                        <div class="full-height-scroll">
+                    </div>
+                  </div>
+                  <div class="client-detail">
+                    <div class="full-height-scroll">
 
-                          <strong>Datos completos</strong>
+                      <strong>Datos completos</strong>
 
-                          <ul class="list-group clear-list">
-                            <li class="list-group-item fist-item">
-                              <span class="pull-left"> <%=agenda.nombre.titleize%> </span>
-                            </li>
-                            <br>
-                            <li class="list-group-item">
+                      <ul class="list-group clear-list">
+                        <li class="list-group-item fist-item">
+                          <span class="pull-left"> <%=agenda.nombre.titleize%> </span>
+                        </li>
+                        <br>
+                        <li class="list-group-item">
                           <span class="pull-left">
                             <h3><i class="fa fa-home"></i></h3>
                             <%=agenda.calle.titleize%>,&nbsp;<%=agenda.numero%>,&nbsp;<%=agenda.colonia.titleize%>,&nbsp;<%=agenda.delegacion.titleize%>,&nbsp;<%=agenda.estado.titleize%>,&nbsp;<%=agenda.cp.titleize%>
 
 
                           </span>
+                        </li>
+                        <br><br><br><br>
+                        <%if !agenda.email.nil? and agenda.email!=''%>
+                            <li class="list-group-item">
+                              <span class="pull-right"> <%=agenda.email%> </span>
+                              <h3><i class="fa fa-envelope"></i></h3>
                             </li>
-                            <br><br><br><br>
-                            <%if !agenda.email.nil? and agenda.email!=''%>
-                                <li class="list-group-item">
-                                  <span class="pull-right"> <%=agenda.email%> </span>
-                                  <h3><i class="fa fa-envelope"></i></h3>
-                                </li>
-                            <%end%>
-                            <%if !agenda.telefono.nil? and agenda.telefono!=''%>
-                                <li class="list-group-item">
-                                  <span class="pull-right"> <%=agenda.telefono%> </span>
-                                  <h2><i class="fa fa-phone"></i></h2>
-                                </li>
-                            <%end%>
-                            <%if !agenda.cel.nil? and agenda.cel!=''%>
-                                <li class="list-group-item">
-                                  <span class="pull-right"> <%=agenda.cel%> </span>
-                                  <h2><i class="fa fa-mobile-phone"></i></h2>
-                                </li>
-                            <%end%>
-                          </ul>
-                        </div>
-                      </div>
+                        <%end%>
+                        <%if !agenda.telefono.nil? and agenda.telefono!=''%>
+                            <li class="list-group-item">
+                              <span class="pull-right"> <%=agenda.telefono%> </span>
+                              <h2><i class="fa fa-phone"></i></h2>
+                            </li>
+                        <%end%>
+                        <%if !agenda.cel.nil? and agenda.cel!=''%>
+                            <li class="list-group-item">
+                              <span class="pull-right"> <%=agenda.cel%> </span>
+                              <h2><i class="fa fa-mobile-phone"></i></h2>
+                            </li>
+                        <%end%>
+                      </ul>
                     </div>
-                <%end%>
-              </div>
-
-            </div>
+                  </div>
+                </div>
+            <%end%>
           </div>
+
+
         </div>
-        <br><br>
       </div>
     </div>
   </div>
 </div>
-
-
-
-
-
-
-
-
