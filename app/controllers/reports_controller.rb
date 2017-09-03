@@ -149,8 +149,20 @@ class ReportsController < ApplicationController
   end
 
   def destroy
-    @report.destroy
-    respond_with(@report)
+    respond_to do |format|
+      if @report.temp
+      @report.destroy
+      format.html { redirect_to report_customize_path ,notice: "El reporte ha sido eliminado exitosamente" }
+      format.json { render action: 'show', :layout => "layout_2", status: :created, location: @report }
+      else
+
+        @report.destroy
+        format.html { redirect_to reports_path ,notice: "El reporte ha sido eliminado exitosamente" }
+        format.json { render json: @report.errors, status: :unprocessable_entity }
+      end
+    end
+
+
   end
   def update_datosgenerales
     cliente = Cliente.find_by_id params[:cliente_id]
@@ -201,6 +213,11 @@ class ReportsController < ApplicationController
     @report.periodicity = 'varios_dias'
     @report.schedule = 'nocturno'
     @report.save!
+
+    logger.debug "------params[:accounts]-----"
+    logger.debug params[:accounts]
+    ReportAccount.where(report_id: params[:id]).each{|c| c.destroy}
+    ReportAccount.create(report_id: @report.id, datosgenerale_id: params[:accounts]) unless ReportAccount.where(report_id: @report.id, datosgenerale_id: params[:accounts]).exists?
     respond_to do |format|
       format.html { redirect_to({ controller:'reports', action: 'query',  id: @report.id }) }
     end
