@@ -34,37 +34,37 @@
 
         </div>
         <div class="ibox-content">
+          <div class="client-detail">
+                <h4>Cliente:</h4>
+                <p><%= @information.form.cliente.nombre %></p>
 
-          <div class="form-group">
-            <div class="form-group">
-              <h4>Cliente:</h4>
-              <div class="col-sm-5">
-                <%= @information.form.cliente.nombre %>
-              </div><br>
 
-              <h4>Operador:</h4>
-              <div class="col-sm-5">
-                <%= @information.usuario.email%>
-              </div><br>
-              <% @information.form.fields.order(:position).each_with_index do |field, index| %>
-                  <%fld = @information.form.fields.order(:id).each_with_index.map {|f,i| {f.position => "field" + (i+1).to_s }}.select{|f| f[field.position]}[0].each_pair.map{|k,v| v}[0]%>
+                <h4>Operador:</h4>
+                <%= @information.usuario.email%><hr/>
+
+                <% @information.form.fields.order(:position).each_with_index do |field, index| %>
+                    <%fld = @information.form.fields.order(:id).each_with_index.map {|f,i| {f.position => "field" + (i+1).to_s }}.select{|f| f[field.position]}[0].each_pair.map{|k,v| v}[0]%>
                     <%type=field.data_type%>
                     <h4><%= field.name%></h4>
-                    <div class="col-sm-5">
+
                       <%case field.data_type%>
-                          <%when "Date"%>
-                              <%=@information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? nil:(((@information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1]).nil? ? (nil):(((@information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1]).to_date)) %>
-                          <%when "Datetime"%>
-                              <%=@information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? nil:(((@information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1]).nil? ? (nil):(((@information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1]).to_date)) %>
-                          <%when "Boolean"%>
-                              <%=@information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? nil:!((@information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1]).to_i.zero?%>
-                          <%else%>
-                              <%=@information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? nil:((@information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1])%>
-                      <%end%>
-                    </div>
-                  <br>
-              <%end%>
-            </div>
+                      <%when "Date"%>
+                          <%=@information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? nil:(((@information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1]).nil? ? (nil):(((@information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1]).to_date)) %>
+                      <%when "Datetime"%>
+                          <%=@information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? nil:(((@information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1]).nil? ? (nil):(((@information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1]).to_date)) %>
+                      <%when "Boolean"%>
+                          <%=@information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? nil:!((@information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1]).to_i.zero?%>
+                      <%when "Text"%>
+                          <p><%=@information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? nil:((@information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1])%>
+                          </p>
+
+                      <%else%>
+                        <p>
+                          <%=@information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? nil:((@information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1])%></p>
+                    <%end%>
+
+                    <br>
+                <%end%>
           </div>
           <div class="actions">
             <div class="form-group">
