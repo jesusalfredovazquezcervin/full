@@ -22,7 +22,7 @@
 
               <div class="form-group">
                 <div class="form-group">
-                  <%= f.label "Formulario", class: 'col-sm-2 control-label'%>
+                  <%= f.label "Formulario", class: 'col-sm-4 control-label'%>
                   <div class="col-sm-5">
                     <%= f.select :form_id, options_for_select(Form.all.collect { |formulario|
                                                                    [formulario.name, formulario.id] }, @information.form_id), {}, { id: 'clientes_select', class:"chosen-select", style: "width:350px;", :disabled => true} %>
@@ -33,7 +33,7 @@
                 <div class="hr-line-dashed"></div>
 
                 <div class="form-group">
-                  <%= f.label "Operador", class: 'col-sm-2 control-label'%>
+                  <%= f.label "Operador", class: 'col-sm-4 control-label'%>
                   <div class="col-sm-5">
                     <%= f.select :usuario_id, options_for_select(Usuario.all.collect { |operador|
                                                                    [operador.email, operador.id] }, @information.usuario_id), {:readonly => true}, {class:"chosen-select", style: "width:350px;",:disabled => true } %>
@@ -51,67 +51,86 @@
                 <% @information.form.fields.order(:position).each_with_index do |field, index| %>
                     <%fld = @information.form.fields.order(:id).each_with_index.map {|f,i| {f.position => "field" + (i+1).to_s }}.select{|f| f[field.position]}[0].each_pair.map{|k,v| v}[0]%>
                     <div   <%= field.behave == "Alterno" ? ("hidden = 'true'"):('') %> class="form-group" id = <%=  field.behave=="Primario" ? ("div_prim_" << fld):(field.behave=="Alterno" ? ("div_alt_" << fld):("div_com_" << fld))%>>
-                      <%= f.label field.mandatory? ? (field.name << " *"):(field.name) , class: 'col-sm-2 control-label'%>
-                      <div class="col-sm-5">
+                      <%= f.label field.mandatory? ? (field.name << " *"):(field.name) , class: 'col-sm-4 control-label'%>
                         <%case field.data_type%>
                         <%when "Date"%>
-                            <div class="form-group">
-                              <div class="col-sm-9">
+                          <div class="col-sm-5">
+                              <div class="form-group">
+                                  <div class="col-sm-9">
+                                    <div class="form-group" id="data_1">
+                                      <div class="input-group date">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        <%= f.text_field fld, class: "form-control", value: @information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? (Date.today.strftime("%Y-%m-%d")):((@information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1]).to_date.strftime("%Y-%m-%d"),
+                                                         required: field.mandatory ? (true):(false),
+                                                         id: (field.behave=="Primario" ? ("ctl_prim_" << fld):(field.behave=="Alterno" ? ("ctl_alt_" << fld):("ctl_com_" << fld))) << (field.mandatory ? "r":"o")%>
 
 
-                                <div class="form-group" id="data_1">
-                                  <div class="input-group date">
-                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                    <%= f.text_field fld, class: "form-control", value: @information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? (Date.today.strftime("%Y-%m-%d")):((@information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1]).to_date.strftime("%Y-%m-%d"),
-                                                     required: field.mandatory ? (true):(false),
-                                                     id: (field.behave=="Primario" ? ("ctl_prim_" << fld):(field.behave=="Alterno" ? ("ctl_alt_" << fld):("ctl_com_" << fld))) << (field.mandatory ? "r":"o")%>
 
-
-
+                                      </div>
+                                    </div>
                                   </div>
-                                </div>
                               </div>
-                            </div>
-
-
+                          </div>
+                          <br>
+                          <div class="hr-line-dashed"></div>
                         <%when "DateTime"%>
+                          <div class="col-sm-5">
+
                             <div class="form-group">
-                              <div class="col-sm-9">
-                                <div class="form-group" id="data_1">
-                                  <div class="input-group date">
-                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                    <%= f.text_field fld, class: "form-control", value: @information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? (Date.today.strftime("%Y-%m-%d")):((@information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1]).to_date.strftime("%Y-%m-%d"),
-                                                     required: field.mandatory ? (true):(false),
-                                                     id: (field.behave=="Primario" ? ("ctl_prim_" << fld):(field.behave=="Alterno" ? ("ctl_alt_" << fld):("ctl_com_" << fld))) << (field.mandatory ? "r":"o")%>
+                                  <div class="col-sm-9">
+                                    <div class="form-group" id="data_1">
+                                      <div class="input-group date">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        <%= f.text_field fld, class: "form-control", value: @information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? (Date.today.strftime("%Y-%m-%d")):((@information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1]).to_date.strftime("%Y-%m-%d"),
+                                                         required: field.mandatory ? (true):(false),
+                                                         id: (field.behave=="Primario" ? ("ctl_prim_" << fld):(field.behave=="Alterno" ? ("ctl_alt_" << fld):("ctl_com_" << fld))) << (field.mandatory ? "r":"o")%>
 
 
+                                      </div>
+                                    </div>
                                   </div>
-                                </div>
-                              </div>
 
-                              <div class="col-sm-3" style="width: 100px">
-                                <div class="input-group clockpicker" data-autoclose="true" >
-                                  <%= f.text_field (fld + '_time'),
-                                                   value: @information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? (DateTime.now.strftime("%H:%M")):((@information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1]).to_datetime.strftime('%H:%M'),
-                                                   required: field.mandatory ? (true):(false),
-                                                   id: (field.behave=="Primario" ? ("ctl_prim_" << fld):(field.behave=="Alterno" ? ("ctl_alt_" << fld):("ctl_com_" << fld))) << (field.mandatory ? "r":"o")%>
-                                  <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-time"></span>
-                            </span>
-                                </div>
-                              </div>
+                                  <div class="col-sm-3" style="width: 100px">
+                                    <div class="input-group clockpicker" data-autoclose="true" >
+                                      <%= f.text_field (fld + '_time'),
+                                                       value: @information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? (DateTime.now.strftime("%H:%M")):((@information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1]).to_datetime.strftime('%H:%M'),
+                                                       required: field.mandatory ? (true):(false),
+                                                       id: (field.behave=="Primario" ? ("ctl_prim_" << fld):(field.behave=="Alterno" ? ("ctl_alt_" << fld):("ctl_com_" << fld))) << (field.mandatory ? "r":"o")%>
+                                      <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-time"></span>
+                                </span>
+                                    </div>
+                                  </div>
                             </div>
-
-
-                      <%when "Integer"%>
+                          </div>
+                          <br>
+                          <div class="hr-line-dashed"></div>
+                        <%when "Integer"%>
+                          <div class="col-sm-5">
                             <%= f.number_field fld, class: 'form-control', required: field.mandatory ? (true):(false) , id: (field.behave=="Primario" ? ("ctl_prim_" << fld):(field.behave=="Alterno" ? ("ctl_alt_" << fld):("ctl_com_" << fld))) << (field.mandatory ? "r":"o") %>
+
+                          </div>
+                          <br>
+                          <div class="hr-line-dashed"></div>
+
                         <%when "String"%>
+                          <div class="col-sm-5">
                             <%= f.text_field fld, class: 'form-control', required: field.mandatory ? (true):(false) , id: (field.behave=="Primario" ? ("ctl_prim_" << fld):(field.behave=="Alterno" ? ("ctl_alt_" << fld):("ctl_com_" << fld))) << (field.mandatory ? "r":"o") %>
+
+                          </div>
+                          <br>
+                          <div class="hr-line-dashed"></div>
 
 
                         <%when "Boolean"%>
+                          <div class="col-sm-5">
                             <%= f.check_box fld , id: (field.behave=="Primario" ? ("ctl_prim_" << fld):(field.behave=="Alterno" ? ("ctl_alt_" << fld):("ctl_com_" << fld))) << (field.mandatory ? "r":"o")%>
+
+                          </div>
+                          <br>
+                          <div class="hr-line-dashed"></div>
                         <%when "List"%>
+                          <div class="col-sm-5">
                             <% if field.mandatory%>
                                 <%= f.select(fld, field.list.split(",").map(&:strip).collect { |valor|[valor]},
                                              {required: true}, {class:"form-control m-b", style: "width:350px;", id: (field.behave=="Primario" ? ("ctl_prim_" << fld):(field.behave=="Alterno" ? ("ctl_alt_" << fld):("ctl_com_" << fld))) << (field.mandatory ? "r":"o")} )%>
@@ -121,11 +140,24 @@
                                 <%= f.select(fld, options_for_select(field.list.split(",").map(&:strip).collect { |valor|
                                                                        [valor]}), {:include_blank => '-- Seleccione --'   }, {class:"form-control m-b", style: "width:350px;", id: (field.behave=="Primario" ? ("ctl_prim_" << fld):(field.behave=="Alterno" ? ("ctl_alt_" << fld):("ctl_com_" << fld))) << (field.mandatory ? "r":"o") } )%>
                             <%end%>
+                          </div>
+                          <br>
+                          <div class="hr-line-dashed"></div>
+
+
+                        <%when 'Text'%>
+                          <div class="col-sm-5">
+                            <%= f.text_area fld, class: 'form-control', required: field.mandatory ? (true):(false) , id: (field.behave=="Primario" ? ("ctl_prim_" << fld):(field.behave=="Alterno" ? ("ctl_alt_" << fld):("ctl_com_" << fld))) << (field.mandatory ? "r":"o") %>
+
+                          </div>
+                          <br>
+                          <br>
+                          <div class="hr-line-dashed"></div>
+
 
                         <%end%>
-                      </div>
-                      <br>
-                      <div class="hr-line-dashed"></div>
+
+
                     </div>
 
                 <%end%>
