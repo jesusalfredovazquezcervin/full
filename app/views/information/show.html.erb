@@ -33,9 +33,10 @@
           <h5>Formulario<small> que muestra los datos de una captura.</small></h5>
 
         </div>
-        <div class="ibox-content">
           <div class="client-detail">
-                <h4>Cliente:</h4>
+            <div class="ibox-content">
+
+            <h4>Cliente:</h4>
                 <p><%= @information.form.cliente.nombre %></p>
 
 
@@ -65,20 +66,22 @@
 
                     <br>
                 <%end%>
-          </div>
-          <div class="actions">
-            <div class="form-group">
-              <div class="col-sm-4 col-sm-offset-2">
-                <%if @current_user.role == "Operador" %>
-                    <%= link_to "Regresar", captures_consultar_path(@information.datosgenerale_id), :method => :patch,  class:"btn btn-default"%>
-                <%end%>
-                <a href="<%= url_for edit_information_path(@information) %>">
-                  <button class="btn btn-outline btn-success btn-rounded" type="button"><i class="fa fa-pencil"></i>&nbsp;Editar</button>
-                </a>
+
+            <div class="actions">
+              <div class="form-group">
+                <div class="col-sm-4 col-sm-offset-2">
+                  <%if @current_user.role == "Operador" %>
+                      <%= link_to "Regresar", captures_consultar_path(@information.datosgenerale_id), :method => :patch,  class:"btn btn-default"%>
+                  <%end%>
+                  <a href="<%= url_for edit_information_path(@information) %>">
+                    <button class="btn btn-outline btn-success btn-rounded" type="button"><i class="fa fa-pencil"></i>&nbsp;Editar</button>
+                  </a>
+                </div>
               </div>
             </div>
+            <br><div class="hr-line-dashed"></div>
+
           </div>
-          <br><div class="hr-line-dashed"></div>
 
         </div>
       </div>
