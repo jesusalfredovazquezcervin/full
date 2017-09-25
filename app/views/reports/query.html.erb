@@ -111,7 +111,7 @@
                 <th>ID</th>
                 <th>Fecha</th>
                 <th>Operador</th>
-                <% @report.form.fields.order(:id).each_with_index do |field, index| %>
+                <% @report.form.fields.order(:position).each_with_index do |field, index| %>
                     <% fld = "field" << (index + 1).to_s %>
                     <th> <%= field.name %> </th>
 
@@ -121,6 +121,7 @@
               </thead>
               <tbody>
               <% @information.order(id: :desc).each do |information| %>
+                  <%@hash_position.clear%>
                   <tr>
                     <td><%= information.id %></td>
                     <td><%= information.created_at %></td>
@@ -128,7 +129,7 @@
                     <% @report.form.fields.order(:id).each_with_index do |field, index| %>
                         <% fld = "field" << (index + 1).to_s %>
                         <% case field.data_type %>
-                    <% when "Date" %>
+                        <% when "Date" %>
                             <% valor = information.attributes.each_key.select { |k| k.to_s == fld }.empty? ? nil : (((information.attributes.each_pair.select { |k, v| k.to_s == fld })[0][1]).nil? ? (nil) : (((information.attributes.each_pair.select { |k, v| k.to_s == fld })[0][1]).to_date)) %>
                         <% when "Datetime" %>
                             <% valor = information.attributes.each_key.select { |k| k.to_s == fld }.empty? ? nil : (((information.attributes.each_pair.select { |k, v| k.to_s == fld })[0][1]).nil? ? (nil) : (((information.attributes.each_pair.select { |k, v| k.to_s == fld })[0][1]).to_date)) %>
@@ -137,11 +138,12 @@
                         <% else %>
                             <% valor = information.attributes.each_key.select { |k| k.to_s == fld }.empty? ? nil : ((information.attributes.each_pair.select { |k, v| k.to_s == fld })[0][1]) %>
                         <% end %>
-
-                        <td><%= valor %></td>
+                        <% @hash_position[field.position] = valor %>
 
                     <% end %>
-
+                    <%@hash_position.sort.each do |k,v| %>
+                        <td><%=v%></td>
+                    <%end%>
                   </tr>
               <% end %>
               </tbody>
