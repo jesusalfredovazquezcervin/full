@@ -80,6 +80,7 @@ class CapturesController < ApplicationController
     @user= current_user
     @cuentas = Datosgenerale.all.order(:account).collect{|account| [" " << account.cliente.nombre << "   |    " << account.account << "    |    " << account.frase , account.id]}.sort
     @call = Call.create(start: DateTime.now)
+    @hash_position=Hash.new
     dashofintel
   end
 
