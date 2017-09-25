@@ -54,7 +54,7 @@ class ReportsController < ApplicationController
       end
       #@information = @report.form.informations.where("created_at >= ? AND created_at <= ?", @fi, @ff)
       @information = @report.form.informations.created_between(@fi, @ff)
-
+      @hash_position = Hash.new
       if current_usuario.role == 'Admin' or current_usuario.role == 'Supervisor'
         render :layout => 'layout_2'
       else
@@ -78,6 +78,7 @@ class ReportsController < ApplicationController
       @fi = @report.start_day
       @ff = @report.end_day
       @information = @report.form.informations.created_between(@fi, @ff)
+      @hash_position = Hash.new
       if current_usuario.role == 'Admin' or current_usuario.role == 'Supervisor'
         render :layout => 'layout_2'
       else
