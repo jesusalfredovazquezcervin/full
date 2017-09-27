@@ -52,7 +52,7 @@
                                   <td><%= information.id %></td>
                                   <td><%= information.created_at  %></td>
                                   <td><%= Usuario.find_by_id(information.usuario_id).try(:email) %></td>
-                                  <% procedure.try(:form).try(:fields).where(show_in_list: true).order(:id).each_with_index do |field, index| %>
+                                  <% procedure.try(:form).try(:fields).order(:id).each_with_index do |field, index| %>
                                       <%fld = "field" << (index + 1).to_s%>
                                       <%case field.data_type%>
                                         <%when "Date"%>
@@ -64,7 +64,7 @@
                                         <%else%>
                                           <%valor = information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? nil:((information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1])%>
                                       <%end%>
-                                      <% @hash_position[field.position] = valor %>
+                                      <%  field.show_in_list ? (@hash_position[field.position] = valor ):()%>
 
 
                                   <%end%>

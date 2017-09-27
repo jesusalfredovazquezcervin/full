@@ -137,7 +137,7 @@
                         <%else%>
                             <%valor = information.attributes.each_key.select{|k| k.to_s == fld}.empty? ? nil:((information.attributes.each_pair.select{|k,v| k.to_s == fld})[0][1])%>
                         <%end%>
-                        <% @hash_position[field.position] = valor %>
+                        <%  field.show_in_list ? (@hash_position[field.position] = valor ):()%>
 
                     <%end%>
                     <%@hash_position.sort.each do |k,v| %>
