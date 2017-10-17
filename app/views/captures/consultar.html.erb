@@ -11,7 +11,7 @@
 
 
     <!--  DIRECTORIO -->
-    <%if @cliente.contactos.count > 0%>
+    <%if @cuenta.contactos.count > 0 or @cuenta.agendas.count >0%>
         <%= render 'directorio' %>
     <%else%>
         <H3>No hay contactos para este cliente</H3>
