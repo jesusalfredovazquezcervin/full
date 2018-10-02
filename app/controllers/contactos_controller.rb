@@ -43,7 +43,7 @@ class ContactosController < ApplicationController
     # GET /contactos/1/edit
     def edit
       @clientes = Cliente.order(:nombre).all
-      @datosgenerales = Datosgenerale.where("cliente_id = ?", @contacto.clientes.collect{|c| c.id})
+      @datosgenerales = Datosgenerale.where("cliente_id in (?)", @contacto.clientes.collect{|c| c.id})
       dashboard_4
     end
 
