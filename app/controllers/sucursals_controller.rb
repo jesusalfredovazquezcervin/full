@@ -23,17 +23,13 @@ class SucursalsController < ApplicationController
   # GET /sucursals/new
   def new
     @clientes = Cliente.all
-    @contactos = Contacto.where("cliente_id = ?", Cliente.first.id)
+    @contactos = Cliente.first.contactos
     @sucursal = Sucursal.new
     dashboard_4
   end
 
   def update_contactos
-    @contactos= Contacto.where("cliente_id = ?", params[:cliente_id])
-    d=Contacto.new()
-    @contactos.push(d)
-    @contactos.reverse!
-
+    @contactos= Cliente.find(params[:cliente_id]).contactos
     respond_to do |format|
       format.js
     end
@@ -42,7 +38,7 @@ class SucursalsController < ApplicationController
   # GET /sucursals/1/edit
   def edit
     @clientes = Cliente.all
-    @contactos = Contacto.where(:cliente_id => @sucursal.cliente_id)
+    @contactos = @sucursal.cliente.contactos
     dashboard_4
   end
 
