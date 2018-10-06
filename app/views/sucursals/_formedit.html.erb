@@ -73,7 +73,7 @@
                 <div class="form-group">
                   <%= f.label :Gerente, class: 'col-sm-2 control-label'%>
                   <div class="col-sm-5">
-                    <%= f.select :contacto_id, options_for_select(@contactos.collect { |contacto|
+                    <%= f.select :contacto_id, options_for_select(@contactos.order(nombre: :asc).collect { |contacto|
                                                                     [contacto.nombre, contacto.id] }, @sucursal.contacto_id), {include_blank: true}, { id: 'contactos_select', class:"form-control m-b", style: "width:350px;" } %>
 
                   </div>
@@ -83,7 +83,7 @@
                 <div class="form-group">
                   <%= f.label :recepcionista, class: 'col-sm-2 control-label'%>
                   <div class="col-sm-5">
-                    <%= f.select :recepcionista_id, options_for_select(@contactos.collect { |contacto|
+                    <%= f.select :recepcionista_id, options_for_select(@contactos.order(nombre: :asc).collect { |contacto|
                                                                          [contacto.nombre, contacto.id] }, @sucursal.recepcionista_id), {include_blank: true}, { id: 'contactos2_select', class:"form-control m-b", style: "width:350px;" } %>
 
                   </div>
@@ -93,7 +93,7 @@
                 <div class="form-group">
                   <%= f.label "Contacto principal", class: 'col-sm-2 control-label'%>
                   <div class="col-sm-5">
-                    <%= f.select :main_id, options_for_select(@contactos.collect { |contacto|
+                    <%= f.select :main_id, options_for_select(@contactos.order(nombre: :asc).collect { |contacto|
                                                                              [contacto.nombre, contacto.id] }, @sucursal.main_id), {include_blank: true}, { id: 'contactos3_select', class:"form-control m-b", style: "width:350px;" } %>
 
                   </div>
@@ -103,7 +103,7 @@
                 <div class="form-group">
                   <%= f.label "Contacto secundario", class: 'col-sm-2 control-label'%>
                   <div class="col-sm-5">
-                    <%= f.select :secondary_id, options_for_select(@contactos.collect { |contacto|
+                    <%= f.select :secondary_id, options_for_select(@contactos.order(nombre: :asc).collect { |contacto|
                                                                               [contacto.nombre, contacto.id] }, @sucursal.secondary_id), {include_blank: true}, { id: 'contactos4_select', class:"form-control m-b", style: "width:350px;" } %>
                   </div>
                 </div>

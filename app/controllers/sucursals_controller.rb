@@ -22,14 +22,14 @@ class SucursalsController < ApplicationController
 
   # GET /sucursals/new
   def new
-    @clientes = Cliente.all
-    @contactos = Cliente.first.contactos
+    @clientes = Cliente.all.order(nombre: :asc)
+    @contactos = Cliente.first.contactos.order(nombre: :asc)
     @sucursal = Sucursal.new
     dashboard_4
   end
 
   def update_contactos
-    @contactos= Cliente.find(params[:cliente_id]).contactos
+    @contactos= Cliente.find(params[:cliente_id]).contactos.order(nombre: :asc)
     respond_to do |format|
       format.js
     end
@@ -37,8 +37,8 @@ class SucursalsController < ApplicationController
 
   # GET /sucursals/1/edit
   def edit
-    @clientes = Cliente.all
-    @contactos = @sucursal.cliente.contactos
+    @clientes = Cliente.all.order(nombre: :asc)
+    @contactos = @sucursal.cliente.contactos(nombre: :asc)
     dashboard_4
   end
 
