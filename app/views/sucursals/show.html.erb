@@ -53,7 +53,7 @@
 
               <h4>Gerente:</h4>
               <div class="col-sm-5">
-                    <%= @sucursal.try(:contacto).try(:nombre)%>
+                    <%= Contacto.find_by_id(@sucursal.contacto_id).try(:nombre)%>
               </div><br>
               <h4>Recepcionista:</h4>
               <div class="col-sm-5">
