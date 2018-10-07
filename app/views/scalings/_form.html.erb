@@ -57,7 +57,7 @@
                 <div class="form-group">
                   <%= f.label "Cuentas", class: 'col-sm-2 control-label'%>
                   <div class="col-sm-5">
-                    <%= select_tag "datosgenerale_id", options_for_select(@datosgenerales.all.collect{|d| [d.account + ' (' + d.cliente.id.to_s + ')', d.id] }, @scaling.datosgenerale_id),
+                    <%= select_tag "datosgenerale_id", options_for_select(@datosgenerales.all.order(:account).collect{|d| [d.account + ' (' + d.cliente.id.to_s + ')', d.id] }, @scaling.datosgenerale_id),
                                    {id: 'datosgenerales_select', class:"form-control m-b", style: "width:450px;", required: true }  %>
 
 
