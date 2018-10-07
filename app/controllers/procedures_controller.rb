@@ -18,12 +18,12 @@ class ProceduresController < ApplicationController
   def new
     @procedure = Procedure.new
     @clientes = Cliente.all.order(:nombre)
-    @datosgenerales = Datosgenerale.where("cliente_id = ?", Cliente.order(:nombre).first.id)
+    @datosgenerales = Datosgenerale.where("cliente_id = ?", Cliente.order(:nombre).first.id).order(:account)
     dashboard_4
   end
 
   def update_datosgenerales
-    @datosgenerales = Cliente.find(params[:cliente_id]).datosgenerales
+    @datosgenerales = Cliente.find(params[:cliente_id]).datosgenerales.order(:account)
     respond_to do |format|
       format.js
     end
@@ -31,7 +31,7 @@ class ProceduresController < ApplicationController
 
   def edit
     @clientes = Cliente.order(:nombre).all
-    @datosgenerales = Datosgenerale.where("cliente_id = ?", @procedure.cliente_id )
+    @datosgenerales = Datosgenerale.where("cliente_id = ?", @procedure.cliente_id ).order(:account)
     dashboard_4
   end
 
