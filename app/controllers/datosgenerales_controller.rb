@@ -22,13 +22,13 @@ class DatosgeneralesController < ApplicationController
   def new
     @datosgenerale = Datosgenerale.new
     @clientes = Cliente.all
-    @contactos = Contacto.where("cliente_id = ?", Cliente.first.id)
-    @horarios = Horario.where("cliente_id = ?", Cliente.first.id)
+    @contactos = Cliente.all.order(nombre: :asc).first.contactos.order(:nombre)
+    @horarios = Horario.where("cliente_id = ?", Cliente.all.order(nombre: :asc).first.id)
     dashboard_4
   end
 
   def update_contactos
-    @contactos= Contacto.where("cliente_id = ?", params[:cliente_id])
+    @contactos= Cliente.find(params[:cliente_id]).contactos.order(:nombre)
     respond_to do |format|
       format.js
     end
@@ -61,7 +61,7 @@ class DatosgeneralesController < ApplicationController
       @contactos_ids.push(@datosgenerale.contacto5_id)
     end
 
-    @contactos= Contacto.where("cliente_id = ?", @datosgenerale.cliente_id)
+    @contactos= Cliente.find(@datosgenerale.cliente_id).contactos.order(:nombre)
     @horarios = Horario.where("cliente_id = ?", @datosgenerale.cliente_id)
     @clientes = Cliente.all
     dashboard_4
@@ -71,8 +71,8 @@ class DatosgeneralesController < ApplicationController
   # POST /datosgenerales.json
   def create
     @clientes = Cliente.all
-    @contactos = Contacto.where("cliente_id = ?", Cliente.first.id)
-    @horarios = Horario.where("cliente_id = ?", Cliente.first.id)
+    @contactos = Cliente.all.order(:nombre).first.contactos
+    @horarios = Horario.where("cliente_id = ?", Cliente.all.order(:nombre).first.id)
     #@datosgenerale = Datosgenerale.new(datosgenerale_params)
     @datosgenerale.cliente_id = params[:datosgenerale][:cliente_id]
 
