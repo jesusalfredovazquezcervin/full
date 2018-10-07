@@ -18,13 +18,13 @@ class ScalingsController < ApplicationController
   # GET /scalings/new
   def new
     @scaling = Scaling.new
-    @datosgenerales = Datosgenerale.where("cliente_id = ?", Cliente.order(:nombre).first.id)
+    @datosgenerales = Datosgenerale.where("cliente_id = ?", Cliente.order(:nombre).first.id).order(:account)
     dashboard_4
   end
 
   # GET /scalings/1/edit
   def edit
-    @datosgenerales = Datosgenerale.where("cliente_id = ?", @scaling.cliente_id)
+    @datosgenerales = Datosgenerale.where("cliente_id = ?", @scaling.cliente_id).order(:account)
     dashboard_4
   end
 
@@ -60,7 +60,7 @@ class ScalingsController < ApplicationController
     logger.debug params
     logger.debug '  '
     logger.debug '--------------------'
-    @datosgenerales = Datosgenerale.where(cliente_id: params[:cliente_id])
+    @datosgenerales = Datosgenerale.where(cliente_id: params[:cliente_id]).order(:account)
     respond_to do |format|
       format.js
     end
