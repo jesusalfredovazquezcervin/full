@@ -28,13 +28,13 @@ class DireccionsController < ApplicationController
   def new
     @direccion = Direccion.new
     @clientes = Cliente.all
-    @sucursales = Sucursal.where("cliente_id = ?", Cliente.first.id)
+    @sucursales = Sucursal.where("cliente_id = ?", Cliente.all.order(:nombre).first.id).order(:nombre)
     dashboard_4
   end
 
 
   def update_sucursales
-    @sucursales = Cliente.find(params[:cliente_id]).sucursals
+    @sucursales = Cliente.find(params[:cliente_id]).sucursals.order(:nombre)
     respond_to do |format|
       format.js
     end
@@ -44,7 +44,7 @@ class DireccionsController < ApplicationController
   # GET /direccions/1/edit
   def edit
     @clientes = Cliente.all
-    @sucursales = @direccion.cliente.sucursals
+    @sucursales = @direccion.cliente.sucursals.order(:nombre)
     dashboard_4
   end
 
@@ -54,7 +54,7 @@ class DireccionsController < ApplicationController
   # POST /direccions.json
   def create
     @clientes = Cliente.all
-    @sucursales = Sucursal.where("cliente_id = ?", params[:direccion][:cliente_id])
+    @sucursales = Sucursal.where("cliente_id = ?", params[:direccion][:cliente_id]).order(:nombre)
 
     #@direccion = Direccion.new(direccion_params)
     @direccion.sucursal_id =params[:direccion][:sucursal_id]
@@ -74,7 +74,7 @@ class DireccionsController < ApplicationController
   # PATCH/PUT /direccions/1.json
   def update
     @clientes = Cliente.all
-    @sucursales = @direccion.cliente.sucursals
+    @sucursales = @direccion.cliente.sucursals.order(:nombre)
 
     respond_to do |format|
       if @direccion.update(direccion_params)

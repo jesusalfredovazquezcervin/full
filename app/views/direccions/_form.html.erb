@@ -47,7 +47,7 @@
                 <div class="form-group">
                   <%= f.label :cliente, class: 'col-sm-2 control-label'%>
                   <div class="col-sm-5">
-                    <%= f.select :cliente_id, options_for_select(@clientes.collect { |cliente|
+                    <%= f.select :cliente_id, options_for_select(@clientes.order(:nombre).collect { |cliente|
                                                                    [cliente.nombre.titleize, cliente.id] }, @direccion.cliente_id), {}, { id: 'clientes_select', class:"form-control m-b", style: "width:350px;" } %>
 
                   </div>
