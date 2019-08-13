@@ -63,7 +63,7 @@
                   <td><%=report.report_sents.count %></td>
                   <td><%=report.report_sents.collect{|r| r.sent_to}.count == 0 ? ('Sin enviar'):(report.report_sents.collect{|r| r.sent_to}) %></td>
                   <td><%=report.report_sents.collect{|r| r.sent_by}.count == 0 ? ('Sin enviar'):(report.report_sents.collect{|r| r.sent_by})%></td>
-                  <td><%=report.form.name%></td>
+                  <td><%=report.try(:form).try(:name)%></td>
                   <td><%=I18n.l(report.start_day, format: '%Y-%m-%d') << " " << report.start_day.strftime("%I:%M%p")    << ' - ' << I18n.l(report.end_day, format: '%Y-%m-%d')<< " " << report.end_day.strftime("%I:%M%p") %></td>
                   <td><%=report.report_sents.last.nil? ? ('Sin enviar'):(I18n.l(report.report_sents.last.try(:created_at), format: '%Y-%m-%d') << ' ' << I18n.l(report.report_sents.last.try(:created_at), format: '%I:%M%p'))%></td>
                   <td>

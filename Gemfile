@@ -72,7 +72,7 @@ gem 'rails-i18n', '~> 4.0', '>= 4.0.8'
 
 group :runtime, :test do
   gem 'css_parser', '~> 1.3', '>= 1.3.7'
-  gem 'nokogiri', '~> 1.6', '>= 1.6.7.2'
+  gem 'nokogiri', '~> 1.6', '>= 1.7.0.1'
 end
 
 
@@ -81,3 +81,5 @@ end
 gem 'keepass-password-generator', '~> 0.1.1'
 
 gem 'sprockets-rails', '2.3.3'
+
+gem 'rake', '~> 12.3', '>= 12.3.1'
