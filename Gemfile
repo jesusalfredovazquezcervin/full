@@ -34,7 +34,7 @@ gem 'jquery-rails'
 
 
 #Authentication
-gem 'devise', '~> 4.2'
+gem 'devise', '~> 4.7'
 
 
 group :development do
