@@ -1,21 +1,21 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 4.2', '>= 4.2.8'
+gem 'rails', '~> 7.0'
 gem 'bootstrap-sass', '3.3.0.0'
-gem 'font-awesome-rails', '4.3.0.0'
+gem 'font-awesome-rails', '4.7.0.8'
 
 #Use sqlite3 as the database for Active Record 
 gem 'pg', '~> 0.19.0'
 
 #Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0', '>= 5.0.6'
+gem 'sass-rails', '~> 6.0'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '~> 3.0', '>= 3.0.4'
 
 #Use CoffeeScript for .js.coffee assets and views 
-gem 'coffee-rails', '~> 4.2', '>= 4.2.1'
+gem 'coffee-rails', '~> 5.0'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks 
 gem 'turbolinks', '~> 5.0', '>= 5.0.1'
@@ -25,8 +25,8 @@ group :doc do # bundle exec rake doc:rails generates the API under doc/api. 
 end
 
 #Manejo de imagenes
-gem 'paperclip', '~> 5.1'
-gem 'activesupport', '~> 4.2', '>= 4.2.8'
+gem 'paperclip', '~> 6.1'
+gem 'activesupport', '~> 7.0'
 #gem "paperclip", git: "git://github.com/thoughtbot/paperclip.git"
 gem 'imagemagick-identify', '~> 0.0.1'
 gem 'gon'
@@ -34,7 +34,7 @@ gem 'jquery-rails'
 
 
 #Authentication
-gem 'devise', '~> 4.2'
+gem 'devise', '~> 4.8'
 
 
 group :development do
@@ -51,7 +51,7 @@ group :development do
   gem 'rspec-collection_matchers', '~> 1.1', '>= 1.1.2'
   gem 'webmock', '~> 1.24'
   #dependencias de exception notification 
-  gem 'appraisal', '~> 1.0.0'
+  gem 'appraisal', '~> 2.4.1'
   gem 'coveralls', '~> 0.8.2'
   gem 'mocha', '>= 0.13.0'
 end
@@ -63,11 +63,11 @@ gem 'roadie', '~> 3.1', '>= 3.1.1'
 
 
 #Variables de entorno [ENV]
-gem 'figaro', '~> 1.1', '>= 1.1.1'
+gem 'figaro', '~> 1.2'
 
 #Autentication with roles
 gem 'cancan', '~> 1.6', '>= 1.6.10'
-gem 'rails-i18n', '~> 4.0', '>= 4.0.8'
+gem 'rails-i18n', '~> 7.0'
 
 
 group :runtime, :test do
@@ -80,6 +80,6 @@ end
 #Generador de contraseñas 
 gem 'keepass-password-generator', '~> 0.1.1'
 
-gem 'sprockets-rails', '2.3.3'
+gem 'sprockets-rails', '3.4.2'
 
 gem 'rake', '~> 12.3', '>= 12.3.1'
